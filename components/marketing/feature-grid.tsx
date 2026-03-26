@@ -1,88 +1,113 @@
 import React from "react";
 import {
-  LayoutGrid, Bot, BarChart3, Layers, Zap, Database, Settings2, GitBranch,
+  Bot, Workflow, Plug, BrainCircuit, Shield, BarChart3, Clock, Users,
 } from "lucide-react";
 
-const features = [
-  {
-    icon: LayoutGrid,
-    title: "Draggable Card Workspace",
-    description: "React Grid Layout powers a snap-grid of resizable, draggable cards. Quarter-increment resize model. Layout persistence. Three default presets.",
-    accent: "var(--accent-bright)",
-  },
+const services = [
   {
     icon: Bot,
-    title: "Multi-Agent Architecture",
-    description: "Cards are first-class agent containers. Commander, worker, critic, analyst patterns. State-aware visual system: idle, active, thinking, blocked, complete.",
+    title: "Custom AI Agent Development",
+    description: "Purpose-built agents that reason, plan, and execute multi-step workflows autonomously. We architect agents that actually solve your specific problem — not generic demos.",
+    accent: "var(--accent-bright)",
+    tag: "Core Service",
+  },
+  {
+    icon: Workflow,
+    title: "Agentic Workflow Automation",
+    description: "Replace manual, repetitive processes with intelligent agent pipelines. Data extraction, document processing, research, communication — running 24/7 without supervision.",
     accent: "var(--info)",
+    tag: "Core Service",
+  },
+  {
+    icon: Plug,
+    title: "AI Integration & Systems Design",
+    description: "Embed AI agents into your existing stack — CRMs, ERPs, databases, APIs. We design clean integration architectures that won't break six months from now.",
+    accent: "var(--chart-3)",
+    tag: "Integration",
+  },
+  {
+    icon: BrainCircuit,
+    title: "LLM Selection & Fine-Tuning",
+    description: "Right model for the right job: Claude, GPT-4o, Gemini, open-source. Prompt engineering, RAG pipelines, context optimization, and fine-tuning when it's warranted.",
+    accent: "var(--accent-vivid)",
+    tag: "Strategy",
+  },
+  {
+    icon: Shield,
+    title: "Enterprise AI Governance",
+    description: "Security-first deployments with audit trails, rate limiting, and human-in-the-loop guardrails. AI you can trust in regulated environments.",
+    accent: "var(--success)",
+    tag: "Enterprise",
   },
   {
     icon: BarChart3,
-    title: "Dark-Theme Visualizations",
-    description: "Recharts line, bar, area, donut, radar — all styled to the ultraviolet token system. Radar sweep animation included out of the box.",
-    accent: "var(--chart-3)",
-  },
-  {
-    icon: Layers,
-    title: "Token-Based Design System",
-    description: "Every color, shadow, radius, and motion value is a CSS custom property. Tailwind v4 @theme bridge. Zero hardcoded hex values in components.",
-    accent: "var(--accent-vivid)",
-  },
-  {
-    icon: Zap,
-    title: "Operator-Grade Shell",
-    description: "Compact side rail, top bar, workspace headers, breadcrumbs, filter toolbars, inspector panels. Feels like a real product from day one.",
-    accent: "var(--warning)",
-  },
-  {
-    icon: Database,
-    title: "TanStack Table",
-    description: "Searchable, sortable data tables with progress bars, badges, and custom cell renderers. Fully integrated into the card system.",
-    accent: "var(--success)",
-  },
-  {
-    icon: Settings2,
-    title: "8 Starter Page Templates",
-    description: "Dashboard, Workspace, Multi-Agent, Analytics, Settings, Intake, Marketing, and Style Guide. Each fully populated with mock data.",
+    title: "Agent Performance & Analytics",
+    description: "Custom dashboards to track agent output, error rates, throughput, and ROI in real time. Know exactly what your AI is doing — and how well it's working.",
     accent: "var(--chart-5)",
+    tag: "Monitoring",
   },
   {
-    icon: GitBranch,
-    title: "AI-Agent Extensible",
-    description: "AGENTS.md rules ensure future AI coding agents extend the system without style drift. Card registry, typed APIs, clean folder structure.",
+    icon: Clock,
+    title: "Rapid Prototype to Production",
+    description: "Two-week sprints from idea to working agent. We move fast without cutting corners on architecture. Most clients have something live in 4–6 weeks.",
+    accent: "var(--warning)",
+    tag: "Process",
+  },
+  {
+    icon: Users,
+    title: "Team Enablement & Training",
+    description: "We don't just build — we transfer knowledge. Your team learns to manage, extend, and own the AI systems we ship together.",
     accent: "var(--chart-6)",
+    tag: "Enablement",
   },
 ];
 
 export function FeatureGrid() {
   return (
-    <section id="features" className="bg-[--mkt-section] py-24 px-6">
+    <section id="services" className="bg-[--mkt-section] py-24 px-6">
       <div className="max-w-6xl mx-auto space-y-12">
         {/* Header */}
         <div className="text-center space-y-3">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-[--accent-vivid]">What's included</p>
-          <h2 className="text-3xl font-bold text-[--text-primary]">Everything a real product needs.</h2>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-[--accent-vivid]">What we build</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-[--text-primary]">
+            AI that works for your business.
+          </h2>
           <p className="text-sm text-[--text-secondary] max-w-lg mx-auto">
-            Not a toy dashboard. Not a template mill. A production starter that sets the tone for everything built on top of it.
+            Not pre-packaged SaaS. Custom-engineered agents designed around your exact workflow, stack, and goals.
           </p>
         </div>
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {features.map((feature) => (
+          {services.map((service) => (
             <div
-              key={feature.title}
-              className="relative rounded-[--radius-xl] border border-[--mkt-border] bg-[--mkt-card] p-5 space-y-3 hover:border-[--border-default] transition-colors group"
+              key={service.title}
+              className="relative rounded-[--radius-xl] border border-[--mkt-border] bg-[--mkt-card] p-5 space-y-3 hover:border-[--border-default] transition-all duration-200 group hover:shadow-[var(--shadow-md)]"
             >
-              <div
-                className="flex h-8 w-8 items-center justify-center rounded-[--radius-md] transition-colors"
-                style={{ background: `color-mix(in srgb, ${feature.accent} 15%, transparent)`, border: `1px solid color-mix(in srgb, ${feature.accent} 40%, transparent)` }}
-              >
-                <feature.icon className="h-4 w-4" style={{ color: feature.accent }} />
+              {/* Tag */}
+              <div className="flex items-center justify-between">
+                <div
+                  className="flex h-8 w-8 items-center justify-center rounded-[--radius-md] transition-colors"
+                  style={{
+                    background: `color-mix(in srgb, ${service.accent} 15%, transparent)`,
+                    border: `1px solid color-mix(in srgb, ${service.accent} 40%, transparent)`,
+                  }}
+                >
+                  <service.icon className="h-4 w-4" style={{ color: service.accent }} />
+                </div>
+                <span
+                  className="text-[9px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded-[--radius-sm]"
+                  style={{
+                    color: service.accent,
+                    background: `color-mix(in srgb, ${service.accent} 10%, transparent)`,
+                  }}
+                >
+                  {service.tag}
+                </span>
               </div>
               <div className="space-y-1">
-                <h3 className="text-sm font-semibold text-[--text-primary] leading-snug">{feature.title}</h3>
-                <p className="text-xs text-[--text-muted] leading-relaxed">{feature.description}</p>
+                <h3 className="text-sm font-semibold text-[--text-primary] leading-snug">{service.title}</h3>
+                <p className="text-xs text-[--text-muted] leading-relaxed">{service.description}</p>
               </div>
             </div>
           ))}

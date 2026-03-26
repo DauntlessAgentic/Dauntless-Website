@@ -3,15 +3,16 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { ContentTag } from "@/components/ui/content-tag";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { CardTabs, CardTabsList, CardTabsTrigger, CardTabsContent } from "@/components/ui/card-tabs";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Separator } from "@/components/ui/separator";
 import { Tooltip } from "@/components/ui/tooltip";
 import { IconButton } from "@/components/ui/icon-button";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -25,12 +26,10 @@ import { AreaChartViz } from "@/components/viz/area-chart";
 import { DashboardCard } from "@/components/cards/dashboard-card";
 import { DataTable, defaultTableColumns } from "@/components/patterns/data-table";
 import {
-  Settings, Search, Bell, Bot, Cpu, LayoutGrid, ArrowLeft,
-  Zap, Info, AlertTriangle, Check, X,
+  Settings, Search, Bell, Bot, ArrowLeft, Zap,
 } from "lucide-react";
 import { kpiData, timeSeriesData, barData, donutData, feedItems, summaryContent, tableData } from "@/lib/mock-data";
 
-const SECTION_CLASSES = "space-y-4";
 const LABEL_CLASSES = "text-[10px] font-bold uppercase tracking-widest text-[--text-muted] mb-3 block";
 
 function ShowcaseSection({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
@@ -42,7 +41,7 @@ function ShowcaseSection({ id, title, children }: { id: string; title: string; c
   );
 }
 
-function TokenSwatch({ name, value, type }: { name: string; value: string; type: "color" | "text" | "border" }) {
+function TokenSwatch({ name, value, type }: { name: string; value: string; type: "color" | "border" }) {
   return (
     <div className="flex items-center gap-3">
       {type === "color" && (
@@ -59,13 +58,11 @@ function TokenSwatch({ name, value, type }: { name: string; value: string; type:
   );
 }
 
-
 export default function ShowcasePage() {
   const [sw, setSw] = useState(false);
 
   return (
     <div className="min-h-screen bg-[--app-bg]">
-      {/* Nav bar */}
       <header className="sticky top-0 z-50 flex h-11 items-center gap-3 px-6 bg-[--chrome-bg] border-b border-[--border-subtle]">
         <Link href="/" className="flex items-center gap-1.5 text-[--text-muted] hover:text-[--text-primary] transition-colors text-xs">
           <ArrowLeft className="h-3.5 w-3.5" />
@@ -77,6 +74,7 @@ export default function ShowcasePage() {
       </header>
 
       <div className="max-w-5xl mx-auto px-6">
+
         {/* Color Tokens */}
         <ShowcaseSection id="tokens" title="Design Tokens — Color System">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -150,20 +148,45 @@ export default function ShowcasePage() {
           </div>
         </ShowcaseSection>
 
-        {/* Badges */}
-        <ShowcaseSection id="badges" title="Badges">
-          <div className="flex flex-wrap items-center gap-2">
-            <Badge>Default</Badge>
-            <Badge variant="accent">Accent</Badge>
-            <Badge variant="info">Info</Badge>
-            <Badge variant="success">Success</Badge>
-            <Badge variant="warning">Warning</Badge>
-            <Badge variant="danger">Danger</Badge>
-            <Badge variant="outline">Outline</Badge>
+        {/* Badges & Tags */}
+        <ShowcaseSection id="badges" title="Badges &amp; Tags">
+          <div className="space-y-5">
+            <div>
+              <span className={LABEL_CLASSES}>Badge — bordered, for status labels</span>
+              <div className="flex flex-wrap items-center gap-2">
+                <Badge>Default</Badge>
+                <Badge variant="accent">Accent</Badge>
+                <Badge variant="info">Info</Badge>
+                <Badge variant="success">Success</Badge>
+                <Badge variant="warning">Warning</Badge>
+                <Badge variant="danger">Danger</Badge>
+                <Badge variant="outline">Outline</Badge>
+              </div>
+            </div>
+            <div>
+              <span className={LABEL_CLASSES}>ContentTag — compact pill for inline content labeling</span>
+              <div className="space-y-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  <ContentTag>Default</ContentTag>
+                  <ContentTag variant="accent">Accent</ContentTag>
+                  <ContentTag variant="info">Info</ContentTag>
+                  <ContentTag variant="success">Live</ContentTag>
+                  <ContentTag variant="warning">Warning</ContentTag>
+                  <ContentTag variant="danger">Danger</ContentTag>
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <ContentTag variant="info" dot>OSINT GL</ContentTag>
+                  <ContentTag variant="warning" dot>Conflict &amp; Security</ContentTag>
+                  <ContentTag variant="danger" dot>High Severity</ContentTag>
+                  <ContentTag variant="success" dot>Connected</ContentTag>
+                  <ContentTag variant="accent" dot>Active</ContentTag>
+                </div>
+              </div>
+            </div>
           </div>
         </ShowcaseSection>
 
-        {/* Inputs */}
+        {/* Form Controls */}
         <ShowcaseSection id="inputs" title="Form Controls">
           <div className="grid grid-cols-2 gap-6">
             <div className="space-y-3">
@@ -200,22 +223,50 @@ export default function ShowcasePage() {
 
         {/* Tabs */}
         <ShowcaseSection id="tabs" title="Tabs">
-          <Tabs defaultValue="one">
-            <TabsList>
-              <TabsTrigger value="one">Overview</TabsTrigger>
-              <TabsTrigger value="two">Analytics</TabsTrigger>
-              <TabsTrigger value="three">Settings</TabsTrigger>
-            </TabsList>
-            <TabsContent value="one" className="mt-4">
-              <p className="text-xs text-[--text-secondary]">Overview tab content. Tabs animate in cleanly.</p>
-            </TabsContent>
-            <TabsContent value="two" className="mt-4">
-              <p className="text-xs text-[--text-secondary]">Analytics content here.</p>
-            </TabsContent>
-          </Tabs>
+          <div className="space-y-6">
+            <div>
+              <span className={LABEL_CLASSES}>Standard Tabs — page-level navigation</span>
+              <Tabs defaultValue="one">
+                <TabsList>
+                  <TabsTrigger value="one">Overview</TabsTrigger>
+                  <TabsTrigger value="two">Analytics</TabsTrigger>
+                  <TabsTrigger value="three">Settings</TabsTrigger>
+                </TabsList>
+                <TabsContent value="one" className="mt-4">
+                  <p className="text-xs text-[--text-secondary]">Overview tab content. Tabs animate in cleanly.</p>
+                </TabsContent>
+                <TabsContent value="two" className="mt-4">
+                  <p className="text-xs text-[--text-secondary]">Analytics content here.</p>
+                </TabsContent>
+              </Tabs>
+            </div>
+            <div>
+              <span className={LABEL_CLASSES}>CardTabs — compact underline tabs for card interiors</span>
+              <div className="rounded-[--radius-lg] bg-[--panel-bg] shadow-[var(--shadow-sm)] overflow-hidden h-40">
+                <CardTabs defaultValue="all" className="flex flex-col h-full">
+                  <CardTabsList>
+                    <CardTabsTrigger value="all">All</CardTabsTrigger>
+                    <CardTabsTrigger value="active">Active</CardTabsTrigger>
+                    <CardTabsTrigger value="done">Done</CardTabsTrigger>
+                    <CardTabsTrigger value="blocked" disabled>Blocked</CardTabsTrigger>
+                  </CardTabsList>
+                  <CardTabsContent value="all" className="p-3">
+                    <p className="text-xs text-[--text-secondary]">All items — 12 total</p>
+                    <p className="text-[10px] text-[--text-muted] mt-1">CardTabs use underline indicator, no pill background. Sit flush to card header.</p>
+                  </CardTabsContent>
+                  <CardTabsContent value="active" className="p-3">
+                    <p className="text-xs text-[--text-secondary]">Active items — 4 running</p>
+                  </CardTabsContent>
+                  <CardTabsContent value="done" className="p-3">
+                    <p className="text-xs text-[--text-secondary]">Completed items — 8 done</p>
+                  </CardTabsContent>
+                </CardTabs>
+              </div>
+            </div>
+          </div>
         </ShowcaseSection>
 
-        {/* Skeletons */}
+        {/* Loading States */}
         <ShowcaseSection id="skeletons" title="Loading States">
           <div className="space-y-2 max-w-sm">
             <Skeleton className="h-4 w-3/4" />
@@ -224,23 +275,23 @@ export default function ShowcasePage() {
           </div>
         </ShowcaseSection>
 
-        {/* Empty state */}
+        {/* Empty States */}
         <ShowcaseSection id="empty" title="Empty States">
-          <div className="border border-[--border-subtle] rounded-[--radius-lg] bg-[--panel-bg]">
+          <div className="rounded-[--radius-lg] bg-[--panel-bg] shadow-[var(--shadow-sm)]">
             <EmptyState
               icon={<Bot className="h-5 w-5" />}
-              title="No agents running"
-              description="Dispatch an agent to begin processing tasks"
-              action={<Button variant="accent" size="sm"><Zap className="h-3.5 w-3.5 mr-1.5" />Start Agent</Button>}
+              title="Nothing here yet"
+              description="Add content to get started"
+              action={<Button variant="accent" size="sm"><Zap className="h-3.5 w-3.5 mr-1.5" />Get Started</Button>}
             />
           </div>
         </ShowcaseSection>
 
-        {/* KPI tiles */}
+        {/* KPI Tiles */}
         <ShowcaseSection id="kpi" title="KPI Tiles">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {kpiData.map((k) => (
-              <div key={k.id} className="rounded-[--radius-lg] border border-[--border-default] bg-[--panel-bg]">
+              <div key={k.id} className="rounded-[--radius-lg] bg-[--panel-bg] shadow-[var(--shadow-sm)]">
                 <KpiTile {...k} />
               </div>
             ))}
@@ -250,28 +301,28 @@ export default function ShowcasePage() {
         {/* Charts */}
         <ShowcaseSection id="charts" title="Visualization Components">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="rounded-[--radius-lg] border border-[--border-default] bg-[--panel-bg] p-3 h-52">
+            <div className="rounded-[--radius-lg] bg-[--panel-bg] shadow-[var(--shadow-sm)] p-3 h-52">
               <span className={LABEL_CLASSES}>Line Chart</span>
               <div className="h-36">
                 <LineChartViz data={timeSeriesData.slice(0, 12)} xKey="time"
                   lines={[{ key: "value", color: "var(--chart-1)", label: "Sessions" }]} />
               </div>
             </div>
-            <div className="rounded-[--radius-lg] border border-[--border-default] bg-[--panel-bg] p-3 h-52">
+            <div className="rounded-[--radius-lg] bg-[--panel-bg] shadow-[var(--shadow-sm)] p-3 h-52">
               <span className={LABEL_CLASSES}>Bar Chart</span>
               <div className="h-36">
                 <BarChartViz data={barData} xKey="name"
                   bars={[{ key: "value", color: "var(--chart-1)", label: "Value" }]} />
               </div>
             </div>
-            <div className="rounded-[--radius-lg] border border-[--border-default] bg-[--panel-bg] p-3 h-52">
+            <div className="rounded-[--radius-lg] bg-[--panel-bg] shadow-[var(--shadow-sm)] p-3 h-52">
               <span className={LABEL_CLASSES}>Area Chart</span>
               <div className="h-36">
                 <AreaChartViz data={timeSeriesData.slice(0, 12)} xKey="time"
                   areas={[{ key: "value", color: "var(--chart-1)", label: "Sessions" }]} />
               </div>
             </div>
-            <div className="rounded-[--radius-lg] border border-[--border-default] bg-[--panel-bg] p-3 h-52">
+            <div className="rounded-[--radius-lg] bg-[--panel-bg] shadow-[var(--shadow-sm)] p-3 h-52">
               <span className={LABEL_CLASSES}>Donut Chart</span>
               <div className="h-36">
                 <DonutChartViz data={donutData} innerRadius={40} outerRadius={60} />
@@ -280,24 +331,31 @@ export default function ShowcasePage() {
           </div>
         </ShowcaseSection>
 
-        {/* Cards */}
+        {/* Card System */}
         <ShowcaseSection id="cards" title="Card System">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {(["idle","active","thinking","blocked","complete"] as const).map(state => (
               <div key={state} className="h-24">
-                <DashboardCard id={`demo-${state}`} title={`Agent Card — ${state}`} eyebrow="AGENT" agentState={state} agentId="demo">
+                <DashboardCard id={`demo-${state}`} title={`Card — ${state}`} eyebrow="STATUS" agentState={state}>
                   <div className="flex items-center justify-center h-full text-xs text-[--text-muted]">
-                    Agent state: <span className="ml-1 font-mono text-[--text-secondary]">{state}</span>
+                    State: <span className="ml-1 font-mono text-[--text-secondary]">{state}</span>
                   </div>
                 </DashboardCard>
               </div>
             ))}
+            <div className="h-24">
+              <DashboardCard id="demo-plain" title="Plain Card" eyebrow="NO AGENT STATE" subtitle="Hover to see controls">
+                <div className="flex items-center justify-center h-full text-xs text-[--text-muted]">
+                  Share · Expand · Close on hover
+                </div>
+              </DashboardCard>
+            </div>
           </div>
         </ShowcaseSection>
 
-        {/* Data table */}
+        {/* Data Table */}
         <ShowcaseSection id="table" title="Data Table">
-          <div className="h-72 rounded-[--radius-lg] border border-[--border-default] bg-[--panel-bg] overflow-hidden">
+          <div className="h-72 rounded-[--radius-lg] bg-[--panel-bg] shadow-[var(--shadow-sm)] overflow-hidden">
             <DataTable data={tableData.slice(0, 8)} columns={defaultTableColumns} />
           </div>
         </ShowcaseSection>
