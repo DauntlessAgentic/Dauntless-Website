@@ -1,70 +1,38 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, Zap, Calendar, MessageSquare } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function CTASection() {
   return (
-    <section id="contact" className="bg-[--mkt-section] py-24 px-6">
-      <div className="max-w-3xl mx-auto">
-        {/* Main CTA card */}
+    <section className="bg-[--mkt-bg] py-32 px-6 relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
         <div
-          className="relative rounded-[--radius-xl] border border-[--border-active] overflow-hidden p-10 md:p-14 text-center space-y-7"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full"
           style={{
-            background: "linear-gradient(135deg, rgba(124,58,237,0.08) 0%, rgba(34,211,238,0.04) 100%)",
+            background:
+              "radial-gradient(ellipse at center, rgba(124,58,237,0.12) 0%, transparent 70%)",
           }}
-        >
-          {/* Glow effect */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: "radial-gradient(ellipse at 50% 0%, rgba(124,58,237,0.15) 0%, transparent 60%)",
-            }}
-          />
-
-          <div className="relative space-y-6">
-            {/* Icon */}
-            <div className="flex justify-center">
-              <div className="flex h-14 w-14 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim] border border-[--border-active]"
-                style={{ boxShadow: "var(--shadow-accent)" }}
-              >
-                <Zap className="h-7 w-7 text-[--accent-vivid]" />
-              </div>
-            </div>
-
-            {/* Copy */}
-            <div className="space-y-3">
-              <h2 className="text-3xl md:text-4xl font-bold text-[--text-primary]">
-                Ready to go Dauntless?
-              </h2>
-              <p className="text-sm text-[--text-secondary] max-w-md mx-auto leading-relaxed">
-                Book a free 30-minute strategy call. We&apos;ll map out exactly where AI agents
-                can save your team the most time — and what it would take to build them.
-              </p>
-            </div>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link href="mailto:hello@dauntlessagentic.com">
-                <Button variant="primary" size="lg" className="gap-2 w-full sm:w-auto" style={{ boxShadow: "var(--shadow-accent)" }}>
-                  <Calendar className="h-4 w-4" />
-                  Schedule a Discovery Call
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
-              </Link>
-              <Link href="mailto:hello@dauntlessagentic.com">
-                <Button variant="outline" size="lg" className="gap-2 w-full sm:w-auto">
-                  <MessageSquare className="h-4 w-4" />
-                  Send Us a Message
-                </Button>
-              </Link>
-            </div>
-
-            <p className="text-xs text-[--text-muted]">
-              hello@dauntlessagentic.com · No commitment required · Response within 24 hours
-            </p>
-          </div>
-        </div>
+        />
+      </div>
+      <div className="relative max-w-3xl mx-auto text-center space-y-6">
+        <h2 className="text-4xl md:text-5xl font-extrabold text-[--text-primary]">
+          Ready to Build Something Dauntless?
+        </h2>
+        <p className="text-[--text-secondary] text-lg leading-relaxed">
+          Every engagement starts with a conversation. No pitch decks. No sales scripts. Just a
+          real discussion about where you are, where you want to be, and whether we&apos;re the
+          right architecture for the journey.
+        </p>
+        <Link href="/contact">
+          <Button
+            variant="primary"
+            size="lg"
+            className="gap-2 shadow-[var(--shadow-accent)] text-base px-8"
+          >
+            Start a Conversation <ArrowRight className="h-4 w-4" />
+          </Button>
+        </Link>
       </div>
     </section>
   );

@@ -1,95 +1,84 @@
 import React from "react";
-import { Search, Hammer, Rocket } from "lucide-react";
 
-const steps = [
+const threeAs = [
   {
-    number: "01",
-    icon: Search,
-    title: "Discovery & Strategy",
+    letter: "A",
+    title: "Authentic",
     description:
-      "We start with a focused session to understand your workflow, your team's pain points, and where autonomous AI agents would deliver the fastest, highest-value impact. You walk away with a concrete agent architecture plan — before any code is written.",
-    duration: "Week 1–2",
-    accent: "var(--accent-bright)",
+      "In a world of AI-generated noise, genuine human signal is the scarcest resource. We lead with judgment, perspective, and conviction — not templates.",
   },
   {
-    number: "02",
-    icon: Hammer,
-    title: "Build & Deploy",
+    letter: "A",
+    title: "Augmented",
     description:
-      "Our engineers build your agents in structured sprints — testing at every step. We integrate with your existing systems, establish guardrails and monitoring, and get you to a working production deployment with minimal disruption.",
-    duration: "Week 3–6",
-    accent: "var(--info)",
+      "AI doesn't replace human capability. It multiplies it. We design systems where humans and AI amplify each other — producing outcomes neither could achieve alone.",
   },
   {
-    number: "03",
-    icon: Rocket,
-    title: "Optimize & Scale",
+    letter: "A",
+    title: "Adaptive",
     description:
-      "Once live, we monitor performance, iterate on prompts and logic, and help you identify the next automation opportunities. Most clients expand from one agent to a full fleet within 90 days.",
-    duration: "Ongoing",
-    accent: "var(--success)",
+      "The only sustainable advantage is the architecture of adaptation itself. We design systems that learn, evolve, and compound — not systems that become obsolete.",
   },
 ];
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="bg-[--mkt-bg] py-24 px-6">
-      <div className="max-w-5xl mx-auto space-y-14">
-        {/* Header */}
-        <div className="text-center space-y-3">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-[--accent-vivid]">Our process</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-[--text-primary]">
-            From idea to deployed agent in weeks.
-          </h2>
-          <p className="text-sm text-[--text-secondary] max-w-md mx-auto">
-            A proven sprint process built around speed, quality, and knowledge transfer — not endless consulting cycles.
+    <>
+      {/* The Provocation */}
+      <section className="bg-[--mkt-bg] py-24 px-6">
+        <div className="max-w-3xl mx-auto text-center space-y-6">
+          <blockquote className="text-2xl md:text-3xl font-bold text-[--text-primary] leading-snug italic">
+            &ldquo;The rules were built for a world that no longer exists. The organizations that
+            cling to them don&apos;t just fall behind — they become irrelevant while still feeling
+            productive.&rdquo;
+          </blockquote>
+          <p className="text-[--text-secondary] leading-relaxed">
+            This is a historic period. The relationship between humans and work, between knowledge
+            and value, between effort and outcome — all of it is being rewritten. The question
+            isn&apos;t whether to adapt. The question is whether you have the{" "}
+            <span className="text-[--text-primary] font-medium">architecture</span> to adapt fast
+            enough.
           </p>
         </div>
+      </section>
 
-        {/* Steps */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-          {/* Connector line (desktop) */}
-          <div
-            className="hidden md:block absolute top-8 left-[calc(16.66%)] right-[calc(16.66%)] h-px"
-            style={{ background: "linear-gradient(90deg, var(--accent-bright), var(--info), var(--success))", opacity: 0.3 }}
-          />
-
-          {steps.map((step) => (
-            <div key={step.number} className="relative flex flex-col items-center text-center space-y-4">
-              {/* Number badge */}
-              <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-[--mkt-card] border border-[--mkt-border] z-10"
-                style={{ boxShadow: `0 0 24px color-mix(in srgb, ${step.accent} 20%, transparent)` }}
+      {/* Three A's */}
+      <section id="how-it-works" className="bg-[--mkt-section] py-24 px-6">
+        <div className="max-w-6xl mx-auto space-y-12">
+          <div className="text-center space-y-3">
+            <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">
+              Philosophy
+            </p>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[--text-primary]">
+              The Three A&apos;s
+            </h2>
+            <p className="text-[--text-secondary] max-w-xl mx-auto">
+              Not a marketing framework. A personal operating system — a way of being in a world
+              where the relationship between humans, work, and power is being fundamentally disrupted.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {threeAs.map(({ letter, title, description }) => (
+              <div
+                key={title}
+                className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-8 space-y-4 text-center hover:border-[--border-active] transition-all duration-300"
               >
-                <step.icon className="h-6 w-6" style={{ color: step.accent }} />
-                <span
-                  className="absolute -top-1.5 -right-1.5 text-[9px] font-black px-1.5 py-0.5 rounded-full"
+                <div
+                  className="text-6xl font-extrabold text-transparent bg-clip-text"
                   style={{
-                    background: step.accent,
-                    color: "var(--mkt-bg)",
+                    backgroundImage:
+                      "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))",
                   }}
                 >
-                  {step.number}
-                </span>
-              </div>
-
-              <div className="space-y-2">
-                <div className="flex items-center justify-center gap-2">
-                  <h3 className="text-base font-bold text-[--text-primary]">{step.title}</h3>
+                  {letter}
                 </div>
-                <p
-                  className="text-[10px] font-bold uppercase tracking-wider"
-                  style={{ color: step.accent }}
-                >
-                  {step.duration}
-                </p>
-                <p className="text-xs text-[--text-muted] leading-relaxed max-w-xs mx-auto">
-                  {step.description}
-                </p>
+                <h3 className="text-xl font-bold text-[--text-primary]">{title}</h3>
+                <p className="text-sm text-[--text-secondary] leading-relaxed">{description}</p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
