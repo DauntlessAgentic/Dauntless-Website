@@ -55,7 +55,7 @@ export default function AboutPage() {
           style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.14) 0%, transparent 65%)" }} />
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">About</p>
-          <h1 className="text-4xl md:text-6xl font-extrabold text-[--text-primary] leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-[--text-primary] leading-tight">
             Built by Someone Who&apos;s{" "}
             <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))" }}>
               Done the Work.
@@ -72,7 +72,7 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-8 space-y-5">
             <div>
-              <h2 className="text-2xl font-extrabold text-[--text-primary]">Craig Marchand</h2>
+              <h2 className="text-2xl font-semibold text-[--text-primary]">Craig Marchand</h2>
               <p className="text-sm text-[--accent-vivid] mt-1">Founder, Dauntless Agentic · Systems Architect · AI Strategist · Builder</p>
             </div>
             <p className="text-[--text-secondary] leading-relaxed">
@@ -110,13 +110,13 @@ export default function AboutPage() {
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Philosophy</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">Authentic. Augmented. Adaptive.</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">Authentic. Augmented. Adaptive.</h2>
             <p className="max-w-2xl mx-auto text-[--text-secondary]">Not a marketing framework. A personal operating system — a way of being in a world where the relationship between humans, work, trade, and power is being fundamentally disrupted.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {threeAs.map(({ letter, title, subtitle, description }) => (
               <div key={title} className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-6 space-y-4 hover:border-[--border-active] transition-all duration-300">
-                <div className="text-5xl font-extrabold text-transparent bg-clip-text"
+                <div className="text-5xl font-bold text-transparent bg-clip-text"
                   style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))" }}>
                   {letter}
                 </div>
@@ -135,7 +135,7 @@ export default function AboutPage() {
       <section className="py-20 px-6" style={{ background: "linear-gradient(135deg, var(--mkt-section) 0%, rgba(124,58,237,0.08) 50%, var(--mkt-section) 100%)" }}>
         <div className="max-w-3xl mx-auto text-center space-y-4">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Massively Transformative Purpose</p>
-          <blockquote className="text-2xl md:text-3xl font-extrabold text-[--text-primary] italic leading-snug">
+          <blockquote className="text-2xl md:text-3xl font-semibold text-[--text-primary] italic leading-snug">
             &ldquo;To elevate human potential by redesigning how people and organizations think, decide, and build in the age of AI.&rdquo;
           </blockquote>
           <p className="text-[--text-secondary]">This isn't a mission statement for a company. It's a mission statement for a life's work. Every engagement, every training cohort, every system we design is in service of this purpose.</p>
@@ -147,7 +147,7 @@ export default function AboutPage() {
         <div className="max-w-3xl mx-auto space-y-6">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Origin</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">The Name Says Everything</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">The Name Says Everything</h2>
           </div>
           <div className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-6 space-y-4">
             <div className="space-y-2">
@@ -170,12 +170,12 @@ export default function AboutPage() {
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">By the Numbers</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">The Credentials</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">The Credentials</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {credentials.map(({ value, label }) => (
               <div key={label} className="text-center space-y-2 bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-4 hover:border-[--border-active] transition-all duration-300">
-                <p className="text-2xl font-extrabold text-transparent bg-clip-text"
+                <p className="text-2xl font-semibold text-transparent bg-clip-text"
                   style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))" }}>{value}</p>
                 <p className="text-[10px] text-[--text-muted] leading-tight">{label}</p>
               </div>
@@ -198,7 +198,7 @@ export default function AboutPage() {
       <section className="bg-[--mkt-bg] py-20 px-6">
         <div className="max-w-3xl mx-auto text-center space-y-6">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">The Manifesto</p>
-          <h2 className="text-3xl font-extrabold text-[--text-primary]">9 Theses for the Age of AI</h2>
+          <h2 className="text-3xl font-semibold text-[--text-primary]">9 Theses for the Age of AI</h2>
           <p className="text-[--text-secondary]">The Dauntless Manifesto is a declaration — nine theses that define how we think about work, intelligence, and human potential in an era of profound disruption.</p>
           <blockquote className="text-lg font-bold text-[--text-primary] italic">
             &ldquo;The rules were built for a world that no longer exists. The organizations, professionals, and leaders who cling to them don't just fall behind — they become irrelevant while still feeling productive.&rdquo;

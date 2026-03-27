@@ -43,7 +43,7 @@ export function FeatureGrid() {
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">
             Services
           </p>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-[--text-primary]">
+          <h2 className="text-3xl md:text-4xl font-semibold text-[--text-primary]">
             Three Services. One Compounding System.
           </h2>
           <p className="max-w-2xl mx-auto text-[--text-secondary]">

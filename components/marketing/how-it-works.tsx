@@ -27,7 +27,7 @@ export function HowItWorks() {
       {/* The Provocation */}
       <section className="bg-[--mkt-bg] py-24 px-6">
         <div className="max-w-3xl mx-auto text-center space-y-6">
-          <blockquote className="text-2xl md:text-3xl font-bold text-[--text-primary] leading-snug italic">
+          <blockquote className="text-2xl md:text-3xl font-semibold text-[--text-primary] leading-snug italic">
             &ldquo;The rules were built for a world that no longer exists. The organizations that
             cling to them don&apos;t just fall behind — they become irrelevant while still feeling
             productive.&rdquo;
@@ -49,7 +49,7 @@ export function HowItWorks() {
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">
               Philosophy
             </p>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[--text-primary]">
+            <h2 className="text-3xl md:text-4xl font-semibold text-[--text-primary]">
               The Three A&apos;s
             </h2>
             <p className="text-[--text-secondary] max-w-xl mx-auto">
@@ -64,7 +64,7 @@ export function HowItWorks() {
                 className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-8 space-y-4 text-center hover:border-[--border-active] transition-all duration-300"
               >
                 <div
-                  className="text-6xl font-extrabold text-transparent bg-clip-text"
+                  className="text-6xl font-bold text-transparent bg-clip-text"
                   style={{
                     backgroundImage:
                       "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))",

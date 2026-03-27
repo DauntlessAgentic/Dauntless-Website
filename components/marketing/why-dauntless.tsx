@@ -17,7 +17,7 @@ export function WhyDauntless() {
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">
             Credentials
           </p>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-[--text-primary]">
+          <h2 className="text-3xl md:text-4xl font-semibold text-[--text-primary]">
             The Track Record.
           </h2>
         </div>
@@ -29,7 +29,7 @@ export function WhyDauntless() {
               className="text-center space-y-2 bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-6 hover:border-[--border-active] transition-all duration-300"
             >
               <p
-                className="text-3xl font-extrabold text-transparent bg-clip-text"
+                className="text-3xl font-semibold text-transparent bg-clip-text"
                 style={{
                   backgroundImage:
                     "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))",

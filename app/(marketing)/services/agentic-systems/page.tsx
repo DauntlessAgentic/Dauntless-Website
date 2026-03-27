@@ -91,7 +91,7 @@ export default function AgenticSystemsPage() {
           style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.14) 0%, transparent 65%)" }} />
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Agentic Systems</p>
-          <h1 className="text-4xl md:text-6xl font-extrabold text-[--text-primary] leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-[--text-primary] leading-tight">
             Beyond Tools. Beyond Automation.{" "}
             <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))" }}>
               Into Agentic.
@@ -110,7 +110,7 @@ export default function AgenticSystemsPage() {
       <section className="bg-[--mkt-section] py-24 px-6">
         <div className="max-w-6xl mx-auto space-y-8">
           <div className="text-center space-y-3">
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">From Tools to Agents</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">From Tools to Agents</h2>
             <p className="text-[--text-muted] max-w-2xl mx-auto">The key insight: agentic systems aren't about removing humans. They're about amplifying human judgment — letting AI handle the volume while humans handle the decisions that matter.</p>
           </div>
           <div className="overflow-x-auto">
@@ -149,7 +149,7 @@ export default function AgenticSystemsPage() {
         <div className="max-w-5xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Architecture</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">The Agentic Architecture Stack</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">The Agentic Architecture Stack</h2>
             <p className="max-w-2xl mx-auto text-[--text-secondary]">Every agentic system we design follows a proven architecture — the same architecture that powers Dauntless Agentic, our own operating system.</p>
           </div>
           <div className="space-y-6">
@@ -192,7 +192,7 @@ export default function AgenticSystemsPage() {
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Use Cases</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">Where Agentic Systems Create the Most Value</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">Where Agentic Systems Create the Most Value</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {useCases.map(({ icon, title, desc }) => (
@@ -210,7 +210,7 @@ export default function AgenticSystemsPage() {
       <section className="bg-[--mkt-bg] py-20 px-6">
         <div className="max-w-3xl mx-auto text-center space-y-4 bg-[--mkt-card] border border-[--border-active] rounded-[--radius-xl] p-8">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Our Credibility</p>
-          <h2 className="text-2xl font-extrabold text-[--text-primary]">We Don't Just Design Agentic Systems. We Run One.</h2>
+          <h2 className="text-2xl font-semibold text-[--text-primary]">We Don't Just Design Agentic Systems. We Run One.</h2>
           <p className="text-[--text-secondary]">Every architecture we design for clients is informed by an agentic operating system we built and operate ourselves — daily. This isn't theory drawn from whitepapers. It's practice forged through real operational use. We've encountered the edge cases, solved the governance problems, and refined the patterns — so you don't have to.</p>
         </div>
       </section>
@@ -220,7 +220,7 @@ export default function AgenticSystemsPage() {
         <div className="max-w-5xl mx-auto space-y-8">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Engagement</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">How an Agentic Engagement Works</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">How an Agentic Engagement Works</h2>
           </div>
           <div className="space-y-3">
             {engagementPhases.map(({ phase, what, duration }, i) => (
@@ -240,7 +240,7 @@ export default function AgenticSystemsPage() {
       {/* CTA */}
       <section className="bg-[--mkt-bg] py-20 px-6">
         <div className="max-w-2xl mx-auto text-center space-y-6">
-          <h2 className="text-3xl font-extrabold text-[--text-primary]">Ready to Build Your Agentic Architecture?</h2>
+          <h2 className="text-3xl font-semibold text-[--text-primary]">Ready to Build Your Agentic Architecture?</h2>
           <p className="text-[--text-secondary]">Agentic systems are the next frontier. Let's explore whether your organization is ready — and design the architecture that gets you there.</p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <Link href="/contact"><Button variant="primary" size="lg" className="gap-2">Explore Agentic Architecture <ArrowRight className="h-4 w-4" /></Button></Link>

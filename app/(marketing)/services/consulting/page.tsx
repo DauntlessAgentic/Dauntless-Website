@@ -57,7 +57,7 @@ export default function ConsultingPage() {
           style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.14) 0%, transparent 65%)" }} />
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">AI Ops Consulting</p>
-          <h1 className="text-4xl md:text-6xl font-extrabold text-[--text-primary] leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-[--text-primary] leading-tight">
             Stop Piloting.{" "}
             <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))" }}>
               Start Operating.
@@ -76,7 +76,7 @@ export default function ConsultingPage() {
       <section className="bg-[--mkt-section] py-24 px-6">
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="text-center space-y-3">
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">The Pilot Graveyard</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">The Pilot Graveyard</h2>
             <p className="text-[--text-secondary]">Most organizations are stuck in an endless cycle of AI experimentation.</p>
           </div>
           <div className="space-y-2 max-w-2xl mx-auto">
@@ -107,7 +107,7 @@ export default function ConsultingPage() {
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">What We Do</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">Architecture Over Tools. Systems Over Experiments.</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">Architecture Over Tools. Systems Over Experiments.</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             {whatWeDo.map(({ icon: Icon, title, description }) => (
@@ -126,7 +126,7 @@ export default function ConsultingPage() {
         <div className="max-w-5xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Engagement Models</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">Four Ways to Work Together</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">Four Ways to Work Together</h2>
           </div>
           <div className="space-y-6">
             {engagementModels.map(({ icon, name, duration, best, what, get }) => (
@@ -162,7 +162,7 @@ export default function ConsultingPage() {
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Our Approach</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">What Makes This Different</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">What Makes This Different</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             {[
@@ -183,7 +183,7 @@ export default function ConsultingPage() {
       {/* CTA */}
       <section className="bg-[--mkt-section] py-20 px-6">
         <div className="max-w-2xl mx-auto text-center space-y-6">
-          <h2 className="text-3xl font-extrabold text-[--text-primary]">Ready to Move Beyond Pilots?</h2>
+          <h2 className="text-3xl font-semibold text-[--text-primary]">Ready to Move Beyond Pilots?</h2>
           <p className="text-[--text-secondary]">Every consulting engagement starts with a Discovery conversation. We'll assess where you are, identify the highest-leverage opportunities, and design the path forward.</p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <Link href="/contact"><Button variant="primary" size="lg" className="gap-2">Book a Discovery Call <ArrowRight className="h-4 w-4" /></Button></Link>

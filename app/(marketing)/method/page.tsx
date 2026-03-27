@@ -74,7 +74,7 @@ export default function MethodPage() {
           style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.14) 0%, transparent 65%)" }} />
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Method</p>
-          <h1 className="text-4xl md:text-6xl font-extrabold text-[--text-primary] leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-[--text-primary] leading-tight">
             Built to Solve.{" "}
             <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))" }}>
               Designed to Last.
@@ -89,7 +89,7 @@ export default function MethodPage() {
       {/* Core Promise */}
       <section className="bg-[--mkt-section] py-20 px-6">
         <div className="max-w-3xl mx-auto text-center space-y-4 bg-[--mkt-card] border border-[--border-active] rounded-[--radius-xl] p-8">
-          <h2 className="text-2xl font-extrabold text-[--text-primary]">Every Engagement Should Leave You Stronger Than It Found You.</h2>
+          <h2 className="text-2xl font-semibold text-[--text-primary]">Every Engagement Should Leave You Stronger Than It Found You.</h2>
           <p className="text-[--text-secondary]">Not just with deliverables — with capability. The ability to understand, operate, and evolve what we built together. We don't create dependency. We create compounding advantage.</p>
         </div>
       </section>
@@ -99,7 +99,7 @@ export default function MethodPage() {
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Principles</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">Principles That Shape Every Engagement</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">Principles That Shape Every Engagement</h2>
             <p className="max-w-2xl mx-auto text-[--text-secondary]">These aren't aspirational values. They're hard constraints we apply to every piece of work. If a solution violates any of these, the solution is wrong.</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -119,7 +119,7 @@ export default function MethodPage() {
         <div className="max-w-5xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Engagement Experience</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">What It&apos;s Like to Work With Us</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">What It&apos;s Like to Work With Us</h2>
           </div>
           <div className="space-y-4">
             {phases.map(({ num, icon: Icon, title, description, items, outcome }) => (
@@ -154,7 +154,7 @@ export default function MethodPage() {
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Trust Architecture</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">Engineered Confidence. Not Sales Promises.</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">Engineered Confidence. Not Sales Promises.</h2>
             <p className="max-w-2xl mx-auto text-[--text-secondary]">We know that hiring an AI consultancy requires trust — and trust isn't built with pitch decks. It's built with structure.</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -172,7 +172,7 @@ export default function MethodPage() {
       {/* CTA */}
       <section className="bg-[--mkt-section] py-20 px-6">
         <div className="max-w-2xl mx-auto text-center space-y-6">
-          <h2 className="text-3xl font-extrabold text-[--text-primary]">Experience the Method.</h2>
+          <h2 className="text-3xl font-semibold text-[--text-primary]">Experience the Method.</h2>
           <p className="text-[--text-secondary]">The best way to understand how we work is to work with us. Every engagement begins with a conversation — no pitch decks, no pressure, just a real discussion about your challenges.</p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <Link href="/contact"><Button variant="primary" size="lg" className="gap-2">Start a Conversation <ArrowRight className="h-4 w-4" /></Button></Link>

@@ -44,7 +44,7 @@ export default function ServicesPage() {
           style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.14) 0%, transparent 65%)" }} />
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Services</p>
-          <h1 className="text-4xl md:text-6xl font-extrabold text-[--text-primary] leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-[--text-primary] leading-tight">
             Three Services.{" "}
             <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))" }}>
               One Compounding System.
@@ -60,7 +60,7 @@ export default function ServicesPage() {
       <section className="bg-[--mkt-section] py-24 px-6">
         <div className="max-w-6xl mx-auto space-y-8">
           <div className="text-center space-y-3">
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">Your Problems Are Complex. Your Solutions Should Be Durable.</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">Your Problems Are Complex. Your Solutions Should Be Durable.</h2>
             <p className="max-w-2xl mx-auto text-[--text-secondary]">Organizations don't need more AI demos. They need solutions that solve real problems, survive contact with reality, and get better over time.</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
@@ -89,7 +89,7 @@ export default function ServicesPage() {
             </div>
             <div>
               <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">AI Literacy Training</p>
-              <h2 className="text-2xl font-extrabold text-[--text-primary] mt-1">For organizations ready to build real AI capability across their teams.</h2>
+              <h2 className="text-2xl font-semibold text-[--text-primary] mt-1">For organizations ready to build real AI capability across their teams.</h2>
             </div>
           </div>
           <p className="text-[--text-secondary] leading-relaxed">Cohort-based learning programs delivered through the FC5 Platform — a purpose-built training delivery system with integrated assessment, practice environments, and outcome tracking.</p>
@@ -125,7 +125,7 @@ export default function ServicesPage() {
             </div>
             <div>
               <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">AI Ops Consulting</p>
-              <h2 className="text-2xl font-extrabold text-[--text-primary] mt-1">For organizations ready to operationalize AI — not just experiment with it.</h2>
+              <h2 className="text-2xl font-semibold text-[--text-primary] mt-1">For organizations ready to operationalize AI — not just experiment with it.</h2>
             </div>
           </div>
           <p className="text-[--text-secondary] leading-relaxed">Strategic advisory engagements that help organizations move from AI curiosity to AI operations. We don't build prototypes that die in pilot. We build the architecture for AI to actually work inside your organization.</p>
@@ -157,7 +157,7 @@ export default function ServicesPage() {
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Trust Architecture</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">Engineered Risk Absorption. Not Sales Promises.</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">Engineered Risk Absorption. Not Sales Promises.</h2>
             <p className="max-w-2xl mx-auto text-[--text-secondary]">Every engagement includes explicit Trust Mechanisms — structured patterns that absorb the risk of working with us. Trust isn't persuaded. It's engineered.</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -181,7 +181,7 @@ export default function ServicesPage() {
             </div>
             <div>
               <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Agentic Systems</p>
-              <h2 className="text-2xl font-extrabold text-[--text-primary] mt-1">For organizations ready to move beyond tools and automation into autonomous AI architectures.</h2>
+              <h2 className="text-2xl font-semibold text-[--text-primary] mt-1">For organizations ready to move beyond tools and automation into autonomous AI architectures.</h2>
             </div>
           </div>
           <p className="text-[--text-secondary] leading-relaxed">We design and build agentic systems — constellations of specialized AI agents that sense, propose, execute, and learn within structured governance. Not science fiction. Operating architecture.</p>
@@ -210,7 +210,7 @@ export default function ServicesPage() {
       {/* Bottom CTA */}
       <section className="bg-[--mkt-bg] py-20 px-6">
         <div className="max-w-2xl mx-auto text-center space-y-6">
-          <h2 className="text-3xl font-extrabold text-[--text-primary]">Not Sure Where to Start?</h2>
+          <h2 className="text-3xl font-semibold text-[--text-primary]">Not Sure Where to Start?</h2>
           <p className="text-[--text-secondary]">Every engagement begins with a conversation. We'll help you identify the highest-leverage starting point for your organization.</p>
           <Link href="/contact"><Button variant="primary" size="lg" className="gap-2">Start a Conversation <ArrowRight className="h-4 w-4" /></Button></Link>
         </div>

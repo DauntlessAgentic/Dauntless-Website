@@ -32,7 +32,7 @@ export default function ContactPage() {
           style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.14) 0%, transparent 65%)" }} />
         <div className="relative max-w-3xl mx-auto text-center space-y-5">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Contact</p>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-[--text-primary]">Let&apos;s Build Something.</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-[--text-primary]">Let&apos;s Build Something.</h1>
           <p className="text-lg text-[--text-secondary] leading-relaxed">
             Every engagement starts with a conversation. No pitch decks. No sales scripts. Just a real discussion about where you are, where you want to be, and whether we&apos;re the right architecture for the journey.
           </p>
@@ -144,7 +144,7 @@ export default function ContactPage() {
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Process</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">What to Expect After You Reach Out</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">What to Expect After You Reach Out</h2>
           </div>
           <div className="space-y-3">
             {steps.map(({ step, what, timeline }) => (

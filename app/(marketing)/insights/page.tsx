@@ -31,7 +31,7 @@ export default function InsightsPage() {
           style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.14) 0%, transparent 65%)" }} />
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Insights</p>
-          <h1 className="text-4xl md:text-6xl font-extrabold text-[--text-primary] leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-[--text-primary] leading-tight">
             Insights from{" "}
             <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))" }}>
               the Frontier.
@@ -53,7 +53,7 @@ export default function InsightsPage() {
                 <span className="inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest rounded-full bg-[--accent-dim] text-[--accent-vivid]">Featured</span>
                 <span className="text-xs text-[--text-muted]">9-part series</span>
               </div>
-              <h2 className="text-2xl font-extrabold text-[--text-primary]">The Dauntless Manifesto: 9 Theses for the Age of AI</h2>
+              <h2 className="text-2xl font-semibold text-[--text-primary]">The Dauntless Manifesto: 9 Theses for the Age of AI</h2>
               <p className="text-[--text-secondary]">A series of provocations about work, intelligence, and human potential in an era of profound disruption. Released as a 9-part LinkedIn series.</p>
             </div>
             <Link href="/about/manifesto" className="shrink-0">
@@ -68,7 +68,7 @@ export default function InsightsPage() {
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Topics</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">What We Write About</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">What We Write About</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {categories.map(({ icon: Icon, title, description }) => (
@@ -87,7 +87,7 @@ export default function InsightsPage() {
         <div className="max-w-6xl mx-auto space-y-8">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Articles</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">Latest Thinking</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">Latest Thinking</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-4">
             {placeholderArticles.map(({ category, title, excerpt, readTime, coming }) => (
@@ -112,7 +112,7 @@ export default function InsightsPage() {
       <section className="bg-[--mkt-bg] py-24 px-6">
         <div className="max-w-3xl mx-auto text-center space-y-6 bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-10">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Newsletter</p>
-          <h2 className="text-3xl font-extrabold text-[--text-primary]">Get the Signal, Not the Noise.</h2>
+          <h2 className="text-3xl font-semibold text-[--text-primary]">Get the Signal, Not the Noise.</h2>
           <p className="text-[--text-secondary]">A periodic dispatch from the frontier — frameworks, provocations, and practical insights on building in the age of AI. No spam. No filler. Just signal.</p>
           <p className="text-xs text-[--text-muted]">Join 500+ leaders building at the intersection of AI and human capability.</p>
           <Link href="/contact">
@@ -126,7 +126,7 @@ export default function InsightsPage() {
         <div className="max-w-3xl mx-auto space-y-6">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Connect</p>
-            <h2 className="text-2xl font-extrabold text-[--text-primary]">Where the Real-Time Thinking Happens</h2>
+            <h2 className="text-2xl font-semibold text-[--text-primary]">Where the Real-Time Thinking Happens</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             <div className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-5 space-y-3 hover:border-[--border-active] transition-all duration-300">

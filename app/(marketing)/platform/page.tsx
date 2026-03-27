@@ -42,7 +42,7 @@ export default function PlatformPage() {
           style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.14) 0%, transparent 65%)" }} />
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Platform</p>
-          <h1 className="text-4xl md:text-6xl font-extrabold text-[--text-primary] leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-[--text-primary] leading-tight">
             Your Engagement Doesn&apos;t End.{" "}
             <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))" }}>
               It Compounds.
@@ -59,7 +59,7 @@ export default function PlatformPage() {
 
       <section className="bg-[--mkt-section] py-24 px-6">
         <div className="max-w-6xl mx-auto space-y-8">
-          <h2 className="text-3xl font-extrabold text-[--text-primary] text-center">Engagements Shouldn&apos;t Evaporate</h2>
+          <h2 className="text-3xl font-semibold text-[--text-primary] text-center">Engagements Shouldn&apos;t Evaporate</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-[--mkt-card] border border-[--danger]/30 rounded-[--radius-xl] p-6 space-y-3">
               <p className="text-sm font-bold text-[--danger] uppercase tracking-wider">The Industry Standard</p>
@@ -81,7 +81,7 @@ export default function PlatformPage() {
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Your Portal</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">A Private Workspace. Built Around You.</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">A Private Workspace. Built Around You.</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             {portalFeatures.map(({ icon: Icon, title, description }) => (
@@ -99,7 +99,7 @@ export default function PlatformPage() {
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">AI Agents</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">AI That Knows Your Context</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">AI That Knows Your Context</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             {agentCapabilities.map(({ icon: Icon, title, examples }) => (
@@ -121,7 +121,7 @@ export default function PlatformPage() {
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Platform Tiers</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">Choose the Level That Fits Your Ambition</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">Choose the Level That Fits Your Ambition</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-4">
             {tiers.map(({ name, tag, features, highlight }) => (
@@ -140,7 +140,7 @@ export default function PlatformPage() {
         <div className="max-w-5xl mx-auto space-y-8">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">The Journey</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">From First Engagement to Compounding Platform</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">From First Engagement to Compounding Platform</h2>
           </div>
           <div className="space-y-3">
             {phases.map(({ phase, what, experience }, i) => (
@@ -159,7 +159,7 @@ export default function PlatformPage() {
 
       <section className="bg-[--mkt-bg] py-20 px-6">
         <div className="max-w-2xl mx-auto text-center space-y-6">
-          <h2 className="text-3xl font-extrabold text-[--text-primary]">Ready to See What a Compounding Platform Looks Like?</h2>
+          <h2 className="text-3xl font-semibold text-[--text-primary]">Ready to See What a Compounding Platform Looks Like?</h2>
           <p className="text-[--text-secondary]">The platform is included with every engagement. Let&apos;s talk about what your Client Intelligence Portal could look like.</p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <Link href="/contact"><Button variant="primary" size="lg" className="gap-2">Start a Conversation <ArrowRight className="h-4 w-4" /></Button></Link>

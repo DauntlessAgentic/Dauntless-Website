@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Syne } from "next/font/google";
+import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -14,10 +14,10 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const syne = Syne({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-syne",
-  weight: ["700", "800"],
+  variable: "--font-display",
+  weight: ["500", "600", "700"],
   display: "swap",
 });
 
@@ -35,7 +35,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${inter.variable} ${jetbrainsMono.variable} ${syne.variable}`}
+      className={`dark ${inter.variable} ${jetbrainsMono.variable} ${spaceGrotesk.variable}`}
     >
       <body>{children}</body>
     </html>

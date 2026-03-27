@@ -16,7 +16,7 @@ export function Testimonials() {
         <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">
           The Manifesto
         </p>
-        <blockquote className="text-3xl md:text-4xl font-extrabold text-[--text-primary] leading-snug italic">
+        <blockquote className="text-3xl md:text-4xl font-semibold text-[--text-primary] leading-snug italic">
           &ldquo;Don&apos;t build a faster horse. Build the thing that lets humans fly.&rdquo;
         </blockquote>
         <p className="text-[--text-muted] text-sm">— Thesis IX, The Dauntless Manifesto</p>

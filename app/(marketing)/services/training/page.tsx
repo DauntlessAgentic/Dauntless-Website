@@ -65,7 +65,7 @@ export default function TrainingPage() {
           style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.14) 0%, transparent 65%)" }} />
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">AI Literacy Training</p>
-          <h1 className="text-4xl md:text-6xl font-extrabold text-[--text-primary] leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-[--text-primary] leading-tight">
             Your People Are the Strategy.{" "}
             <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))" }}>
               Train Them Like It.
@@ -83,7 +83,7 @@ export default function TrainingPage() {
       {/* Problem */}
       <section className="bg-[--mkt-section] py-24 px-6">
         <div className="max-w-6xl mx-auto space-y-8">
-          <h2 className="text-3xl font-extrabold text-[--text-primary] text-center">Most AI Training Is a Waste of Time</h2>
+          <h2 className="text-3xl font-semibold text-[--text-primary] text-center">Most AI Training Is a Waste of Time</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-[--mkt-card] border border-[--danger]/30 rounded-[--radius-xl] p-6 space-y-3">
               <p className="text-sm font-bold text-[--danger] uppercase tracking-wider">What Organizations Are Doing</p>
@@ -106,7 +106,7 @@ export default function TrainingPage() {
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">The Platform</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">Purpose-Built Training Delivery</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">Purpose-Built Training Delivery</h2>
             <p className="max-w-2xl mx-auto text-[--text-secondary]">Every training program runs on the FC5 Platform — a purpose-built delivery system that integrates curriculum, practice environments, assessment, and outcome tracking into a single cohesive experience.</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -126,7 +126,7 @@ export default function TrainingPage() {
         <div className="max-w-5xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Training Tiers</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">Four Tiers. Choose Your Depth.</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">Four Tiers. Choose Your Depth.</h2>
           </div>
           <div className="space-y-6">
             {tiers.map(({ name, tag, duration, size, before, after, covers, takeaways }) => (
@@ -172,7 +172,7 @@ export default function TrainingPage() {
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Delivery</p>
-            <h2 className="text-3xl font-extrabold text-[--text-primary]">Designed Around Your Team&apos;s Reality</h2>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">Designed Around Your Team&apos;s Reality</h2>
             <p className="text-[--text-secondary]">Your people can't always step away from their work for days at a time. Every program can be delivered in the format that works for your organization.</p>
           </div>
           <div className="grid md:grid-cols-2 gap-4">
@@ -194,7 +194,7 @@ export default function TrainingPage() {
       {/* CTA */}
       <section className="bg-[--mkt-section] py-20 px-6">
         <div className="max-w-2xl mx-auto text-center space-y-6">
-          <h2 className="text-3xl font-extrabold text-[--text-primary]">Ready to Build Real AI Capability?</h2>
+          <h2 className="text-3xl font-semibold text-[--text-primary]">Ready to Build Real AI Capability?</h2>
           <p className="text-[--text-secondary]">Every training program starts with a conversation about your people, your challenges, and your goals. We'll design the right program for your organization.</p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <Link href="/contact"><Button variant="primary" size="lg" className="gap-2">Design Your Training Program <ArrowRight className="h-4 w-4" /></Button></Link>

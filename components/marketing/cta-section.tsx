@@ -16,7 +16,7 @@ export function CTASection() {
         />
       </div>
       <div className="relative max-w-3xl mx-auto text-center space-y-6">
-        <h2 className="text-4xl md:text-5xl font-extrabold text-[--text-primary]">
+        <h2 className="text-4xl md:text-5xl font-bold text-[--text-primary]">
           Ready to Build Something Dauntless?
         </h2>
         <p className="text-[--text-secondary] text-lg leading-relaxed">

@@ -73,7 +73,7 @@ export default function ManifestoPage() {
           style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.16) 0%, transparent 65%)" }} />
         <div className="relative max-w-3xl mx-auto text-center space-y-6">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">The Dauntless Manifesto</p>
-          <h1 className="text-4xl md:text-6xl font-extrabold text-[--text-primary] leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-[--text-primary] leading-tight">
             9 Theses for the Age of AI
           </h1>
           <p className="text-lg text-[--text-secondary] italic">A declaration for the undaunted — those who refuse to wait for permission to build the future.</p>
@@ -98,7 +98,7 @@ export default function ManifestoPage() {
                   Thesis {num}
                 </span>
               </div>
-              <h2 className="text-xl font-extrabold text-[--text-primary]">{title}</h2>
+              <h2 className="text-xl font-semibold text-[--text-primary]">{title}</h2>
               <div className="border-l-2 border-[--accent-bright] pl-4">
                 <p className="text-base font-bold text-[--accent-vivid] italic">&ldquo;{pullQuote}&rdquo;</p>
               </div>
@@ -115,7 +115,7 @@ export default function ManifestoPage() {
       {/* Closing */}
       <section className="py-24 px-6" style={{ background: "linear-gradient(135deg, var(--mkt-bg) 0%, rgba(124,58,237,0.08) 50%, var(--mkt-bg) 100%)" }}>
         <div className="max-w-3xl mx-auto text-center space-y-8">
-          <h2 className="text-3xl font-extrabold text-[--text-primary]">The Invitation</h2>
+          <h2 className="text-3xl font-semibold text-[--text-primary]">The Invitation</h2>
           <p className="text-[--text-secondary] leading-relaxed">
             This manifesto is an invitation to the undaunted — to anyone who sees this moment for what it is and refuses to play small. The age has changed. The rules haven't caught up. And the ones who rewrite them won't be the biggest, the richest, or the most cautious.
           </p>
