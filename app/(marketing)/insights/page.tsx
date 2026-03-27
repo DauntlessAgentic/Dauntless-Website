@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, Brain, Zap, Layers, GraduationCap, RefreshCw, Globe, Linkedin } from "lucide-react";
+import { ArrowRight, Brain, Zap, Layers, GraduationCap, RefreshCw, Globe, Linkedin, Users, CalendarClock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
@@ -12,6 +12,8 @@ const categories = [
   { icon: GraduationCap, title: "Capability Development", description: "Building AI literacy, training methodologies, cohort-based learning, and what actually works in developing people." },
   { icon: RefreshCw, title: "The Compounding Advantage", description: "Knowledge management, pattern encoding, proof harvesting, and the architecture of exponential improvement." },
   { icon: Globe, title: "The Future of Work", description: "The disruption of traditional models, the evolution of professional services, and what comes next for humans in the economy." },
+  { icon: Users, title: "Collective Intelligence", description: "Is CI real? Does diversity actually make organizations smarter? The science and practice of harnessing collective human intelligence alongside AI." },
+  { icon: CalendarClock, title: "Meeting Productivity", description: "71% of meetings are unproductive. Here's what the other 29% look like — and how AI-augmented facilitation changes the economics of collaboration." },
 ];
 
 const placeholderArticles = [

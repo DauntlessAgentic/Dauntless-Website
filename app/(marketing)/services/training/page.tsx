@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { ArrowRight, Users, Target, BookOpen, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { WorkCard } from "@/components/ui/work-card";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
 
@@ -187,6 +188,30 @@ export default function TrainingPage() {
                 <p className="text-sm text-[--text-secondary]">{desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+
+      {/* In Practice */}
+      <section className="bg-[--mkt-bg] py-20 px-6">
+        <div className="max-w-6xl mx-auto space-y-10">
+          <div className="text-center space-y-3">
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">Selected Work</p>
+            <h2 className="text-2xl md:text-3xl font-semibold text-[--text-primary]">Training in Practice</h2>
+            <p className="max-w-xl mx-auto text-sm text-[--text-secondary] leading-relaxed">
+              A sample of government engagements where this work created real, lasting change.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-4">
+            <WorkCard department="Employment & Social Development Canada" project="Stakeholder Engagement Process" category="Process Design" sector="federal" image="/images/work/ServiceCanada-InsuranceClaimsProcess.png" />
+            <WorkCard department="Health Canada" project="Program Review & Foresight Workshop" category="Foresight" sector="federal" image="/images/work/HC-FORESIGHT.png" />
+            <WorkCard department="Treasury Board Secretariat" project="Performance Management Design" category="Performance Design" sector="federal" image="/images/work/TB-PerformanceBasedRegulatoryModel.png" />
+          </div>
+          <div className="text-center">
+            <Link href="/work" className="inline-flex items-center gap-1.5 text-sm font-medium text-[--accent-vivid] hover:text-[--accent-bright] transition-colors">
+              View all 39+ projects <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
           </div>
         </div>
       </section>

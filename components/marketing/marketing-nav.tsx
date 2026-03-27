@@ -9,6 +9,7 @@ const navLinks = [
   { label: "Services",  href: "/services" },
   { label: "Method",    href: "/method" },
   { label: "About",     href: "/about" },
+  { label: "Work",      href: "/work" },
   { label: "Insights",  href: "/insights" },
 ];
 
@@ -18,8 +19,7 @@ function LogoMark() {
       <div
         className="relative flex h-8 w-8 items-center justify-center rounded-[7px] shrink-0"
         style={{
-          background:
-            "linear-gradient(var(--mkt-bg), var(--mkt-bg)) padding-box, linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%) border-box",
+          background: "linear-gradient(var(--mkt-bg), var(--mkt-bg)) padding-box, linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%) border-box",
           border: "1.5px solid transparent",
         }}
       >
@@ -32,10 +32,8 @@ function LogoMark() {
       </div>
       <span className="text-sm font-semibold tracking-tight text-[--text-primary]">
         Dauntless{" "}
-        <span
-          className="text-transparent bg-clip-text"
-          style={{ backgroundImage: "linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%)" }}
-        >
+        <span className="text-transparent bg-clip-text"
+          style={{ backgroundImage: "linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%)" }}>
           Agentic
         </span>
       </span>
@@ -67,25 +65,20 @@ export function MarketingNav() {
 
         <nav className="hidden md:flex items-center gap-0.5">
           {navLinks.map(({ label, href }) => (
-            <Link
-              key={label}
-              href={href}
-              className="px-3.5 py-1.5 text-sm text-[--text-secondary] hover:text-[--text-primary] transition-colors duration-150 rounded-[--radius-md] hover:bg-white/[0.04]"
-            >
+            <Link key={label} href={href}
+              className="px-3 py-1.5 text-sm text-[--text-secondary] hover:text-[--text-primary] transition-colors duration-150 rounded-[--radius-md] hover:bg-white/[0.04]">
               {label}
             </Link>
           ))}
         </nav>
 
         <div className="hidden md:flex items-center">
-          <Link
-            href="/contact"
+          <Link href="/contact"
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-[--radius-lg] text-sm font-medium text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
             style={{
               background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
               boxShadow: "0 0 0 1px rgba(139,92,246,0.4), 0 4px 16px rgba(124,58,237,0.3)",
-            }}
-          >
+            }}>
             Start a Conversation
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
@@ -102,24 +95,16 @@ export function MarketingNav() {
       {mobileOpen && (
         <div className="md:hidden bg-[--mkt-bg]/98 backdrop-blur-xl border-b border-[--mkt-border] px-6 py-4 space-y-1">
           {navLinks.map(({ label, href }) => (
-            <Link
-              key={label}
-              href={href}
+            <Link key={label} href={href}
               onClick={() => setMobileOpen(false)}
-              className="block px-3 py-2.5 text-sm text-[--text-secondary] hover:text-[--text-primary] rounded-[--radius-md] hover:bg-white/[0.04] transition-colors"
-            >
+              className="block px-3 py-2.5 text-sm text-[--text-secondary] hover:text-[--text-primary] rounded-[--radius-md] hover:bg-white/[0.04] transition-colors">
               {label}
             </Link>
           ))}
           <div className="pt-3">
-            <Link
-              href="/contact"
-              onClick={() => setMobileOpen(false)}
+            <Link href="/contact" onClick={() => setMobileOpen(false)}
               className="flex items-center justify-center gap-1.5 w-full px-4 py-2.5 rounded-[--radius-lg] text-sm font-medium text-white"
-              style={{
-                background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
-              }}
-            >
+              style={{ background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)" }}>
               Start a Conversation <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>

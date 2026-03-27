@@ -114,6 +114,39 @@ export default function MethodPage() {
         </div>
       </section>
 
+      {/* CI + AI Section */}
+      <section className="bg-[--mkt-bg] py-20 px-6">
+        <div className="max-w-6xl mx-auto space-y-10">
+          <div className="text-center space-y-3">
+            <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Intelligence Architecture</p>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">
+              Collective Intelligence <span className="text-[--text-muted]">+</span>{" "}
+              <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #8b5cf6, #a78bfa)" }}>
+                Artificial Intelligence
+              </span>
+            </h2>
+            <p className="max-w-2xl mx-auto text-[--text-secondary] text-sm leading-relaxed">
+              The organizations that compound fastest aren&apos;t just using AI — they&apos;re designing systems where human collective intelligence and artificial intelligence amplify each other. We engage your teams, partners, and stakeholders to articulate systems and problems, then layer AI to design strategies, processes, and data models that reflect your real organizational intelligence.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-5">
+            {[
+              { label: "Collective Intelligence (CI)", desc: "Independent thinking in a collective process. Diverse perspectives, structured facilitation, and AI-assisted synthesis — turning minutes of individual thinking into hours of organizational insight.", accent: "#a78bfa" },
+              { label: "Artificial Intelligence (AI)", desc: "Pattern recognition at scale. AI accelerates analysis, surfaces hidden connections, and generates options faster than any team working alone — but only as good as the human intelligence it&apos;s trained on.", accent: "#60a5fa" },
+              { label: "CI + AI = Compounding Insight", desc: "When collective human intelligence informs AI, and AI augments collective decision-making, organizations don&apos;t just get better answers — they build the capacity to ask better questions over time.", accent: "#34d399" },
+            ].map(({ label, desc, accent }) => (
+              <div key={label}
+                className="relative bg-[--mkt-card] border border-[--mkt-border] rounded-2xl p-6 space-y-3 hover:border-[rgba(139,92,246,0.3)] transition-all duration-300"
+              >
+                <div className="h-1 w-10 rounded-full" style={{ background: accent }} />
+                <h3 className="text-sm font-semibold text-[--text-primary]">{label}</h3>
+                <p className="text-xs text-[--text-secondary] leading-relaxed" dangerouslySetInnerHTML={{ __html: desc }} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Engagement Phases */}
       <section className="bg-[--mkt-section] py-24 px-6">
         <div className="max-w-5xl mx-auto space-y-12">
