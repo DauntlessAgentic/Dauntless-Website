@@ -1,7 +1,6 @@
 import React from "react";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { HeroSection } from "@/components/marketing/hero-section";
-import { TrustedBy } from "@/components/marketing/trusted-by";
 import { FeatureGrid } from "@/components/marketing/feature-grid";
 import { HowItWorks } from "@/components/marketing/how-it-works";
 import { WhyDauntless } from "@/components/marketing/why-dauntless";
@@ -46,7 +45,6 @@ export default function MarketingPage() {
       />
       <MarketingNav />
       <HeroSection />
-      <TrustedBy />
       <FeatureGrid />
       <HowItWorks />
       <WhyDauntless />

@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Clock, GitBranch, Users, TrendingUp } from "lucide-react";
 
 const stats = [
@@ -8,6 +9,16 @@ const stats = [
   { icon: Users,      value: "5,000+", label: "Professionals served" },
   { icon: TrendingUp, value: "$50M+",   label: "In documented value delivered" },
 ];
+
+const federalDepts = [
+  "Environment Canada", "Health Canada", "Innovation, Science & Economic Development",
+  "Elections Canada", "Treasury Board Secretariat", "Public Health Agency of Canada",
+  "Employment & Social Development Canada", "National Defence", "Statistics Canada",
+  "Transport Canada", "Fisheries & Oceans Canada", "Global Affairs Canada",
+  "Immigration, Refugees & Citizenship Canada", "Public Services & Procurement Canada",
+];
+
+const privateSectors = ["Financial Services", "Mining & Resources", "International NGOs", "Healthcare & Pharma"];
 
 export function WhyDauntless() {
   return (
@@ -43,17 +54,40 @@ export function WhyDauntless() {
           ))}
         </div>
 
+        {/* Client sectors */}
+        <div className="space-y-6">
+          <div className="space-y-3">
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[--text-muted] text-center">Federal Government Clients</p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {federalDepts.map((dept) => (
+                <span key={dept} className="px-3 py-1.5 rounded-full text-xs font-medium text-[--text-secondary] transition-colors"
+                  style={{ background: "rgba(139,92,246,0.07)", border: "1px solid rgba(139,92,246,0.15)" }}>
+                  🍁 {dept}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="space-y-3">
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[--text-muted] text-center">Private Sector & International</p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {privateSectors.map((sector) => (
+                <span key={sector} className="px-3 py-1.5 rounded-full text-xs font-medium text-[--text-muted]"
+                  style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                  {sector}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
         <div className="max-w-2xl mx-auto">
           <div
             className="relative rounded-2xl p-8 space-y-4"
             style={{ background: "linear-gradient(135deg, rgba(124,58,237,0.07) 0%, rgba(16,16,30,0.6) 100%)", border: "1px solid rgba(139,92,246,0.15)" }}
           >
             <div className="flex items-start gap-4">
-              <div
-                className="h-10 w-10 rounded-full shrink-0 flex items-center justify-center text-sm font-bold text-white mt-0.5"
-                style={{ background: "linear-gradient(135deg, #7c3aed, #8b5cf6)" }}
-              >
-                CM
+              <div className="h-12 w-12 rounded-full shrink-0 overflow-hidden relative mt-0.5">
+                <Image src="/images/craig-headshot.jpg" alt="Craig Marchand" fill className="object-cover object-top" unoptimized sizes="48px" />
               </div>
               <div className="space-y-2">
                 <p className="text-[--text-primary] font-medium text-sm">Craig Marchand</p>

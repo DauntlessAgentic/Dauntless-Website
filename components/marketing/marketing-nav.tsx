@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/cn";
 
@@ -14,26 +16,39 @@ const navLinks = [
 ];
 
 function LogoMark() {
+  const [imgError, setImgError] = React.useState(false);
   return (
     <Link href="/" className="flex items-center gap-3 group">
       <div
-        className="relative flex h-8 w-8 items-center justify-center rounded-[7px] shrink-0"
+        className="relative flex h-8 w-8 items-center justify-center rounded-[7px] shrink-0 overflow-hidden"
         style={{
-          background: "linear-gradient(var(--mkt-bg), var(--mkt-bg)) padding-box, linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%) border-box",
+          background: "linear-gradient(var(--mkt-bg), var(--mkt-bg)) padding-box, linear-gradient(135deg, #8b5cf6, #a78bfa) border-box",
           border: "1.5px solid transparent",
         }}
       >
-        <span
-          className="text-[15px] font-bold text-transparent bg-clip-text leading-none"
-          style={{ backgroundImage: "linear-gradient(135deg, #8b5cf6 0%, #c4b5fd 100%)" }}
-        >
-          D
-        </span>
+        {!imgError ? (
+          <Image
+            src="/images/logo-icon.png"
+            alt="Dauntless"
+            fill
+            unoptimized
+            className="object-contain p-0.5"
+            onError={() => setImgError(true)}
+            sizes="32px"
+          />
+        ) : (
+          <span
+            className="text-[15px] font-bold text-transparent bg-clip-text leading-none"
+            style={{ backgroundImage: "linear-gradient(135deg, #8b5cf6, #c4b5fd)" }}
+          >
+            D
+          </span>
+        )}
       </div>
       <span className="text-sm font-semibold tracking-tight text-[--text-primary]">
         Dauntless{" "}
         <span className="text-transparent bg-clip-text"
-          style={{ backgroundImage: "linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%)" }}>
+          style={{ backgroundImage: "linear-gradient(135deg, #8b5cf6, #a78bfa)" }}>
           Agentic
         </span>
       </span>
@@ -44,6 +59,7 @@ function LogoMark() {
 export function MarketingNav() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -64,12 +80,20 @@ export function MarketingNav() {
         <LogoMark />
 
         <nav className="hidden md:flex items-center gap-0.5">
-          {navLinks.map(({ label, href }) => (
-            <Link key={label} href={href}
-              className="px-3 py-1.5 text-sm text-[--text-secondary] hover:text-[--text-primary] transition-colors duration-150 rounded-[--radius-md] hover:bg-white/[0.04]">
-              {label}
-            </Link>
-          ))}
+          {navLinks.map(({ label, href }) => {
+            const isActive = pathname === href || pathname.startsWith(href + "/");
+            return (
+              <Link key={label} href={href}
+                className={cn(
+                  "px-3 py-1.5 text-sm rounded-[--radius-md] transition-colors duration-150",
+                  isActive
+                    ? "text-[--accent-vivid] bg-[rgba(124,58,237,0.1)]"
+                    : "text-[--text-secondary] hover:text-[--text-primary] hover:bg-white/[0.04]"
+                )}>
+                {label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="hidden md:flex items-center">
@@ -94,13 +118,21 @@ export function MarketingNav() {
 
       {mobileOpen && (
         <div className="md:hidden bg-[--mkt-bg]/98 backdrop-blur-xl border-b border-[--mkt-border] px-6 py-4 space-y-1">
-          {navLinks.map(({ label, href }) => (
-            <Link key={label} href={href}
-              onClick={() => setMobileOpen(false)}
-              className="block px-3 py-2.5 text-sm text-[--text-secondary] hover:text-[--text-primary] rounded-[--radius-md] hover:bg-white/[0.04] transition-colors">
-              {label}
-            </Link>
-          ))}
+          {navLinks.map(({ label, href }) => {
+            const isActive = pathname === href || pathname.startsWith(href + "/");
+            return (
+              <Link key={label} href={href}
+                onClick={() => setMobileOpen(false)}
+                className={cn(
+                  "block px-3 py-2.5 text-sm rounded-[--radius-md] transition-colors",
+                  isActive
+                    ? "text-[--accent-vivid] bg-[rgba(124,58,237,0.1)]"
+                    : "text-[--text-secondary] hover:text-[--text-primary] hover:bg-white/[0.04]"
+                )}>
+                {label}
+              </Link>
+            );
+          })}
           <div className="pt-3">
             <Link href="/contact" onClick={() => setMobileOpen(false)}
               className="flex items-center justify-center gap-1.5 w-full px-4 py-2.5 rounded-[--radius-lg] text-sm font-medium text-white"

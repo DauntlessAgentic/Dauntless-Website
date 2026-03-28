@@ -67,7 +67,7 @@ export function HowItWorks() {
           <div className="text-center space-y-3">
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">Philosophy</p>
             <h2 className="text-3xl md:text-4xl font-semibold text-[--text-primary]">
-              The Three A's
+              Triple A Vision for the Future of Work
             </h2>
             <p className="text-[--text-secondary] text-sm max-w-xl mx-auto leading-relaxed">
               Not a marketing framework. A personal operating system — a way of being in a world where the relationship between humans, work, and power is being fundamentally disrupted.

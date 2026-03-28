@@ -2,7 +2,6 @@ import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, GraduationCap, Building2, Bot, Search, Layers, Hammer, BookOpen } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
 
@@ -87,80 +86,140 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Training */}
+      {/* All three service cards */}
       <section className="bg-[--mkt-bg] py-16 px-6">
-        <div className="max-w-6xl mx-auto space-y-8">
-          <div className="flex items-start gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim] border border-[--border-active] shrink-0">
-              <GraduationCap className="h-6 w-6 text-[--accent-vivid]" />
-            </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">AI Literacy Training</p>
-              <h2 className="text-2xl font-semibold text-[--text-primary] mt-1">For organizations ready to build real AI capability across their teams.</h2>
-            </div>
-          </div>
-          <p className="text-[--text-secondary] leading-relaxed">Cohort-based learning programs delivered through the FC5 Platform — a purpose-built training delivery system with integrated assessment, practice environments, and outcome tracking.</p>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-[--mkt-border]">
-                  {["Tier", "Format", "Duration", "Outcome"].map(h => (<th key={h} className="text-left py-3 px-4 text-xs font-bold uppercase tracking-widest text-[--text-muted]">{h}</th>))}
-                </tr>
-              </thead>
-              <tbody>
-                {trainingTiers.map(({ tier, format, duration, outcome }) => (
-                  <tr key={tier} className="border-b border-[--mkt-border] hover:bg-[--mkt-card] transition-colors">
-                    <td className="py-3 px-4 font-bold text-[--text-primary]">{tier}</td>
-                    <td className="py-3 px-4 text-[--text-secondary]">{format}</td>
-                    <td className="py-3 px-4 text-[--accent-vivid] font-mono text-xs">{duration}</td>
-                    <td className="py-3 px-4 text-[--text-secondary]">{outcome}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <Link href="/services/training"><Button variant="primary" className="gap-2">Explore AI Training <ArrowRight className="h-4 w-4" /></Button></Link>
-        </div>
-      </section>
+        <div className="max-w-6xl mx-auto space-y-6">
 
-      {/* Consulting */}
-      <section className="bg-[--mkt-section] py-16 px-6">
-        <div className="max-w-6xl mx-auto space-y-8">
-          <div className="flex items-start gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim] border border-[--border-active] shrink-0">
-              <Building2 className="h-6 w-6 text-[--accent-vivid]" />
-            </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">AI Ops Consulting</p>
-              <h2 className="text-2xl font-semibold text-[--text-primary] mt-1">For organizations ready to operationalize AI — not just experiment with it.</h2>
+          {/* Training card */}
+          <div className="soft-card overflow-hidden">
+            <div className="h-1 w-full" style={{ background: "linear-gradient(90deg, #7c3aed, #8b5cf6)" }} />
+            <div className="p-8 md:p-10 space-y-8">
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim] border border-[--border-active] shrink-0">
+                  <GraduationCap className="h-6 w-6 text-[--accent-vivid]" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">AI Literacy Training</p>
+                  <h2 className="text-2xl font-semibold text-[--text-primary] mt-1">For organizations ready to build real AI capability across their teams.</h2>
+                </div>
+              </div>
+              <p className="text-[--text-secondary] leading-relaxed">Cohort-based learning programs delivered through the FC5 Platform — a purpose-built training delivery system with integrated assessment, practice environments, and outcome tracking.</p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-[--mkt-border]">
+                      {["Tier", "Format", "Duration", "Outcome"].map(h => (<th key={h} className="text-left py-3 px-4 text-xs font-bold uppercase tracking-widest text-[--text-muted]">{h}</th>))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {trainingTiers.map(({ tier, format, duration, outcome }) => (
+                      <tr key={tier} className="border-b border-[--mkt-border] hover:bg-[--mkt-card] transition-colors">
+                        <td className="py-3 px-4 font-bold text-[--text-primary]">{tier}</td>
+                        <td className="py-3 px-4 text-[--text-secondary]">{format}</td>
+                        <td className="py-3 px-4 text-[--accent-vivid] font-mono text-xs">{duration}</td>
+                        <td className="py-3 px-4 text-[--text-secondary]">{outcome}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <Link
+                href="/services/training"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90"
+                style={{ background: "linear-gradient(135deg, #7c3aed, #8b5cf6)", boxShadow: "0 4px 14px rgba(124,58,237,0.35)" }}>
+                Explore AI Training <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
           </div>
-          <p className="text-[--text-secondary] leading-relaxed">Strategic advisory engagements that help organizations move from AI curiosity to AI operations. We don't build prototypes that die in pilot. We build the architecture for AI to actually work inside your organization.</p>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-[--mkt-border]">
-                  {["Model", "Scope", "Duration", "Outcome"].map(h => (<th key={h} className="text-left py-3 px-4 text-xs font-bold uppercase tracking-widest text-[--text-muted]">{h}</th>))}
-                </tr>
-              </thead>
-              <tbody>
-                {consultingModels.map(({ model, scope, duration, outcome }) => (
-                  <tr key={model} className="border-b border-[--mkt-border] hover:bg-[--mkt-card] transition-colors">
-                    <td className="py-3 px-4 font-bold text-[--text-primary]">{model}</td>
-                    <td className="py-3 px-4 text-[--text-secondary]">{scope}</td>
-                    <td className="py-3 px-4 text-[--accent-vivid] font-mono text-xs">{duration}</td>
-                    <td className="py-3 px-4 text-[--text-secondary]">{outcome}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+
+          {/* Consulting card */}
+          <div className="soft-card overflow-hidden">
+            <div className="h-1 w-full" style={{ background: "linear-gradient(90deg, #7c3aed, #8b5cf6)" }} />
+            <div className="p-8 md:p-10 space-y-8">
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim] border border-[--border-active] shrink-0">
+                  <Building2 className="h-6 w-6 text-[--accent-vivid]" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">AI Ops Consulting</p>
+                  <h2 className="text-2xl font-semibold text-[--text-primary] mt-1">For organizations ready to operationalize AI — not just experiment with it.</h2>
+                </div>
+              </div>
+              <p className="text-[--text-secondary] leading-relaxed">Strategic advisory engagements that help organizations move from AI curiosity to AI operations. We don't build prototypes that die in pilot. We build the architecture for AI to actually work inside your organization.</p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-[--mkt-border]">
+                      {["Model", "Scope", "Duration", "Outcome"].map(h => (<th key={h} className="text-left py-3 px-4 text-xs font-bold uppercase tracking-widest text-[--text-muted]">{h}</th>))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {consultingModels.map(({ model, scope, duration, outcome }) => (
+                      <tr key={model} className="border-b border-[--mkt-border] hover:bg-[--mkt-card] transition-colors">
+                        <td className="py-3 px-4 font-bold text-[--text-primary]">{model}</td>
+                        <td className="py-3 px-4 text-[--text-secondary]">{scope}</td>
+                        <td className="py-3 px-4 text-[--accent-vivid] font-mono text-xs">{duration}</td>
+                        <td className="py-3 px-4 text-[--text-secondary]">{outcome}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <Link
+                href="/services/consulting"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90"
+                style={{ background: "linear-gradient(135deg, #7c3aed, #8b5cf6)", boxShadow: "0 4px 14px rgba(124,58,237,0.35)" }}>
+                Explore AI Consulting <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
           </div>
-          <Link href="/services/consulting"><Button variant="primary" className="gap-2">Explore AI Consulting <ArrowRight className="h-4 w-4" /></Button></Link>
+
+          {/* Agentic Systems card */}
+          <div className="soft-card overflow-hidden">
+            <div className="h-1 w-full" style={{ background: "linear-gradient(90deg, #7c3aed, #8b5cf6)" }} />
+            <div className="p-8 md:p-10 space-y-8">
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim] border border-[--border-active] shrink-0">
+                  <Bot className="h-6 w-6 text-[--accent-vivid]" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Agentic Systems</p>
+                  <h2 className="text-2xl font-semibold text-[--text-primary] mt-1">For organizations ready to move beyond tools and automation into autonomous AI architectures.</h2>
+                </div>
+              </div>
+              <p className="text-[--text-secondary] leading-relaxed">We design and build agentic systems — constellations of specialized AI agents that sense, propose, execute, and learn within structured governance. Not science fiction. Operating architecture.</p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-[--mkt-border]">
+                      {["Layer", "What It Does", "Why It Matters"].map(h => (<th key={h} className="text-left py-3 px-4 text-xs font-bold uppercase tracking-widest text-[--text-muted]">{h}</th>))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {agenticLayers.map(({ layer, what, why }) => (
+                      <tr key={layer} className="border-b border-[--mkt-border] hover:bg-[--mkt-card] transition-colors">
+                        <td className="py-3 px-4 font-bold text-[--text-primary]">{layer}</td>
+                        <td className="py-3 px-4 text-[--text-secondary]">{what}</td>
+                        <td className="py-3 px-4 text-[--accent-vivid] text-xs">{why}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <Link
+                href="/services/agentic-systems"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90"
+                style={{ background: "linear-gradient(135deg, #7c3aed, #8b5cf6)", boxShadow: "0 4px 14px rgba(124,58,237,0.35)" }}>
+                Explore Agentic Systems <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+
         </div>
       </section>
 
       {/* Trust Architecture */}
-      <section className="bg-[--mkt-bg] py-16 px-6">
+      <section className="bg-[--mkt-section] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Trust Architecture</p>
@@ -179,47 +238,17 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Agentic */}
-      <section className="bg-[--mkt-section] py-16 px-6">
-        <div className="max-w-6xl mx-auto space-y-8">
-          <div className="flex items-start gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim] border border-[--border-active] shrink-0">
-              <Bot className="h-6 w-6 text-[--accent-vivid]" />
-            </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Agentic Systems</p>
-              <h2 className="text-2xl font-semibold text-[--text-primary] mt-1">For organizations ready to move beyond tools and automation into autonomous AI architectures.</h2>
-            </div>
-          </div>
-          <p className="text-[--text-secondary] leading-relaxed">We design and build agentic systems — constellations of specialized AI agents that sense, propose, execute, and learn within structured governance. Not science fiction. Operating architecture.</p>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-[--mkt-border]">
-                  {["Layer", "What It Does", "Why It Matters"].map(h => (<th key={h} className="text-left py-3 px-4 text-xs font-bold uppercase tracking-widest text-[--text-muted]">{h}</th>))}
-                </tr>
-              </thead>
-              <tbody>
-                {agenticLayers.map(({ layer, what, why }) => (
-                  <tr key={layer} className="border-b border-[--mkt-border] hover:bg-[--mkt-card] transition-colors">
-                    <td className="py-3 px-4 font-bold text-[--text-primary]">{layer}</td>
-                    <td className="py-3 px-4 text-[--text-secondary]">{what}</td>
-                    <td className="py-3 px-4 text-[--accent-vivid] text-xs">{why}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <Link href="/services/agentic-systems"><Button variant="primary" className="gap-2">Explore Agentic Systems <ArrowRight className="h-4 w-4" /></Button></Link>
-        </div>
-      </section>
-
       {/* Bottom CTA */}
       <section className="bg-[--mkt-bg] py-14 px-6">
         <div className="max-w-2xl mx-auto text-center space-y-6">
           <h2 className="text-3xl font-semibold text-[--text-primary]">Not Sure Where to Start?</h2>
           <p className="text-[--text-secondary]">Every engagement begins with a conversation. We'll help you identify the highest-leverage starting point for your organization.</p>
-          <Link href="/contact"><Button variant="primary" size="lg" className="gap-2">Start a Conversation <ArrowRight className="h-4 w-4" /></Button></Link>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90"
+            style={{ background: "linear-gradient(135deg, #7c3aed, #8b5cf6)", boxShadow: "0 4px 14px rgba(124,58,237,0.35)" }}>
+            Start a Conversation <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </section>
 
