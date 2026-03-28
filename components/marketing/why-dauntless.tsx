@@ -11,11 +11,11 @@ const stats = [
 
 export function WhyDauntless() {
   return (
-    <section className="relative bg-[--mkt-bg] py-28 px-6 overflow-hidden">
+    <section className="relative bg-[--mkt-bg] py-16 px-6 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full" style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.06) 0%, transparent 70%)" }} />
       </div>
-      <div className="relative max-w-6xl mx-auto space-y-16">
+      <div className="relative max-w-6xl mx-auto space-y-10">
         <div className="text-center space-y-3">
           <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">Credentials</p>
           <h2 className="text-3xl md:text-4xl font-semibold text-[--text-primary]">The Track Record.</h2>
@@ -25,7 +25,7 @@ export function WhyDauntless() {
           {stats.map(({ icon: Icon, value, label }) => (
             <div
               key={label}
-              className="group relative bg-[--mkt-card] border border-[--mkt-border] rounded-2xl p-6 space-y-4 hover:border-[rgba(139,92,246,0.3)] transition-all duration-300 hover:shadow-[0_8px_24px_-8px_rgba(0,0,0,0.5)] text-center"
+              className="group soft-card soft-card-lift p-6 space-y-4 text-center"
             >
               <div className="flex justify-center">
                 <div className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: "rgba(124,58,237,0.12)", border: "1px solid rgba(139,92,246,0.2)" }}>

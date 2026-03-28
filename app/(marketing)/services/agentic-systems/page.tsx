@@ -119,7 +119,7 @@ export default function AgenticSystemsPage() {
       </section>
 
       {/* Tools vs Agents comparison */}
-      <section className="bg-[--mkt-section] py-24 px-6">
+      <section className="bg-[--mkt-section] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-8">
           <div className="text-center space-y-3">
             <h2 className="text-3xl font-semibold text-[--text-primary]">From Tools to Agents</h2>
@@ -157,7 +157,7 @@ export default function AgenticSystemsPage() {
       </section>
 
       {/* Architecture Stack */}
-      <section className="bg-[--mkt-bg] py-24 px-6">
+      <section className="bg-[--mkt-bg] py-16 px-6">
         <div className="max-w-5xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Architecture</p>
@@ -200,7 +200,7 @@ export default function AgenticSystemsPage() {
       </section>
 
       {/* Use Cases */}
-      <section className="bg-[--mkt-section] py-24 px-6">
+      <section className="bg-[--mkt-section] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Use Cases</p>
@@ -219,7 +219,7 @@ export default function AgenticSystemsPage() {
       </section>
 
       {/* Built From Experience */}
-      <section className="bg-[--mkt-bg] py-20 px-6">
+      <section className="bg-[--mkt-bg] py-12 px-6 border-t border-[--mkt-border]">
         <div className="max-w-3xl mx-auto text-center space-y-4 soft-card-accent p-8">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Our Credibility</p>
           <h2 className="text-2xl font-semibold text-[--text-primary]">We Don't Just Design Agentic Systems. We Run One.</h2>
@@ -228,7 +228,7 @@ export default function AgenticSystemsPage() {
       </section>
 
       {/* Engagement Phases */}
-      <section className="bg-[--mkt-section] py-24 px-6">
+      <section className="bg-[--mkt-section] py-16 px-6">
         <div className="max-w-5xl mx-auto space-y-8">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Engagement</p>
@@ -251,7 +251,7 @@ export default function AgenticSystemsPage() {
 
 
       {/* In Practice */}
-      <section className="bg-[--mkt-bg] py-20 px-6">
+      <section className="bg-[--mkt-bg] py-12 px-6 border-t border-[--mkt-border]">
         <div className="max-w-6xl mx-auto space-y-10">
           <div className="text-center space-y-3">
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">Selected Work</p>
@@ -274,7 +274,7 @@ export default function AgenticSystemsPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-[--mkt-bg] py-20 px-6">
+      <section className="bg-[--mkt-bg] py-12 px-6 border-t border-[--mkt-border]">
         <div className="max-w-2xl mx-auto text-center space-y-6">
           <h2 className="text-3xl font-semibold text-[--text-primary]">Ready to Build Your Agentic Architecture?</h2>
           <p className="text-[--text-secondary]">Agentic systems are the next frontier. Let's explore whether your organization is ready — and design the architecture that gets you there.</p>

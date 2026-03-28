@@ -50,7 +50,7 @@ const featured = [
 
 export function WorkPreview() {
   return (
-    <section className="bg-[--mkt-section] py-24 px-6">
+    <section className="bg-[--mkt-section] py-16 px-6">
       <div className="max-w-6xl mx-auto space-y-10">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div className="space-y-2">

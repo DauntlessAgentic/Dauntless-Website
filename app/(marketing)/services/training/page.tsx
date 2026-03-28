@@ -93,7 +93,7 @@ export default function TrainingPage() {
       </section>
 
       {/* Problem */}
-      <section className="bg-[--mkt-section] py-24 px-6">
+      <section className="bg-[--mkt-section] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-8">
           <h2 className="text-3xl font-semibold text-[--text-primary] text-center">Most AI Training Is a Waste of Time</h2>
           <div className="grid md:grid-cols-2 gap-6">
@@ -114,7 +114,7 @@ export default function TrainingPage() {
       </section>
 
       {/* FC5 Platform */}
-      <section className="bg-[--mkt-bg] py-24 px-6">
+      <section className="bg-[--mkt-bg] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">The Platform</p>
@@ -134,7 +134,7 @@ export default function TrainingPage() {
       </section>
 
       {/* Tiers */}
-      <section className="bg-[--mkt-section] py-24 px-6">
+      <section className="bg-[--mkt-section] py-16 px-6">
         <div className="max-w-5xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Training Tiers</p>
@@ -180,7 +180,7 @@ export default function TrainingPage() {
       </section>
 
       {/* Flexible Delivery */}
-      <section className="bg-[--mkt-bg] py-24 px-6">
+      <section className="bg-[--mkt-bg] py-16 px-6">
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Delivery</p>
@@ -205,7 +205,7 @@ export default function TrainingPage() {
 
 
       {/* In Practice */}
-      <section className="bg-[--mkt-bg] py-20 px-6">
+      <section className="bg-[--mkt-bg] py-12 px-6 border-t border-[--mkt-border]">
         <div className="max-w-6xl mx-auto space-y-10">
           <div className="text-center space-y-3">
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">Selected Work</p>

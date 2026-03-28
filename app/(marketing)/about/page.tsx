@@ -76,7 +76,7 @@ export default function AboutPage() {
       </section>
 
       {/* Craig Bio */}
-      <section className="bg-[--mkt-section] py-24 px-6">
+      <section className="bg-[--mkt-section] py-14 px-6">
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="soft-card p-8 space-y-5">
             <div>
@@ -114,7 +114,7 @@ export default function AboutPage() {
       </section>
 
       {/* Three A's */}
-      <section className="bg-[--mkt-bg] py-24 px-6">
+      <section className="bg-[--mkt-bg] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Philosophy</p>
@@ -140,7 +140,7 @@ export default function AboutPage() {
       </section>
 
       {/* MTP */}
-      <section className="py-20 px-6" style={{ background: "linear-gradient(135deg, var(--mkt-section) 0%, rgba(124,58,237,0.08) 50%, var(--mkt-section) 100%)" }}>
+      <section className="py-12 px-6" style={{ background: "linear-gradient(135deg, var(--mkt-section) 0%, rgba(124,58,237,0.08) 50%, var(--mkt-section) 100%)" }}>
         <div className="max-w-3xl mx-auto text-center space-y-4">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Massively Transformative Purpose</p>
           <blockquote className="text-2xl md:text-3xl font-semibold text-[--text-primary] italic leading-snug">
@@ -151,7 +151,7 @@ export default function AboutPage() {
       </section>
 
       {/* Why This Matters Now */}
-      <section className="bg-[--mkt-bg] py-20 px-6">
+      <section className="bg-[--mkt-bg] py-12 px-6">
         <div className="max-w-4xl mx-auto space-y-6">
           <div className="space-y-2">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Why Now</p>
@@ -172,7 +172,7 @@ export default function AboutPage() {
       </section>
 
       {/* Origin Story */}
-      <section className="bg-[--mkt-bg] py-24 px-6">
+      <section className="bg-[--mkt-bg] py-12 px-6 border-t border-[--mkt-border]">
         <div className="max-w-3xl mx-auto space-y-6">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Origin</p>
@@ -195,7 +195,7 @@ export default function AboutPage() {
       </section>
 
       {/* Credentials */}
-      <section className="bg-[--mkt-section] py-24 px-6">
+      <section className="bg-[--mkt-section] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">By the Numbers</p>
@@ -273,7 +273,7 @@ export default function AboutPage() {
       </section>
 
       {/* Manifesto Preview */}
-      <section className="bg-[--mkt-bg] py-20 px-6">
+      <section className="bg-[--mkt-bg] py-14 px-6">
         <div className="max-w-3xl mx-auto text-center space-y-6">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">The Manifesto</p>
           <h2 className="text-3xl font-semibold text-[--text-primary]">9 Theses for the Age of AI</h2>

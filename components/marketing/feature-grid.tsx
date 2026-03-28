@@ -37,9 +37,9 @@ const services = [
 
 export function FeatureGrid() {
   return (
-    <section id="services" className="relative bg-[--mkt-section] py-28 px-6 overflow-hidden">
+    <section id="services" className="relative bg-[--mkt-section] py-16 px-6 overflow-hidden">
       <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(139,92,246,0.3), transparent)" }} />
-      <div className="max-w-6xl mx-auto space-y-14">
+      <div className="max-w-6xl mx-auto space-y-10">
         <div className="text-center space-y-3">
           <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">Services</p>
           <h2 className="text-3xl md:text-4xl font-semibold text-[--text-primary]">

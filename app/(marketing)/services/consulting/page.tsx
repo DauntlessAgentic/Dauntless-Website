@@ -85,7 +85,7 @@ export default function ConsultingPage() {
       </section>
 
       {/* Pilot Graveyard */}
-      <section className="bg-[--mkt-section] py-24 px-6">
+      <section className="bg-[--mkt-section] py-16 px-6">
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="text-center space-y-3">
             <h2 className="text-3xl font-semibold text-[--text-primary]">The Pilot Graveyard</h2>
@@ -115,7 +115,7 @@ export default function ConsultingPage() {
       </section>
 
       {/* What We Actually Do */}
-      <section className="bg-[--mkt-bg] py-24 px-6">
+      <section className="bg-[--mkt-bg] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">What We Do</p>
@@ -134,7 +134,7 @@ export default function ConsultingPage() {
       </section>
 
       {/* Engagement Models */}
-      <section className="bg-[--mkt-section] py-24 px-6">
+      <section className="bg-[--mkt-section] py-16 px-6">
         <div className="max-w-5xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Engagement Models</p>
@@ -170,7 +170,7 @@ export default function ConsultingPage() {
       </section>
 
       {/* What Makes This Different */}
-      <section className="bg-[--mkt-bg] py-24 px-6">
+      <section className="bg-[--mkt-bg] py-16 px-6">
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Our Approach</p>
@@ -194,7 +194,7 @@ export default function ConsultingPage() {
 
 
       {/* In Practice */}
-      <section className="bg-[--mkt-bg] py-20 px-6">
+      <section className="bg-[--mkt-bg] py-12 px-6 border-t border-[--mkt-border]">
         <div className="max-w-6xl mx-auto space-y-10">
           <div className="text-center space-y-3">
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">Selected Work</p>
@@ -217,7 +217,7 @@ export default function ConsultingPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-[--mkt-section] py-20 px-6">
+      <section className="bg-[--mkt-section] py-14 px-6">
         <div className="max-w-2xl mx-auto text-center space-y-6">
           <h2 className="text-3xl font-semibold text-[--text-primary]">Ready to Move Beyond Pilots?</h2>
           <p className="text-[--text-secondary]">Every consulting engagement starts with a Discovery conversation. We'll assess where you are, identify the highest-leverage opportunities, and design the path forward.</p>

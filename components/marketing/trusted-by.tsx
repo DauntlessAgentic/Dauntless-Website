@@ -26,7 +26,7 @@ const privateSectors = [
 
 export function TrustedBy() {
   return (
-    <section className="relative bg-[--mkt-section] py-14 px-6 overflow-hidden">
+    <section className="relative bg-[--mkt-section] py-10 px-6 overflow-hidden">
       <div className="absolute top-0 inset-x-0 h-px"
         style={{ background: "linear-gradient(90deg, transparent, rgba(139,92,246,0.2), transparent)" }} />
       <div className="absolute bottom-0 inset-x-0 h-px"

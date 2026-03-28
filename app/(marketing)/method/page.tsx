@@ -1,8 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowRight, Target, Layers, RefreshCw, Shield, Users, BarChart3, Search, FileText, Repeat } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Target, Layers, RefreshCw, Shield, Users, BarChart3, Search, FileText, Repeat } from "lucide-react";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
 import { PageCTA } from "@/components/marketing/page-cta";
@@ -115,7 +113,7 @@ export default function MethodPage() {
       </section>
 
       {/* Principles */}
-      <section id="principles" className="bg-[--mkt-bg] py-24 px-6">
+      <section id="principles" className="bg-[--mkt-bg] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Principles</p>
@@ -135,7 +133,7 @@ export default function MethodPage() {
       </section>
 
       {/* CI + AI Section */}
-      <section id="intelligence" className="bg-[--mkt-bg] py-20 px-6">
+      <section id="intelligence" className="bg-[--mkt-bg] py-12 px-6 border-t border-[--mkt-border]">
         <div className="max-w-6xl mx-auto space-y-10">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Intelligence Architecture</p>
@@ -168,7 +166,7 @@ export default function MethodPage() {
       </section>
 
       {/* Engagement Phases */}
-      <section id="phases" className="bg-[--mkt-section] py-24 px-6">
+      <section id="phases" className="bg-[--mkt-section] py-16 px-6">
         <div className="max-w-5xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Engagement Experience</p>
@@ -203,7 +201,7 @@ export default function MethodPage() {
       </section>
 
       {/* Trust Architecture */}
-      <section id="trust" className="bg-[--mkt-bg] py-24 px-6">
+      <section id="trust" className="bg-[--mkt-bg] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Trust Architecture</p>
@@ -222,22 +220,9 @@ export default function MethodPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-[--mkt-section] py-20 px-6">
-        <div className="max-w-2xl mx-auto text-center space-y-6">
-          <h2 className="text-3xl font-semibold text-[--text-primary]">Experience the Method.</h2>
-          <p className="text-[--text-secondary]">The best way to understand how we work is to work with us. Every engagement begins with a conversation — no pitch decks, no pressure, just a real discussion about your challenges.</p>
-          <div className="flex items-center justify-center gap-3 flex-wrap">
-            <Link href="/contact"><Button variant="primary" size="lg" className="gap-2">Start a Conversation <ArrowRight className="h-4 w-4" /></Button></Link>
-            <Link href="/services"><Button variant="outline" size="lg">See Our Services</Button></Link>
-          </div>
-        </div>
-      </section>
-
-
       <PageCTA
         heading="Understand the method. Now let's apply it to your challenge."
-      subtext="Every engagement starts with a discovery conversation — no pitch decks, no pressure."
+        subtext="Every engagement starts with a discovery conversation — no pitch decks, no pressure."
       />
       <MarketingFooter />
     </div>

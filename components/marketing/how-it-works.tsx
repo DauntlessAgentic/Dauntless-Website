@@ -26,7 +26,7 @@ export function HowItWorks() {
   return (
     <>
       {/* The Provocation — premium blockquote card */}
-      <section className="bg-[--mkt-bg] py-24 px-6 relative overflow-hidden">
+      <section className="bg-[--mkt-bg] py-14 px-6 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full" style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.07) 0%, transparent 65%)" }} />
         </div>
@@ -61,9 +61,9 @@ export function HowItWorks() {
       </section>
 
       {/* Three As */}
-      <section id="how-it-works" className="relative bg-[--mkt-section] py-28 px-6 overflow-hidden">
+      <section id="how-it-works" className="relative bg-[--mkt-section] py-16 px-6 overflow-hidden">
         <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(139,92,246,0.2), transparent)" }} />
-        <div className="max-w-6xl mx-auto space-y-14">
+        <div className="max-w-6xl mx-auto space-y-10">
           <div className="text-center space-y-3">
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">Philosophy</p>
             <h2 className="text-3xl md:text-4xl font-semibold text-[--text-primary]">
@@ -77,7 +77,7 @@ export function HowItWorks() {
             {threeAs.map(({ icon: Icon, title, subtitle, description }) => (
               <div
                 key={title}
-                className="group relative bg-[--mkt-card] border border-[--mkt-border] rounded-2xl p-7 space-y-5 transition-all duration-300 hover:border-[rgba(139,92,246,0.3)] hover:shadow-[0_0_0_1px_rgba(139,92,246,0.1),0_16px_32px_-8px_rgba(0,0,0,0.5)]"
+                className="group relative soft-card soft-card-lift p-7 space-y-5"
               >
                 {/* Left accent bar */}
                 <div

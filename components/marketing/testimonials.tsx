@@ -2,7 +2,7 @@ import React from "react";
 
 export function Testimonials() {
   return (
-    <section className="relative bg-[--mkt-bg] py-24 px-6 overflow-hidden">
+    <section className="relative bg-[--mkt-bg] py-16 px-6 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] rounded-full"
           style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.07) 0%, transparent 65%)" }} />

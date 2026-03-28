@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 export function ManifestoTeaser() {
   return (
-    <section className="relative bg-[--mkt-section] py-28 px-6 overflow-hidden">
+    <section className="relative bg-[--mkt-section] py-16 px-6 overflow-hidden">
       <div className="absolute top-0 inset-x-0 h-px"
         style={{ background: "linear-gradient(90deg, transparent, rgba(139,92,246,0.2), transparent)" }} />
       <div className="relative max-w-3xl mx-auto">

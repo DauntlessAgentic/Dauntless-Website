@@ -67,7 +67,7 @@ export default function InsightsPage() {
       </section>
 
       {/* Categories */}
-      <section className="bg-[--mkt-bg] py-24 px-6">
+      <section className="bg-[--mkt-bg] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Topics</p>
@@ -86,7 +86,7 @@ export default function InsightsPage() {
       </section>
 
       {/* Articles */}
-      <section className="bg-[--mkt-section] py-24 px-6">
+      <section className="bg-[--mkt-section] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-8">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Articles</p>
@@ -154,7 +154,7 @@ export default function InsightsPage() {
       </section>
 
       {/* Newsletter */}
-      <section className="bg-[--mkt-bg] py-24 px-6">
+      <section className="bg-[--mkt-bg] py-16 px-6">
         <div className="max-w-3xl mx-auto text-center space-y-6 soft-card p-10">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Newsletter</p>
           <h2 className="text-3xl font-semibold text-[--text-primary]">Get the Signal, Not the Noise.</h2>
@@ -167,7 +167,7 @@ export default function InsightsPage() {
       </section>
 
       {/* Connect */}
-      <section className="bg-[--mkt-section] py-20 px-6">
+      <section className="bg-[--mkt-section] py-14 px-6">
         <div className="max-w-3xl mx-auto space-y-6">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Connect</p>

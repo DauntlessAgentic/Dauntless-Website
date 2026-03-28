@@ -64,7 +64,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Philosophy */}
-      <section className="bg-[--mkt-section] py-24 px-6">
+      <section className="bg-[--mkt-section] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-8">
           <div className="text-center space-y-3">
             <h2 className="text-3xl font-semibold text-[--text-primary]">Your Problems Are Complex. Your Solutions Should Be Durable.</h2>
@@ -88,7 +88,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Training */}
-      <section className="bg-[--mkt-bg] py-24 px-6">
+      <section className="bg-[--mkt-bg] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-8">
           <div className="flex items-start gap-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim] border border-[--border-active] shrink-0">
@@ -124,7 +124,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Consulting */}
-      <section className="bg-[--mkt-section] py-24 px-6">
+      <section className="bg-[--mkt-section] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-8">
           <div className="flex items-start gap-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim] border border-[--border-active] shrink-0">
@@ -160,7 +160,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Trust Architecture */}
-      <section className="bg-[--mkt-bg] py-24 px-6">
+      <section className="bg-[--mkt-bg] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Trust Architecture</p>
@@ -180,7 +180,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Agentic */}
-      <section className="bg-[--mkt-section] py-24 px-6">
+      <section className="bg-[--mkt-section] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-8">
           <div className="flex items-start gap-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim] border border-[--border-active] shrink-0">
@@ -215,7 +215,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Bottom CTA */}
-      <section className="bg-[--mkt-bg] py-20 px-6">
+      <section className="bg-[--mkt-bg] py-14 px-6">
         <div className="max-w-2xl mx-auto text-center space-y-6">
           <h2 className="text-3xl font-semibold text-[--text-primary]">Not Sure Where to Start?</h2>
           <p className="text-[--text-secondary]">Every engagement begins with a conversation. We'll help you identify the highest-leverage starting point for your organization.</p>
