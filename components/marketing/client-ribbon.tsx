@@ -106,12 +106,12 @@ function ClientPill({ client }: { client: Client }) {
     <div
       className="flex items-center gap-2 shrink-0 rounded-lg px-3.5 py-2 whitespace-nowrap transition-colors duration-200"
       style={{
-        background: "rgba(34,211,238,0.07)",
-        border: "1px solid rgba(34,211,238,0.22)",
+        background: "rgba(124,58,237,0.07)",
+        border: "1px solid rgba(139,92,246,0.18)",
       }}
     >
       {client.federal && (
-        <span className="text-[11px] leading-none" aria-label="Government of Canada">🍁</span>
+        <span className="text-xs leading-none" aria-label="Government of Canada">🍁</span>
       )}
       {client.logo && (
         <LogoImage src={client.logo} alt={client.name} />

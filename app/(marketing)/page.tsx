@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { HeroSection } from "@/components/marketing/hero-section";
 import { FeatureGrid } from "@/components/marketing/feature-grid";
@@ -10,21 +11,27 @@ import { ManifestoTeaser } from "@/components/marketing/manifesto-teaser";
 import { CTASection } from "@/components/marketing/cta-section";
 import { MarketingFooter } from "@/components/marketing/footer";
 
+export const metadata: Metadata = {
+  title: { absolute: "Dauntless Agentic — AI Strategy, Systems & Training for Any Scale" },
+  description:
+    "AI strategy, systems, and training for solopreneurs, growing teams, and national institutions. 18+ years of transformation. $50M+ documented savings. Ottawa, Canada.",
+};
+
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  name: "Dauntless",
+  name: "Dauntless Agentic",
   description:
-    "AI operations consulting, training, and agentic systems for government and enterprise organizations.",
-  url: "https://dauntless.ai",
-  logo: "https://dauntless.ai/images/logo.png",
+    "AI strategy, systems, and training for solopreneurs, growing teams, and national institutions.",
+  url: "https://dauntlessagentic.com",
+  logo: "https://dauntlessagentic.com/images/logo-icon.png",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Ottawa",
     addressRegion: "ON",
     addressCountry: "CA",
   },
-  sameAs: ["https://linkedin.com/company/dauntless-agentic"],
+  sameAs: ["https://linkedin.com/in/craigmarchand"],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Dauntless Services",

@@ -16,36 +16,25 @@ const navLinks = [
 ];
 
 function LogoMark() {
-  const [imgError, setImgError] = React.useState(false);
   return (
     <Link href="/" className="flex items-center gap-3 group">
       <div
-        className="relative flex h-8 w-8 items-center justify-center rounded-[7px] shrink-0 overflow-hidden"
+        className="shrink-0 flex items-center justify-center rounded-xl p-1.5"
         style={{
-          background: "linear-gradient(var(--mkt-bg), var(--mkt-bg)) padding-box, linear-gradient(135deg, #8b5cf6, #a78bfa) border-box",
-          border: "1.5px solid transparent",
+          background: "#10101e",
+          boxShadow: "0 0 0 1px rgba(255,255,255,0.04), 0 2px 12px rgba(0,0,0,0.3)",
         }}
       >
-        {!imgError ? (
-          <Image
-            src="/images/logo-icon.png"
-            alt="Dauntless"
-            fill
-            unoptimized
-            className="object-contain p-0.5"
-            onError={() => setImgError(true)}
-            sizes="32px"
-          />
-        ) : (
-          <span
-            className="text-[15px] font-bold text-transparent bg-clip-text leading-none"
-            style={{ backgroundImage: "linear-gradient(135deg, #8b5cf6, #c4b5fd)" }}
-          >
-            D
-          </span>
-        )}
+        <Image
+          src="/images/logo-icon.png"
+          alt="Dauntless Agentic"
+          width={48}
+          height={48}
+          className="shrink-0"
+          unoptimized
+        />
       </div>
-      <span className="text-sm font-semibold tracking-tight text-[--text-primary]">
+      <span className="text-base font-semibold tracking-tight text-[--text-primary]">
         Dauntless{" "}
         <span className="text-transparent bg-clip-text"
           style={{ backgroundImage: "linear-gradient(135deg, #8b5cf6, #a78bfa)" }}>
@@ -76,7 +65,7 @@ export function MarketingNav() {
           : "bg-transparent"
       )}
     >
-      <div className="max-w-6xl mx-auto px-6 flex h-14 items-center justify-between">
+      <div className="max-w-6xl mx-auto px-6 flex h-[72px] items-center justify-between">
         <LogoMark />
 
         <nav className="hidden md:flex items-center gap-0.5">
@@ -85,7 +74,7 @@ export function MarketingNav() {
             return (
               <Link key={label} href={href}
                 className={cn(
-                  "px-3 py-1.5 text-sm rounded-[--radius-md] transition-colors duration-150",
+                  "px-4 py-2 text-sm rounded-[--radius-md] transition-colors duration-150",
                   isActive
                     ? "text-[--accent-vivid] bg-[rgba(124,58,237,0.1)]"
                     : "text-[--text-secondary] hover:text-[--text-primary] hover:bg-white/[0.04]"
@@ -98,7 +87,7 @@ export function MarketingNav() {
 
         <div className="hidden md:flex items-center">
           <Link href="/contact"
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-[--radius-lg] text-sm font-medium text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[--radius-lg] text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
             style={{
               background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
               boxShadow: "0 0 0 1px rgba(139,92,246,0.4), 0 4px 16px rgba(124,58,237,0.3)",

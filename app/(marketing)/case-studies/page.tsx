@@ -8,7 +8,7 @@ import { MarketingFooter } from "@/components/marketing/footer";
 import { PageCTA } from "@/components/marketing/page-cta";
 
 export const metadata: Metadata = {
-  title: "Case Studies — Dauntless",
+  title: "Case Studies",
   description:
     "Deep dives into how Dauntless has helped government and enterprise organizations solve complex systems challenges. Real work, real outcomes.",
 };
@@ -85,7 +85,7 @@ export default function CaseStudiesPage() {
 
       {/* Case study cards */}
       <section className="bg-[--mkt-bg] py-16 px-6">
-        <div className="max-w-5xl mx-auto space-y-8">
+        <div className="max-w-6xl mx-auto space-y-8">
           {caseStudies.map((cs) => (
             <Link
               key={cs.slug}
@@ -108,7 +108,7 @@ export default function CaseStudiesPage() {
               <div className="flex flex-col gap-3 p-6 flex-1">
                 <div className="flex items-center gap-2 flex-wrap">
                   <span
-                    className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider"
+                    className="px-2 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider"
                     style={{
                       color: categoryColor[cs.category] ?? "#a78bfa",
                       background: categoryBg[cs.category] ?? "rgba(139,92,246,0.10)",
@@ -117,7 +117,7 @@ export default function CaseStudiesPage() {
                   >
                     {cs.category}
                   </span>
-                  <span className="text-[10px] text-[--text-muted] font-medium">{cs.duration}</span>
+                  <span className="text-xs text-[--text-muted] font-medium">{cs.duration}</span>
                 </div>
 
                 <p className="text-xs font-semibold text-[--accent-vivid] uppercase tracking-wider">

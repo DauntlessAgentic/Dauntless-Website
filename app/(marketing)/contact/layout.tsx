@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Start a Conversation — Dauntless",
+  title: "Start a Conversation",
   description:
     "Tell us about your challenge. No pitch decks, no pressure — just a real conversation about what you're trying to build.",
 };

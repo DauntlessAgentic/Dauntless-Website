@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Mail, Linkedin, MapPin, Clock, ArrowRight, BookOpen, Layers, Calendar as CalendarIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
 
@@ -52,7 +51,7 @@ export default function ContactPage() {
           >
             <div className="flex-1 text-center md:text-left">
               <p className="text-sm font-semibold text-[--text-primary]">Prefer to pick a time directly?</p>
-              <p className="text-xs text-[--text-secondary] mt-1">
+              <p className="text-sm text-[--text-secondary] mt-1">
                 Book a 30-minute discovery call. No agenda required — bring your challenge.
               </p>
             </div>
@@ -132,9 +131,16 @@ export default function ContactPage() {
                     {["LinkedIn", "Referral", "Search", "Event", "Other"].map(o => (<option key={o} value={o}>{o}</option>))}
                   </select>
                 </div>
-                <Button type="submit" variant="primary" size="lg" className="w-full gap-2">
+                <button
+                  type="submit"
+                  className="w-full inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+                  style={{
+                    background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
+                    boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+                  }}
+                >
                   Send Message <ArrowRight className="h-4 w-4" />
-                </Button>
+                </button>
               </form>
             )}
           </div>
@@ -152,12 +158,12 @@ export default function ContactPage() {
                 <div key={label} className="flex items-start gap-3">
                   <div className="flex h-7 w-7 items-center justify-center rounded-[--radius-md] bg-[--accent-dim] shrink-0 mt-0.5"><Icon className="h-3.5 w-3.5 text-[--accent-vivid]" /></div>
                   <div>
-                    <p className="text-[10px] text-[--text-muted] uppercase tracking-wider">{label}</p>
+                    <p className="text-xs text-[--text-muted] uppercase tracking-wider">{label}</p>
                     {href ? (
                       <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer"
-                        className="text-xs text-[--text-secondary] hover:text-[--accent-vivid] transition-colors">{value}</a>
+                        className="text-sm text-[--text-secondary] hover:text-[--accent-vivid] transition-colors">{value}</a>
                     ) : (
-                      <p className="text-xs text-[--text-secondary]">{value}</p>
+                      <p className="text-sm text-[--text-secondary]">{value}</p>
                     )}
                   </div>
                 </div>
@@ -166,7 +172,7 @@ export default function ContactPage() {
 
             <div className="bg-[--accent-dim] border border-[--border-active] rounded-[--radius-xl] p-5 space-y-2">
               <p className="text-xs font-bold text-[--accent-vivid]">No-pressure guarantee.</p>
-              <p className="text-xs text-[--text-secondary]">We'll tell you honestly if we're not the right fit. We'll recommend alternatives if we know them. The discovery call is designed to create clarity, not obligation.</p>
+              <p className="text-sm text-[--text-secondary]">We'll tell you honestly if we're not the right fit. We'll recommend alternatives if we know them. The discovery call is designed to create clarity, not obligation.</p>
             </div>
           </div>
         </div>
@@ -174,7 +180,7 @@ export default function ContactPage() {
 
       {/* What to Expect */}
       <section className="bg-[--mkt-bg] py-24 px-6">
-        <div className="max-w-4xl mx-auto space-y-8">
+        <div className="max-w-6xl mx-auto space-y-8">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Process</p>
             <h2 className="text-3xl font-semibold text-[--text-primary]">What to Expect After You Reach Out</h2>
@@ -193,7 +199,7 @@ export default function ContactPage() {
 
       {/* Not Ready */}
       <section className="bg-[--mkt-section] py-20 px-6">
-        <div className="max-w-4xl mx-auto space-y-6">
+        <div className="max-w-6xl mx-auto space-y-6">
           <p className="text-center text-sm text-[--text-muted]">Not ready to talk? Start here.</p>
           <div className="grid md:grid-cols-3 gap-4">
             {[

@@ -35,7 +35,7 @@ export function TrustedBy() {
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Federal departments */}
         <div className="space-y-4">
-          <p className="text-center text-[11px] font-bold uppercase tracking-[0.18em] text-[--text-muted]">
+          <p className="text-center text-xs font-bold uppercase tracking-[0.18em] text-[--text-muted]">
             Federal Government Clients
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2">
@@ -57,7 +57,7 @@ export function TrustedBy() {
 
         {/* Private sector */}
         <div className="space-y-4">
-          <p className="text-center text-[11px] font-bold uppercase tracking-[0.18em] text-[--text-muted]">
+          <p className="text-center text-xs font-bold uppercase tracking-[0.18em] text-[--text-muted]">
             Private Sector & International
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2">

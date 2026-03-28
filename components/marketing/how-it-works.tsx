@@ -3,10 +3,10 @@ import { Fingerprint, Layers, TrendingUp } from "lucide-react";
 
 const threeAs = [
   {
-    icon: Fingerprint,
-    title: "Authentic",
-    subtitle: "Genuine signal over generated noise",
-    description: "In a world of AI-generated noise, genuine human signal is the scarcest resource. We lead with judgment, perspective, and conviction — not templates.",
+    icon: TrendingUp,
+    title: "Adaptive",
+    subtitle: "Architecture that compounds over time",
+    description: "The only sustainable advantage is the architecture of adaptation itself. We design systems that learn, evolve, and compound — not systems that become obsolete.",
   },
   {
     icon: Layers,
@@ -15,10 +15,10 @@ const threeAs = [
     description: "AI doesn't replace human capability. It multiplies it. We design systems where humans and AI amplify each other — producing outcomes neither could achieve alone.",
   },
   {
-    icon: TrendingUp,
-    title: "Adaptive",
-    subtitle: "Architecture that compounds over time",
-    description: "The only sustainable advantage is the architecture of adaptation itself. We design systems that learn, evolve, and compound — not systems that become obsolete.",
+    icon: Fingerprint,
+    title: "Authentic",
+    subtitle: "Genuine signal over generated noise",
+    description: "In a world of AI-generated noise, genuine human signal is the scarcest resource. We lead with judgment, perspective, and conviction — not templates.",
   },
 ];
 
@@ -48,7 +48,7 @@ export function HowItWorks() {
             </div>
             <div className="relative space-y-6 text-center">
               <blockquote className="text-xl md:text-2xl font-medium text-[--text-primary] leading-relaxed italic">
-                &ldquo;The rules were built for a world that no longer exists. The organizations that cling to them don't just fall behind — they become irrelevant while still feeling productive.&rdquo;
+                &ldquo;The future of work feels daunting, paralysis by analysis is real, sitting on the fence feels safe. Compounding advantage is created by teams that adapt with clarity and conviction.&rdquo;
               </blockquote>
               <div className="h-px w-16 mx-auto" style={{ background: "linear-gradient(90deg, transparent, rgba(139,92,246,0.6), transparent)" }} />
               <p className="text-[--text-secondary] text-sm leading-relaxed max-w-xl mx-auto">
@@ -65,7 +65,7 @@ export function HowItWorks() {
         <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(139,92,246,0.2), transparent)" }} />
         <div className="max-w-6xl mx-auto space-y-10">
           <div className="text-center space-y-3">
-            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">Philosophy</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">Philosophy</p>
             <h2 className="text-3xl md:text-4xl font-semibold text-[--text-primary]">
               Triple A Vision for the Future of Work
             </h2>
@@ -93,7 +93,7 @@ export function HowItWorks() {
                 </div>
                 <div className="space-y-1">
                   <h3 className="text-lg font-semibold text-[--text-primary]">{title}</h3>
-                  <p className="text-[11px] font-medium text-[--accent-vivid] uppercase tracking-wider">{subtitle}</p>
+                  <p className="text-xs font-medium text-[--accent-vivid] uppercase tracking-wider">{subtitle}</p>
                 </div>
                 <p className="text-sm text-[--text-secondary] leading-relaxed">{description}</p>
               </div>

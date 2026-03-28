@@ -29,7 +29,7 @@ export default function TermsPage() {
             <div className="space-y-4">
               <h2 className="text-lg font-semibold text-[--text-primary]">1. Acceptance</h2>
               <p className="text-[--text-secondary] leading-relaxed">
-                By accessing dauntless.ai, you agree to be bound by these Terms of Use. If you do not
+                By accessing dauntlessagentic.com, you agree to be bound by these Terms of Use. If you do not
                 agree, please do not use this site.
               </p>
             </div>
@@ -92,8 +92,8 @@ export default function TermsPage() {
               <h2 className="text-lg font-semibold text-[--text-primary]">8. Contact</h2>
               <p className="text-[--text-secondary] leading-relaxed">
                 Questions about these terms:{" "}
-                <a href="mailto:hello@dauntless.ai" className="text-[--accent-vivid] hover:underline">
-                  hello@dauntless.ai
+                <a href="mailto:craig@dauntlessagentic.com" className="text-[--accent-vivid] hover:underline">
+                  craig@dauntlessagentic.com
                 </a>
               </p>
             </div>

@@ -2,7 +2,6 @@ import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Brain, Zap, Layers, GraduationCap, RefreshCw, Globe, Linkedin, Users, CalendarClock } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
 import { PageCTA } from "@/components/marketing/page-cta";
@@ -53,14 +52,21 @@ export default function InsightsPage() {
           <div className="soft-card-accent p-8 flex flex-col md:flex-row gap-6 items-start">
             <div className="flex-1 space-y-3">
               <div className="flex items-center gap-2">
-                <span className="inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest rounded-full bg-[--accent-dim] text-[--accent-vivid]">Featured</span>
+                <span className="inline-block px-2 py-0.5 text-xs font-bold uppercase tracking-widest rounded-full bg-[--accent-dim] text-[--accent-vivid]">Featured</span>
                 <span className="text-xs text-[--text-muted]">9-part series</span>
               </div>
               <h2 className="text-2xl font-semibold text-[--text-primary]">The Dauntless Manifesto: 9 Theses for the Age of AI</h2>
               <p className="text-[--text-secondary]">A series of provocations about work, intelligence, and human potential in an era of profound disruption. Released as a 9-part LinkedIn series.</p>
             </div>
-            <Link href="/about/manifesto" className="shrink-0">
-              <Button variant="primary" className="gap-2">Read the Manifesto <ArrowRight className="h-4 w-4" /></Button>
+            <Link
+              href="/about/manifesto"
+              className="shrink-0 inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+              style={{
+                background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
+                boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+              }}
+            >
+              Read the Manifesto <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
@@ -98,7 +104,7 @@ export default function InsightsPage() {
             <div className="soft-card overflow-hidden">
               <div className="h-1.5 w-full" style={{ background: "linear-gradient(90deg, #7c3aed, #8b5cf6)" }} />
               <div className="p-6 space-y-3">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-[--accent-vivid]">AI &amp; Human Intelligence</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">AI &amp; Human Intelligence</span>
                 <h3 className="font-bold text-[--text-primary] leading-snug">The Case Against AI-First Thinking</h3>
                 <p className="text-sm text-[--text-secondary] leading-relaxed">
                   Every organization rushing to &ldquo;become AI-first&rdquo; is solving the wrong problem.
@@ -115,7 +121,7 @@ export default function InsightsPage() {
             <div className="soft-card overflow-hidden">
               <div className="h-1.5 w-full" style={{ background: "linear-gradient(90deg, #6d28d9, #7c3aed)" }} />
               <div className="p-6 space-y-3">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-[--accent-vivid]">Agentic Architecture</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Agentic Architecture</span>
                 <h3 className="font-bold text-[--text-primary] leading-snug">The Four Layers of a Constitutional Agentic System</h3>
                 <p className="text-sm text-[--text-secondary] leading-relaxed">
                   Why the architecture of your agent fleet matters as much as the agents themselves &mdash;
@@ -130,7 +136,7 @@ export default function InsightsPage() {
             {/* Subscribe card */}
             <div className="bg-[rgba(124,58,237,0.06)] border border-[rgba(139,92,246,0.2)] rounded-[--radius-xl] p-6 flex flex-col justify-center space-y-4">
               <p className="text-sm font-semibold text-[--text-primary]">New insights publish monthly.</p>
-              <p className="text-xs text-[--text-secondary] leading-relaxed">
+              <p className="text-sm text-[--text-secondary] leading-relaxed">
                 No fluff. No sales emails. Just thinking worth your time &mdash; on AI operations,
                 systems design, and the future of human capability.
               </p>
@@ -160,8 +166,15 @@ export default function InsightsPage() {
           <h2 className="text-3xl font-semibold text-[--text-primary]">Get the Signal, Not the Noise.</h2>
           <p className="text-[--text-secondary]">A periodic dispatch from the frontier — frameworks, provocations, and practical insights on building in the age of AI. No spam. No filler. Just signal.</p>
           <p className="text-xs text-[--text-muted]">Join 500+ leaders building at the intersection of AI and human capability.</p>
-          <Link href="/contact">
-            <Button variant="primary" size="lg" className="gap-2">Subscribe via Contact <ArrowRight className="h-4 w-4" /></Button>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+            style={{
+              background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
+              boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+            }}
+          >
+            Subscribe via Contact <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </section>

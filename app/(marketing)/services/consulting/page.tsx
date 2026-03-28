@@ -3,45 +3,40 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Search, Layers, Zap, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { WorkCard } from "@/components/ui/work-card";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 const whatWeDo = [
-  { icon: Layers, title: "Operating Model Design", description: "How should your organization actually work with AI? We design the roles, workflows, decision gates, and governance that turn AI from a tool into an operating capability." },
-  { icon: Search, title: "Governance Architecture", description: "AI without governance is a liability. We build the decision frameworks, risk tiers, approval flows, and audit trails that make AI safe to scale — governance that enables speed, not bureaucracy that prevents it." },
-  { icon: Zap, title: "Workflow Architecture", description: "Where does AI add the most value in your actual work? We map your processes, identify high-leverage intervention points, and design AI-augmented workflows that produce measurable improvements." },
-  { icon: RefreshCw, title: "Knowledge Systems", description: "The real value of AI isn't automation — it's compounding. We design knowledge systems where every AI-assisted output enriches future work. Your organization gets smarter with every project." },
+  { icon: Layers,    title: "Operating Model Design",   description: "How should your organization actually work with AI? We design the roles, workflows, decision gates, and governance that turn AI from a tool into an operating capability." },
+  { icon: Search,    title: "Governance Architecture",  description: "AI without governance is a liability. We build the decision frameworks, risk tiers, approval flows, and audit trails that make AI safe to scale — governance that enables speed, not bureaucracy that prevents it." },
+  { icon: Zap,       title: "Workflow Architecture",    description: "Where does AI add the most value in your actual work? We map your processes and data flows, identify high-leverage intervention points, and design AI-augmented workflows that produce measurable improvements." },
+  { icon: RefreshCw, title: "Knowledge Systems",        description: "The real value of AI isn't automation — it's compounding. We design knowledge systems where every AI-assisted output enriches future work. Your organization gets smarter with every project." },
 ];
 
 const engagementModels = [
   {
-    icon: "🔍",
     name: "Discovery Sprint",
     duration: "2–4 weeks",
     best: "Organizations at the beginning of their AI journey, or stuck after failed pilots",
-    what: ["Current state assessment — where you are, what's working, what isn't", "Opportunity mapping — where AI adds the most value in your specific context", "Readiness audit — people, process, technology, governance gaps", "Strategic roadmap — prioritized path forward with clear milestones"],
+    what: ["Current state assessment — where you are, what's working, what isn't", "Opportunity mapping — where AI adds the most value in your specific context", "Readiness audit — people, process, technology, data and governance gaps", "Strategic roadmap — prioritized path forward with clear milestones"],
     get: ["AI Opportunity Map with prioritized use cases", "Organizational Readiness Assessment", "Strategic Roadmap with phases, dependencies, and investment estimates", "Governance Framework draft", "Executive briefing with board-ready narrative"],
   },
   {
-    icon: "📐",
     name: "Design Sprint",
     duration: "4–8 weeks",
     best: "Organizations ready to architect a specific AI initiative",
-    what: ["Deep-dive into the target domain — processes, people, pain points", "Operating model design — roles, workflows, decision gates, human-AI interaction patterns", "Governance architecture — risk tiers, approval flows, audit trails", "Knowledge system design — how the work compounds over time", "Implementation planning — phases, resources, success criteria"],
+    what: ["Deep-dive into the target domain — processes, data, people, pain points", "Operating model design — roles, workflows, decision gates, human-AI interaction patterns", "Governance architecture — risk tiers, approval flows, audit trails", "Knowledge system design — how the work compounds over time", "Implementation planning — phases, resources, success criteria"],
     get: ["Complete Operating Architecture document", "Workflow specifications with AI integration points", "Governance Framework with decision gates and risk management", "Implementation Plan with phases, milestones, and resource requirements", "Change Management playbook"],
   },
   {
-    icon: "🏗️",
     name: "Build Sprint",
     duration: "8–16 weeks",
     best: "Organizations ready to implement and operationalize",
-    what: ["Implementation of the designed architecture", "Workflow build-out with real AI integration", "Team training (integrated with AI Literacy programs)", "Pattern encoding — documenting what works so it's repeatable", "Governance activation — decision gates, monitoring, feedback loops"],
+    what: ["Implementation of the designed architecture", "Workflow and data pipeline build-out with real AI integration", "Team training integrated with AI Literacy programs", "Pattern encoding — documenting what works so it's repeatable", "Governance activation — decision gates, monitoring, feedback loops"],
     get: ["Operational AI system — live, working, in production", "Trained team capable of operating and evolving the system", "Encoded delivery patterns for consistent quality", "Active governance framework with monitoring", "30-day post-launch support"],
   },
   {
-    icon: "🧭",
     name: "Advisory Retainer",
     duration: "Quarterly (ongoing)",
     best: "Organizations with operating AI systems that need strategic steering",
@@ -50,9 +45,15 @@ const engagementModels = [
   },
 ];
 
+const differentiators = [
+  { title: "Outcome-Based, Not Activity-Based",    desc: "We define success as a measurable state change — not hours logged or deliverables produced. Every engagement has clear before/after criteria." },
+  { title: "Compounding Knowledge Transfer",       desc: "We don't create dependency. We encode capability into your organization's systems. You keep getting smarter after we leave." },
+  { title: "Trust Engineered, Not Promised",       desc: "Every engagement includes explicit trust mechanisms — process transparency, artifact proof, reversibility, accountability hooks. Trust isn't a feeling. It's architecture." },
+  { title: "200+ Encoded Delivery Patterns",       desc: "We're not figuring it out as we go. 200+ delivery patterns across strategy, design, and execution — refined through real engagements." },
+];
 
 export const metadata: Metadata = {
-  title: "AI Operations Consulting — Dauntless",
+  title: "AI Operations Consulting",
   description: "We design the operating architecture, governance model, and workflow systems your organization needs to run AI at scale.",
 };
 
@@ -60,56 +61,73 @@ export default function ConsultingPage() {
   return (
     <div className="min-h-screen bg-[--mkt-bg]">
       <MarketingNav />
-      <div className="max-w-6xl mx-auto px-6 pt-5 pb-1">
+      <div className="max-w-6xl mx-auto px-6 pt-[88px] pb-2">
         <Breadcrumbs crumbs={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "AI Operations Consulting" }]} />
       </div>
 
-      <section className="relative pt-32 pb-24 px-6 overflow-hidden">
+      {/* Hero */}
+      <section className="relative pt-10 pb-24 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.14) 0%, transparent 65%)" }} />
+          style={{ background: "radial-gradient(ellipse at center, rgba(37,99,235,0.12) 0%, transparent 65%)" }} />
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
-          <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">AI Ops Consulting</p>
+          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "#60a5fa" }}>AI Ops Consulting</p>
           <h1 className="text-4xl md:text-6xl font-bold text-[--text-primary] leading-tight">
             Stop Piloting.{" "}
-            <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))" }}>
+            <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #60a5fa, #2563eb)" }}>
               Start Operating.
             </span>
           </h1>
           <p className="max-w-2xl mx-auto text-lg text-[--text-secondary] leading-relaxed">
-            Your organization doesn't have an AI tool problem. It has an AI operations problem. The gap between &ldquo;we tried ChatGPT&rdquo; and &ldquo;AI is embedded in how we work&rdquo; is an architecture gap — and architecture is what we build.
+            Your organization doesn&apos;t have an AI tool problem. It has an AI operations problem. The gap between &ldquo;we tried ChatGPT&rdquo; and &ldquo;AI is embedded in how we work&rdquo; is an architecture gap — and architecture is what we build.
           </p>
-          <Link href="/contact">
-            <Button variant="primary" size="lg" className="gap-2">Book a Discovery Call <ArrowRight className="h-4 w-4" /></Button>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+            style={{
+              background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
+              boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+            }}
+          >
+            Book a Discovery Call <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </section>
 
       {/* Pilot Graveyard */}
       <section className="bg-[--mkt-section] py-16 px-6">
-        <div className="max-w-4xl mx-auto space-y-8">
+        <div className="max-w-6xl mx-auto space-y-8">
           <div className="text-center space-y-3">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">The Problem</p>
             <h2 className="text-3xl font-semibold text-[--text-primary]">The Pilot Graveyard</h2>
-            <p className="text-[--text-secondary]">Most organizations are stuck in an endless cycle of AI experimentation.</p>
+            <p className="text-sm text-[--text-secondary] max-w-xl mx-auto leading-relaxed">Most organizations are stuck in an endless cycle of AI experimentation that never becomes capability.</p>
           </div>
           <div className="space-y-2 max-w-2xl mx-auto">
             {[
-              { num: "1", label: "Excitement", desc: "\"AI will change everything!\"" },
-              { num: "2", label: "Pilot", desc: "Build a proof of concept with one team" },
-              { num: "3", label: "Success", desc: "\"It works! Let's scale!\"" },
-              { num: "4", label: "Reality", desc: "No governance, no integration, no change management" },
-              { num: "5", label: "Stall", desc: "Pilot dies. Organization returns to status quo." },
-              { num: "6", label: "Repeat", desc: "New tool, new pilot, same outcome." },
+              { num: "1", label: "Excitement",  desc: "\"AI will change everything!\"" },
+              { num: "2", label: "Pilot",        desc: "Build a proof of concept with one team" },
+              { num: "3", label: "Success",      desc: "\"It works! Let's scale!\"" },
+              { num: "4", label: "Reality",      desc: "No governance, no integration, no change management" },
+              { num: "5", label: "Stall",        desc: "Pilot dies. Organization returns to status quo." },
+              { num: "6", label: "Repeat",       desc: "New tool, new pilot, same outcome." },
             ].map(({ num, label, desc }) => (
-              <div key={num} className="flex items-center gap-4 soft-card p-4">
-                <span className="text-xs font-bold text-[--accent-vivid] w-5 shrink-0">{num}.</span>
-                <span className="font-bold text-[--text-primary] w-24 shrink-0">{label}</span>
+              <div key={num} className="flex items-center gap-4 rounded-xl px-4 py-3"
+                style={{ background: "#10101e", boxShadow: "0 0 0 1px rgba(255,255,255,0.04)" }}>
+                <span className="text-xs font-bold w-5 shrink-0" style={{ color: "#60a5fa" }}>{num}.</span>
+                <span className="text-base font-semibold text-[--text-primary] w-28 shrink-0">{label}</span>
                 <span className="text-sm text-[--text-secondary]">{desc}</span>
               </div>
             ))}
           </div>
-          <div className="max-w-2xl mx-auto soft-card-accent p-5 text-center">
-            <p className="font-bold text-[--text-primary]">The hard truth:</p>
-            <p className="text-sm text-[--text-secondary] mt-1">The pilot worked. Your organization didn't. You don't need another demo. You need an operating architecture.</p>
+          <div
+            className="max-w-2xl mx-auto rounded-2xl p-6 text-center space-y-2"
+            style={{
+              background: "linear-gradient(150deg, rgba(37,99,235,0.08) 0%, #10101e 55%)",
+              border: "1px solid rgba(59,130,246,0.20)",
+              boxShadow: "0 0 0 1px rgba(37,99,235,0.08), 0 4px 20px rgba(0,0,0,0.4)",
+            }}
+          >
+            <p className="text-base font-bold text-[--text-primary]">The hard truth:</p>
+            <p className="text-sm text-[--text-secondary] leading-relaxed">The pilot worked. Your organization didn&apos;t. You don&apos;t need another demo. You need an operating architecture.</p>
           </div>
         </div>
       </section>
@@ -121,12 +139,22 @@ export default function ConsultingPage() {
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">What We Do</p>
             <h2 className="text-3xl font-semibold text-[--text-primary]">Architecture Over Tools. Systems Over Experiments.</h2>
           </div>
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-5">
             {whatWeDo.map(({ icon: Icon, title, description }) => (
-              <div key={title} className="soft-card p-6 space-y-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim] border border-[--border-active]"><Icon className="h-5 w-5 text-[--accent-vivid]" /></div>
-                <h3 className="font-bold text-[--text-primary]">{title}</h3>
-                <p className="text-sm text-[--text-secondary] leading-relaxed">{description}</p>
+              <div
+                key={title}
+                className="relative rounded-2xl overflow-hidden"
+                style={{ boxShadow: "0 0 0 1px rgba(37,99,235,0.16), 0 4px 20px rgba(0,0,0,0.4)" }}
+              >
+                <div className="h-[3px]" style={{ background: "linear-gradient(90deg, transparent, rgba(59,130,246,0.5) 25%, #3b82f6 50%, rgba(59,130,246,0.5) 75%, transparent)" }} />
+                <div className="p-6 space-y-4" style={{ background: "linear-gradient(150deg, rgba(37,99,235,0.07) 0%, #10101e 55%)" }}>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl"
+                    style={{ background: "rgba(37,99,235,0.12)", border: "1px solid rgba(59,130,246,0.22)" }}>
+                    <Icon className="h-5 w-5" style={{ color: "#60a5fa" }} />
+                  </div>
+                  <h3 className="text-xl font-bold text-[--text-primary]">{title}</h3>
+                  <p className="text-sm text-[--text-secondary] leading-relaxed">{description}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -135,113 +163,262 @@ export default function ConsultingPage() {
 
       {/* Engagement Models */}
       <section className="bg-[--mkt-section] py-16 px-6">
-        <div className="max-w-5xl mx-auto space-y-12">
+        <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Engagement Models</p>
             <h2 className="text-3xl font-semibold text-[--text-primary]">Four Ways to Work Together</h2>
+            <p className="max-w-xl mx-auto text-sm text-[--text-secondary] leading-relaxed">
+              Every engagement is scoped to where you are. Start with Discovery, go as deep as you need.
+            </p>
           </div>
-          <div className="space-y-6">
-            {engagementModels.map(({ icon, name, duration, best, what, get }) => (
-              <div key={name} className="soft-card p-6 space-y-5">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">{icon}</span>
-                    <div>
-                      <h3 className="text-lg font-bold text-[--text-primary]">{name}</h3>
-                      <p className="text-xs text-[--text-muted]">Best for: {best}</p>
+          <div className="space-y-5">
+            {engagementModels.map(({ name, duration, best, what, get }, i) => {
+              const modelNum = String(i + 1).padStart(2, "0");
+              const isFlagship = i === 3;
+              const barOpacity   = [0.35, 0.55, 0.75, 1.00][i];
+              const glowStrength = [
+                "0 0 0 1px rgba(255,255,255,0.04), 0 2px 16px rgba(0,0,0,0.4)",
+                "0 0 0 1px rgba(37,99,235,0.14), 0 2px 16px rgba(0,0,0,0.4)",
+                "0 0 0 1px rgba(37,99,235,0.24), 0 4px 24px rgba(37,99,235,0.06)",
+                "0 0 0 1px rgba(37,99,235,0.40), 0 8px 40px rgba(37,99,235,0.10)",
+              ][i];
+              const cardBg = isFlagship
+                ? "linear-gradient(160deg, rgba(37,99,235,0.09) 0%, #10101e 45%)"
+                : "#10101e";
+
+              return (
+                <div key={name} className="relative rounded-2xl overflow-hidden" style={{ boxShadow: glowStrength }}>
+                  {/* Top accent bar */}
+                  <div className="h-[3px] w-full" style={{
+                    background: `linear-gradient(90deg, transparent 0%, rgba(59,130,246,${barOpacity * 0.6}) 15%, #3b82f6 50%, rgba(59,130,246,${barOpacity * 0.6}) 85%, transparent 100%)`,
+                  }} />
+
+                  <div className="relative p-7 md:p-8 space-y-7" style={{ background: cardBg }}>
+
+                    {/* Watermark */}
+                    <span
+                      className="absolute bottom-4 right-6 text-[88px] font-black leading-none select-none pointer-events-none tabular-nums"
+                      style={{ color: `rgba(59,130,246,${[0.04, 0.06, 0.09, 0.13][i]})` }}
+                      aria-hidden="true"
+                    >
+                      {modelNum}
+                    </span>
+
+                    {/* Header */}
+                    <div className="flex flex-col md:flex-row md:items-start gap-4">
+                      <div className="flex-1 space-y-2">
+                        <div className="flex items-center gap-2.5 flex-wrap">
+                          <span
+                            className="text-xs font-bold tracking-[0.18em] uppercase"
+                            style={{ color: `rgba(96,165,250,${[0.5, 0.65, 0.8, 1.0][i]})` }}
+                          >
+                            Model {modelNum}
+                          </span>
+                          {isFlagship && (
+                            <span
+                              className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full"
+                              style={{ background: "rgba(37,99,235,0.12)", color: "#60a5fa", border: "1px solid rgba(59,130,246,0.30)" }}
+                            >
+                              Ongoing Partnership
+                            </span>
+                          )}
+                        </div>
+                        <h3 className="text-2xl font-bold text-[--text-primary] leading-tight">{name}</h3>
+                        <p className="text-sm text-[--text-muted] leading-relaxed">Best for: {best}</p>
+                      </div>
+                      <span
+                        className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-semibold shrink-0"
+                        style={{
+                          background: `rgba(37,99,235,${[0.08, 0.11, 0.14, 0.18][i]})`,
+                          color: "#60a5fa",
+                          border: `1px solid rgba(59,130,246,${[0.18, 0.24, 0.30, 0.40][i]})`,
+                        }}
+                      >
+                        {duration}
+                      </span>
                     </div>
+
+                    {/* What Happens / What You Get */}
+                    <div className="grid md:grid-cols-2 gap-6 pt-6 pr-20 pb-20" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+                      <div className="space-y-3">
+                        <p className="text-xs font-bold uppercase tracking-[0.15em] text-[--text-muted]">What Happens</p>
+                        <ul className="space-y-2">
+                          {what.map(w => (
+                            <li key={w} className="flex items-start gap-2.5 text-sm text-[--text-secondary] leading-snug">
+                              <span className="shrink-0 rounded-full mt-[7px]"
+                                style={{ width: "6px", height: "6px", minWidth: "6px", background: `rgba(59,130,246,${[0.45, 0.55, 0.70, 0.90][i]})` }} />
+                              {w}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="space-y-3">
+                        <p className="text-xs font-bold uppercase tracking-[0.15em] text-[--text-muted]">What You Get</p>
+                        <ul className="space-y-2">
+                          {get.map(g => (
+                            <li key={g} className="flex items-start gap-2.5 text-sm text-[--text-secondary] leading-snug">
+                              <span className="shrink-0 font-bold text-sm leading-none mt-0.5"
+                                style={{ color: `rgba(96,165,250,${[0.6, 0.7, 0.85, 1.0][i]})` }}>✓</span>
+                              {g}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+
                   </div>
-                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-[--accent-dim] border border-[--border-active] text-xs font-medium text-[--accent-vivid] shrink-0">{duration}</span>
                 </div>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <p className="text-xs font-bold text-[--text-muted]">What Happens</p>
-                    <ul className="space-y-1">{what.map(w => (<li key={w} className="text-xs text-[--text-secondary] flex gap-1.5"><span className="text-[--accent-vivid] shrink-0">·</span>{w}</li>))}</ul>
-                  </div>
-                  <div className="space-y-2">
-                    <p className="text-xs font-bold text-[--text-muted]">What You Get</p>
-                    <ul className="space-y-1">{get.map(g => (<li key={g} className="text-xs text-[--text-secondary] flex gap-1.5"><span className="text-[--accent-vivid] shrink-0">✓</span>{g}</li>))}</ul>
-                  </div>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* What Makes This Different */}
       <section className="bg-[--mkt-bg] py-16 px-6">
-        <div className="max-w-4xl mx-auto space-y-8">
+        <div className="max-w-6xl mx-auto space-y-10">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Our Approach</p>
             <h2 className="text-3xl font-semibold text-[--text-primary]">What Makes This Different</h2>
           </div>
-          <div className="grid md:grid-cols-2 gap-4">
-            {[
-              { title: "Outcome-Based, Not Activity-Based", desc: "We define success as a measurable state change — not hours logged or deliverables produced. Every engagement has clear before/after criteria." },
-              { title: "Compounding Knowledge Transfer", desc: "We don't create dependency. We encode capability into your organization's systems. You keep getting smarter after we leave." },
-              { title: "Trust Engineered, Not Promised", desc: "Every engagement includes explicit trust mechanisms — process transparency, artifact proof, reversibility, accountability hooks. Trust isn't a feeling. It's architecture." },
-              { title: "200+ Encoded Delivery Patterns", desc: "We're not figuring it out as we go. 200+ delivery patterns across strategy, design, and execution — refined through real engagements." },
-            ].map(({ title, desc }) => (
-              <div key={title} className="soft-card p-5 space-y-2">
-                <h3 className="font-bold text-[--text-primary]">{title}</h3>
-                <p className="text-sm text-[--text-secondary] leading-relaxed">{desc}</p>
+          <div className="grid md:grid-cols-2 gap-5">
+            {differentiators.map(({ title, desc }) => (
+              <div
+                key={title}
+                className="relative rounded-2xl overflow-hidden"
+                style={{ boxShadow: "0 0 0 1px rgba(37,99,235,0.14), 0 2px 16px rgba(0,0,0,0.4)" }}
+              >
+                <div className="h-[3px]" style={{ background: "linear-gradient(90deg, transparent, rgba(59,130,246,0.4) 25%, #3b82f6 50%, rgba(59,130,246,0.4) 75%, transparent)" }} />
+                <div className="p-6 space-y-3" style={{ background: "linear-gradient(150deg, rgba(37,99,235,0.06) 0%, #10101e 55%)" }}>
+                  <h3 className="text-xl font-bold text-[--text-primary]">{title}</h3>
+                  <p className="text-sm text-[--text-secondary] leading-relaxed">{desc}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-
-      {/* In Practice */}
-      <section className="bg-[--mkt-bg] py-12 px-6 border-t border-[--mkt-border]">
+      {/* Client Voices */}
+      <section className="bg-[--mkt-section] py-16 px-6 border-t border-[--mkt-border]">
         <div className="max-w-6xl mx-auto space-y-10">
           <div className="text-center space-y-3">
-            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">Selected Work</p>
-            <h2 className="text-2xl md:text-3xl font-semibold text-[--text-primary]">Consulting in Practice</h2>
+            <p className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "#60a5fa" }}>Client Voices</p>
+            <h2 className="text-2xl md:text-3xl font-semibold text-[--text-primary]">In Their Words</h2>
             <p className="max-w-xl mx-auto text-sm text-[--text-secondary] leading-relaxed">
-              A sample of government engagements where this work created real, lasting change.
+              From federal directors to program executives — what clients say after working with us.
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-4">
-            <WorkCard department="Public Health Agency of Canada" project="Outbreak Response Process Architecture" category="Process Design" sector="federal" image="/images/work/PHAC-OUTBREAK.jpg" />
-            <WorkCard department="Elections Canada" project="Electoral Program Logic Model" category="Program Architecture" sector="federal" image="/images/work/Polling-DMF.png" />
-            <WorkCard department="CRTC" project="Regulatory Enforcement Process Map" category="Process Design" sector="federal" image="/images/work/CRTC-ECE.png" />
+          <div className="grid md:grid-cols-3 gap-5">
+
+            {/* ESDC */}
+            <div className="relative rounded-2xl p-7 flex flex-col gap-5 overflow-hidden"
+              style={{
+                background: "linear-gradient(150deg, rgba(37,99,235,0.08) 0%, #10101e 55%)",
+                border: "1px solid rgba(59,130,246,0.16)",
+                boxShadow: "0 0 0 1px rgba(37,99,235,0.08), 0 6px 24px rgba(0,0,0,0.4)",
+              }}>
+              <div className="text-5xl leading-none font-black select-none opacity-20"
+                style={{ backgroundImage: "linear-gradient(135deg, #3b82f6, #60a5fa)", WebkitBackgroundClip: "text", color: "transparent" }}
+                aria-hidden="true">&ldquo;</div>
+              <blockquote className="text-sm text-[--text-primary] leading-relaxed italic flex-1">
+                &ldquo;The input I have seen is great and helpful for me to open up discussions with my DG. The engagement process was extremely productive and impactful.&rdquo;
+              </blockquote>
+              <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(59,130,246,0.15)" }}>
+                <p className="text-sm font-semibold text-[--text-primary]">Director, Program Operations Branch</p>
+                <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "#60a5fa" }}>Government of Canada</p>
+                <p className="text-xs text-[--text-muted]">Employment &amp; Social Development Canada</p>
+              </div>
+            </div>
+
+            {/* Environment Canada */}
+            <div className="relative rounded-2xl p-7 flex flex-col gap-5 overflow-hidden"
+              style={{
+                background: "linear-gradient(150deg, rgba(37,99,235,0.09) 0%, #10101e 55%)",
+                border: "1px solid rgba(59,130,246,0.18)",
+                boxShadow: "0 0 0 1px rgba(37,99,235,0.10), 0 6px 24px rgba(0,0,0,0.4)",
+              }}>
+              <div className="text-5xl leading-none font-black select-none opacity-20"
+                style={{ backgroundImage: "linear-gradient(135deg, #3b82f6, #60a5fa)", WebkitBackgroundClip: "text", color: "transparent" }}
+                aria-hidden="true">&ldquo;</div>
+              <blockquote className="text-sm text-[--text-primary] leading-relaxed italic flex-1">
+                &ldquo;The foresight work gave us a vocabulary for decisions we didn&apos;t know how to frame. That clarity was the most valuable deliverable.&rdquo;
+              </blockquote>
+              <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(59,130,246,0.15)" }}>
+                <p className="text-sm font-semibold text-[--text-primary]">Executive Director, Strategic Planning</p>
+                <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "#60a5fa" }}>Government of Canada</p>
+                <p className="text-xs text-[--text-muted]">Environment &amp; Climate Change Canada</p>
+              </div>
+            </div>
+
+            {/* TBS */}
+            <div className="relative rounded-2xl p-7 flex flex-col gap-5 overflow-hidden"
+              style={{
+                background: "linear-gradient(150deg, rgba(37,99,235,0.10) 0%, #10101e 55%)",
+                border: "1px solid rgba(59,130,246,0.20)",
+                boxShadow: "0 0 0 1px rgba(37,99,235,0.12), 0 6px 24px rgba(0,0,0,0.4)",
+              }}>
+              <div className="text-5xl leading-none font-black select-none opacity-20"
+                style={{ backgroundImage: "linear-gradient(135deg, #3b82f6, #60a5fa)", WebkitBackgroundClip: "text", color: "transparent" }}
+                aria-hidden="true">&ldquo;</div>
+              <blockquote className="text-sm text-[--text-primary] leading-relaxed italic flex-1">
+                &ldquo;Working with Craig&apos;s team changed how our team thinks about planning and process. Using rich visual process maps and layering in detail really helped us to understand where there are high leverage opportunities for improvement and automation.&rdquo;
+              </blockquote>
+              <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(59,130,246,0.15)" }}>
+                <p className="text-sm font-semibold text-[--text-primary]">Project Executive, Benefits Modernization</p>
+                <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "#60a5fa" }}>Government of Canada</p>
+                <p className="text-xs text-[--text-muted]">Employment &amp; Social Development Canada</p>
+              </div>
+            </div>
+
           </div>
-          <div className="text-center">
-            <Link href="/work" className="inline-flex items-center gap-1.5 text-sm font-medium text-[--accent-vivid] hover:text-[--accent-bright] transition-colors">
-              View all 150+ projects <ArrowRight className="h-3.5 w-3.5" />
+        </div>
+      </section>
+
+      {/* Also in Services */}
+      <section className="bg-[--mkt-bg] border-t border-[--mkt-border] py-12 px-6">
+        <div className="max-w-6xl mx-auto space-y-6">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">Also in Services</p>
+          <div className="grid sm:grid-cols-2 gap-4">
+            <Link href="/services/training" className="relative flex flex-col gap-0 rounded-2xl overflow-hidden group text-left transition-all duration-200 hover:-translate-y-0.5"
+              style={{ background: "linear-gradient(150deg, rgba(16,185,129,0.08) 0%, #10101e 55%)", boxShadow: "0 0 0 1px rgba(16,185,129,0.16), 0 4px 20px rgba(0,0,0,0.4)" }}>
+              <div className="h-[3px] w-full" style={{ background: "linear-gradient(90deg, transparent, rgba(16,185,129,0.6) 25%, #10b981 50%, rgba(16,185,129,0.6) 75%, transparent)" }} />
+              <div className="p-5 space-y-1.5">
+                <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "#10b981" }}>AI Literacy Training</p>
+                <p className="text-base font-semibold text-[--text-primary] flex items-center gap-1.5">Transform team capability <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" /></p>
+                <p className="text-sm text-[--text-secondary] leading-relaxed">Team-wide AI fluency in days, not months. Executive briefings to full practitioner programs built for government and enterprise.</p>
+              </div>
+            </Link>
+            <Link href="/services/agentic-systems" className="relative flex flex-col gap-0 rounded-2xl overflow-hidden group text-left transition-all duration-200 hover:-translate-y-0.5"
+              style={{ background: "linear-gradient(150deg, rgba(236,72,153,0.08) 0%, #10101e 55%)", boxShadow: "0 0 0 1px rgba(236,72,153,0.16), 0 4px 20px rgba(0,0,0,0.4)" }}>
+              <div className="h-[3px] w-full" style={{ background: "linear-gradient(90deg, transparent, rgba(236,72,153,0.6) 25%, #ec4899 50%, rgba(236,72,153,0.6) 75%, transparent)" }} />
+              <div className="p-5 space-y-1.5">
+                <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "#ec4899" }}>Agentic Systems</p>
+                <p className="text-base font-semibold text-[--text-primary] flex items-center gap-1.5">Build autonomous intelligence <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" /></p>
+                <p className="text-sm text-[--text-secondary] leading-relaxed">Custom AI agent pipelines that connect your data, your processes, and your people. Built to run without constant maintenance.</p>
+              </div>
             </Link>
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="bg-[--mkt-section] py-14 px-6">
+      <section className="bg-[--mkt-section] py-20 px-6">
         <div className="max-w-2xl mx-auto text-center space-y-6">
           <h2 className="text-3xl font-semibold text-[--text-primary]">Ready to Move Beyond Pilots?</h2>
-          <p className="text-[--text-secondary]">Every consulting engagement starts with a Discovery conversation. We'll assess where you are, identify the highest-leverage opportunities, and design the path forward.</p>
+          <p className="text-sm text-[--text-secondary] leading-relaxed">Every consulting engagement starts with a Discovery conversation. We&apos;ll assess where you are, identify the highest-leverage opportunities, and design the path forward.</p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
-            <Link href="/contact"><Button variant="primary" size="lg" className="gap-2">Book a Discovery Call <ArrowRight className="h-4 w-4" /></Button></Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+              style={{
+                background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
+                boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+              }}
+            >
+              Book a Discovery Call <ArrowRight className="h-4 w-4" />
+            </Link>
             <Link href="/services"><Button variant="outline" size="lg">See All Services</Button></Link>
-          </div>
-        </div>
-      </section>
-
-
-      {/* Also in Services */}
-      <section className="bg-[--mkt-section] border-t border-[--mkt-border] py-12 px-6">
-        <div className="max-w-6xl mx-auto space-y-6">
-          <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Also in Services</p>
-          <div className="grid sm:grid-cols-2 gap-4">
-            <Link href="/services/training" className="flex flex-col gap-1.5 p-5 soft-card text-left group">
-              <span className="text-sm font-semibold text-[--text-primary] flex items-center gap-1.5">AI Literacy Training <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" /></span>
-              <span className="text-xs text-[--text-muted] leading-relaxed">Team-wide AI fluency in days, not months. Executive briefings to full practitioner programs built for government and enterprise.</span>
-            </Link>
-            <Link href="/services/agentic-systems" className="flex flex-col gap-1.5 p-5 soft-card text-left group">
-              <span className="text-sm font-semibold text-[--text-primary] flex items-center gap-1.5">Agentic Systems <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" /></span>
-              <span className="text-xs text-[--text-muted] leading-relaxed">Custom AI agent pipelines that connect your data, your processes, and your people. Built to run without constant maintenance.</span>
-            </Link>
           </div>
         </div>
       </section>

@@ -27,7 +27,7 @@ export function CTASection() {
               </span>
             </h2>
             <p className="text-[--text-secondary] text-base leading-relaxed max-w-xl mx-auto">
-              Every engagement starts with a conversation. No pitch decks. No sales scripts. Just a real discussion about where you are, where you want to be, and whether we're the right architecture for the journey.
+              Every engagement starts with a conversation. No pitch decks. No sales scripts. Just a real discussion about where you are, where you want to be, and whether we're the right partner for the journey.
             </p>
           </div>
           <Link

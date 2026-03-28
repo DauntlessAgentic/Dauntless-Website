@@ -125,7 +125,7 @@ export default function WorkPage() {
       {/* Client ribbon */}
       <section className="bg-[--mkt-section] border-y border-[--mkt-border]">
         <div className="max-w-6xl mx-auto px-6 pt-5 pb-1">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-[--text-muted] mb-3 text-center">Trusted by 50+ organizations</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-[--text-muted] mb-3 text-center">Trusted by 50+ organizations</p>
         </div>
         <ClientRibbon />
       </section>
@@ -150,7 +150,7 @@ export default function WorkPage() {
           </div>
           {/* Desktop: button row */}
           <div className="hidden md:flex items-center gap-2">
-            <div className="flex gap-2 overflow-x-auto">
+            <div className="flex flex-wrap gap-2">
               {CATEGORIES.map(cat => (
                 <button
                   key={cat}
@@ -199,7 +199,7 @@ export default function WorkPage() {
             <h2 className="text-2xl font-semibold text-[--text-primary]">Trusted Across Government & Industry</h2>
           </div>
           <div className="space-y-4">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-[--text-muted] text-center">Federal Government</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-[--text-muted] text-center">Federal Government</p>
             <div className="flex flex-wrap gap-2 justify-center">
               {federalDepts.map(d => (
                 <span key={d} className="px-3 py-1.5 rounded-full text-xs font-medium bg-[rgba(139,92,246,0.08)] border border-[rgba(139,92,246,0.18)] text-[--text-secondary]">
@@ -207,7 +207,7 @@ export default function WorkPage() {
                 </span>
               ))}
             </div>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-[--text-muted] text-center pt-2">Private Sector & International</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-[--text-muted] text-center pt-2">Private Sector & International</p>
             <div className="flex flex-wrap gap-2 justify-center">
               {["Financial Services", "Mining & Resources", "International NGOs", "Healthcare & Pharma"].map(d => (
                 <span key={d} className="px-3 py-1.5 rounded-full text-xs font-medium bg-[rgba(255,255,255,0.03)] border border-[--mkt-border] text-[--text-secondary]">
@@ -224,11 +224,15 @@ export default function WorkPage() {
         <div className="max-w-2xl mx-auto text-center space-y-6">
           <h2 className="text-3xl font-semibold text-[--text-primary]">Ready to Add Your Project to This List?</h2>
           <p className="text-[--text-secondary]">Every engagement starts with a conversation — no pitch decks, no pressure, just a real discussion about your challenges.</p>
-          <Link href="/contact">
-            <button className="inline-flex items-center gap-2 px-6 py-3 rounded-[--radius-lg] text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5"
-              style={{ background: "linear-gradient(135deg, #7c3aed, #8b5cf6)", boxShadow: "0 4px 14px rgba(124,58,237,0.35)" }}>
-              Start a Conversation <ArrowRight className="h-4 w-4" />
-            </button>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+            style={{
+              background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
+              boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+            }}
+          >
+            Start a Conversation <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </section>

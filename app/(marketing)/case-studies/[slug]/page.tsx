@@ -161,7 +161,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
       {/* Back nav */}
       <div className="bg-[--mkt-section] border-b border-[--mkt-border] py-3 px-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <Link
             href="/case-studies"
             className="inline-flex items-center gap-1.5 text-xs text-[--text-muted] hover:text-[--text-secondary] transition-colors"
@@ -186,10 +186,10 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
       {/* Header */}
       <section className="bg-[--mkt-bg] px-6 pt-10 pb-6">
-        <div className="max-w-5xl mx-auto space-y-4">
+        <div className="max-w-6xl mx-auto space-y-4">
           <div className="flex flex-wrap items-center gap-3">
             <span
-              className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider"
+              className="px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
               style={{
                 color: categoryColor[cs.category] ?? "#a78bfa",
                 background: "rgba(139,92,246,0.10)",
@@ -213,7 +213,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
       {/* Body */}
       <section className="bg-[--mkt-bg] px-6 pb-16">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-10">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
 
           {/* Main column */}
           <div className="md:col-span-2 space-y-12">
@@ -330,7 +330,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
       {/* Related work */}
       <section className="bg-[--mkt-section] border-t border-[--mkt-border] py-14 px-6">
-        <div className="max-w-5xl mx-auto space-y-6">
+        <div className="max-w-6xl mx-auto space-y-6">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Related Work</p>
           <div className="grid sm:grid-cols-3 gap-4">
             {cs.related.map((w, i) => (

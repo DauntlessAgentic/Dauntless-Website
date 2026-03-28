@@ -119,70 +119,64 @@ export default function PricingPage() {
       {/* Pricing tiers */}
       <section className="bg-[--mkt-bg] py-20 px-6">
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
-          {tiers.map((tier) => (
+          {tiers.map((tier, i) => {
+            const barOpacity = [0.35, 0.75, 1.00][i];
+            const bgOpacity  = [0.05, 0.09, 0.12][i];
+            const glowOpacity = [0.10, 0.22, 0.35][i];
+            const accentColor = i === 2 ? "#a78bfa" : i === 1 ? "#8b5cf6" : "#7c3aed";
+            return (
             <div
               key={tier.name}
               className="flex flex-col rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1"
-              style={
-                tier.highlight
-                  ? {
-                      background: "linear-gradient(135deg, rgba(124,58,237,0.08), rgba(139,92,246,0.04))",
-                      border: "1px solid rgba(139,92,246,0.35)",
-                      boxShadow: "0 8px 32px -8px rgba(124,58,237,0.25)",
-                    }
-                  : {
-                      background: "var(--mkt-card)",
-                      border: "1px solid var(--mkt-border)",
-                    }
-              }
+              style={{
+                background: `linear-gradient(150deg, rgba(124,58,237,${bgOpacity}) 0%, #10101e 55%)`,
+                boxShadow: `0 0 0 1px rgba(124,58,237,${glowOpacity}), 0 4px 20px rgba(0,0,0,0.4)`,
+              }}
             >
-              {tier.highlight && (
-                <div
-                  className="h-1 w-full"
-                  style={{ background: "linear-gradient(90deg, #7c3aed, #8b5cf6)" }}
-                />
-              )}
+              {/* Top accent bar */}
+              <div
+                className="h-[3px] w-full shrink-0"
+                style={{ background: `linear-gradient(90deg, transparent, rgba(124,58,237,${barOpacity * 0.5}) 25%, rgba(124,58,237,${barOpacity}) 50%, rgba(124,58,237,${barOpacity * 0.5}) 75%, transparent)` }}
+              />
 
               <div className="flex flex-col gap-5 p-7 flex-1">
                 {/* Header */}
                 <div className="space-y-1.5">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-[--text-muted]">
+                  <p className="text-xs font-bold uppercase tracking-widest text-[--text-muted]">
                     {tier.duration}
                   </p>
                   <h2 className="text-xl font-bold text-[--text-primary]">{tier.name}</h2>
-                  <p className="text-xs text-[--text-secondary] leading-snug">{tier.tag}</p>
+                  <p className="text-sm text-[--text-secondary] leading-snug">{tier.tag}</p>
                 </div>
 
                 {/* Price */}
                 <div
                   className="rounded-xl p-4 space-y-0.5"
                   style={{
-                    background: tier.highlight
-                      ? "rgba(139,92,246,0.10)"
-                      : "var(--mkt-section)",
-                    border: "1px solid var(--mkt-border)",
+                    background: `rgba(124,58,237,${bgOpacity + 0.04})`,
+                    border: `1px solid rgba(124,58,237,${glowOpacity})`,
                   }}
                 >
                   <p
                     className="text-2xl font-bold"
-                    style={tier.highlight ? { color: "#a78bfa" } : { color: "var(--text-primary)" }}
+                    style={{ color: accentColor }}
                   >
                     {tier.price}
                   </p>
-                  <p className="text-[11px] text-[--text-muted]">{tier.priceNote}</p>
+                  <p className="text-xs text-[--text-muted]">{tier.priceNote}</p>
                 </div>
 
                 {/* Includes */}
                 <div className="space-y-2 flex-1">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-[--text-muted]">
+                  <p className="text-xs font-bold uppercase tracking-widest text-[--text-muted]">
                     Includes
                   </p>
                   <ul className="space-y-2">
-                    {tier.includes.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-[--text-secondary]">
+                    {tier.includes.map((item, j) => (
+                      <li key={j} className="flex items-start gap-2 text-sm text-[--text-secondary]">
                         <Check
                           className="h-3.5 w-3.5 shrink-0 mt-0.5"
-                          style={{ color: tier.highlight ? "#a78bfa" : "#34d399" }}
+                          style={{ color: accentColor }}
                         />
                         {item}
                       </li>
@@ -195,35 +189,26 @@ export default function PricingPage() {
                   className="rounded-lg p-3 space-y-1"
                   style={{ background: "var(--mkt-section)", border: "1px solid var(--mkt-border)" }}
                 >
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-[--text-muted]">
+                  <p className="text-xs font-bold uppercase tracking-widest text-[--text-muted]">
                     Best for
                   </p>
-                  <p className="text-xs text-[--text-secondary] leading-relaxed">{tier.ideal}</p>
+                  <p className="text-sm text-[--text-secondary] leading-relaxed">{tier.ideal}</p>
                 </div>
 
-                <Link href="/contact">
-                  <button
-                    className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 hover:opacity-90"
-                    style={
-                      tier.highlight
-                        ? {
-                            background: "linear-gradient(135deg, #7c3aed, #8b5cf6)",
-                            color: "white",
-                            boxShadow: "0 4px 14px rgba(124,58,237,0.35)",
-                          }
-                        : {
-                            border: "1px solid rgba(139,92,246,0.3)",
-                            color: "var(--accent-vivid)",
-                            background: "transparent",
-                          }
-                    }
-                  >
-                    Start a Conversation <ArrowRight className="h-4 w-4" />
-                  </button>
+                <Link
+                  href="/contact"
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+                  style={{
+                    background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
+                    boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+                  }}
+                >
+                  Start a Conversation <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Procurement note */}

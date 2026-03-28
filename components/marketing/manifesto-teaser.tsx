@@ -9,7 +9,7 @@ export function ManifestoTeaser() {
         style={{ background: "linear-gradient(90deg, transparent, rgba(139,92,246,0.2), transparent)" }} />
       <div className="relative max-w-3xl mx-auto">
         <div className="space-y-8 text-center">
-          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">The Manifesto</p>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">The Manifesto</p>
           <div className="relative">
             <div
               className="text-[180px] leading-none font-bold select-none absolute -top-10 left-1/2 -translate-x-1/2 opacity-[0.04] pointer-events-none"

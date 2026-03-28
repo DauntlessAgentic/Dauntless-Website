@@ -101,7 +101,7 @@ export default function FAQPage() {
       <MarketingNav />
 
       {/* Hero */}
-      <section className="bg-[--mkt-section] border-b border-[--mkt-border] py-20 px-6">
+      <section className="bg-[--mkt-section] border-b border-[--mkt-border] pt-28 pb-16 px-6">
         <div className="max-w-3xl mx-auto text-center space-y-4">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">FAQ</p>
           <h1 className="text-4xl md:text-5xl font-bold text-[--text-primary] leading-tight">
@@ -156,17 +156,19 @@ export default function FAQPage() {
       <section className="bg-[--mkt-section] border-t border-[--mkt-border] py-12 px-6">
         <div className="max-w-3xl mx-auto text-center space-y-4">
           <p className="text-sm font-semibold text-[--text-primary]">Still have questions?</p>
-          <p className="text-xs text-[--text-secondary]">
+          <p className="text-sm text-[--text-secondary]">
             The fastest way to get a real answer is a direct conversation.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link href="/contact">
-              <button
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90"
-                style={{ background: "linear-gradient(135deg, #7c3aed, #8b5cf6)" }}
-              >
-                Start a Conversation <ArrowRight className="h-4 w-4" />
-              </button>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+              style={{
+                background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
+                boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+              }}
+            >
+              Start a Conversation <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/pricing"

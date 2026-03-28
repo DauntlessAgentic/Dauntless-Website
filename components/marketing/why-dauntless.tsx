@@ -28,7 +28,7 @@ export function WhyDauntless() {
       </div>
       <div className="relative max-w-6xl mx-auto space-y-10">
         <div className="text-center space-y-3">
-          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">Credentials</p>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">Credentials</p>
           <h2 className="text-3xl md:text-4xl font-semibold text-[--text-primary]">The Track Record.</h2>
         </div>
 
@@ -57,7 +57,7 @@ export function WhyDauntless() {
         {/* Client sectors */}
         <div className="space-y-6">
           <div className="space-y-3">
-            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[--text-muted] text-center">Federal Government Clients</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[--text-muted] text-center">Federal Government Clients</p>
             <div className="flex flex-wrap justify-center gap-2">
               {federalDepts.map((dept) => (
                 <span key={dept} className="px-3 py-1.5 rounded-full text-xs font-medium text-[--text-secondary] transition-colors"
@@ -68,7 +68,7 @@ export function WhyDauntless() {
             </div>
           </div>
           <div className="space-y-3">
-            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[--text-muted] text-center">Private Sector & International</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[--text-muted] text-center">Private Sector & International</p>
             <div className="flex flex-wrap justify-center gap-2">
               {privateSectors.map((sector) => (
                 <span key={sector} className="px-3 py-1.5 rounded-full text-xs font-medium text-[--text-muted]"
@@ -86,12 +86,12 @@ export function WhyDauntless() {
             style={{ background: "linear-gradient(135deg, rgba(124,58,237,0.07) 0%, rgba(16,16,30,0.6) 100%)", border: "1px solid rgba(139,92,246,0.15)" }}
           >
             <div className="flex items-start gap-4">
-              <div className="h-12 w-12 rounded-full shrink-0 overflow-hidden relative mt-0.5">
-                <Image src="/images/craig-headshot.jpg" alt="Craig Marchand" fill className="object-cover object-top" unoptimized sizes="48px" />
+              <div className="h-12 w-12 rounded-full shrink-0 overflow-hidden mt-0.5">
+                <Image src="/images/craig-headshot.jpg" alt="Craig Marchand" width={48} height={48} unoptimized className="object-cover object-top w-full h-full" />
               </div>
               <div className="space-y-2">
                 <p className="text-[--text-primary] font-medium text-sm">Craig Marchand</p>
-                <p className="text-[11px] text-[--accent-vivid] uppercase tracking-wider font-medium">Founder, Dauntless Agentic</p>
+                <p className="text-xs text-[--accent-vivid] uppercase tracking-wider font-medium">Founder, Dauntless Agentic</p>
               </div>
             </div>
             <p className="text-[--text-secondary] text-sm leading-relaxed">

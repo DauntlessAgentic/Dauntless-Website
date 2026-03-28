@@ -66,7 +66,7 @@ const trustPillars = [
 
 
 export const metadata: Metadata = {
-  title: "Our Method — How Dauntless Works",
+  title: "Our Method",
   description: "Six principles, five engagement phases, and a governance model built to outlast the engagement. No black boxes, no mystery.",
 };
 
@@ -107,6 +107,7 @@ export default function MethodPage() {
       {/* Core Promise */}
       <section className="bg-[--mkt-section] py-20 px-6">
         <div className="max-w-3xl mx-auto text-center space-y-4 soft-card-accent p-8">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">Our Promise</p>
           <h2 className="text-2xl font-semibold text-[--text-primary]">Every Engagement Should Leave You Stronger Than It Found You.</h2>
           <p className="text-[--text-secondary]">Not just with deliverables — with capability. The ability to understand, operate, and evolve what we built together. We don't create dependency. We create compounding advantage.</p>
         </div>
@@ -133,7 +134,7 @@ export default function MethodPage() {
       </section>
 
       {/* CI + AI Section */}
-      <section id="intelligence" className="bg-[--mkt-bg] py-12 px-6 border-t border-[--mkt-border]">
+      <section id="intelligence" className="bg-[--mkt-section] py-12 px-6 border-t border-[--mkt-border]">
         <div className="max-w-6xl mx-auto space-y-10">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Intelligence Architecture</p>
@@ -158,7 +159,7 @@ export default function MethodPage() {
               >
                 <div className="h-1 w-10 rounded-full" style={{ background: accent }} />
                 <h3 className="text-sm font-semibold text-[--text-primary]">{label}</h3>
-                <p className="text-xs text-[--text-secondary] leading-relaxed" dangerouslySetInnerHTML={{ __html: desc }} />
+                <p className="text-sm text-[--text-secondary] leading-relaxed" dangerouslySetInnerHTML={{ __html: desc }} />
               </div>
             ))}
           </div>
@@ -166,8 +167,8 @@ export default function MethodPage() {
       </section>
 
       {/* Engagement Phases */}
-      <section id="phases" className="bg-[--mkt-section] py-16 px-6">
-        <div className="max-w-5xl mx-auto space-y-12">
+      <section id="phases" className="bg-[--mkt-bg] py-16 px-6">
+        <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Engagement Experience</p>
             <h2 className="text-3xl font-semibold text-[--text-primary]">What It&apos;s Like to Work With Us</h2>
@@ -187,11 +188,11 @@ export default function MethodPage() {
                 </div>
                 <div className="grid md:grid-cols-[1fr_auto] gap-4 items-start pl-14">
                   <ul className="space-y-1">
-                    {items.map(item => (<li key={item} className="text-xs text-[--text-secondary] flex gap-1.5"><span className="text-[--accent-vivid] shrink-0">·</span>{item}</li>))}
+                    {items.map(item => (<li key={item} className="text-sm text-[--text-secondary] flex gap-1.5"><span className="text-[--accent-vivid] shrink-0">·</span>{item}</li>))}
                   </ul>
                   <div className="bg-[--mkt-bg] border border-[--mkt-border] rounded-[--radius-lg] p-3 md:w-56 shrink-0">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-[--accent-vivid] mb-1">What you get</p>
-                    <p className="text-xs text-[--text-secondary]">{outcome}</p>
+                    <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid] mb-1">What you get</p>
+                    <p className="text-sm text-[--text-secondary]">{outcome}</p>
                   </div>
                 </div>
               </div>
@@ -201,7 +202,7 @@ export default function MethodPage() {
       </section>
 
       {/* Trust Architecture */}
-      <section id="trust" className="bg-[--mkt-bg] py-16 px-6">
+      <section id="trust" className="bg-[--mkt-section] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Trust Architecture</p>
@@ -212,8 +213,8 @@ export default function MethodPage() {
             {trustPillars.map(({ icon: Icon, title, description }) => (
               <div key={title} className="soft-card p-5 space-y-3">
                 <div className="flex h-9 w-9 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim]"><Icon className="h-4 w-4 text-[--accent-vivid]" /></div>
-                <h3 className="font-bold text-[--text-primary] text-sm">{title}</h3>
-                <p className="text-xs text-[--text-secondary] leading-relaxed">{description}</p>
+                <h3 className="font-semibold text-[--text-primary] text-base">{title}</h3>
+                <p className="text-sm text-[--text-secondary] leading-relaxed">{description}</p>
               </div>
             ))}
           </div>

@@ -5,6 +5,7 @@ import { ArrowRight, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
+import { PageCTA } from "@/components/marketing/page-cta";
 
 const theses = [
   {
@@ -129,8 +130,15 @@ export default function ManifestoPage() {
           <p className="text-lg font-bold text-[--text-primary]">They'll be the ones who are <span className="text-[--accent-vivid]">Authentic. Augmented. Adaptive.</span></p>
           <p className="text-lg font-bold text-[--text-primary]">They'll be <span className="text-[--accent-vivid]">Dauntless.</span></p>
           <div className="flex items-center justify-center gap-3 flex-wrap pt-4">
-            <Link href="/contact">
-              <Button variant="primary" size="lg" className="gap-2">Start a Conversation <ArrowRight className="h-4 w-4" /></Button>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+              style={{
+                background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
+                boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+              }}
+            >
+              Start a Conversation <ArrowRight className="h-4 w-4" />
             </Link>
             <a href="https://linkedin.com/in/craigmarchand" target="_blank" rel="noopener noreferrer">
               <Button variant="outline" size="lg" className="gap-2"><Linkedin className="h-4 w-4" /> Follow on LinkedIn</Button>
@@ -139,6 +147,12 @@ export default function ManifestoPage() {
         </div>
       </section>
 
+      <PageCTA
+        heading="The manifesto is just the beginning."
+        subtext="Let's talk about what it looks like for your organization to actually live these principles."
+        buttonLabel="Start a Conversation"
+        buttonHref="/contact"
+      />
       <MarketingFooter />
     </div>
   );

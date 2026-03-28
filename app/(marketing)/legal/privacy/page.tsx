@@ -35,8 +35,8 @@ export default function PrivacyPage() {
               </p>
               <p className="text-[--text-secondary] leading-relaxed">
                 Questions about this policy can be directed to:{" "}
-                <a href="mailto:hello@dauntless.ai" className="text-[--accent-vivid] hover:underline">
-                  hello@dauntless.ai
+                <a href="mailto:craig@dauntlessagentic.com" className="text-[--accent-vivid] hover:underline">
+                  craig@dauntlessagentic.com
                 </a>
               </p>
             </div>
@@ -79,8 +79,8 @@ export default function PrivacyPage() {
               <p className="text-[--text-secondary] leading-relaxed">
                 We retain contact form submissions for up to 24 months for engagement tracking purposes.
                 You may request deletion of your data at any time by emailing{" "}
-                <a href="mailto:hello@dauntless.ai" className="text-[--accent-vivid] hover:underline">
-                  hello@dauntless.ai
+                <a href="mailto:craig@dauntlessagentic.com" className="text-[--accent-vivid] hover:underline">
+                  craig@dauntlessagentic.com
                 </a>
                 .
               </p>
@@ -101,8 +101,8 @@ export default function PrivacyPage() {
                 Under Canadian privacy law (PIPEDA) and applicable provincial legislation, you have the
                 right to access, correct, or request deletion of your personal information. To exercise
                 these rights, contact us at{" "}
-                <a href="mailto:hello@dauntless.ai" className="text-[--accent-vivid] hover:underline">
-                  hello@dauntless.ai
+                <a href="mailto:craig@dauntlessagentic.com" className="text-[--accent-vivid] hover:underline">
+                  craig@dauntlessagentic.com
                 </a>
                 .
               </p>

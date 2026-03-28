@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 const footerLinks = {
   Services: [
@@ -32,19 +32,20 @@ function FooterLogo() {
   return (
     <Link href="/" className="flex items-center gap-2.5">
       <div
-        className="flex h-7 w-7 items-center justify-center rounded-[6px]"
+        className="shrink-0 flex items-center justify-center rounded-xl p-1.5"
         style={{
-          background:
-            "linear-gradient(var(--mkt-bg), var(--mkt-bg)) padding-box, linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%) border-box",
-          border: "1.5px solid transparent",
+          background: "#10101e",
+          boxShadow: "0 0 0 1px rgba(255,255,255,0.04), 0 2px 12px rgba(0,0,0,0.3)",
         }}
       >
-        <span
-          className="text-[13px] font-bold text-transparent bg-clip-text leading-none"
-          style={{ backgroundImage: "linear-gradient(135deg, #8b5cf6 0%, #c4b5fd 100%)" }}
-        >
-          D
-        </span>
+        <Image
+          src="/images/logo-icon.png"
+          alt="Dauntless Agentic"
+          width={28}
+          height={28}
+          className="shrink-0"
+          unoptimized
+        />
       </div>
       <span className="text-sm font-semibold tracking-tight text-[--text-primary]">
         Dauntless{" "}
@@ -64,22 +65,6 @@ export function MarketingFooter() {
     <footer className="relative bg-[--mkt-bg] border-t border-[--mkt-border] px-6">
       <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(139,92,246,0.15), transparent)" }} />
       <div className="max-w-6xl mx-auto">
-
-        {/* Footer CTA strip */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 py-10 border-b border-[--mkt-border]">
-          <div>
-            <p className="text-sm font-semibold text-[--text-primary]">Ready to build something that lasts?</p>
-            <p className="text-xs text-[--text-muted] mt-0.5">Start with a conversation &mdash; no commitment required.</p>
-          </div>
-          <Link href="/contact">
-            <button
-              className="shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-white transition-all hover:opacity-90"
-              style={{ background: "linear-gradient(135deg, #7c3aed, #8b5cf6)" }}
-            >
-              Start a Conversation <ArrowRight className="h-4 w-4" />
-            </button>
-          </Link>
-        </div>
 
         {/* Main footer content */}
         <div className="flex flex-col md:flex-row gap-10 md:gap-16 py-12">
@@ -107,7 +92,7 @@ export function MarketingFooter() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 flex-1">
             {Object.entries(footerLinks).map(([category, links]) => (
               <div key={category} className="space-y-3">
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-[--text-muted]">{category}</p>
+                <p className="text-xs font-bold uppercase tracking-[0.15em] text-[--text-muted]">{category}</p>
                 <ul className="space-y-2">
                   {links.map(({ label, href }) => (
                     <li key={label}>

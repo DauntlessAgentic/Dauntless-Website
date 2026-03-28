@@ -2,7 +2,6 @@ import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Linkedin, Mail, Globe } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
 import { PageCTA } from "@/components/marketing/page-cta";
@@ -48,7 +47,7 @@ const threeAs = [
 
 
 export const metadata: Metadata = {
-  title: "About — Craig Marchand & the Dauntless Story",
+  title: "About — Craig Marchand",
   description: "20+ years designing AI and systems architecture for government and enterprise. The story behind Dauntless and why we build the way we do.",
 };
 
@@ -77,7 +76,7 @@ export default function AboutPage() {
 
       {/* Craig Bio */}
       <section className="bg-[--mkt-section] py-14 px-6">
-        <div className="max-w-4xl mx-auto space-y-8">
+        <div className="max-w-6xl mx-auto space-y-8">
           <div className="soft-card p-8 space-y-5">
             <div>
               <h2 className="text-2xl font-semibold text-[--text-primary]">Craig Marchand</h2>
@@ -97,7 +96,8 @@ export default function AboutPage() {
             </p>
             <div className="flex gap-3 flex-wrap pt-2">
               <a href="https://linkedin.com/in/craigmarchand" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-[--accent-dim] border border-[--border-active] rounded-[--radius-md] text-sm font-medium text-[--accent-vivid] hover:bg-[--border-active] transition-all">
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-[--radius-md] text-sm font-medium text-[--accent-vivid] transition-all"
+                style={{ background: "rgba(124,58,237,0.12)", border: "1px solid rgba(124,58,237,0.3)" }}>
                 <Linkedin className="h-4 w-4" /> LinkedIn
               </a>
               <a href="mailto:craig@dauntlessagentic.com"
@@ -151,8 +151,8 @@ export default function AboutPage() {
       </section>
 
       {/* Why This Matters Now */}
-      <section className="bg-[--mkt-bg] py-12 px-6">
-        <div className="max-w-4xl mx-auto space-y-6">
+      <section className="bg-[--mkt-section] py-12 px-6">
+        <div className="max-w-6xl mx-auto space-y-6">
           <div className="space-y-2">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Why Now</p>
             <h2 className="text-3xl font-semibold text-[--text-primary]">2026 Is the Wrong Time to Get This Wrong</h2>
@@ -187,7 +187,7 @@ export default function AboutPage() {
               <p className="font-bold text-[--text-primary]"><span className="text-[--accent-vivid]">Agentic</span> — agent-powered, autonomous, self-directed.</p>
               <p className="text-sm text-[--text-secondary] leading-relaxed">Because the future isn't just about AI tools. It's about AI agents — autonomous capabilities that propose, execute, and learn within structured governance. That's not science fiction. That's how we operate right now.</p>
             </div>
-            <div className="bg-[--accent-dim] border border-[--border-active] rounded-[--radius-lg] p-3 mt-2">
+            <div className="rounded-[--radius-lg] p-3 mt-2" style={{ background: "rgba(124,58,237,0.12)", border: "1px solid rgba(124,58,237,0.3)" }}>
               <p className="text-sm font-bold text-[--text-primary]">Together: Fearlessly autonomous intelligence systems.</p>
             </div>
           </div>
@@ -206,8 +206,8 @@ export default function AboutPage() {
               <div key={label} className="text-center space-y-2 soft-card p-5">
                 <p className="text-3xl font-bold text-transparent bg-clip-text"
                   style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))" }}>{value}</p>
-                <p className="text-xs text-[--text-secondary] leading-tight font-medium">{label}</p>
-                {note && <p className="text-[10px] text-[--text-muted] leading-tight italic">{note}</p>}
+                <p className="text-sm text-[--text-secondary] leading-tight font-medium">{label}</p>
+                {note && <p className="text-xs text-[--text-muted] leading-tight italic">{note}</p>}
               </div>
             ))}
           </div>
@@ -258,13 +258,13 @@ export default function AboutPage() {
                   style={{ background: bg, border: `1px solid ${border}` }}
                 >
                   <span
-                    className="inline-block px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider"
+                    className="inline-block px-2 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider"
                     style={{ color, background: "rgba(0,0,0,0.2)", border: `1px solid ${border}` }}
                   >
                     {badge}
                   </span>
-                  <p className="text-xs font-semibold text-[--text-primary] leading-snug">{org}</p>
-                  <p className="text-[10px] text-[--text-muted] leading-relaxed">{note}</p>
+                  <p className="text-sm font-semibold text-[--text-primary] leading-snug">{org}</p>
+                  <p className="text-sm text-[--text-muted] leading-relaxed">{note}</p>
                 </div>
               ))}
             </div>
@@ -281,8 +281,15 @@ export default function AboutPage() {
           <blockquote className="text-lg font-bold text-[--text-primary] italic">
             &ldquo;The rules were built for a world that no longer exists. The organizations, professionals, and leaders who cling to them don't just fall behind — they become irrelevant while still feeling productive.&rdquo;
           </blockquote>
-          <Link href="/about/manifesto">
-            <Button variant="primary" size="lg" className="gap-2">Read the Full Manifesto <ArrowRight className="h-4 w-4" /></Button>
+          <Link
+            href="/about/manifesto"
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+            style={{
+              background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
+              boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+            }}
+          >
+            Read the Full Manifesto <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </section>

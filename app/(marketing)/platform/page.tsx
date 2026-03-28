@@ -24,7 +24,7 @@ const agentCapabilities = [
 const tiers = [
   { name: "Core Portal", tag: "Included with all engagements", highlight: false, features: ["Living Deliverables", "Engagement History & Continuity", "1 general AI agent", "Standard progress dashboards", "Basic knowledge compounding"] },
   { name: "Advanced Portal", tag: "Multi-engagement clients", highlight: true, features: ["Everything in Core", "Specialized agent fleet", "Advanced dashboards with custom views", "Cross-engagement intelligence", "Enhanced knowledge architecture"] },
-  { name: "Innovation Studio", tag: "Strategic partners", highlight: false, features: ["Everything in Advanced", "Full design-to-delivery pipeline", "Executive decision surface", "Organizational knowledge architecture", "Managed agentic operations"] },
+  { name: "Innovation Studio", tag: "Strategic partners", highlight: false, features: ["Everything in Advanced", "Full design-to-delivery pipeline", "Executive decision surface", "Organizational knowledge architecture", "Managed agentic operations", "Autonomous Innovation Engine", "Next Best Course of Action"] },
 ];
 
 const phases = [
@@ -59,8 +59,15 @@ export default function PlatformPage() {
           <p className="max-w-2xl mx-auto text-lg text-[--text-secondary] leading-relaxed">
             Most firms deliver a report and disappear. We deliver a living platform — an intelligent client portal where every deliverable, every insight, and every decision accumulates into a compounding knowledge asset that keeps working for you long after the engagement ends.
           </p>
-          <Link href="/contact">
-            <Button variant="primary" size="lg" className="gap-2">Explore the Platform <ArrowRight className="h-4 w-4" /></Button>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+            style={{
+              background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
+              boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+            }}
+          >
+            Explore the Platform <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </section>
@@ -68,7 +75,10 @@ export default function PlatformPage() {
       {/* Industry vs Dauntless */}
       <section className="bg-[--mkt-section] py-24 px-6">
         <div className="max-w-6xl mx-auto space-y-8">
-          <h2 className="text-3xl font-semibold text-[--text-primary] text-center">Engagements Shouldn&apos;t Evaporate</h2>
+          <div className="text-center space-y-3">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">The Difference</p>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">Engagements Shouldn&apos;t Evaporate</h2>
+          </div>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="soft-card-danger p-6 space-y-3">
               <p className="text-sm font-bold text-[--danger] uppercase tracking-wider">The Industry Standard</p>
@@ -153,7 +163,7 @@ export default function PlatformPage() {
             {tiers.map(({ name, tag, features, highlight }) => (
               <div key={name} className={`p-6 space-y-4 ${highlight ? "soft-card-accent" : "soft-card"}`}>
                 {highlight && (
-                  <span className="inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest rounded-full bg-[--accent-dim] text-[--accent-vivid]">
+                  <span className="inline-block px-2 py-0.5 text-xs font-bold uppercase tracking-widest rounded-full bg-[--accent-dim] text-[--accent-vivid]">
                     Most Popular
                   </span>
                 )}
@@ -174,7 +184,7 @@ export default function PlatformPage() {
 
       {/* Phases */}
       <section className="bg-[--mkt-section] py-24 px-6">
-        <div className="max-w-5xl mx-auto space-y-8">
+        <div className="max-w-6xl mx-auto space-y-8">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">The Journey</p>
             <h2 className="text-3xl font-semibold text-[--text-primary]">From First Engagement to Compounding Platform</h2>
@@ -202,10 +212,20 @@ export default function PlatformPage() {
       {/* CTA */}
       <section className="bg-[--mkt-bg] py-20 px-6">
         <div className="max-w-2xl mx-auto text-center space-y-6">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">Get Started</p>
           <h2 className="text-3xl font-semibold text-[--text-primary]">Ready to See What a Compounding Platform Looks Like?</h2>
           <p className="text-[--text-secondary]">The platform is included with every engagement. Let&apos;s talk about what your Client Intelligence Portal could look like.</p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
-            <Link href="/contact"><Button variant="primary" size="lg" className="gap-2">Start a Conversation <ArrowRight className="h-4 w-4" /></Button></Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+              style={{
+                background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
+                boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+              }}
+            >
+              Start a Conversation <ArrowRight className="h-4 w-4" />
+            </Link>
             <Link href="/services"><Button variant="outline" size="lg">Explore Our Services</Button></Link>
           </div>
         </div>
@@ -247,7 +267,7 @@ export default function PlatformPage() {
               </div>
               <div className="space-y-2 max-w-md">
                 <p className="text-sm font-semibold text-[--text-primary]">Platform screenshot coming soon</p>
-                <p className="text-xs text-[--text-muted] leading-relaxed">
+                <p className="text-sm text-[--text-secondary] leading-relaxed">
                   We&apos;re building the visual walkthrough. In the meantime, book a 20-minute live demo and we&apos;ll show you a real engagement portal — not a mockup.
                 </p>
               </div>
@@ -270,7 +290,7 @@ export default function PlatformPage() {
             ].map((item) => (
               <div key={item.label} className="soft-card soft-card-lift p-5 space-y-2">
                 <p className="text-sm font-semibold text-[--text-primary]">{item.label}</p>
-                <p className="text-xs text-[--text-secondary] leading-relaxed">{item.desc}</p>
+                <p className="text-sm text-[--text-secondary] leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
