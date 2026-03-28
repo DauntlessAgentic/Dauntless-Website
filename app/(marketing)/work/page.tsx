@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Building2 } from "lucide-react";
 import { WorkCard, WorkCategory } from "@/components/ui/work-card";
+import { MarketingNav } from "@/components/marketing/marketing-nav";
+import { MarketingFooter } from "@/components/marketing/footer";
+import { ClientRibbon } from "@/components/marketing/client-ribbon";
 
 interface Project {
   department: string;
@@ -74,6 +77,7 @@ const federalDepts = [
   "Public Services & Procurement Canada",
 ];
 
+
 export default function WorkPage() {
   const [active, setActive] = useState<"All" | WorkCategory>("All");
 
@@ -82,6 +86,8 @@ export default function WorkPage() {
     : projects.filter(p => p.category === active);
 
   return (
+    <>
+    <MarketingNav />
     <div className="min-h-screen bg-[--mkt-bg]">
 
       {/* Hero */}
@@ -93,7 +99,7 @@ export default function WorkPage() {
           <h1 className="text-4xl md:text-6xl font-bold text-[--text-primary] leading-tight">
             Decades of Work.{" "}
             <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))" }}>
-              39+ Projects.
+              150+ Projects.
             </span>
           </h1>
           <p className="max-w-2xl mx-auto text-lg text-[--text-secondary] leading-relaxed">
@@ -102,10 +108,10 @@ export default function WorkPage() {
           {/* Stats */}
           <div className="flex items-center justify-center gap-8 pt-2 flex-wrap">
             {[
-              { value: "39+", label: "Projects" },
-              { value: "14", label: "Federal Departments" },
+              { value: "150+", label: "Projects" },
+              { value: "50+", label: "Client Organizations" },
               { value: "20+", label: "Years" },
-              { value: "$4M+", label: "Value Delivered" },
+              { value: "$50M+", label: "Value Delivered" },
             ].map(({ value, label }) => (
               <div key={label} className="text-center">
                 <p className="text-2xl font-bold text-[--text-primary]">{value}</p>
@@ -116,23 +122,52 @@ export default function WorkPage() {
         </div>
       </section>
 
+      {/* Client ribbon */}
+      <section className="bg-[--mkt-section] border-y border-[--mkt-border]">
+        <div className="max-w-6xl mx-auto px-6 pt-5 pb-1">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-[--text-muted] mb-3 text-center">Trusted by 50+ organizations</p>
+        </div>
+        <ClientRibbon />
+      </section>
+
       {/* Filter bar */}
-      <section className="bg-[--mkt-section] py-6 px-6 sticky top-16 z-10 border-b border-[--mkt-border]">
-        <div className="max-w-6xl mx-auto overflow-x-auto">
-          <div className="flex gap-2 min-w-max">
-            {CATEGORIES.map(cat => (
-              <button
-                key={cat}
-                onClick={() => setActive(cat)}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 whitespace-nowrap ${
-                  active === cat
-                    ? "bg-[--accent-vivid] text-white shadow-[0_0_12px_rgba(139,92,246,0.4)]"
-                    : "bg-[--mkt-card] border border-[--mkt-border] text-[--text-secondary] hover:border-[--accent-vivid] hover:text-[--text-primary]"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
+      <section className="bg-[--mkt-section] py-4 px-6 sticky top-16 z-10 border-b border-[--mkt-border]">
+        <div className="max-w-6xl mx-auto">
+          {/* Mobile: dropdown */}
+          <div className="flex items-center gap-3 md:hidden">
+            <select
+              value={active}
+              onChange={(e) => setActive(e.target.value as typeof active)}
+              className="flex-1 px-3 py-2 rounded-lg text-sm bg-[--mkt-card] border border-[--mkt-border] text-[--text-primary] focus:outline-none focus:border-[--accent-vivid]"
+            >
+              {CATEGORIES.map((cat) => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
+            </select>
+            <span className="text-xs text-[--text-muted] shrink-0">
+              {filtered.length} project{filtered.length !== 1 ? "s" : ""}
+            </span>
+          </div>
+          {/* Desktop: button row */}
+          <div className="hidden md:flex items-center gap-2">
+            <div className="flex gap-2 overflow-x-auto">
+              {CATEGORIES.map(cat => (
+                <button
+                  key={cat}
+                  onClick={() => setActive(cat)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 whitespace-nowrap ${
+                    active === cat
+                      ? "bg-[--accent-vivid] text-white shadow-[0_0_12px_rgba(139,92,246,0.4)]"
+                      : "bg-[--mkt-card] border border-[--mkt-border] text-[--text-secondary] hover:border-[--accent-vivid] hover:text-[--text-primary]"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+            <span className="ml-auto text-xs text-[--text-muted] shrink-0 pl-2">
+              {filtered.length} project{filtered.length !== 1 ? "s" : ""}
+            </span>
           </div>
         </div>
       </section>
@@ -199,5 +234,7 @@ export default function WorkPage() {
       </section>
 
     </div>
+    <MarketingFooter />
+    </>
   );
 }

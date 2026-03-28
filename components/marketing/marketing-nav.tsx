@@ -5,12 +5,12 @@ import { Menu, X, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/cn";
 
 const navLinks = [
-  { label: "Platform",  href: "/platform" },
-  { label: "Services",  href: "/services" },
-  { label: "Method",    href: "/method" },
-  { label: "About",     href: "/about" },
-  { label: "Work",      href: "/work" },
-  { label: "Insights",  href: "/insights" },
+  { label: "Services",      href: "/services" },
+  { label: "Platform",      href: "/platform" },
+  { label: "Method",        href: "/method" },
+  { label: "Work",          href: "/work" },
+  { label: "Pricing",       href: "/pricing" },
+  { label: "About",         href: "/about" },
 ];
 
 function LogoMark() {

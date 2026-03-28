@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -61,6 +62,12 @@ const theses = [
     body: "Optimization is a trap disguised as progress. It takes what exists and makes it 10% better, 15% faster, 20% cheaper. It's comfortable. It's measurable. And it's the surest path to irrelevance.\n\nElevation is different. Elevation doesn't ask \"how do we do this faster?\" It asks \"what becomes possible that wasn't possible before?\"\n\nWhen you give a human AI augmentation, don't ask them to do their old job faster. Ask them what new work they can now do. When you build an agentic system, don't replicate the old workflow with robots. Design a new workflow that produces outcomes the old one couldn't touch.\n\nThis is the Massively Transformational Purpose: to elevate human potential by redesigning how people and organizations think, decide, and build in the age of AI.\n\nNot to optimize. To elevate.",
   },
 ];
+
+
+export const metadata: Metadata = {
+  title: "The Dauntless Manifesto — 9 Theses for the Age of AI",
+  description: "Nine provocations about work, intelligence, and human potential in an era of profound disruption. A manifesto for builders who refuse to settle.",
+};
 
 export default function ManifestoPage() {
   return (

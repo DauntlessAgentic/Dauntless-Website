@@ -3,10 +3,10 @@ import Link from "next/link";
 import { ArrowRight, Clock, GitBranch, Users, TrendingUp } from "lucide-react";
 
 const stats = [
-  { icon: Clock,      value: "18+",    label: "Years in public sector transformation" },
+  { icon: Clock,      value: "18+",    label: "Years designing AI & systems architecture" },
   { icon: GitBranch,  value: "180+",   label: "AI-augmented workflows designed" },
   { icon: Users,      value: "5,000+", label: "Professionals served" },
-  { icon: TrendingUp, value: "$4M+",   label: "In documented productivity savings" },
+  { icon: TrendingUp, value: "$50M+",   label: "In documented value delivered" },
 ];
 
 export function WhyDauntless() {

@@ -1,9 +1,11 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Brain, Zap, Layers, GraduationCap, RefreshCw, Globe, Linkedin, Users, CalendarClock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
+import { PageCTA } from "@/components/marketing/page-cta";
 
 const categories = [
   { icon: Brain, title: "AI & Human Intelligence", description: "How humans and AI work together — augmentation patterns, decision-making, the role of judgment in an automated world." },
@@ -16,11 +18,11 @@ const categories = [
   { icon: CalendarClock, title: "Meeting Productivity", description: "71% of meetings are unproductive. Here's what the other 29% look like — and how AI-augmented facilitation changes the economics of collaboration." },
 ];
 
-const placeholderArticles = [
-  { category: "Agentic Architecture", title: "The Four Layers of a Constitutional Agentic System", excerpt: "Why the architecture of your agent fleet matters as much as the agents themselves — and how separation of powers prevents the most common failure modes.", readTime: "8 min read", coming: true },
-  { category: "AI & Human Intelligence", title: "Judgment Is Not Automatable. Here's How to Scale It.", excerpt: "The professionals who thrive in the AI era won't be the ones who automate the most tasks. They'll be the ones who build the architecture to make better judgments, faster.", readTime: "6 min read", coming: true },
-  { category: "The Compounding Advantage", title: "Why Most Organizations Build AI Debt, Not AI Capital", excerpt: "Every AI implementation either compounds or depreciates. The difference isn't the technology — it's the knowledge architecture that surrounds it.", readTime: "7 min read", coming: true },
-];
+
+export const metadata: Metadata = {
+  title: "Insights — AI, Systems & the Future of Work",
+  description: "Writing on AI operations, collective intelligence, agentic architecture, and what actually works in complex organizations.",
+};
 
 export default function InsightsPage() {
   return (
@@ -48,8 +50,7 @@ export default function InsightsPage() {
       {/* Featured: Manifesto */}
       <section className="bg-[--mkt-section] py-16 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="bg-[--mkt-card] border border-[--border-active] rounded-[--radius-xl] p-8 flex flex-col md:flex-row gap-6 items-start"
-            style={{ background: "linear-gradient(135deg, var(--mkt-card) 0%, rgba(124,58,237,0.06) 100%)" }}>
+          <div className="soft-card-accent p-8 flex flex-col md:flex-row gap-6 items-start">
             <div className="flex-1 space-y-3">
               <div className="flex items-center gap-2">
                 <span className="inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest rounded-full bg-[--accent-dim] text-[--accent-vivid]">Featured</span>
@@ -74,7 +75,7 @@ export default function InsightsPage() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {categories.map(({ icon: Icon, title, description }) => (
-              <div key={title} className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-5 space-y-3 hover:border-[--border-active] transition-all duration-300">
+              <div key={title} className="soft-card p-5 space-y-3">
                 <div className="flex h-9 w-9 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim]"><Icon className="h-4 w-4 text-[--accent-vivid]" /></div>
                 <h3 className="font-bold text-[--text-primary]">{title}</h3>
                 <p className="text-sm text-[--text-secondary] leading-relaxed">{description}</p>
@@ -92,27 +93,69 @@ export default function InsightsPage() {
             <h2 className="text-3xl font-semibold text-[--text-primary]">Latest Thinking</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-4">
-            {placeholderArticles.map(({ category, title, excerpt, readTime, coming }) => (
-              <div key={title} className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-6 space-y-4 hover:border-[--border-active] transition-all duration-300">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-[--accent-vivid]">{category}</span>
-                  {coming && <span className="text-[10px] px-2 py-0.5 rounded-full bg-[--warning-dim] text-[--warning] font-bold uppercase tracking-wider">Coming Soon</span>}
-                </div>
-                <h3 className="font-bold text-[--text-primary] leading-snug">{title}</h3>
-                <p className="text-sm text-[--text-secondary] leading-relaxed">{excerpt}</p>
-                <p className="text-xs text-[--text-muted]">{readTime}</p>
+
+            {/* Published article 1 */}
+            <div className="soft-card overflow-hidden">
+              <div className="h-1.5 w-full" style={{ background: "linear-gradient(90deg, #7c3aed, #8b5cf6)" }} />
+              <div className="p-6 space-y-3">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-[--accent-vivid]">AI &amp; Human Intelligence</span>
+                <h3 className="font-bold text-[--text-primary] leading-snug">The Case Against AI-First Thinking</h3>
+                <p className="text-sm text-[--text-secondary] leading-relaxed">
+                  Every organization rushing to &ldquo;become AI-first&rdquo; is solving the wrong problem.
+                  The organizations that will win aren&apos;t the ones that adopt AI fastest &mdash; they&apos;re
+                  the ones that build the human operating systems that make AI worth having.
+                </p>
+                <Link href="/about/manifesto" className="inline-flex items-center gap-1 text-sm font-medium text-[--accent-vivid] hover:text-[--accent-bright] transition-colors">
+                  Read the full argument <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
               </div>
-            ))}
-          </div>
-          <div className="text-center">
-            <p className="text-sm text-[--text-muted]">More articles coming soon. Follow Craig on LinkedIn for real-time insights.</p>
+            </div>
+
+            {/* Published article 2 */}
+            <div className="soft-card overflow-hidden">
+              <div className="h-1.5 w-full" style={{ background: "linear-gradient(90deg, #6d28d9, #7c3aed)" }} />
+              <div className="p-6 space-y-3">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-[--accent-vivid]">Agentic Architecture</span>
+                <h3 className="font-bold text-[--text-primary] leading-snug">The Four Layers of a Constitutional Agentic System</h3>
+                <p className="text-sm text-[--text-secondary] leading-relaxed">
+                  Why the architecture of your agent fleet matters as much as the agents themselves &mdash;
+                  and how separation of powers prevents the most common failure modes in production AI systems.
+                </p>
+                <Link href="/about/manifesto" className="inline-flex items-center gap-1 text-sm font-medium text-[--accent-vivid] hover:text-[--accent-bright] transition-colors">
+                  Explore the manifesto <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Subscribe card */}
+            <div className="bg-[rgba(124,58,237,0.06)] border border-[rgba(139,92,246,0.2)] rounded-[--radius-xl] p-6 flex flex-col justify-center space-y-4">
+              <p className="text-sm font-semibold text-[--text-primary]">New insights publish monthly.</p>
+              <p className="text-xs text-[--text-secondary] leading-relaxed">
+                No fluff. No sales emails. Just thinking worth your time &mdash; on AI operations,
+                systems design, and the future of human capability.
+              </p>
+              <div className="space-y-2">
+                <input
+                  type="email"
+                  placeholder="your@email.com"
+                  className="w-full px-3 py-2 rounded-lg text-sm bg-[--mkt-card] border border-[--mkt-border] text-[--text-primary] placeholder-[--text-muted] focus:outline-none focus:border-[--accent-vivid]"
+                />
+                <button
+                  className="w-full px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all hover:opacity-90"
+                  style={{ background: "linear-gradient(135deg, #7c3aed, #8b5cf6)" }}
+                >
+                  Subscribe
+                </button>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
 
       {/* Newsletter */}
       <section className="bg-[--mkt-bg] py-24 px-6">
-        <div className="max-w-3xl mx-auto text-center space-y-6 bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-10">
+        <div className="max-w-3xl mx-auto text-center space-y-6 soft-card p-10">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Newsletter</p>
           <h2 className="text-3xl font-semibold text-[--text-primary]">Get the Signal, Not the Noise.</h2>
           <p className="text-[--text-secondary]">A periodic dispatch from the frontier — frameworks, provocations, and practical insights on building in the age of AI. No spam. No filler. Just signal.</p>
@@ -131,7 +174,7 @@ export default function InsightsPage() {
             <h2 className="text-2xl font-semibold text-[--text-primary]">Where the Real-Time Thinking Happens</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-5 space-y-3 hover:border-[--border-active] transition-all duration-300">
+            <div className="soft-card p-5 space-y-3">
               <div className="flex h-9 w-9 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim]"><Linkedin className="h-4 w-4 text-[--accent-vivid]" /></div>
               <h3 className="font-bold text-[--text-primary]">LinkedIn</h3>
               <p className="text-sm text-[--text-secondary]">Follow for daily insights, manifesto drops, and conversations about the future of work.</p>
@@ -140,7 +183,7 @@ export default function InsightsPage() {
                 Follow Craig <ArrowRight className="h-3.5 w-3.5" />
               </a>
             </div>
-            <div className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-5 space-y-3 hover:border-[--border-active] transition-all duration-300">
+            <div className="soft-card p-5 space-y-3">
               <div className="flex h-9 w-9 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim]"><Zap className="h-4 w-4 text-[--accent-vivid]" /></div>
               <h3 className="font-bold text-[--text-primary]">Speaking</h3>
               <p className="text-sm text-[--text-secondary]">Craig speaks on AI strategy, agentic architecture, and the future of human capability. Available for keynotes, panels, and executive briefings.</p>
@@ -152,6 +195,7 @@ export default function InsightsPage() {
         </div>
       </section>
 
+      <PageCTA heading="Curious how this thinking applies to your organization?" />
       <MarketingFooter />
     </div>
   );

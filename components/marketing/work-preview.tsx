@@ -61,7 +61,7 @@ export function WorkPreview() {
             </p>
           </div>
           <Link href="/work" className="shrink-0 inline-flex items-center gap-1.5 text-sm font-medium text-[--accent-vivid] hover:text-[--accent-bright] transition-colors whitespace-nowrap">
-            View all 39+ projects <ArrowRight className="h-3.5 w-3.5" />
+            View all 150+ projects <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

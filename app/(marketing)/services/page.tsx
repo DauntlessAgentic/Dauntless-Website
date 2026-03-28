@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, GraduationCap, Building2, Bot, Search, Layers, Hammer, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -33,6 +34,12 @@ const trustMechanisms = [
   { icon: Hammer, title: "Accountability Hooks", description: "Clear success criteria defined upfront. We track outcomes, not activities. If it didn't move the needle, we own that." },
 ];
 
+
+export const metadata: Metadata = {
+  title: "Services — Training, Consulting & Agentic Systems",
+  description: "Three ways to work with Dauntless: AI literacy training, strategic consulting, and full agentic system builds.",
+};
+
 export default function ServicesPage() {
   return (
     <div className="min-h-screen bg-[--mkt-bg]">
@@ -64,13 +71,13 @@ export default function ServicesPage() {
             <p className="max-w-2xl mx-auto text-[--text-secondary]">Organizations don't need more AI demos. They need solutions that solve real problems, survive contact with reality, and get better over time.</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-[--mkt-card] border border-[--danger]/30 rounded-[--radius-xl] p-6 space-y-3">
+            <div className="soft-card-danger p-6 space-y-3">
               <p className="text-sm font-bold text-[--danger] uppercase tracking-wider">What Doesn't Work</p>
               {["One-off workshops that create buzz but not capability", "Pilots that die when the consultant leaves", "Generic frameworks that don't fit your reality", "Solutions that require constant hand-holding", "AI implementations with no governance or trust model"].map(item => (
                 <div key={item} className="flex items-start gap-2"><span className="text-[--danger] mt-0.5 shrink-0">✕</span><p className="text-sm text-[--text-secondary]">{item}</p></div>
               ))}
             </div>
-            <div className="bg-[--mkt-card] border border-[--success]/30 rounded-[--radius-xl] p-6 space-y-3">
+            <div className="soft-card-success p-6 space-y-3">
               <p className="text-sm font-bold text-[--success] uppercase tracking-wider">What We Build Instead</p>
               {["Capability that compounds after we leave", "Architecture designed for your constraints, not ours", "Governance baked in from day one", "Solutions your team can own, operate, and evolve", "Measurable outcomes with clear before/after proof"].map(item => (
                 <div key={item} className="flex items-start gap-2"><span className="text-[--success] mt-0.5 shrink-0">✓</span><p className="text-sm text-[--text-secondary]">{item}</p></div>
@@ -162,7 +169,7 @@ export default function ServicesPage() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {trustMechanisms.map(({ icon: Icon, title, description }) => (
-              <div key={title} className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-5 space-y-3 hover:border-[--border-active] transition-all duration-300">
+              <div key={title} className="soft-card p-5 space-y-3">
                 <div className="flex h-9 w-9 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim]"><Icon className="h-4 w-4 text-[--accent-vivid]" /></div>
                 <h3 className="font-bold text-[--text-primary] text-sm">{title}</h3>
                 <p className="text-xs text-[--text-secondary] leading-relaxed">{description}</p>

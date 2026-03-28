@@ -22,9 +22,19 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Dauntless Agentic — Elevate Human Potential",
+  title: {
+    default: "Dauntless — AI Operations for Organizations That Can't Afford to Get It Wrong",
+    template: "%s | Dauntless",
+  },
   description:
-    "We build AI training programs, strategic consulting engagements, and agentic operating systems that don't just improve what exists — they raise the ceiling of what's possible.",
+    "Dauntless builds AI operating architectures — training, consulting, and agentic systems — for government and private sector organizations. 20+ years. 150+ projects. Real outcomes.",
+  metadataBase: new URL("https://dauntless.ai"),
+  openGraph: {
+    type: "website",
+    siteName: "Dauntless",
+    images: [{ url: "/og-default.png", width: 1200, height: 630 }],
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({

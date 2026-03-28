@@ -1,10 +1,12 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Users, Target, BookOpen, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WorkCard } from "@/components/ui/work-card";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 const tiers = [
   {
@@ -56,10 +58,19 @@ const fc5Features = [
   { icon: BarChart3, title: "Outcome Tracking", description: "Every program produces measurable outcomes — capability assessments, workflow improvements, time savings, quality improvements. We don't guess at impact. We prove it." },
 ];
 
+
+export const metadata: Metadata = {
+  title: "AI Literacy Training — Dauntless",
+  description: "Team-wide AI fluency in days, not months. Executive briefings to full practitioner programs — built for government and enterprise.",
+};
+
 export default function TrainingPage() {
   return (
     <div className="min-h-screen bg-[--mkt-bg]">
       <MarketingNav />
+      <div className="max-w-6xl mx-auto px-6 pt-5 pb-1">
+        <Breadcrumbs crumbs={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "AI Literacy Training" }]} />
+      </div>
 
       <section className="relative pt-32 pb-24 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full pointer-events-none"
@@ -86,13 +97,13 @@ export default function TrainingPage() {
         <div className="max-w-6xl mx-auto space-y-8">
           <h2 className="text-3xl font-semibold text-[--text-primary] text-center">Most AI Training Is a Waste of Time</h2>
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-[--mkt-card] border border-[--danger]/30 rounded-[--radius-xl] p-6 space-y-3">
+            <div className="soft-card-danger p-6 space-y-3">
               <p className="text-sm font-bold text-[--danger] uppercase tracking-wider">What Organizations Are Doing</p>
               {["One-off lunch-and-learns that create buzz but not capability", "Self-paced courses with 12% completion rates", "Tool-specific training that's obsolete in 6 months", "\"Prompt engineering\" workshops that miss the strategic picture", "Sending people to conferences and hoping knowledge transfers"].map(item => (
                 <div key={item} className="flex items-start gap-2"><span className="text-[--danger] shrink-0">✕</span><p className="text-sm text-[--text-secondary]">{item}</p></div>
               ))}
             </div>
-            <div className="bg-[--mkt-card] border border-[--success]/30 rounded-[--radius-xl] p-6 space-y-3">
+            <div className="soft-card-success p-6 space-y-3">
               <p className="text-sm font-bold text-[--success] uppercase tracking-wider">What Actually Builds Capability</p>
               {["Cohort-based programs with accountability and community", "Practice-first curriculum applied to real work problems", "Outcome-tracked progression from literacy to fluency to mastery", "Strategic framing: when to use AI, when not to, and how to govern it", "Encoded delivery patterns refined across every cohort"].map(item => (
                 <div key={item} className="flex items-start gap-2"><span className="text-[--success] shrink-0">✓</span><p className="text-sm text-[--text-secondary]">{item}</p></div>
@@ -112,7 +123,7 @@ export default function TrainingPage() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {fc5Features.map(({ icon: Icon, title, description }) => (
-              <div key={title} className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-5 space-y-3 hover:border-[--border-active] transition-all duration-300">
+              <div key={title} className="soft-card p-5 space-y-3">
                 <div className="flex h-9 w-9 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim]"><Icon className="h-4 w-4 text-[--accent-vivid]" /></div>
                 <h3 className="font-bold text-[--text-primary] text-sm">{title}</h3>
                 <p className="text-xs text-[--text-secondary] leading-relaxed">{description}</p>
@@ -131,7 +142,7 @@ export default function TrainingPage() {
           </div>
           <div className="space-y-6">
             {tiers.map(({ name, tag, duration, size, before, after, covers, takeaways }) => (
-              <div key={name} className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-6 space-y-5 hover:border-[--border-active] transition-all duration-300">
+              <div key={name} className="soft-card p-6 space-y-5">
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
                   <div>
                     <h3 className="text-lg font-bold text-[--text-primary]">{name}</h3>
@@ -183,7 +194,7 @@ export default function TrainingPage() {
               { format: "Blended", desc: "Combine live sessions with structured practice missions participants complete in their actual workflow." },
               { format: "Multi-cohort", desc: "Run multiple groups through the same program on staggered schedules to minimize operational disruption." },
             ].map(({ format, desc }) => (
-              <div key={format} className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-5 space-y-2 hover:border-[--border-active] transition-all duration-300">
+              <div key={format} className="soft-card p-5 space-y-2">
                 <p className="font-bold text-[--text-primary]">{format}</p>
                 <p className="text-sm text-[--text-secondary]">{desc}</p>
               </div>
@@ -210,7 +221,25 @@ export default function TrainingPage() {
           </div>
           <div className="text-center">
             <Link href="/work" className="inline-flex items-center gap-1.5 text-sm font-medium text-[--accent-vivid] hover:text-[--accent-bright] transition-colors">
-              View all 39+ projects <ArrowRight className="h-3.5 w-3.5" />
+              View all 150+ projects <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+
+      {/* Also in Services */}
+      <section className="bg-[--mkt-section] border-t border-[--mkt-border] py-12 px-6">
+        <div className="max-w-6xl mx-auto space-y-6">
+          <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Also in Services</p>
+          <div className="grid sm:grid-cols-2 gap-4">
+            <Link href="/services/consulting" className="flex flex-col gap-1.5 p-5 soft-card text-left group">
+              <span className="text-sm font-semibold text-[--text-primary] flex items-center gap-1.5">AI Operations Consulting <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" /></span>
+              <span className="text-xs text-[--text-muted] leading-relaxed">We design the operating architecture, governance model, and workflow systems your organization needs to run AI at scale.</span>
+            </Link>
+            <Link href="/services/agentic-systems" className="flex flex-col gap-1.5 p-5 soft-card text-left group">
+              <span className="text-sm font-semibold text-[--text-primary] flex items-center gap-1.5">Agentic Systems <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" /></span>
+              <span className="text-xs text-[--text-muted] leading-relaxed">Custom AI agent pipelines that connect your data, your processes, and your people. Built to run without constant maintenance.</span>
             </Link>
           </div>
         </div>

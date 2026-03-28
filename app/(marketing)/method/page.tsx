@@ -1,9 +1,11 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Target, Layers, RefreshCw, Shield, Users, BarChart3, Search, FileText, Repeat } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
+import { PageCTA } from "@/components/marketing/page-cta";
 
 const principles = [
   { icon: Target, title: "Start With the Problem, Not the Technology", description: "We don't show up with a hammer looking for nails. Every engagement starts by deeply understanding your challenge — the people, the processes, the politics, the constraints. AI is the answer only when it's the right answer." },
@@ -64,10 +66,28 @@ const trustPillars = [
   { icon: Target, title: "Accountability", description: "Clear success criteria defined before we start. We track outcomes, not activities. If the needle didn't move, that's a conversation we initiate — not one you have to demand." },
 ];
 
+
+export const metadata: Metadata = {
+  title: "Our Method — How Dauntless Works",
+  description: "Six principles, five engagement phases, and a governance model built to outlast the engagement. No black boxes, no mystery.",
+};
+
 export default function MethodPage() {
   return (
     <div className="min-h-screen bg-[--mkt-bg]">
       <MarketingNav />
+      {/* Sticky section jump nav */}
+      <nav
+        className="hidden md:block sticky top-14 z-40 border-b border-[--mkt-border]"
+        style={{ background: "var(--mkt-section)" }}
+      >
+        <div className="max-w-6xl mx-auto px-6 py-3 flex items-center gap-6">
+          <a href="#principles" className="text-xs font-medium text-[--text-secondary] hover:text-[--accent-vivid] transition-colors">Principles</a>
+          <a href="#intelligence" className="text-xs font-medium text-[--text-secondary] hover:text-[--accent-vivid] transition-colors">CI + AI</a>
+          <a href="#phases" className="text-xs font-medium text-[--text-secondary] hover:text-[--accent-vivid] transition-colors">Engagement Phases</a>
+          <a href="#trust" className="text-xs font-medium text-[--text-secondary] hover:text-[--accent-vivid] transition-colors">Trust Architecture</a>
+        </div>
+      </nav>
 
       <section className="relative pt-32 pb-24 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full pointer-events-none"
@@ -88,14 +108,14 @@ export default function MethodPage() {
 
       {/* Core Promise */}
       <section className="bg-[--mkt-section] py-20 px-6">
-        <div className="max-w-3xl mx-auto text-center space-y-4 bg-[--mkt-card] border border-[--border-active] rounded-[--radius-xl] p-8">
+        <div className="max-w-3xl mx-auto text-center space-y-4 soft-card-accent p-8">
           <h2 className="text-2xl font-semibold text-[--text-primary]">Every Engagement Should Leave You Stronger Than It Found You.</h2>
           <p className="text-[--text-secondary]">Not just with deliverables — with capability. The ability to understand, operate, and evolve what we built together. We don't create dependency. We create compounding advantage.</p>
         </div>
       </section>
 
       {/* Principles */}
-      <section className="bg-[--mkt-bg] py-24 px-6">
+      <section id="principles" className="bg-[--mkt-bg] py-24 px-6">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Principles</p>
@@ -104,7 +124,7 @@ export default function MethodPage() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {principles.map(({ icon: Icon, title, description }) => (
-              <div key={title} className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-5 space-y-3 hover:border-[--border-active] transition-all duration-300">
+              <div key={title} className="soft-card p-5 space-y-3">
                 <div className="flex h-9 w-9 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim]"><Icon className="h-4 w-4 text-[--accent-vivid]" /></div>
                 <h3 className="font-bold text-[--text-primary]">{title}</h3>
                 <p className="text-sm text-[--text-secondary] leading-relaxed">{description}</p>
@@ -115,7 +135,7 @@ export default function MethodPage() {
       </section>
 
       {/* CI + AI Section */}
-      <section className="bg-[--mkt-bg] py-20 px-6">
+      <section id="intelligence" className="bg-[--mkt-bg] py-20 px-6">
         <div className="max-w-6xl mx-auto space-y-10">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Intelligence Architecture</p>
@@ -136,7 +156,7 @@ export default function MethodPage() {
               { label: "CI + AI = Compounding Insight", desc: "When collective human intelligence informs AI, and AI augments collective decision-making, organizations don&apos;t just get better answers — they build the capacity to ask better questions over time.", accent: "#34d399" },
             ].map(({ label, desc, accent }) => (
               <div key={label}
-                className="relative bg-[--mkt-card] border border-[--mkt-border] rounded-2xl p-6 space-y-3 hover:border-[rgba(139,92,246,0.3)] transition-all duration-300"
+                className="soft-card p-6 space-y-3"
               >
                 <div className="h-1 w-10 rounded-full" style={{ background: accent }} />
                 <h3 className="text-sm font-semibold text-[--text-primary]">{label}</h3>
@@ -148,7 +168,7 @@ export default function MethodPage() {
       </section>
 
       {/* Engagement Phases */}
-      <section className="bg-[--mkt-section] py-24 px-6">
+      <section id="phases" className="bg-[--mkt-section] py-24 px-6">
         <div className="max-w-5xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Engagement Experience</p>
@@ -156,7 +176,7 @@ export default function MethodPage() {
           </div>
           <div className="space-y-4">
             {phases.map(({ num, icon: Icon, title, description, items, outcome }) => (
-              <div key={num} className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-6 space-y-4 hover:border-[--border-active] transition-all duration-300">
+              <div key={num} className="soft-card p-6 space-y-4">
                 <div className="flex items-start gap-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[--accent-dim] border border-[--border-active] text-sm font-bold text-[--accent-vivid] shrink-0">{num}</div>
                   <div className="flex-1">
@@ -183,7 +203,7 @@ export default function MethodPage() {
       </section>
 
       {/* Trust Architecture */}
-      <section className="bg-[--mkt-bg] py-24 px-6">
+      <section id="trust" className="bg-[--mkt-bg] py-24 px-6">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Trust Architecture</p>
@@ -192,7 +212,7 @@ export default function MethodPage() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {trustPillars.map(({ icon: Icon, title, description }) => (
-              <div key={title} className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-5 space-y-3 hover:border-[--border-active] transition-all duration-300">
+              <div key={title} className="soft-card p-5 space-y-3">
                 <div className="flex h-9 w-9 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim]"><Icon className="h-4 w-4 text-[--accent-vivid]" /></div>
                 <h3 className="font-bold text-[--text-primary] text-sm">{title}</h3>
                 <p className="text-xs text-[--text-secondary] leading-relaxed">{description}</p>
@@ -214,6 +234,11 @@ export default function MethodPage() {
         </div>
       </section>
 
+
+      <PageCTA
+        heading="Understand the method. Now let's apply it to your challenge."
+      subtext="Every engagement starts with a discovery conversation — no pitch decks, no pressure."
+      />
       <MarketingFooter />
     </div>
   );

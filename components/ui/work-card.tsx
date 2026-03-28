@@ -65,7 +65,7 @@ export function WorkCard({ department, project, category, sector, image }: WorkC
             src={image}
             alt={`${department} — ${project}`}
             fill
-            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+            className="object-cover object-top scale-[1.04] transition-transform duration-700 ease-out group-hover:-translate-y-3"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
           {/* Subtle bottom gradient fade into card bg */}

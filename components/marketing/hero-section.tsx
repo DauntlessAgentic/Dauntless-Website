@@ -99,7 +99,7 @@ export function HeroSection() {
               className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text"
               style={{ backgroundImage: "linear-gradient(135deg, #8b5cf6 0%, #c4b5fd 100%)" }}
             >
-              $4M+
+              $50M+
             </p>
             <p className="text-xs text-[--text-muted] mt-0.5">Documented savings</p>
           </div>

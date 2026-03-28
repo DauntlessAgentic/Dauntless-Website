@@ -1,10 +1,12 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Bot, Shield, Brain, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WorkCard } from "@/components/ui/work-card";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 const layers = [
   {
@@ -82,10 +84,19 @@ const engagementPhases = [
   { phase: "Compound", what: "System learns from every action. Patterns refine. Knowledge compounds. Governance tightens.", duration: "Ongoing" },
 ];
 
+
+export const metadata: Metadata = {
+  title: "Agentic Systems — Dauntless",
+  description: "Custom AI agent pipelines that connect your data, your processes, and your people. Built to run without constant maintenance.",
+};
+
 export default function AgenticSystemsPage() {
   return (
     <div className="min-h-screen bg-[--mkt-bg]">
       <MarketingNav />
+      <div className="max-w-6xl mx-auto px-6 pt-5 pb-1">
+        <Breadcrumbs crumbs={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "Agentic Systems" }]} />
+      </div>
 
       <section className="relative pt-32 pb-24 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full pointer-events-none"
@@ -155,7 +166,7 @@ export default function AgenticSystemsPage() {
           </div>
           <div className="space-y-6">
             {layers.map(({ icon: Icon, num, title, subtitle, description, items, callout }) => (
-              <div key={title} className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-6 space-y-4 hover:border-[--border-active] transition-all duration-300">
+              <div key={title} className="soft-card p-6 space-y-4">
                 <div className="flex items-start gap-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim] border border-[--border-active] shrink-0">
                     <Icon className="h-5 w-5 text-[--accent-vivid]" />
@@ -197,7 +208,7 @@ export default function AgenticSystemsPage() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {useCases.map(({ icon, title, desc }) => (
-              <div key={title} className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-5 space-y-3 hover:border-[--border-active] transition-all duration-300">
+              <div key={title} className="soft-card p-5 space-y-3">
                 <span className="text-2xl">{icon}</span>
                 <h3 className="font-bold text-[--text-primary]">{title}</h3>
                 <p className="text-sm text-[--text-secondary] leading-relaxed">{desc}</p>
@@ -209,7 +220,7 @@ export default function AgenticSystemsPage() {
 
       {/* Built From Experience */}
       <section className="bg-[--mkt-bg] py-20 px-6">
-        <div className="max-w-3xl mx-auto text-center space-y-4 bg-[--mkt-card] border border-[--border-active] rounded-[--radius-xl] p-8">
+        <div className="max-w-3xl mx-auto text-center space-y-4 soft-card-accent p-8">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Our Credibility</p>
           <h2 className="text-2xl font-semibold text-[--text-primary]">We Don't Just Design Agentic Systems. We Run One.</h2>
           <p className="text-[--text-secondary]">Every architecture we design for clients is informed by an agentic operating system we built and operate ourselves — daily. This isn't theory drawn from whitepapers. It's practice forged through real operational use. We've encountered the edge cases, solved the governance problems, and refined the patterns — so you don't have to.</p>
@@ -225,7 +236,7 @@ export default function AgenticSystemsPage() {
           </div>
           <div className="space-y-3">
             {engagementPhases.map(({ phase, what, duration }, i) => (
-              <div key={phase} className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-5 flex gap-4 items-start hover:border-[--border-active] transition-all duration-300">
+              <div key={phase} className="soft-card p-5 flex gap-4 items-start">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[--accent-dim] border border-[--border-active] text-xs font-bold text-[--accent-vivid] shrink-0">{i + 1}</div>
                 <div className="flex-1">
                   <p className="font-bold text-[--text-primary]">{phase}</p>
@@ -256,7 +267,7 @@ export default function AgenticSystemsPage() {
           </div>
           <div className="text-center">
             <Link href="/work" className="inline-flex items-center gap-1.5 text-sm font-medium text-[--accent-vivid] hover:text-[--accent-bright] transition-colors">
-              View all 39+ projects <ArrowRight className="h-3.5 w-3.5" />
+              View all 150+ projects <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
         </div>
@@ -270,6 +281,24 @@ export default function AgenticSystemsPage() {
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <Link href="/contact"><Button variant="primary" size="lg" className="gap-2">Explore Agentic Architecture <ArrowRight className="h-4 w-4" /></Button></Link>
             <Link href="/services"><Button variant="outline" size="lg">See All Services</Button></Link>
+          </div>
+        </div>
+      </section>
+
+
+      {/* Also in Services */}
+      <section className="bg-[--mkt-section] border-t border-[--mkt-border] py-12 px-6">
+        <div className="max-w-6xl mx-auto space-y-6">
+          <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Also in Services</p>
+          <div className="grid sm:grid-cols-2 gap-4">
+            <Link href="/services/training" className="flex flex-col gap-1.5 p-5 soft-card text-left group">
+              <span className="text-sm font-semibold text-[--text-primary] flex items-center gap-1.5">AI Literacy Training <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" /></span>
+              <span className="text-xs text-[--text-muted] leading-relaxed">Team-wide AI fluency in days, not months. Executive briefings to full practitioner programs built for government and enterprise.</span>
+            </Link>
+            <Link href="/services/consulting" className="flex flex-col gap-1.5 p-5 soft-card text-left group">
+              <span className="text-sm font-semibold text-[--text-primary] flex items-center gap-1.5">AI Operations Consulting <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" /></span>
+              <span className="text-xs text-[--text-muted] leading-relaxed">We design the operating architecture, governance model, and workflow systems your organization needs to run AI at scale.</span>
+            </Link>
           </div>
         </div>
       </section>

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { Mail, Linkedin, MapPin, Clock, ArrowRight, BookOpen, Layers } from "lucide-react";
+import { Mail, Linkedin, MapPin, Clock, ArrowRight, BookOpen, Layers, Calendar as CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
@@ -12,6 +12,7 @@ const steps = [
   { step: "3. Recommendation", what: "A clear recommendation — which service fits, what the engagement looks like, and whether we're the right partner", timeline: "Within 48 hours of discovery" },
   { step: "4. Proposal", what: "If there's a fit, a tailored proposal with scope, outcomes, timeline, and investment", timeline: "Within 1 week" },
 ];
+
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", org: "", role: "", message: "", source: "" });
@@ -36,6 +37,38 @@ export default function ContactPage() {
           <p className="text-lg text-[--text-secondary] leading-relaxed">
             Every engagement starts with a conversation. No pitch decks. No sales scripts. Just a real discussion about where you are, where you want to be, and whether we&apos;re the right architecture for the journey.
           </p>
+        </div>
+      </section>
+
+      {/* Calendar booking block */}
+      <section className="bg-[--mkt-bg] py-8 px-6">
+        <div className="max-w-3xl mx-auto">
+          <div
+            className="flex flex-col md:flex-row items-center gap-5 rounded-xl p-6"
+            style={{
+              background: "rgba(124,58,237,0.06)",
+              border: "1px solid rgba(139,92,246,0.2)",
+            }}
+          >
+            <div className="flex-1 text-center md:text-left">
+              <p className="text-sm font-semibold text-[--text-primary]">Prefer to pick a time directly?</p>
+              <p className="text-xs text-[--text-secondary] mt-1">
+                Book a 30-minute discovery call. No agenda required — bring your challenge.
+              </p>
+            </div>
+            <a
+              href="https://cal.com/dauntless/discovery"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold transition-all"
+              style={{
+                border: "1px solid rgba(139,92,246,0.4)",
+                color: "var(--accent-vivid)",
+              }}
+            >
+              <CalendarIcon className="h-4 w-4" /> Schedule Directly
+            </a>
+          </div>
         </div>
       </section>
 

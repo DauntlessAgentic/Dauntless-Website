@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 const footerLinks = {
   Services: [
@@ -7,16 +8,23 @@ const footerLinks = {
     { label: "AI Ops Consulting",      href: "/services/consulting" },
     { label: "Agentic Systems",        href: "/services/agentic-systems" },
   ],
+  Resources: [
+    { label: "Our Work",      href: "/work" },
+    { label: "Case Studies",  href: "/case-studies" },
+    { label: "Insights",      href: "/insights" },
+    { label: "Manifesto",     href: "/about/manifesto" },
+    { label: "FAQ",           href: "/faq" },
+  ],
   Company: [
     { label: "Platform",  href: "/platform" },
     { label: "Method",    href: "/method" },
+    { label: "Pricing",   href: "/pricing" },
     { label: "About",     href: "/about" },
-    { label: "Manifesto", href: "/about/manifesto" },
+    { label: "Contact",   href: "/contact" },
   ],
-  Connect: [
-    { label: "LinkedIn",  href: "https://linkedin.com/in/craigmarchand" },
-    { label: "Insights",  href: "/insights" },
-    { label: "Email",     href: "mailto:craig@dauntlessagentic.com" },
+  Legal: [
+    { label: "Privacy Policy", href: "/legal/privacy" },
+    { label: "Terms of Use",   href: "/legal/terms" },
   ],
 };
 
@@ -53,10 +61,28 @@ function FooterLogo() {
 
 export function MarketingFooter() {
   return (
-    <footer className="relative bg-[--mkt-bg] border-t border-[--mkt-border] py-14 px-6">
+    <footer className="relative bg-[--mkt-bg] border-t border-[--mkt-border] px-6">
       <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(139,92,246,0.15), transparent)" }} />
-      <div className="max-w-6xl mx-auto space-y-10">
-        <div className="flex flex-col md:flex-row gap-10 md:gap-20">
+      <div className="max-w-6xl mx-auto">
+
+        {/* Footer CTA strip */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 py-10 border-b border-[--mkt-border]">
+          <div>
+            <p className="text-sm font-semibold text-[--text-primary]">Ready to build something that lasts?</p>
+            <p className="text-xs text-[--text-muted] mt-0.5">Start with a conversation &mdash; no commitment required.</p>
+          </div>
+          <Link href="/contact">
+            <button
+              className="shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-white transition-all hover:opacity-90"
+              style={{ background: "linear-gradient(135deg, #7c3aed, #8b5cf6)" }}
+            >
+              Start a Conversation <ArrowRight className="h-4 w-4" />
+            </button>
+          </Link>
+        </div>
+
+        {/* Main footer content */}
+        <div className="flex flex-col md:flex-row gap-10 md:gap-16 py-12">
           <div className="md:w-64 space-y-3 shrink-0">
             <FooterLogo />
             <p className="text-xs text-[--text-muted] leading-relaxed">
@@ -69,8 +95,16 @@ export function MarketingFooter() {
             >
               craig@dauntlessagentic.com
             </a>
+            <a
+              href="https://linkedin.com/in/craigmarchand"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-xs text-[--text-muted] hover:text-[--text-secondary] transition-colors"
+            >
+              LinkedIn
+            </a>
           </div>
-          <div className="grid grid-cols-3 gap-8 flex-1">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 flex-1">
             {Object.entries(footerLinks).map(([category, links]) => (
               <div key={category} className="space-y-3">
                 <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-[--text-muted]">{category}</p>
@@ -87,10 +121,13 @@ export function MarketingFooter() {
             ))}
           </div>
         </div>
-        <div className="flex flex-col md:flex-row items-center justify-between gap-3 pt-6 border-t border-[--mkt-border]">
-          <p className="text-xs text-[--text-muted]">© 2026 Dauntless Agentic · Ottawa, Canada · Built with conviction.</p>
+
+        {/* Bottom bar */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-3 py-6 border-t border-[--mkt-border]">
+          <p className="text-xs text-[--text-muted]">&copy; {new Date().getFullYear()} Dauntless Agentic &middot; Ottawa, Canada &middot; Built with conviction.</p>
           <p className="text-xs text-[--text-muted]">www.dauntlessagentic.com</p>
         </div>
+
       </div>
     </footer>
   );

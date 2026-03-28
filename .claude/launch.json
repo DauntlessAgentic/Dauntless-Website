@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dauntless-dev",
+      "runtimeExecutable": "wsl",
+      "runtimeArgs": ["-d", "Ubuntu", "-e", "bash", "-c", "cd /home/craig/agentic-stack/Dauntless-Website && npm run dev -- --port 3030"],
+      "port": 3030
+    }
+  ]
+}

@@ -1,10 +1,12 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Search, Layers, Zap, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WorkCard } from "@/components/ui/work-card";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 const whatWeDo = [
   { icon: Layers, title: "Operating Model Design", description: "How should your organization actually work with AI? We design the roles, workflows, decision gates, and governance that turn AI from a tool into an operating capability." },
@@ -48,10 +50,19 @@ const engagementModels = [
   },
 ];
 
+
+export const metadata: Metadata = {
+  title: "AI Operations Consulting — Dauntless",
+  description: "We design the operating architecture, governance model, and workflow systems your organization needs to run AI at scale.",
+};
+
 export default function ConsultingPage() {
   return (
     <div className="min-h-screen bg-[--mkt-bg]">
       <MarketingNav />
+      <div className="max-w-6xl mx-auto px-6 pt-5 pb-1">
+        <Breadcrumbs crumbs={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "AI Operations Consulting" }]} />
+      </div>
 
       <section className="relative pt-32 pb-24 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full pointer-events-none"
@@ -89,14 +100,14 @@ export default function ConsultingPage() {
               { num: "5", label: "Stall", desc: "Pilot dies. Organization returns to status quo." },
               { num: "6", label: "Repeat", desc: "New tool, new pilot, same outcome." },
             ].map(({ num, label, desc }) => (
-              <div key={num} className="flex items-center gap-4 bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-lg] p-4">
+              <div key={num} className="flex items-center gap-4 soft-card p-4">
                 <span className="text-xs font-bold text-[--accent-vivid] w-5 shrink-0">{num}.</span>
                 <span className="font-bold text-[--text-primary] w-24 shrink-0">{label}</span>
                 <span className="text-sm text-[--text-secondary]">{desc}</span>
               </div>
             ))}
           </div>
-          <div className="max-w-2xl mx-auto bg-[--accent-dim] border border-[--border-active] rounded-[--radius-xl] p-5 text-center">
+          <div className="max-w-2xl mx-auto soft-card-accent p-5 text-center">
             <p className="font-bold text-[--text-primary]">The hard truth:</p>
             <p className="text-sm text-[--text-secondary] mt-1">The pilot worked. Your organization didn't. You don't need another demo. You need an operating architecture.</p>
           </div>
@@ -112,7 +123,7 @@ export default function ConsultingPage() {
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             {whatWeDo.map(({ icon: Icon, title, description }) => (
-              <div key={title} className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-6 space-y-3 hover:border-[--border-active] transition-all duration-300">
+              <div key={title} className="soft-card p-6 space-y-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim] border border-[--border-active]"><Icon className="h-5 w-5 text-[--accent-vivid]" /></div>
                 <h3 className="font-bold text-[--text-primary]">{title}</h3>
                 <p className="text-sm text-[--text-secondary] leading-relaxed">{description}</p>
@@ -131,7 +142,7 @@ export default function ConsultingPage() {
           </div>
           <div className="space-y-6">
             {engagementModels.map(({ icon, name, duration, best, what, get }) => (
-              <div key={name} className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-6 space-y-5 hover:border-[--border-active] transition-all duration-300">
+              <div key={name} className="soft-card p-6 space-y-5">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                   <div className="flex items-center gap-3">
                     <span className="text-2xl">{icon}</span>
@@ -172,7 +183,7 @@ export default function ConsultingPage() {
               { title: "Trust Engineered, Not Promised", desc: "Every engagement includes explicit trust mechanisms — process transparency, artifact proof, reversibility, accountability hooks. Trust isn't a feeling. It's architecture." },
               { title: "200+ Encoded Delivery Patterns", desc: "We're not figuring it out as we go. 200+ delivery patterns across strategy, design, and execution — refined through real engagements." },
             ].map(({ title, desc }) => (
-              <div key={title} className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-5 space-y-2 hover:border-[--border-active] transition-all duration-300">
+              <div key={title} className="soft-card p-5 space-y-2">
                 <h3 className="font-bold text-[--text-primary]">{title}</h3>
                 <p className="text-sm text-[--text-secondary] leading-relaxed">{desc}</p>
               </div>
@@ -199,7 +210,7 @@ export default function ConsultingPage() {
           </div>
           <div className="text-center">
             <Link href="/work" className="inline-flex items-center gap-1.5 text-sm font-medium text-[--accent-vivid] hover:text-[--accent-bright] transition-colors">
-              View all 39+ projects <ArrowRight className="h-3.5 w-3.5" />
+              View all 150+ projects <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
         </div>
@@ -213,6 +224,24 @@ export default function ConsultingPage() {
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <Link href="/contact"><Button variant="primary" size="lg" className="gap-2">Book a Discovery Call <ArrowRight className="h-4 w-4" /></Button></Link>
             <Link href="/services"><Button variant="outline" size="lg">See All Services</Button></Link>
+          </div>
+        </div>
+      </section>
+
+
+      {/* Also in Services */}
+      <section className="bg-[--mkt-section] border-t border-[--mkt-border] py-12 px-6">
+        <div className="max-w-6xl mx-auto space-y-6">
+          <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Also in Services</p>
+          <div className="grid sm:grid-cols-2 gap-4">
+            <Link href="/services/training" className="flex flex-col gap-1.5 p-5 soft-card text-left group">
+              <span className="text-sm font-semibold text-[--text-primary] flex items-center gap-1.5">AI Literacy Training <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" /></span>
+              <span className="text-xs text-[--text-muted] leading-relaxed">Team-wide AI fluency in days, not months. Executive briefings to full practitioner programs built for government and enterprise.</span>
+            </Link>
+            <Link href="/services/agentic-systems" className="flex flex-col gap-1.5 p-5 soft-card text-left group">
+              <span className="text-sm font-semibold text-[--text-primary] flex items-center gap-1.5">Agentic Systems <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" /></span>
+              <span className="text-xs text-[--text-muted] leading-relaxed">Custom AI agent pipelines that connect your data, your processes, and your people. Built to run without constant maintenance.</span>
+            </Link>
           </div>
         </div>
       </section>

@@ -1,17 +1,19 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Linkedin, Mail, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
+import { PageCTA } from "@/components/marketing/page-cta";
 
 const credentials = [
-  { value: "18+", label: "Years in public sector transformation" },
-  { value: "180+", label: "AI-augmented workflows designed" },
-  { value: "5,000+", label: "Professionals served" },
-  { value: "$4M+", label: "In documented productivity savings" },
-  { value: "200+", label: "Encoded delivery patterns" },
-  { value: "27+", label: "Interconnected operational databases" },
+  { value: "20+", label: "Years designing AI & systems architecture", note: "Before AI was a consulting trend" },
+  { value: "180+", label: "AI-augmented workflows designed", note: "Most orgs have zero documented at project start" },
+  { value: "5,000+", label: "Professionals served", note: "Across government and private sector" },
+  { value: "$50M+", label: "In documented value delivered", note: "Measurable. Verified. Not estimated." },
+  { value: "200+", label: "Encoded delivery patterns", note: "Refined over 20 years of real projects" },
+  { value: "27+", label: "Interconnected operational databases", note: "Building the second brain before it had a name" },
 ];
 
 const background = [
@@ -44,6 +46,12 @@ const threeAs = [
   },
 ];
 
+
+export const metadata: Metadata = {
+  title: "About — Craig Marchand & the Dauntless Story",
+  description: "20+ years designing AI and systems architecture for government and enterprise. The story behind Dauntless and why we build the way we do.",
+};
+
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-[--mkt-bg]">
@@ -62,7 +70,7 @@ export default function AboutPage() {
             </span>
           </h1>
           <p className="max-w-2xl mx-auto text-lg text-[--text-secondary] leading-relaxed">
-            Dauntless Agentic wasn't designed in a strategy retreat. It was forged in 18+ years of public sector transformation, 180+ automated workflows, 5,000+ professionals served, and millions in documented savings.
+            Dauntless Agentic wasn't designed in a strategy retreat. It was forged in 20+ years of public sector transformation, 180+ automated workflows, 5,000+ professionals served, and millions in documented savings.
           </p>
         </div>
       </section>
@@ -70,7 +78,7 @@ export default function AboutPage() {
       {/* Craig Bio */}
       <section className="bg-[--mkt-section] py-24 px-6">
         <div className="max-w-4xl mx-auto space-y-8">
-          <div className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-8 space-y-5">
+          <div className="soft-card p-8 space-y-5">
             <div>
               <h2 className="text-2xl font-semibold text-[--text-primary]">Craig Marchand</h2>
               <p className="text-sm text-[--accent-vivid] mt-1">Founder, Dauntless Agentic · Systems Architect · AI Strategist · Builder</p>
@@ -82,7 +90,7 @@ export default function AboutPage() {
               As <span className="text-[--text-primary] font-medium">VP Innovation at BDO Canada</span>, he architected the FutureCraft program — designing 180+ AI-augmented workflows that served 5,000+ professionals and generated $4M+ in documented productivity savings. He didn't just introduce AI tools. He redesigned how an entire professional services firm thought about work.
             </p>
             <p className="text-[--text-secondary] leading-relaxed">
-              Before that, 18+ years in public sector innovation — designing systems that actually work inside complex organizations with real constraints, real politics, and real consequences.
+              Before that, 20+ years in public sector innovation — designing systems that actually work inside complex organizations with real constraints, real politics, and real consequences.
             </p>
             <p className="text-[--text-secondary] leading-relaxed">
               Now, through Dauntless Agentic, he's building the practice he always wished existed: one where the system compounds, the work gets better, and the architecture is the advantage.
@@ -115,7 +123,7 @@ export default function AboutPage() {
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {threeAs.map(({ letter, title, subtitle, description }) => (
-              <div key={title} className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-6 space-y-4 hover:border-[--border-active] transition-all duration-300">
+              <div key={title} className="soft-card p-6 space-y-4">
                 <div className="text-5xl font-bold text-transparent bg-clip-text"
                   style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))" }}>
                   {letter}
@@ -142,6 +150,27 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Why This Matters Now */}
+      <section className="bg-[--mkt-bg] py-20 px-6">
+        <div className="max-w-4xl mx-auto space-y-6">
+          <div className="space-y-2">
+            <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Why Now</p>
+            <h2 className="text-3xl font-semibold text-[--text-primary]">2026 Is the Wrong Time to Get This Wrong</h2>
+          </div>
+          <div className="soft-card-accent p-8 space-y-4">
+            <p className="text-[--text-secondary] leading-relaxed">
+              The window for AI adoption is compressing. Organizations that build their AI operating architecture now will compound advantages for years. Those that don&apos;t will spend the next decade catching up — again.
+            </p>
+            <p className="text-[--text-secondary] leading-relaxed">
+              This isn&apos;t hyperbole. It&apos;s what we saw with digital transformation in 2010–2015, repeated at three times the speed. The organizations that moved first — with architecture, not just tools — built durable advantages. The ones that waited bought someone else&apos;s solution five years later and called it transformation.
+            </p>
+            <p className="text-[--text-primary] font-medium leading-relaxed">
+              The question isn&apos;t whether your organization will adopt AI. It&apos;s whether you&apos;ll design the operating architecture to make that adoption compound — or scramble to recover from an implementation that didn&apos;t stick.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Origin Story */}
       <section className="bg-[--mkt-bg] py-24 px-6">
         <div className="max-w-3xl mx-auto space-y-6">
@@ -149,7 +178,7 @@ export default function AboutPage() {
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Origin</p>
             <h2 className="text-3xl font-semibold text-[--text-primary]">The Name Says Everything</h2>
           </div>
-          <div className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-6 space-y-4">
+          <div className="soft-card p-6 space-y-4">
             <div className="space-y-2">
               <p className="font-bold text-[--text-primary]"><span className="text-[--accent-vivid]">Dauntless</span> — fearless, bold, undeterred by complexity.</p>
               <p className="text-sm text-[--text-secondary] leading-relaxed">The consulting industry is full of firms that mistake caution for rigor, slowness for thoughtfulness, and committee-driven consensus for quality. Dauntless was born from the conviction that there's a better way. A practice that moves with conviction — not recklessness, but the disciplined confidence that comes from having the architecture to be bold safely.</p>
@@ -172,12 +201,13 @@ export default function AboutPage() {
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">By the Numbers</p>
             <h2 className="text-3xl font-semibold text-[--text-primary]">The Credentials</h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {credentials.map(({ value, label }) => (
-              <div key={label} className="text-center space-y-2 bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-4 hover:border-[--border-active] transition-all duration-300">
-                <p className="text-2xl font-semibold text-transparent bg-clip-text"
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {credentials.map(({ value, label, note }) => (
+              <div key={label} className="text-center space-y-2 soft-card p-5">
+                <p className="text-3xl font-bold text-transparent bg-clip-text"
                   style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))" }}>{value}</p>
-                <p className="text-[10px] text-[--text-muted] leading-tight">{label}</p>
+                <p className="text-xs text-[--text-secondary] leading-tight font-medium">{label}</p>
+                {note && <p className="text-[10px] text-[--text-muted] leading-tight italic">{note}</p>}
               </div>
             ))}
           </div>
@@ -187,6 +217,54 @@ export default function AboutPage() {
               {background.map(b => (
                 <div key={b} className="flex items-center gap-2 text-sm text-[--text-secondary]">
                   <span className="text-[--accent-vivid] shrink-0">·</span>{b}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Memberships & Affiliations */}
+          <div className="max-w-3xl mx-auto pt-4 border-t border-[--mkt-border]">
+            <p className="text-xs font-bold uppercase tracking-widest text-[--text-muted] mb-4 text-center">Memberships & Affiliations</p>
+            <div className="grid md:grid-cols-3 gap-3">
+              {[
+                {
+                  badge: "Founding Member",
+                  org: "Canada AI Alliance",
+                  note: "Helping shape Canada's national AI strategy and ecosystem",
+                  color: "#a78bfa",
+                  bg: "rgba(139,92,246,0.10)",
+                  border: "rgba(139,92,246,0.25)",
+                },
+                {
+                  badge: "Former Board Member",
+                  org: "Canadian Public Sector Excellence Network",
+                  note: "Governance and excellence in public sector delivery",
+                  color: "#60a5fa",
+                  bg: "rgba(59,130,246,0.08)",
+                  border: "rgba(59,130,246,0.20)",
+                },
+                {
+                  badge: "Former Member",
+                  org: "Canadian Public Sector Quality Association",
+                  note: "Quality management and continuous improvement in government",
+                  color: "#34d399",
+                  bg: "rgba(34,197,94,0.08)",
+                  border: "rgba(34,197,94,0.20)",
+                },
+              ].map(({ badge, org, note, color, bg, border }) => (
+                <div
+                  key={org}
+                  className="rounded-xl p-4 space-y-2"
+                  style={{ background: bg, border: `1px solid ${border}` }}
+                >
+                  <span
+                    className="inline-block px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider"
+                    style={{ color, background: "rgba(0,0,0,0.2)", border: `1px solid ${border}` }}
+                  >
+                    {badge}
+                  </span>
+                  <p className="text-xs font-semibold text-[--text-primary] leading-snug">{org}</p>
+                  <p className="text-[10px] text-[--text-muted] leading-relaxed">{note}</p>
                 </div>
               ))}
             </div>
@@ -209,6 +287,11 @@ export default function AboutPage() {
         </div>
       </section>
 
+
+      <PageCTA
+        heading="You've read the story. Let's talk about yours."
+      subtext="One conversation is all it takes to figure out if there's a fit."
+      />
       <MarketingFooter />
     </div>
   );
