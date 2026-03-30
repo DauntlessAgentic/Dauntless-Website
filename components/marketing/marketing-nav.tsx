@@ -3,8 +3,9 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X, ArrowRight, Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/cn";
+import { useTheme } from "./theme-wrapper";
 
 const navLinks = [
   { label: "Services",      href: "/services" },
@@ -45,6 +46,21 @@ function LogoMark() {
   );
 }
 
+function ThemeToggle() {
+  const { theme, toggle } = useTheme();
+  return (
+    <button
+      onClick={toggle}
+      aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+      className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors duration-150 text-[--text-muted] hover:text-[--text-primary] hover:bg-[rgba(0,0,0,0.05)]"
+    >
+      {theme === "dark"
+        ? <Sun className="h-4 w-4" />
+        : <Moon className="h-4 w-4" />}
+    </button>
+  );
+}
+
 export function MarketingNav() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -77,7 +93,7 @@ export function MarketingNav() {
                   "px-4 py-2 text-sm rounded-[--radius-md] transition-colors duration-150",
                   isActive
                     ? "text-[--accent-vivid] bg-[rgba(124,58,237,0.1)]"
-                    : "text-[--text-secondary] hover:text-[--text-primary] hover:bg-white/[0.04]"
+                    : "text-[--text-secondary] hover:text-[--text-primary] hover:bg-[rgba(0,0,0,0.04)]"
                 )}>
                 {label}
               </Link>
@@ -85,7 +101,8 @@ export function MarketingNav() {
           })}
         </nav>
 
-        <div className="hidden md:flex items-center">
+        <div className="hidden md:flex items-center gap-2">
+          <ThemeToggle />
           <Link href="/contact"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[--radius-lg] text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
             style={{
@@ -116,13 +133,17 @@ export function MarketingNav() {
                   "block px-3 py-2.5 text-sm rounded-[--radius-md] transition-colors",
                   isActive
                     ? "text-[--accent-vivid] bg-[rgba(124,58,237,0.1)]"
-                    : "text-[--text-secondary] hover:text-[--text-primary] hover:bg-white/[0.04]"
+                    : "text-[--text-secondary] hover:text-[--text-primary] hover:bg-[rgba(0,0,0,0.04)]"
                 )}>
                 {label}
               </Link>
             );
           })}
-          <div className="pt-3">
+          <div className="flex items-center justify-between pt-2 pb-1">
+            <span className="text-xs text-[--text-muted] uppercase tracking-widest font-bold">Appearance</span>
+            <ThemeToggle />
+          </div>
+          <div className="pt-1">
             <Link href="/contact" onClick={() => setMobileOpen(false)}
               className="flex items-center justify-center gap-1.5 w-full px-4 py-2.5 rounded-[--radius-lg] text-sm font-medium text-white"
               style={{ background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)" }}>

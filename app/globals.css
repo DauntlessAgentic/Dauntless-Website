@@ -331,6 +331,27 @@ code, pre, kbd {
   --mkt-card:        #ffffff;
   --mkt-border:      rgba(0,0,0,0.07);
 
+  /* ─── Service brand colours — deeper for contrast on light bg ───────── */
+  --svc-training:              #047857;
+  --svc-training-bright:       #059669;
+  --svc-consulting:            #1e40af;
+  --svc-consulting-mid:        #1d4ed8;
+  --svc-consulting-bright:     #2563eb;
+  --svc-agentic:               #be185d;
+  --svc-agentic-bright:        #db2777;
+
+  /* ─── RGB triplets — match updated solid colours above ──────────────── */
+  --svc-training-rgb:          4, 120, 87;
+  --svc-training-bright-rgb:   5, 150, 105;
+  --svc-consulting-rgb:        30, 64, 175;
+  --svc-consulting-mid-rgb:    29, 78, 216;
+  --svc-consulting-bright-rgb: 37, 99, 235;
+  --svc-agentic-rgb:           190, 24, 93;
+  --svc-agentic-bright-rgb:    219, 39, 119;
+  --accent-rgb:                124, 58, 237;
+  --accent-bright-rgb:         109, 40, 217;
+  --accent-vivid-rgb:          91, 33, 182;
+
   --shadow-sm:     0 1px 3px rgba(0,0,0,0.08);
   --shadow-md:     0 4px 16px rgba(0,0,0,0.10);
   --shadow-lg:     0 8px 32px rgba(0,0,0,0.12);
@@ -338,6 +359,24 @@ code, pre, kbd {
   --shadow-drag:   0 12px 40px rgba(0,0,0,0.15), 0 0 0 1px var(--border-active);
 
   color-scheme: light;
+}
+
+/* ── Light mode: soft-card adjustments ────────────────────────────────── */
+/* White cards on light bg need a real border rather than a white glow.    */
+.light .soft-card {
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.07), 0 2px 12px rgba(0,0,0,0.06);
+}
+.light .soft-card:hover {
+  box-shadow: 0 0 0 1px rgba(109,40,217,0.22), 0 8px 28px rgba(0,0,0,0.09);
+}
+.light .soft-card-accent {
+  box-shadow: 0 0 0 1px rgba(109,40,217,0.20), 0 8px 32px rgba(124,58,237,0.07);
+}
+.light .soft-card-danger {
+  box-shadow: 0 0 0 1px rgba(220,38,38,0.12), 0 2px 12px rgba(0,0,0,0.06);
+}
+.light .soft-card-success {
+  box-shadow: 0 0 0 1px rgba(22,163,74,0.12), 0 2px 12px rgba(0,0,0,0.06);
 }
 
 .light .skeleton-shimmer {
