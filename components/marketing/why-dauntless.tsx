@@ -24,7 +24,7 @@ export function WhyDauntless() {
   return (
     <section className="relative bg-[--mkt-bg] py-16 px-6 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full" style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.06) 0%, transparent 70%)" }} />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full" style={{ background: "radial-gradient(ellipse at center, rgba(var(--accent-rgb),0.06) 0%, transparent 70%)" }} />
       </div>
       <div className="relative max-w-6xl mx-auto space-y-10">
         <div className="text-center space-y-3">
@@ -39,13 +39,13 @@ export function WhyDauntless() {
               className="group soft-card soft-card-lift p-6 space-y-4 text-center"
             >
               <div className="flex justify-center">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: "rgba(124,58,237,0.12)", border: "1px solid rgba(139,92,246,0.2)" }}>
-                  <Icon className="h-4 w-4" style={{ color: "#a78bfa" }} strokeWidth={1.75} />
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: "rgba(var(--accent-rgb),0.12)", border: "1px solid rgba(var(--accent-bright-rgb),0.2)" }}>
+                  <Icon className="h-4 w-4" style={{ color: "var(--accent-vivid)" }} strokeWidth={1.75} />
                 </div>
               </div>
               <p
                 className="text-3xl font-bold text-transparent bg-clip-text"
-                style={{ backgroundImage: "linear-gradient(135deg, #8b5cf6 0%, #c4b5fd 100%)" }}
+                style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright) 0%, #c4b5fd 100%)" }}
               >
                 {value}
               </p>
@@ -61,7 +61,7 @@ export function WhyDauntless() {
             <div className="flex flex-wrap justify-center gap-2">
               {federalDepts.map((dept) => (
                 <span key={dept} className="px-3 py-1.5 rounded-full text-xs font-medium text-[--text-secondary] transition-colors"
-                  style={{ background: "rgba(139,92,246,0.07)", border: "1px solid rgba(139,92,246,0.15)" }}>
+                  style={{ background: "rgba(var(--accent-bright-rgb),0.07)", border: "1px solid rgba(var(--accent-bright-rgb),0.15)" }}>
                   🍁 {dept}
                 </span>
               ))}
@@ -83,7 +83,7 @@ export function WhyDauntless() {
         <div className="max-w-2xl mx-auto">
           <div
             className="relative rounded-2xl p-8 space-y-4"
-            style={{ background: "linear-gradient(135deg, rgba(124,58,237,0.07) 0%, rgba(16,16,30,0.6) 100%)", border: "1px solid rgba(139,92,246,0.15)" }}
+            style={{ background: "linear-gradient(135deg, rgba(var(--accent-rgb),0.07) 0%, rgba(16,16,30,0.6) 100%)", border: "1px solid rgba(var(--accent-bright-rgb),0.15)" }}
           >
             <div className="flex items-start gap-4">
               <div className="h-12 w-12 rounded-full shrink-0 overflow-hidden mt-0.5">

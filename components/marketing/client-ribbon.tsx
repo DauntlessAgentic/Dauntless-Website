@@ -106,8 +106,8 @@ function ClientPill({ client }: { client: Client }) {
     <div
       className="flex items-center gap-2 shrink-0 rounded-lg px-3.5 py-2 whitespace-nowrap transition-colors duration-200"
       style={{
-        background: "rgba(124,58,237,0.07)",
-        border: "1px solid rgba(139,92,246,0.18)",
+        background: "rgba(var(--accent-rgb),0.07)",
+        border: "1px solid rgba(var(--accent-bright-rgb),0.18)",
       }}
     >
       {client.federal && (

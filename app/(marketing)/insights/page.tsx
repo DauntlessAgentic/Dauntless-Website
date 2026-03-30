@@ -31,7 +31,7 @@ export default function InsightsPage() {
       {/* Hero */}
       <section className="relative pt-32 pb-24 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.14) 0%, transparent 65%)" }} />
+          style={{ background: "radial-gradient(ellipse at center, rgba(var(--accent-rgb),0.14) 0%, transparent 65%)" }} />
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Insights</p>
           <h1 className="text-4xl md:text-6xl font-bold text-[--text-primary] leading-tight">
@@ -62,8 +62,8 @@ export default function InsightsPage() {
               href="/about/manifesto"
               className="shrink-0 inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
               style={{
-                background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
-                boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+                background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)",
+                boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.5), 0 8px 32px rgba(var(--accent-rgb),0.35)",
               }}
             >
               Read the Manifesto <ArrowRight className="h-4 w-4" />
@@ -102,7 +102,7 @@ export default function InsightsPage() {
 
             {/* Published article 1 */}
             <div className="soft-card overflow-hidden">
-              <div className="h-1.5 w-full" style={{ background: "linear-gradient(90deg, #7c3aed, #8b5cf6)" }} />
+              <div className="h-1.5 w-full" style={{ background: "linear-gradient(90deg, var(--accent), var(--accent-bright))" }} />
               <div className="p-6 space-y-3">
                 <span className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">AI &amp; Human Intelligence</span>
                 <h3 className="font-bold text-[--text-primary] leading-snug">The Case Against AI-First Thinking</h3>
@@ -119,7 +119,7 @@ export default function InsightsPage() {
 
             {/* Published article 2 */}
             <div className="soft-card overflow-hidden">
-              <div className="h-1.5 w-full" style={{ background: "linear-gradient(90deg, #6d28d9, #7c3aed)" }} />
+              <div className="h-1.5 w-full" style={{ background: "linear-gradient(90deg, #6d28d9, var(--accent))" }} />
               <div className="p-6 space-y-3">
                 <span className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Agentic Architecture</span>
                 <h3 className="font-bold text-[--text-primary] leading-snug">The Four Layers of a Constitutional Agentic System</h3>
@@ -148,7 +148,7 @@ export default function InsightsPage() {
                 />
                 <button
                   className="w-full px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all hover:opacity-90"
-                  style={{ background: "linear-gradient(135deg, #7c3aed, #8b5cf6)" }}
+                  style={{ background: "linear-gradient(135deg, var(--accent), var(--accent-bright))" }}
                 >
                   Subscribe
                 </button>
@@ -170,8 +170,8 @@ export default function InsightsPage() {
             href="/contact"
             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
             style={{
-              background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
-              boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+              background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)",
+              boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.5), 0 8px 32px rgba(var(--accent-rgb),0.35)",
             }}
           >
             Subscribe via Contact <ArrowRight className="h-4 w-4" />

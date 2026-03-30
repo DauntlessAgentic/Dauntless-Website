@@ -93,7 +93,7 @@ export default function WorkPage() {
       {/* Hero */}
       <section className="relative pt-32 pb-20 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.14) 0%, transparent 65%)" }} />
+          style={{ background: "radial-gradient(ellipse at center, rgba(var(--accent-rgb),0.14) 0%, transparent 65%)" }} />
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Portfolio</p>
           <h1 className="text-4xl md:text-6xl font-bold text-[--text-primary] leading-tight">
@@ -228,8 +228,8 @@ export default function WorkPage() {
             href="/contact"
             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
             style={{
-              background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
-              boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+              background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)",
+              boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.5), 0 8px 32px rgba(var(--accent-rgb),0.35)",
             }}
           >
             Start a Conversation <ArrowRight className="h-4 w-4" />

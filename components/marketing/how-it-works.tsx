@@ -28,21 +28,21 @@ export function HowItWorks() {
       {/* The Provocation — premium blockquote card */}
       <section className="bg-[--mkt-bg] py-14 px-6 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full" style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.07) 0%, transparent 65%)" }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full" style={{ background: "radial-gradient(ellipse at center, rgba(var(--accent-rgb),0.07) 0%, transparent 65%)" }} />
         </div>
         <div className="relative max-w-3xl mx-auto">
           <div
             className="relative rounded-2xl p-10 md:p-14 overflow-hidden"
             style={{
-              background: "linear-gradient(135deg, rgba(124,58,237,0.1) 0%, rgba(16,16,30,0.9) 50%, rgba(109,40,217,0.08) 100%)",
-              border: "1px solid rgba(139,92,246,0.2)",
+              background: "linear-gradient(135deg, rgba(var(--accent-rgb),0.1) 0%, rgba(16,16,30,0.9) 50%, rgba(109,40,217,0.08) 100%)",
+              border: "1px solid rgba(var(--accent-bright-rgb),0.2)",
               boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)",
             }}
           >
             {/* Decorative quote mark */}
             <div
               className="absolute top-6 left-8 text-[120px] leading-none font-bold select-none opacity-[0.06]"
-              style={{ backgroundImage: "linear-gradient(135deg, #8b5cf6, #a78bfa)", WebkitBackgroundClip: "text", color: "transparent" }}
+              style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))", WebkitBackgroundClip: "text", color: "transparent" }}
             >
               &ldquo;
             </div>
@@ -50,7 +50,7 @@ export function HowItWorks() {
               <blockquote className="text-xl md:text-2xl font-medium text-[--text-primary] leading-relaxed italic">
                 &ldquo;The future of work feels daunting, paralysis by analysis is real, sitting on the fence feels safe. Compounding advantage is created by teams that adapt with clarity and conviction.&rdquo;
               </blockquote>
-              <div className="h-px w-16 mx-auto" style={{ background: "linear-gradient(90deg, transparent, rgba(139,92,246,0.6), transparent)" }} />
+              <div className="h-px w-16 mx-auto" style={{ background: "linear-gradient(90deg, transparent, rgba(var(--accent-bright-rgb),0.6), transparent)" }} />
               <p className="text-[--text-secondary] text-sm leading-relaxed max-w-xl mx-auto">
                 This is a historic period. The relationship between humans and work, between knowledge and value, between effort and outcome — all of it is being rewritten. The question isn't whether to adapt. The question is whether you have the{" "}
                 <span className="text-[--text-primary] font-medium">architecture</span> to adapt fast enough.
@@ -62,7 +62,7 @@ export function HowItWorks() {
 
       {/* Three As */}
       <section id="how-it-works" className="relative bg-[--mkt-section] py-16 px-6 overflow-hidden">
-        <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(139,92,246,0.2), transparent)" }} />
+        <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(var(--accent-bright-rgb),0.2), transparent)" }} />
         <div className="max-w-6xl mx-auto space-y-10">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">Philosophy</p>
@@ -82,12 +82,12 @@ export function HowItWorks() {
                 {/* Left accent bar */}
                 <div
                   className="absolute left-0 top-6 bottom-6 w-[2px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{ background: "linear-gradient(to bottom, #7c3aed, #a78bfa)" }}
+                  style={{ background: "linear-gradient(to bottom, var(--accent), var(--accent-vivid))" }}
                 />
                 {/* Icon */}
                 <div
                   className="flex h-11 w-11 items-center justify-center rounded-xl"
-                  style={{ background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)", boxShadow: "0 3px 10px rgba(124,58,237,0.35)" }}
+                  style={{ background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)", boxShadow: "0 3px 10px rgba(var(--accent-rgb),0.35)" }}
                 >
                   <Icon className="h-5 w-5 text-white" strokeWidth={1.75} />
                 </div>

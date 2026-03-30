@@ -47,7 +47,7 @@ export default function PlatformPage() {
       {/* Hero */}
       <section className="relative pt-32 pb-24 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.14) 0%, transparent 65%)" }} />
+          style={{ background: "radial-gradient(ellipse at center, rgba(var(--accent-rgb),0.14) 0%, transparent 65%)" }} />
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Platform</p>
           <h1 className="text-4xl md:text-6xl font-bold text-[--text-primary] leading-tight">
@@ -63,8 +63,8 @@ export default function PlatformPage() {
             href="/contact"
             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
             style={{
-              background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
-              boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+              background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)",
+              boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.5), 0 8px 32px rgba(var(--accent-rgb),0.35)",
             }}
           >
             Explore the Platform <ArrowRight className="h-4 w-4" />
@@ -141,7 +141,7 @@ export default function PlatformPage() {
                 </div>
                 <ul className="space-y-2">
                   {examples.map(ex => (
-                    <li key={ex} className="text-sm text-[--text-muted] italic pl-3" style={{ borderLeft: "2px solid rgba(139,92,246,0.2)" }}>
+                    <li key={ex} className="text-sm text-[--text-muted] italic pl-3" style={{ borderLeft: "2px solid rgba(var(--accent-bright-rgb),0.2)" }}>
                       &ldquo;{ex}&rdquo;
                     </li>
                   ))}
@@ -194,7 +194,7 @@ export default function PlatformPage() {
               <div key={phase} className="soft-card p-5 flex gap-4 items-start">
                 <div
                   className="flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold text-[--accent-vivid] shrink-0"
-                  style={{ background: "rgba(124,58,237,0.12)" }}
+                  style={{ background: "rgba(var(--accent-rgb),0.12)" }}
                 >
                   {i + 1}
                 </div>
@@ -220,8 +220,8 @@ export default function PlatformPage() {
               href="/contact"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
               style={{
-                background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
-                boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+                background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)",
+                boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.5), 0 8px 32px rgba(var(--accent-rgb),0.35)",
               }}
             >
               Start a Conversation <ArrowRight className="h-4 w-4" />
@@ -249,18 +249,18 @@ export default function PlatformPage() {
               aspectRatio: "16/9",
               background: "var(--mkt-card)",
               borderRadius: "20px",
-              boxShadow: "0 0 0 1px rgba(139,92,246,0.10), 0 8px 40px rgba(0,0,0,0.5)",
+              boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.10), 0 8px 40px rgba(0,0,0,0.5)",
             }}
           >
             <div className="flex flex-col items-center justify-center h-full gap-5 p-12 text-center">
               <div
                 className="h-16 w-16 rounded-2xl flex items-center justify-center"
                 style={{
-                  background: "linear-gradient(135deg, rgba(124,58,237,0.15), rgba(139,92,246,0.08))",
-                  boxShadow: "0 0 0 1px rgba(139,92,246,0.20)",
+                  background: "linear-gradient(135deg, rgba(var(--accent-rgb),0.15), rgba(var(--accent-bright-rgb),0.08))",
+                  boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.20)",
                 }}
               >
-                <svg viewBox="0 0 24 24" className="h-8 w-8" fill="none" stroke="#a78bfa" strokeWidth="1.5">
+                <svg viewBox="0 0 24 24" className="h-8 w-8" fill="none" stroke="var(--accent-vivid)" strokeWidth="1.5">
                   <rect x="3" y="3" width="18" height="18" rx="2" />
                   <path d="M3 9h18M9 21V9" />
                 </svg>
@@ -274,7 +274,7 @@ export default function PlatformPage() {
               <Link href="/contact">
                 <button
                   className="mt-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90"
-                  style={{ background: "linear-gradient(135deg, #7c3aed, #8b5cf6)", boxShadow: "0 4px 14px rgba(124,58,237,0.3)" }}
+                  style={{ background: "linear-gradient(135deg, var(--accent), var(--accent-bright))", boxShadow: "0 4px 14px rgba(var(--accent-rgb),0.3)" }}
                 >
                   Book a Live Walkthrough
                 </button>

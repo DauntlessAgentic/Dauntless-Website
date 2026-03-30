@@ -247,7 +247,7 @@ export function Testimonials() {
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] rounded-full"
-          style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.07) 0%, transparent 65%)" }}
+          style={{ background: "radial-gradient(ellipse at center, rgba(var(--accent-rgb),0.07) 0%, transparent 65%)" }}
         />
       </div>
 
@@ -296,15 +296,15 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
     <div
       className="shrink-0 w-[360px] rounded-2xl p-7 flex flex-col gap-4"
       style={{
-        background: "linear-gradient(135deg, rgba(124,58,237,0.10) 0%, rgba(16,16,30,0.9) 50%, rgba(109,40,217,0.08) 100%)",
-        border: "1px solid rgba(139,92,246,0.18)",
+        background: "linear-gradient(135deg, rgba(var(--accent-rgb),0.10) 0%, rgba(16,16,30,0.9) 50%, rgba(109,40,217,0.08) 100%)",
+        border: "1px solid rgba(var(--accent-bright-rgb),0.18)",
         boxShadow: "0 8px 24px -6px rgba(0,0,0,0.4)",
       }}
     >
       {/* Quote mark */}
       <div
         className="text-5xl leading-none font-bold select-none opacity-[0.15]"
-        style={{ backgroundImage: "linear-gradient(135deg, #8b5cf6, #a78bfa)", WebkitBackgroundClip: "text", color: "transparent" }}
+        style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))", WebkitBackgroundClip: "text", color: "transparent" }}
         aria-hidden="true"
       >
         &ldquo;

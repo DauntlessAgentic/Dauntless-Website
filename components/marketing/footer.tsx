@@ -34,7 +34,7 @@ function FooterLogo() {
       <div
         className="shrink-0 flex items-center justify-center rounded-xl p-1.5"
         style={{
-          background: "#10101e",
+          background: "var(--mkt-card)",
           boxShadow: "0 0 0 1px rgba(255,255,255,0.04), 0 2px 12px rgba(0,0,0,0.3)",
         }}
       >
@@ -51,7 +51,7 @@ function FooterLogo() {
         Dauntless{" "}
         <span
           className="text-transparent bg-clip-text"
-          style={{ backgroundImage: "linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%)" }}
+          style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright) 0%, var(--accent-vivid) 100%)" }}
         >
           Agentic
         </span>
@@ -63,7 +63,7 @@ function FooterLogo() {
 export function MarketingFooter() {
   return (
     <footer className="relative bg-[--mkt-bg] border-t border-[--mkt-border] px-6">
-      <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(139,92,246,0.15), transparent)" }} />
+      <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(var(--accent-bright-rgb),0.15), transparent)" }} />
       <div className="max-w-6xl mx-auto">
 
         {/* Main footer content */}

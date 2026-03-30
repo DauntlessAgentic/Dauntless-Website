@@ -59,7 +59,7 @@ export default function AboutPage() {
       {/* Hero */}
       <section className="relative pt-32 pb-24 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.14) 0%, transparent 65%)" }} />
+          style={{ background: "radial-gradient(ellipse at center, rgba(var(--accent-rgb),0.14) 0%, transparent 65%)" }} />
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">About</p>
           <h1 className="text-4xl md:text-6xl font-bold text-[--text-primary] leading-tight">
@@ -97,7 +97,7 @@ export default function AboutPage() {
             <div className="flex gap-3 flex-wrap pt-2">
               <a href="https://linkedin.com/in/craigmarchand" target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-[--radius-md] text-sm font-medium text-[--accent-vivid] transition-all"
-                style={{ background: "rgba(124,58,237,0.12)", border: "1px solid rgba(124,58,237,0.3)" }}>
+                style={{ background: "rgba(var(--accent-rgb),0.12)", border: "1px solid rgba(var(--accent-rgb),0.3)" }}>
                 <Linkedin className="h-4 w-4" /> LinkedIn
               </a>
               <a href="mailto:craig@dauntlessagentic.com"
@@ -140,7 +140,7 @@ export default function AboutPage() {
       </section>
 
       {/* MTP */}
-      <section className="py-12 px-6" style={{ background: "linear-gradient(135deg, var(--mkt-section) 0%, rgba(124,58,237,0.08) 50%, var(--mkt-section) 100%)" }}>
+      <section className="py-12 px-6" style={{ background: "linear-gradient(135deg, var(--mkt-section) 0%, rgba(var(--accent-rgb),0.08) 50%, var(--mkt-section) 100%)" }}>
         <div className="max-w-3xl mx-auto text-center space-y-4">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Massively Transformative Purpose</p>
           <blockquote className="text-2xl md:text-3xl font-semibold text-[--text-primary] italic leading-snug">
@@ -187,7 +187,7 @@ export default function AboutPage() {
               <p className="font-bold text-[--text-primary]"><span className="text-[--accent-vivid]">Agentic</span> — agent-powered, autonomous, self-directed.</p>
               <p className="text-sm text-[--text-secondary] leading-relaxed">Because the future isn't just about AI tools. It's about AI agents — autonomous capabilities that propose, execute, and learn within structured governance. That's not science fiction. That's how we operate right now.</p>
             </div>
-            <div className="rounded-[--radius-lg] p-3 mt-2" style={{ background: "rgba(124,58,237,0.12)", border: "1px solid rgba(124,58,237,0.3)" }}>
+            <div className="rounded-[--radius-lg] p-3 mt-2" style={{ background: "rgba(var(--accent-rgb),0.12)", border: "1px solid rgba(var(--accent-rgb),0.3)" }}>
               <p className="text-sm font-bold text-[--text-primary]">Together: Fearlessly autonomous intelligence systems.</p>
             </div>
           </div>
@@ -231,25 +231,25 @@ export default function AboutPage() {
                   badge: "Founding Member",
                   org: "Canada AI Alliance",
                   note: "Helping shape Canada's national AI strategy and ecosystem",
-                  color: "#a78bfa",
-                  bg: "rgba(139,92,246,0.10)",
-                  border: "rgba(139,92,246,0.25)",
+                  color: "var(--accent-vivid)",
+                  bg: "rgba(var(--accent-bright-rgb),0.10)",
+                  border: "rgba(var(--accent-bright-rgb),0.25)",
                 },
                 {
                   badge: "Former Board Member",
                   org: "Canadian Public Sector Excellence Network",
                   note: "Governance and excellence in public sector delivery",
-                  color: "#60a5fa",
-                  bg: "rgba(59,130,246,0.08)",
-                  border: "rgba(59,130,246,0.20)",
+                  color: "var(--svc-consulting-bright)",
+                  bg: "rgba(var(--svc-consulting-rgb),0.08)",
+                  border: "rgba(var(--svc-consulting-rgb),0.20)",
                 },
                 {
                   badge: "Former Member",
                   org: "Canadian Public Sector Quality Association",
                   note: "Quality management and continuous improvement in government",
-                  color: "#34d399",
-                  bg: "rgba(34,197,94,0.08)",
-                  border: "rgba(34,197,94,0.20)",
+                  color: "var(--svc-training-bright)",
+                  bg: "rgba(var(--svc-training-rgb),0.08)",
+                  border: "rgba(var(--svc-training-rgb),0.20)",
                 },
               ].map(({ badge, org, note, color, bg, border }) => (
                 <div
@@ -285,8 +285,8 @@ export default function AboutPage() {
             href="/about/manifesto"
             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
             style={{
-              background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
-              boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+              background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)",
+              boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.5), 0 8px 32px rgba(var(--accent-rgb),0.35)",
             }}
           >
             Read the Full Manifesto <ArrowRight className="h-4 w-4" />

@@ -164,8 +164,8 @@ export default function FAQPage() {
               href="/contact"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
               style={{
-                background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
-                boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+                background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)",
+                boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.5), 0 8px 32px rgba(var(--accent-rgb),0.35)",
               }}
             >
               Start a Conversation <ArrowRight className="h-4 w-4" />

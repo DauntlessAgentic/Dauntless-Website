@@ -89,7 +89,7 @@ export default function MethodPage() {
 
       <section className="relative pt-32 pb-24 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.14) 0%, transparent 65%)" }} />
+          style={{ background: "radial-gradient(ellipse at center, rgba(var(--accent-rgb),0.14) 0%, transparent 65%)" }} />
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Method</p>
           <h1 className="text-4xl md:text-6xl font-bold text-[--text-primary] leading-tight">
@@ -140,7 +140,7 @@ export default function MethodPage() {
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Intelligence Architecture</p>
             <h2 className="text-3xl font-semibold text-[--text-primary]">
               Collective Intelligence <span className="text-[--text-muted]">+</span>{" "}
-              <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #8b5cf6, #a78bfa)" }}>
+              <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))" }}>
                 Artificial Intelligence
               </span>
             </h2>

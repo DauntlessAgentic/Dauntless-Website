@@ -68,12 +68,12 @@ export default function ConsultingPage() {
       {/* Hero */}
       <section className="relative pt-10 pb-24 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at center, rgba(37,99,235,0.12) 0%, transparent 65%)" }} />
+          style={{ background: "radial-gradient(ellipse at center, rgba(var(--svc-consulting-rgb),0.12) 0%, transparent 65%)" }} />
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
-          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "#60a5fa" }}>AI Ops Consulting</p>
+          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--svc-consulting-bright)" }}>AI Ops Consulting</p>
           <h1 className="text-4xl md:text-6xl font-bold text-[--text-primary] leading-tight">
             Stop Piloting.{" "}
-            <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #60a5fa, #2563eb)" }}>
+            <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, var(--svc-consulting-bright), var(--svc-consulting))" }}>
               Start Operating.
             </span>
           </h1>
@@ -84,8 +84,8 @@ export default function ConsultingPage() {
             href="/contact"
             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
             style={{
-              background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
-              boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+              background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)",
+              boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.5), 0 8px 32px rgba(var(--accent-rgb),0.35)",
             }}
           >
             Book a Discovery Call <ArrowRight className="h-4 w-4" />
@@ -111,8 +111,8 @@ export default function ConsultingPage() {
               { num: "6", label: "Repeat",       desc: "New tool, new pilot, same outcome." },
             ].map(({ num, label, desc }) => (
               <div key={num} className="flex items-center gap-4 rounded-xl px-4 py-3"
-                style={{ background: "#10101e", boxShadow: "0 0 0 1px rgba(255,255,255,0.04)" }}>
-                <span className="text-xs font-bold w-5 shrink-0" style={{ color: "#60a5fa" }}>{num}.</span>
+                style={{ background: "var(--mkt-card)", boxShadow: "0 0 0 1px rgba(255,255,255,0.04)" }}>
+                <span className="text-xs font-bold w-5 shrink-0" style={{ color: "var(--svc-consulting-bright)" }}>{num}.</span>
                 <span className="text-base font-semibold text-[--text-primary] w-28 shrink-0">{label}</span>
                 <span className="text-sm text-[--text-secondary]">{desc}</span>
               </div>
@@ -121,9 +121,9 @@ export default function ConsultingPage() {
           <div
             className="max-w-2xl mx-auto rounded-2xl p-6 text-center space-y-2"
             style={{
-              background: "linear-gradient(150deg, rgba(37,99,235,0.08) 0%, #10101e 55%)",
-              border: "1px solid rgba(59,130,246,0.20)",
-              boxShadow: "0 0 0 1px rgba(37,99,235,0.08), 0 4px 20px rgba(0,0,0,0.4)",
+              background: "linear-gradient(150deg, rgba(var(--svc-consulting-rgb),0.08) 0%, var(--mkt-card) 55%)",
+              border: "1px solid rgba(var(--svc-consulting-mid-rgb),0.20)",
+              boxShadow: "0 0 0 1px rgba(var(--svc-consulting-rgb),0.08), 0 4px 20px rgba(0,0,0,0.4)",
             }}
           >
             <p className="text-base font-bold text-[--text-primary]">The hard truth:</p>
@@ -144,13 +144,13 @@ export default function ConsultingPage() {
               <div
                 key={title}
                 className="relative rounded-2xl overflow-hidden"
-                style={{ boxShadow: "0 0 0 1px rgba(37,99,235,0.16), 0 4px 20px rgba(0,0,0,0.4)" }}
+                style={{ boxShadow: "0 0 0 1px rgba(var(--svc-consulting-rgb),0.16), 0 4px 20px rgba(0,0,0,0.4)" }}
               >
-                <div className="h-[3px]" style={{ background: "linear-gradient(90deg, transparent, rgba(59,130,246,0.5) 25%, #3b82f6 50%, rgba(59,130,246,0.5) 75%, transparent)" }} />
-                <div className="p-6 space-y-4" style={{ background: "linear-gradient(150deg, rgba(37,99,235,0.07) 0%, #10101e 55%)" }}>
+                <div className="h-[3px]" style={{ background: "linear-gradient(90deg, transparent, rgba(var(--svc-consulting-mid-rgb),0.5) 25%, var(--svc-consulting-mid) 50%, rgba(var(--svc-consulting-mid-rgb),0.5) 75%, transparent)" }} />
+                <div className="p-6 space-y-4" style={{ background: "linear-gradient(150deg, rgba(var(--svc-consulting-rgb),0.07) 0%, var(--mkt-card) 55%)" }}>
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl"
-                    style={{ background: "rgba(37,99,235,0.12)", border: "1px solid rgba(59,130,246,0.22)" }}>
-                    <Icon className="h-5 w-5" style={{ color: "#60a5fa" }} />
+                    style={{ background: "rgba(var(--svc-consulting-rgb),0.12)", border: "1px solid rgba(var(--svc-consulting-mid-rgb),0.22)" }}>
+                    <Icon className="h-5 w-5" style={{ color: "var(--svc-consulting-bright)" }} />
                   </div>
                   <h3 className="text-xl font-bold text-[--text-primary]">{title}</h3>
                   <p className="text-sm text-[--text-secondary] leading-relaxed">{description}</p>
@@ -178,19 +178,19 @@ export default function ConsultingPage() {
               const barOpacity   = [0.35, 0.55, 0.75, 1.00][i];
               const glowStrength = [
                 "0 0 0 1px rgba(255,255,255,0.04), 0 2px 16px rgba(0,0,0,0.4)",
-                "0 0 0 1px rgba(37,99,235,0.14), 0 2px 16px rgba(0,0,0,0.4)",
-                "0 0 0 1px rgba(37,99,235,0.24), 0 4px 24px rgba(37,99,235,0.06)",
-                "0 0 0 1px rgba(37,99,235,0.40), 0 8px 40px rgba(37,99,235,0.10)",
+                "0 0 0 1px rgba(var(--svc-consulting-rgb),0.14), 0 2px 16px rgba(0,0,0,0.4)",
+                "0 0 0 1px rgba(var(--svc-consulting-rgb),0.24), 0 4px 24px rgba(var(--svc-consulting-rgb),0.06)",
+                "0 0 0 1px rgba(var(--svc-consulting-rgb),0.40), 0 8px 40px rgba(var(--svc-consulting-rgb),0.10)",
               ][i];
               const cardBg = isFlagship
-                ? "linear-gradient(160deg, rgba(37,99,235,0.09) 0%, #10101e 45%)"
-                : "#10101e";
+                ? "linear-gradient(160deg, rgba(var(--svc-consulting-rgb),0.09) 0%, var(--mkt-card) 45%)"
+                : "var(--mkt-card)";
 
               return (
                 <div key={name} className="relative rounded-2xl overflow-hidden" style={{ boxShadow: glowStrength }}>
                   {/* Top accent bar */}
                   <div className="h-[3px] w-full" style={{
-                    background: `linear-gradient(90deg, transparent 0%, rgba(59,130,246,${barOpacity * 0.6}) 15%, #3b82f6 50%, rgba(59,130,246,${barOpacity * 0.6}) 85%, transparent 100%)`,
+                    background: `linear-gradient(90deg, transparent 0%, rgba(var(--svc-consulting-mid-rgb),${barOpacity * 0.6}) 15%, var(--svc-consulting-mid) 50%, rgba(var(--svc-consulting-mid-rgb),${barOpacity * 0.6}) 85%, transparent 100%)`,
                   }} />
 
                   <div className="relative p-7 md:p-8 space-y-7" style={{ background: cardBg }}>
@@ -198,7 +198,7 @@ export default function ConsultingPage() {
                     {/* Watermark */}
                     <span
                       className="absolute bottom-4 right-6 text-[88px] font-black leading-none select-none pointer-events-none tabular-nums"
-                      style={{ color: `rgba(59,130,246,${[0.04, 0.06, 0.09, 0.13][i]})` }}
+                      style={{ color: `rgba(var(--svc-consulting-mid-rgb),${[0.04, 0.06, 0.09, 0.13][i]})` }}
                       aria-hidden="true"
                     >
                       {modelNum}
@@ -210,14 +210,14 @@ export default function ConsultingPage() {
                         <div className="flex items-center gap-2.5 flex-wrap">
                           <span
                             className="text-xs font-bold tracking-[0.18em] uppercase"
-                            style={{ color: `rgba(96,165,250,${[0.5, 0.65, 0.8, 1.0][i]})` }}
+                            style={{ color: `rgba(var(--svc-consulting-bright-rgb),${[0.5, 0.65, 0.8, 1.0][i]})` }}
                           >
                             Model {modelNum}
                           </span>
                           {isFlagship && (
                             <span
                               className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full"
-                              style={{ background: "rgba(37,99,235,0.12)", color: "#60a5fa", border: "1px solid rgba(59,130,246,0.30)" }}
+                              style={{ background: "rgba(var(--svc-consulting-rgb),0.12)", color: "var(--svc-consulting-bright)", border: "1px solid rgba(var(--svc-consulting-mid-rgb),0.30)" }}
                             >
                               Ongoing Partnership
                             </span>
@@ -229,9 +229,9 @@ export default function ConsultingPage() {
                       <span
                         className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-semibold shrink-0"
                         style={{
-                          background: `rgba(37,99,235,${[0.08, 0.11, 0.14, 0.18][i]})`,
-                          color: "#60a5fa",
-                          border: `1px solid rgba(59,130,246,${[0.18, 0.24, 0.30, 0.40][i]})`,
+                          background: `rgba(var(--svc-consulting-rgb),${[0.08, 0.11, 0.14, 0.18][i]})`,
+                          color: "var(--svc-consulting-bright)",
+                          border: `1px solid rgba(var(--svc-consulting-mid-rgb),${[0.18, 0.24, 0.30, 0.40][i]})`,
                         }}
                       >
                         {duration}
@@ -246,7 +246,7 @@ export default function ConsultingPage() {
                           {what.map(w => (
                             <li key={w} className="flex items-start gap-2.5 text-sm text-[--text-secondary] leading-snug">
                               <span className="shrink-0 rounded-full mt-[7px]"
-                                style={{ width: "6px", height: "6px", minWidth: "6px", background: `rgba(59,130,246,${[0.45, 0.55, 0.70, 0.90][i]})` }} />
+                                style={{ width: "6px", height: "6px", minWidth: "6px", background: `rgba(var(--svc-consulting-mid-rgb),${[0.45, 0.55, 0.70, 0.90][i]})` }} />
                               {w}
                             </li>
                           ))}
@@ -258,7 +258,7 @@ export default function ConsultingPage() {
                           {get.map(g => (
                             <li key={g} className="flex items-start gap-2.5 text-sm text-[--text-secondary] leading-snug">
                               <span className="shrink-0 font-bold text-sm leading-none mt-0.5"
-                                style={{ color: `rgba(96,165,250,${[0.6, 0.7, 0.85, 1.0][i]})` }}>✓</span>
+                                style={{ color: `rgba(var(--svc-consulting-bright-rgb),${[0.6, 0.7, 0.85, 1.0][i]})` }}>✓</span>
                               {g}
                             </li>
                           ))}
@@ -286,10 +286,10 @@ export default function ConsultingPage() {
               <div
                 key={title}
                 className="relative rounded-2xl overflow-hidden"
-                style={{ boxShadow: "0 0 0 1px rgba(37,99,235,0.14), 0 2px 16px rgba(0,0,0,0.4)" }}
+                style={{ boxShadow: "0 0 0 1px rgba(var(--svc-consulting-rgb),0.14), 0 2px 16px rgba(0,0,0,0.4)" }}
               >
-                <div className="h-[3px]" style={{ background: "linear-gradient(90deg, transparent, rgba(59,130,246,0.4) 25%, #3b82f6 50%, rgba(59,130,246,0.4) 75%, transparent)" }} />
-                <div className="p-6 space-y-3" style={{ background: "linear-gradient(150deg, rgba(37,99,235,0.06) 0%, #10101e 55%)" }}>
+                <div className="h-[3px]" style={{ background: "linear-gradient(90deg, transparent, rgba(var(--svc-consulting-mid-rgb),0.4) 25%, var(--svc-consulting-mid) 50%, rgba(var(--svc-consulting-mid-rgb),0.4) 75%, transparent)" }} />
+                <div className="p-6 space-y-3" style={{ background: "linear-gradient(150deg, rgba(var(--svc-consulting-rgb),0.06) 0%, var(--mkt-card) 55%)" }}>
                   <h3 className="text-xl font-bold text-[--text-primary]">{title}</h3>
                   <p className="text-sm text-[--text-secondary] leading-relaxed">{desc}</p>
                 </div>
@@ -303,7 +303,7 @@ export default function ConsultingPage() {
       <section className="bg-[--mkt-section] py-16 px-6 border-t border-[--mkt-border]">
         <div className="max-w-6xl mx-auto space-y-10">
           <div className="text-center space-y-3">
-            <p className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "#60a5fa" }}>Client Voices</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "var(--svc-consulting-bright)" }}>Client Voices</p>
             <h2 className="text-2xl md:text-3xl font-semibold text-[--text-primary]">In Their Words</h2>
             <p className="max-w-xl mx-auto text-sm text-[--text-secondary] leading-relaxed">
               From federal directors to program executives — what clients say after working with us.
@@ -314,19 +314,19 @@ export default function ConsultingPage() {
             {/* ESDC */}
             <div className="relative rounded-2xl p-7 flex flex-col gap-5 overflow-hidden"
               style={{
-                background: "linear-gradient(150deg, rgba(37,99,235,0.08) 0%, #10101e 55%)",
-                border: "1px solid rgba(59,130,246,0.16)",
-                boxShadow: "0 0 0 1px rgba(37,99,235,0.08), 0 6px 24px rgba(0,0,0,0.4)",
+                background: "linear-gradient(150deg, rgba(var(--svc-consulting-rgb),0.08) 0%, var(--mkt-card) 55%)",
+                border: "1px solid rgba(var(--svc-consulting-mid-rgb),0.16)",
+                boxShadow: "0 0 0 1px rgba(var(--svc-consulting-rgb),0.08), 0 6px 24px rgba(0,0,0,0.4)",
               }}>
               <div className="text-5xl leading-none font-black select-none opacity-20"
-                style={{ backgroundImage: "linear-gradient(135deg, #3b82f6, #60a5fa)", WebkitBackgroundClip: "text", color: "transparent" }}
+                style={{ backgroundImage: "linear-gradient(135deg, var(--svc-consulting-mid), var(--svc-consulting-bright))", WebkitBackgroundClip: "text", color: "transparent" }}
                 aria-hidden="true">&ldquo;</div>
               <blockquote className="text-sm text-[--text-primary] leading-relaxed italic flex-1">
                 &ldquo;The input I have seen is great and helpful for me to open up discussions with my DG. The engagement process was extremely productive and impactful.&rdquo;
               </blockquote>
-              <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(59,130,246,0.15)" }}>
+              <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(var(--svc-consulting-mid-rgb),0.15)" }}>
                 <p className="text-sm font-semibold text-[--text-primary]">Director, Program Operations Branch</p>
-                <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "#60a5fa" }}>Government of Canada</p>
+                <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "var(--svc-consulting-bright)" }}>Government of Canada</p>
                 <p className="text-xs text-[--text-muted]">Employment &amp; Social Development Canada</p>
               </div>
             </div>
@@ -334,19 +334,19 @@ export default function ConsultingPage() {
             {/* Environment Canada */}
             <div className="relative rounded-2xl p-7 flex flex-col gap-5 overflow-hidden"
               style={{
-                background: "linear-gradient(150deg, rgba(37,99,235,0.09) 0%, #10101e 55%)",
-                border: "1px solid rgba(59,130,246,0.18)",
-                boxShadow: "0 0 0 1px rgba(37,99,235,0.10), 0 6px 24px rgba(0,0,0,0.4)",
+                background: "linear-gradient(150deg, rgba(var(--svc-consulting-rgb),0.09) 0%, var(--mkt-card) 55%)",
+                border: "1px solid rgba(var(--svc-consulting-mid-rgb),0.18)",
+                boxShadow: "0 0 0 1px rgba(var(--svc-consulting-rgb),0.10), 0 6px 24px rgba(0,0,0,0.4)",
               }}>
               <div className="text-5xl leading-none font-black select-none opacity-20"
-                style={{ backgroundImage: "linear-gradient(135deg, #3b82f6, #60a5fa)", WebkitBackgroundClip: "text", color: "transparent" }}
+                style={{ backgroundImage: "linear-gradient(135deg, var(--svc-consulting-mid), var(--svc-consulting-bright))", WebkitBackgroundClip: "text", color: "transparent" }}
                 aria-hidden="true">&ldquo;</div>
               <blockquote className="text-sm text-[--text-primary] leading-relaxed italic flex-1">
                 &ldquo;The foresight work gave us a vocabulary for decisions we didn&apos;t know how to frame. That clarity was the most valuable deliverable.&rdquo;
               </blockquote>
-              <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(59,130,246,0.15)" }}>
+              <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(var(--svc-consulting-mid-rgb),0.15)" }}>
                 <p className="text-sm font-semibold text-[--text-primary]">Executive Director, Strategic Planning</p>
-                <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "#60a5fa" }}>Government of Canada</p>
+                <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "var(--svc-consulting-bright)" }}>Government of Canada</p>
                 <p className="text-xs text-[--text-muted]">Environment &amp; Climate Change Canada</p>
               </div>
             </div>
@@ -354,19 +354,19 @@ export default function ConsultingPage() {
             {/* TBS */}
             <div className="relative rounded-2xl p-7 flex flex-col gap-5 overflow-hidden"
               style={{
-                background: "linear-gradient(150deg, rgba(37,99,235,0.10) 0%, #10101e 55%)",
-                border: "1px solid rgba(59,130,246,0.20)",
-                boxShadow: "0 0 0 1px rgba(37,99,235,0.12), 0 6px 24px rgba(0,0,0,0.4)",
+                background: "linear-gradient(150deg, rgba(var(--svc-consulting-rgb),0.10) 0%, var(--mkt-card) 55%)",
+                border: "1px solid rgba(var(--svc-consulting-mid-rgb),0.20)",
+                boxShadow: "0 0 0 1px rgba(var(--svc-consulting-rgb),0.12), 0 6px 24px rgba(0,0,0,0.4)",
               }}>
               <div className="text-5xl leading-none font-black select-none opacity-20"
-                style={{ backgroundImage: "linear-gradient(135deg, #3b82f6, #60a5fa)", WebkitBackgroundClip: "text", color: "transparent" }}
+                style={{ backgroundImage: "linear-gradient(135deg, var(--svc-consulting-mid), var(--svc-consulting-bright))", WebkitBackgroundClip: "text", color: "transparent" }}
                 aria-hidden="true">&ldquo;</div>
               <blockquote className="text-sm text-[--text-primary] leading-relaxed italic flex-1">
                 &ldquo;Working with Craig&apos;s team changed how our team thinks about planning and process. Using rich visual process maps and layering in detail really helped us to understand where there are high leverage opportunities for improvement and automation.&rdquo;
               </blockquote>
-              <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(59,130,246,0.15)" }}>
+              <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(var(--svc-consulting-mid-rgb),0.15)" }}>
                 <p className="text-sm font-semibold text-[--text-primary]">Project Executive, Benefits Modernization</p>
-                <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "#60a5fa" }}>Government of Canada</p>
+                <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "var(--svc-consulting-bright)" }}>Government of Canada</p>
                 <p className="text-xs text-[--text-muted]">Employment &amp; Social Development Canada</p>
               </div>
             </div>
@@ -381,19 +381,19 @@ export default function ConsultingPage() {
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">Also in Services</p>
           <div className="grid sm:grid-cols-2 gap-4">
             <Link href="/services/training" className="relative flex flex-col gap-0 rounded-2xl overflow-hidden group text-left transition-all duration-200 hover:-translate-y-0.5"
-              style={{ background: "linear-gradient(150deg, rgba(16,185,129,0.08) 0%, #10101e 55%)", boxShadow: "0 0 0 1px rgba(16,185,129,0.16), 0 4px 20px rgba(0,0,0,0.4)" }}>
-              <div className="h-[3px] w-full" style={{ background: "linear-gradient(90deg, transparent, rgba(16,185,129,0.6) 25%, #10b981 50%, rgba(16,185,129,0.6) 75%, transparent)" }} />
+              style={{ background: "linear-gradient(150deg, rgba(var(--svc-training-rgb),0.08) 0%, var(--mkt-card) 55%)", boxShadow: "0 0 0 1px rgba(var(--svc-training-rgb),0.16), 0 4px 20px rgba(0,0,0,0.4)" }}>
+              <div className="h-[3px] w-full" style={{ background: "linear-gradient(90deg, transparent, rgba(var(--svc-training-rgb),0.6) 25%, var(--svc-training) 50%, rgba(var(--svc-training-rgb),0.6) 75%, transparent)" }} />
               <div className="p-5 space-y-1.5">
-                <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "#10b981" }}>AI Literacy Training</p>
+                <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--svc-training)" }}>AI Literacy Training</p>
                 <p className="text-base font-semibold text-[--text-primary] flex items-center gap-1.5">Transform team capability <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" /></p>
                 <p className="text-sm text-[--text-secondary] leading-relaxed">Team-wide AI fluency in days, not months. Executive briefings to full practitioner programs built for government and enterprise.</p>
               </div>
             </Link>
             <Link href="/services/agentic-systems" className="relative flex flex-col gap-0 rounded-2xl overflow-hidden group text-left transition-all duration-200 hover:-translate-y-0.5"
-              style={{ background: "linear-gradient(150deg, rgba(236,72,153,0.08) 0%, #10101e 55%)", boxShadow: "0 0 0 1px rgba(236,72,153,0.16), 0 4px 20px rgba(0,0,0,0.4)" }}>
-              <div className="h-[3px] w-full" style={{ background: "linear-gradient(90deg, transparent, rgba(236,72,153,0.6) 25%, #ec4899 50%, rgba(236,72,153,0.6) 75%, transparent)" }} />
+              style={{ background: "linear-gradient(150deg, rgba(var(--svc-agentic-rgb),0.08) 0%, var(--mkt-card) 55%)", boxShadow: "0 0 0 1px rgba(var(--svc-agentic-rgb),0.16), 0 4px 20px rgba(0,0,0,0.4)" }}>
+              <div className="h-[3px] w-full" style={{ background: "linear-gradient(90deg, transparent, rgba(var(--svc-agentic-rgb),0.6) 25%, var(--svc-agentic) 50%, rgba(var(--svc-agentic-rgb),0.6) 75%, transparent)" }} />
               <div className="p-5 space-y-1.5">
-                <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "#ec4899" }}>Agentic Systems</p>
+                <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--svc-agentic)" }}>Agentic Systems</p>
                 <p className="text-base font-semibold text-[--text-primary] flex items-center gap-1.5">Build autonomous intelligence <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" /></p>
                 <p className="text-sm text-[--text-secondary] leading-relaxed">Custom AI agent pipelines that connect your data, your processes, and your people. Built to run without constant maintenance.</p>
               </div>
@@ -412,8 +412,8 @@ export default function ConsultingPage() {
               href="/contact"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
               style={{
-                background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
-                boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+                background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)",
+                boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.5), 0 8px 32px rgba(var(--accent-rgb),0.35)",
               }}
             >
               Book a Discovery Call <ArrowRight className="h-4 w-4" />

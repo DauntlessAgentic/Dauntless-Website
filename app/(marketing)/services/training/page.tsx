@@ -73,12 +73,12 @@ export default function TrainingPage() {
 
       <section className="relative pt-10 pb-24 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at center, rgba(16,185,129,0.12) 0%, transparent 65%)" }} />
+          style={{ background: "radial-gradient(ellipse at center, rgba(var(--svc-training-rgb),0.12) 0%, transparent 65%)" }} />
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
-          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "#10b981" }}>AI Literacy Training</p>
+          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--svc-training)" }}>AI Literacy Training</p>
           <h1 className="text-4xl md:text-6xl font-bold text-[--text-primary] leading-tight">
             Your People Are the Strategy.{" "}
-            <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #34d399, #10b981)" }}>
+            <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, var(--svc-training-bright), var(--svc-training))" }}>
               Empower Them Accordingly.
             </span>
           </h1>
@@ -103,7 +103,7 @@ export default function TrainingPage() {
             {/* What's broken */}
             <div className="relative rounded-2xl overflow-hidden" style={{ boxShadow: "0 0 0 1px rgba(239,68,68,0.14), 0 4px 20px rgba(0,0,0,0.4)" }}>
               <div className="h-[3px]" style={{ background: "linear-gradient(90deg, transparent, rgba(239,68,68,0.5) 25%, #ef4444 50%, rgba(239,68,68,0.5) 75%, transparent)" }} />
-              <div className="p-6 space-y-5" style={{ background: "linear-gradient(150deg, rgba(239,68,68,0.06) 0%, #10101e 55%)" }}>
+              <div className="p-6 space-y-5" style={{ background: "linear-gradient(150deg, rgba(239,68,68,0.06) 0%, var(--mkt-card) 55%)" }}>
                 <div className="flex items-center gap-2.5">
                   <div className="h-6 w-6 rounded-lg flex items-center justify-center shrink-0" style={{ background: "rgba(239,68,68,0.12)", border: "1px solid rgba(239,68,68,0.22)" }}>
                     <span className="text-xs font-black leading-none" style={{ color: "#f87171" }}>✕</span>
@@ -124,19 +124,19 @@ export default function TrainingPage() {
             </div>
 
             {/* What works */}
-            <div className="relative rounded-2xl overflow-hidden" style={{ boxShadow: "0 0 0 1px rgba(16,185,129,0.20), 0 4px 20px rgba(0,0,0,0.4)" }}>
-              <div className="h-[3px]" style={{ background: "linear-gradient(90deg, transparent, rgba(16,185,129,0.6) 25%, #10b981 50%, rgba(16,185,129,0.6) 75%, transparent)" }} />
-              <div className="p-6 space-y-5" style={{ background: "linear-gradient(150deg, rgba(16,185,129,0.07) 0%, #10101e 55%)" }}>
+            <div className="relative rounded-2xl overflow-hidden" style={{ boxShadow: "0 0 0 1px rgba(var(--svc-training-rgb),0.20), 0 4px 20px rgba(0,0,0,0.4)" }}>
+              <div className="h-[3px]" style={{ background: "linear-gradient(90deg, transparent, rgba(var(--svc-training-rgb),0.6) 25%, var(--svc-training) 50%, rgba(var(--svc-training-rgb),0.6) 75%, transparent)" }} />
+              <div className="p-6 space-y-5" style={{ background: "linear-gradient(150deg, rgba(var(--svc-training-rgb),0.07) 0%, var(--mkt-card) 55%)" }}>
                 <div className="flex items-center gap-2.5">
-                  <div className="h-6 w-6 rounded-lg flex items-center justify-center shrink-0" style={{ background: "rgba(16,185,129,0.14)", border: "1px solid rgba(16,185,129,0.26)" }}>
-                    <span className="text-xs font-black leading-none" style={{ color: "#34d399" }}>✓</span>
+                  <div className="h-6 w-6 rounded-lg flex items-center justify-center shrink-0" style={{ background: "rgba(var(--svc-training-rgb),0.14)", border: "1px solid rgba(var(--svc-training-rgb),0.26)" }}>
+                    <span className="text-xs font-black leading-none" style={{ color: "var(--svc-training-bright)" }}>✓</span>
                   </div>
-                  <p className="text-sm font-bold uppercase tracking-[0.14em]" style={{ color: "#34d399" }}>What Actually Builds Capability</p>
+                  <p className="text-sm font-bold uppercase tracking-[0.14em]" style={{ color: "var(--svc-training-bright)" }}>What Actually Builds Capability</p>
                 </div>
                 <ul className="space-y-3">
                   {["Cohort-based programs with accountability and community", "Practice-first curriculum applied to real work problems", "Outcome-tracked progression from literacy to fluency to mastery", "Strategic framing: when to use AI, when not to, and how to govern it", "Encoded delivery patterns refined across every cohort"].map(item => (
                     <li key={item} className="flex items-start gap-3">
-                      <span className="shrink-0 rounded-full mt-[7px]" style={{ width: "6px", height: "6px", minWidth: "6px", background: "rgba(16,185,129,0.75)" }} />
+                      <span className="shrink-0 rounded-full mt-[7px]" style={{ width: "6px", height: "6px", minWidth: "6px", background: "rgba(var(--svc-training-rgb),0.75)" }} />
                       <p className="text-sm text-[--text-secondary] leading-snug">{item}</p>
                     </li>
                   ))}
@@ -159,7 +159,7 @@ export default function TrainingPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {fc5Features.map(({ icon: Icon, title, description }) => (
               <div key={title} className="soft-card p-5 space-y-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-[--radius-lg]" style={{ background: "rgba(16,185,129,0.12)", border: "1px solid rgba(16,185,129,0.2)" }}><Icon className="h-4 w-4" style={{ color: "#10b981" }} /></div>
+                <div className="flex h-9 w-9 items-center justify-center rounded-[--radius-lg]" style={{ background: "rgba(var(--svc-training-rgb),0.12)", border: "1px solid rgba(var(--svc-training-rgb),0.2)" }}><Icon className="h-4 w-4" style={{ color: "var(--svc-training)" }} /></div>
                 <h3 className="font-semibold text-[--text-primary] text-base">{title}</h3>
                 <p className="text-sm text-[--text-secondary] leading-relaxed">{description}</p>
               </div>
@@ -186,13 +186,13 @@ export default function TrainingPage() {
               const barOpacity   = [0.35, 0.55, 0.75, 1.00][i];
               const glowStrength = [
                 "0 0 0 1px rgba(255,255,255,0.04), 0 2px 16px rgba(0,0,0,0.4)",
-                "0 0 0 1px rgba(16,185,129,0.12), 0 2px 16px rgba(0,0,0,0.4)",
-                "0 0 0 1px rgba(16,185,129,0.22), 0 4px 24px rgba(16,185,129,0.06)",
-                "0 0 0 1px rgba(16,185,129,0.40), 0 8px 40px rgba(16,185,129,0.12)",
+                "0 0 0 1px rgba(var(--svc-training-rgb),0.12), 0 2px 16px rgba(0,0,0,0.4)",
+                "0 0 0 1px rgba(var(--svc-training-rgb),0.22), 0 4px 24px rgba(var(--svc-training-rgb),0.06)",
+                "0 0 0 1px rgba(var(--svc-training-rgb),0.40), 0 8px 40px rgba(var(--svc-training-rgb),0.12)",
               ][i];
               const cardBg = isFlagship
-                ? "linear-gradient(160deg, rgba(16,185,129,0.07) 0%, #10101e 45%)"
-                : "#10101e";
+                ? "linear-gradient(160deg, rgba(var(--svc-training-rgb),0.07) 0%, var(--mkt-card) 45%)"
+                : "var(--mkt-card)";
 
               return (
                 <div
@@ -204,7 +204,7 @@ export default function TrainingPage() {
                   <div
                     className="h-[3px] w-full"
                     style={{
-                      background: `linear-gradient(90deg, transparent 0%, rgba(16,185,129,${barOpacity * 0.6}) 15%, #10b981 50%, rgba(16,185,129,${barOpacity * 0.6}) 85%, transparent 100%)`,
+                      background: `linear-gradient(90deg, transparent 0%, rgba(var(--svc-training-rgb),${barOpacity * 0.6}) 15%, var(--svc-training) 50%, rgba(var(--svc-training-rgb),${barOpacity * 0.6}) 85%, transparent 100%)`,
                     }}
                   />
 
@@ -213,7 +213,7 @@ export default function TrainingPage() {
                     {/* Watermark tier number */}
                     <span
                       className="absolute bottom-4 right-6 text-[88px] font-black leading-none select-none pointer-events-none tabular-nums"
-                      style={{ color: `rgba(16,185,129,${[0.04, 0.06, 0.09, 0.13][i]})` }}
+                      style={{ color: `rgba(var(--svc-training-rgb),${[0.04, 0.06, 0.09, 0.13][i]})` }}
                       aria-hidden="true"
                     >
                       {tierNum}
@@ -225,7 +225,7 @@ export default function TrainingPage() {
                         <div className="flex items-center gap-2.5 flex-wrap">
                           <span
                             className="text-xs font-bold tracking-[0.18em] uppercase"
-                            style={{ color: `rgba(52,211,153,${[0.5, 0.65, 0.8, 1.0][i]})` }}
+                            style={{ color: `rgba(var(--svc-training-bright-rgb),${[0.5, 0.65, 0.8, 1.0][i]})` }}
                           >
                             Tier {tierNum}
                           </span>
@@ -233,9 +233,9 @@ export default function TrainingPage() {
                             <span
                               className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full"
                               style={{
-                                background: "rgba(16,185,129,0.12)",
-                                color: "#10b981",
-                                border: "1px solid rgba(16,185,129,0.30)",
+                                background: "rgba(var(--svc-training-rgb),0.12)",
+                                color: "var(--svc-training)",
+                                border: "1px solid rgba(var(--svc-training-rgb),0.30)",
                               }}
                             >
                               Flagship Program
@@ -249,9 +249,9 @@ export default function TrainingPage() {
                         <span
                           className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-semibold"
                           style={{
-                            background: `rgba(16,185,129,${[0.08, 0.11, 0.14, 0.18][i]})`,
-                            color: "#34d399",
-                            border: `1px solid rgba(16,185,129,${[0.18, 0.24, 0.30, 0.40][i]})`,
+                            background: `rgba(var(--svc-training-rgb),${[0.08, 0.11, 0.14, 0.18][i]})`,
+                            color: "var(--svc-training-bright)",
+                            border: `1px solid rgba(var(--svc-training-rgb),${[0.18, 0.24, 0.30, 0.40][i]})`,
                           }}
                         >
                           {duration}
@@ -277,11 +277,11 @@ export default function TrainingPage() {
                       <div
                         className="rounded-xl p-4 space-y-2"
                         style={{
-                          background: `rgba(16,185,129,${[0.04, 0.05, 0.06, 0.08][i]})`,
-                          border: `1px solid rgba(16,185,129,${[0.13, 0.17, 0.22, 0.28][i]})`,
+                          background: `rgba(var(--svc-training-rgb),${[0.04, 0.05, 0.06, 0.08][i]})`,
+                          border: `1px solid rgba(var(--svc-training-rgb),${[0.13, 0.17, 0.22, 0.28][i]})`,
                         }}
                       >
-                        <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "#34d399" }}>After</p>
+                        <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--svc-training-bright)" }}>After</p>
                         <p className="text-sm text-[--text-secondary] leading-relaxed">{after}</p>
                       </div>
                     </div>
@@ -300,8 +300,8 @@ export default function TrainingPage() {
                                 className="shrink-0 rounded-full mt-[5px]"
                                 style={{
                                   width: "6px", height: "6px",
-                                  background: `rgba(16,185,129,${[0.45, 0.55, 0.70, 0.90][i]})`,
-                                  boxShadow: isFlagship ? "0 0 6px rgba(16,185,129,0.4)" : "none",
+                                  background: `rgba(var(--svc-training-rgb),${[0.45, 0.55, 0.70, 0.90][i]})`,
+                                  boxShadow: isFlagship ? "0 0 6px rgba(var(--svc-training-rgb),0.4)" : "none",
                                 }}
                               />
                               {c}
@@ -316,7 +316,7 @@ export default function TrainingPage() {
                             <li key={t} className="flex items-start gap-2.5 text-sm text-[--text-secondary] leading-snug">
                               <span
                                 className="shrink-0 font-bold text-sm leading-none mt-0.5"
-                                style={{ color: `rgba(52,211,153,${[0.6, 0.7, 0.85, 1.0][i]})` }}
+                                style={{ color: `rgba(var(--svc-training-bright-rgb),${[0.6, 0.7, 0.85, 1.0][i]})` }}
                               >
                                 ✓
                               </span>
@@ -359,13 +359,13 @@ export default function TrainingPage() {
                 <div
                   className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-2xl transition-opacity duration-300"
                   style={{
-                    background: `linear-gradient(to bottom, rgba(16,185,129,${[0.4, 0.55, 0.7, 0.9][idx]}), rgba(16,185,129,0.05))`,
+                    background: `linear-gradient(to bottom, rgba(var(--svc-training-rgb),${[0.4, 0.55, 0.7, 0.9][idx]}), rgba(var(--svc-training-rgb),0.05))`,
                   }}
                 />
-                <div className="pl-7 pr-6 py-6 space-y-3" style={{ background: "#10101e" }}>
+                <div className="pl-7 pr-6 py-6 space-y-3" style={{ background: "var(--mkt-card)" }}>
                   <span
                     className="text-xs font-mono font-bold tracking-[0.2em]"
-                    style={{ color: `rgba(52,211,153,${[0.4, 0.55, 0.7, 0.85][idx]})` }}
+                    style={{ color: `rgba(var(--svc-training-bright-rgb),${[0.4, 0.55, 0.7, 0.85][idx]})` }}
                   >
                     0{idx + 1}
                   </span>
@@ -383,7 +383,7 @@ export default function TrainingPage() {
       <section className="bg-[--mkt-bg] py-16 px-6 border-t border-[--mkt-border]">
         <div className="max-w-6xl mx-auto space-y-10">
           <div className="text-center space-y-3">
-            <p className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "#34d399" }}>Participant Voices</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "var(--svc-training-bright)" }}>Participant Voices</p>
             <h2 className="text-2xl md:text-3xl font-semibold text-[--text-primary]">In Their Words</h2>
             <p className="max-w-xl mx-auto text-sm text-[--text-secondary] leading-relaxed">
               From legal professionals to technologists — what participants say after completing the program.
@@ -395,18 +395,18 @@ export default function TrainingPage() {
             <div
               className="relative rounded-2xl p-7 flex flex-col gap-5 overflow-hidden"
               style={{
-                background: "linear-gradient(150deg, rgba(16,185,129,0.08) 0%, #10101e 55%)",
-                border: "1px solid rgba(16,185,129,0.16)",
-                boxShadow: "0 0 0 1px rgba(16,185,129,0.08), 0 6px 24px rgba(0,0,0,0.4)",
+                background: "linear-gradient(150deg, rgba(var(--svc-training-rgb),0.08) 0%, var(--mkt-card) 55%)",
+                border: "1px solid rgba(var(--svc-training-rgb),0.16)",
+                boxShadow: "0 0 0 1px rgba(var(--svc-training-rgb),0.08), 0 6px 24px rgba(0,0,0,0.4)",
               }}
             >
-              <div className="text-5xl leading-none font-black select-none opacity-20" style={{ backgroundImage: "linear-gradient(135deg, #10b981, #34d399)", WebkitBackgroundClip: "text", color: "transparent" }} aria-hidden="true">&ldquo;</div>
+              <div className="text-5xl leading-none font-black select-none opacity-20" style={{ backgroundImage: "linear-gradient(135deg, var(--svc-training), var(--svc-training-bright))", WebkitBackgroundClip: "text", color: "transparent" }} aria-hidden="true">&ldquo;</div>
               <blockquote className="text-sm text-[--text-primary] leading-relaxed italic flex-1">
                 &ldquo;The Program struck the perfect balance between strategic experimentation and responsible innovation. I now use AI in my daily practice to accelerate research, streamline routine tasks, and explore new ways of delivering value to clients — without compromising on ethics, quality, human touch or judgment.&rdquo;
               </blockquote>
-              <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(16,185,129,0.15)" }}>
+              <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(var(--svc-training-rgb),0.15)" }}>
                 <p className="text-sm font-semibold text-[--text-primary]">Program Participant</p>
-                <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "#34d399" }}>Legal Professional</p>
+                <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "var(--svc-training-bright)" }}>Legal Professional</p>
                 <p className="text-xs text-[--text-muted]">AI Literacy Program</p>
               </div>
             </div>
@@ -415,18 +415,18 @@ export default function TrainingPage() {
             <div
               className="relative rounded-2xl p-7 flex flex-col gap-5 overflow-hidden"
               style={{
-                background: "linear-gradient(150deg, rgba(16,185,129,0.09) 0%, #10101e 55%)",
-                border: "1px solid rgba(16,185,129,0.18)",
-                boxShadow: "0 0 0 1px rgba(16,185,129,0.10), 0 6px 24px rgba(0,0,0,0.4)",
+                background: "linear-gradient(150deg, rgba(var(--svc-training-rgb),0.09) 0%, var(--mkt-card) 55%)",
+                border: "1px solid rgba(var(--svc-training-rgb),0.18)",
+                boxShadow: "0 0 0 1px rgba(var(--svc-training-rgb),0.10), 0 6px 24px rgba(0,0,0,0.4)",
               }}
             >
-              <div className="text-5xl leading-none font-black select-none opacity-20" style={{ backgroundImage: "linear-gradient(135deg, #10b981, #34d399)", WebkitBackgroundClip: "text", color: "transparent" }} aria-hidden="true">&ldquo;</div>
+              <div className="text-5xl leading-none font-black select-none opacity-20" style={{ backgroundImage: "linear-gradient(135deg, var(--svc-training), var(--svc-training-bright))", WebkitBackgroundClip: "text", color: "transparent" }} aria-hidden="true">&ldquo;</div>
               <blockquote className="text-sm text-[--text-primary] leading-relaxed italic flex-1">
                 &ldquo;The Program didn&apos;t just teach me something, it rewired me. It flipped a switch I didn&apos;t know existed and showed me what our organization could become if we stopped whispering innovation and started shouting it. The Program was the first experience that made me feel like an innovator, not a passenger. AI is not a tool, it&apos;s a superpower.&rdquo;
               </blockquote>
-              <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(16,185,129,0.15)" }}>
+              <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(var(--svc-training-rgb),0.15)" }}>
                 <p className="text-sm font-semibold text-[--text-primary]">Program Participant</p>
-                <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "#34d399" }}>IT Professional</p>
+                <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "var(--svc-training-bright)" }}>IT Professional</p>
                 <p className="text-xs text-[--text-muted]">AI Literacy Program</p>
               </div>
             </div>
@@ -435,18 +435,18 @@ export default function TrainingPage() {
             <div
               className="relative rounded-2xl p-7 flex flex-col gap-5 overflow-hidden"
               style={{
-                background: "linear-gradient(150deg, rgba(16,185,129,0.10) 0%, #10101e 55%)",
-                border: "1px solid rgba(16,185,129,0.20)",
-                boxShadow: "0 0 0 1px rgba(16,185,129,0.12), 0 6px 24px rgba(0,0,0,0.4)",
+                background: "linear-gradient(150deg, rgba(var(--svc-training-rgb),0.10) 0%, var(--mkt-card) 55%)",
+                border: "1px solid rgba(var(--svc-training-rgb),0.20)",
+                boxShadow: "0 0 0 1px rgba(var(--svc-training-rgb),0.12), 0 6px 24px rgba(0,0,0,0.4)",
               }}
             >
-              <div className="text-5xl leading-none font-black select-none opacity-20" style={{ backgroundImage: "linear-gradient(135deg, #10b981, #34d399)", WebkitBackgroundClip: "text", color: "transparent" }} aria-hidden="true">&ldquo;</div>
+              <div className="text-5xl leading-none font-black select-none opacity-20" style={{ backgroundImage: "linear-gradient(135deg, var(--svc-training), var(--svc-training-bright))", WebkitBackgroundClip: "text", color: "transparent" }} aria-hidden="true">&ldquo;</div>
               <blockquote className="text-sm text-[--text-primary] leading-relaxed italic flex-1">
                 &ldquo;I gained new ways of thinking — especially systems thinking and design thinking — and learned how to use them to identify AI-integration opportunities across an entire workflow. I&apos;m walking away feeling far more prepared to lead my practice group and drive impact that extends well beyond my immediate team.&rdquo;
               </blockquote>
-              <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(16,185,129,0.15)" }}>
+              <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(var(--svc-training-rgb),0.15)" }}>
                 <p className="text-sm font-semibold text-[--text-primary]">Program Participant</p>
-                <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "#34d399" }}>Learning &amp; Development Professional</p>
+                <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "var(--svc-training-bright)" }}>Learning &amp; Development Professional</p>
                 <p className="text-xs text-[--text-muted]">AI Literacy Program</p>
               </div>
             </div>
@@ -467,14 +467,14 @@ export default function TrainingPage() {
               href="/services/consulting"
               className="group relative rounded-2xl overflow-hidden flex flex-col gap-4 p-6 transition-all duration-300"
               style={{
-                background: "linear-gradient(150deg, rgba(37,99,235,0.08) 0%, #10101e 55%)",
-                boxShadow: "0 0 0 1px rgba(37,99,235,0.16), 0 2px 14px rgba(0,0,0,0.35)",
+                background: "linear-gradient(150deg, rgba(var(--svc-consulting-rgb),0.08) 0%, var(--mkt-card) 55%)",
+                boxShadow: "0 0 0 1px rgba(var(--svc-consulting-rgb),0.16), 0 2px 14px rgba(0,0,0,0.35)",
               }}
             >
-              <div className="absolute top-0 inset-x-0 h-[3px]" style={{ background: "linear-gradient(90deg, transparent, rgba(59,130,246,0.5) 25%, #3b82f6 50%, rgba(59,130,246,0.5) 75%, transparent)" }} />
+              <div className="absolute top-0 inset-x-0 h-[3px]" style={{ background: "linear-gradient(90deg, transparent, rgba(var(--svc-consulting-mid-rgb),0.5) 25%, var(--svc-consulting-mid) 50%, rgba(var(--svc-consulting-mid-rgb),0.5) 75%, transparent)" }} />
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-[0.15em]" style={{ color: "#60a5fa" }}>AI Ops Consulting</span>
-                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" style={{ color: "#3b82f6" }} />
+                <span className="text-xs font-bold uppercase tracking-[0.15em]" style={{ color: "var(--svc-consulting-bright)" }}>AI Ops Consulting</span>
+                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" style={{ color: "var(--svc-consulting-mid)" }} />
               </div>
               <p className="text-base font-semibold text-[--text-primary] leading-snug">Operationalize AI — don&apos;t just pilot it.</p>
               <p className="text-sm text-[--text-secondary] leading-relaxed">Design architecture, governance and operating models for human-machine collaboration that actually works inside real teams. Stop experimenting and start integrating.</p>
@@ -485,14 +485,14 @@ export default function TrainingPage() {
               href="/services/agentic-systems"
               className="group relative rounded-2xl overflow-hidden flex flex-col gap-4 p-6 transition-all duration-300"
               style={{
-                background: "linear-gradient(150deg, rgba(236,72,153,0.08) 0%, #10101e 55%)",
-                boxShadow: "0 0 0 1px rgba(236,72,153,0.16), 0 2px 14px rgba(0,0,0,0.35)",
+                background: "linear-gradient(150deg, rgba(var(--svc-agentic-rgb),0.08) 0%, var(--mkt-card) 55%)",
+                boxShadow: "0 0 0 1px rgba(var(--svc-agentic-rgb),0.16), 0 2px 14px rgba(0,0,0,0.35)",
               }}
             >
-              <div className="absolute top-0 inset-x-0 h-[3px]" style={{ background: "linear-gradient(90deg, transparent, rgba(236,72,153,0.5) 25%, #ec4899 50%, rgba(236,72,153,0.5) 75%, transparent)" }} />
+              <div className="absolute top-0 inset-x-0 h-[3px]" style={{ background: "linear-gradient(90deg, transparent, rgba(var(--svc-agentic-rgb),0.5) 25%, var(--svc-agentic) 50%, rgba(var(--svc-agentic-rgb),0.5) 75%, transparent)" }} />
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-[0.15em]" style={{ color: "#f472b6" }}>Agentic Systems</span>
-                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" style={{ color: "#ec4899" }} />
+                <span className="text-xs font-bold uppercase tracking-[0.15em]" style={{ color: "var(--svc-agentic-bright)" }}>Agentic Systems</span>
+                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" style={{ color: "var(--svc-agentic)" }} />
               </div>
               <p className="text-base font-semibold text-[--text-primary] leading-snug">AI that works while you sleep.</p>
               <p className="text-sm text-[--text-secondary] leading-relaxed">Autonomous AI agent architectures with constitutional governance. Agents that sense, propose, execute, and learn — with humans at every decision point that matters.</p>
@@ -512,8 +512,8 @@ export default function TrainingPage() {
               href="/contact"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
               style={{
-                background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
-                boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+                background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)",
+                boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.5), 0 8px 32px rgba(var(--accent-rgb),0.35)",
               }}
             >
               Design Your Training Program <ArrowRight className="h-4 w-4" />

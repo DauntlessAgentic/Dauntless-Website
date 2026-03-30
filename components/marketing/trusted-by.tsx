@@ -28,9 +28,9 @@ export function TrustedBy() {
   return (
     <section className="relative bg-[--mkt-section] py-10 px-6 overflow-hidden">
       <div className="absolute top-0 inset-x-0 h-px"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(139,92,246,0.2), transparent)" }} />
+        style={{ background: "linear-gradient(90deg, transparent, rgba(var(--accent-bright-rgb),0.2), transparent)" }} />
       <div className="absolute bottom-0 inset-x-0 h-px"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(139,92,246,0.1), transparent)" }} />
+        style={{ background: "linear-gradient(90deg, transparent, rgba(var(--accent-bright-rgb),0.1), transparent)" }} />
 
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Federal departments */}
@@ -43,7 +43,7 @@ export function TrustedBy() {
               <span
                 key={dept}
                 className="px-3.5 py-1.5 rounded-full text-xs font-medium text-[--text-secondary] transition-colors"
-                style={{ background: "rgba(139,92,246,0.07)", border: "1px solid rgba(139,92,246,0.14)" }}
+                style={{ background: "rgba(var(--accent-bright-rgb),0.07)", border: "1px solid rgba(var(--accent-bright-rgb),0.14)" }}
               >
                 {dept}
               </span>
@@ -53,7 +53,7 @@ export function TrustedBy() {
 
         {/* Divider */}
         <div className="h-px max-w-xs mx-auto"
-          style={{ background: "linear-gradient(90deg, transparent, rgba(139,92,246,0.2), transparent)" }} />
+          style={{ background: "linear-gradient(90deg, transparent, rgba(var(--accent-bright-rgb),0.2), transparent)" }} />
 
         {/* Private sector */}
         <div className="space-y-4">

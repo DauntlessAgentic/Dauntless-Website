@@ -29,7 +29,7 @@ export default function ContactPage() {
       {/* Hero */}
       <section className="relative pt-32 pb-16 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.14) 0%, transparent 65%)" }} />
+          style={{ background: "radial-gradient(ellipse at center, rgba(var(--accent-rgb),0.14) 0%, transparent 65%)" }} />
         <div className="relative max-w-3xl mx-auto text-center space-y-5">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Contact</p>
           <h1 className="text-4xl md:text-5xl font-bold text-[--text-primary]">Let&apos;s Build Something.</h1>
@@ -45,8 +45,8 @@ export default function ContactPage() {
           <div
             className="flex flex-col md:flex-row items-center gap-5 rounded-xl p-6"
             style={{
-              background: "rgba(124,58,237,0.06)",
-              border: "1px solid rgba(139,92,246,0.2)",
+              background: "rgba(var(--accent-rgb),0.06)",
+              border: "1px solid rgba(var(--accent-bright-rgb),0.2)",
             }}
           >
             <div className="flex-1 text-center md:text-left">
@@ -61,7 +61,7 @@ export default function ContactPage() {
               rel="noopener noreferrer"
               className="shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold transition-all"
               style={{
-                border: "1px solid rgba(139,92,246,0.4)",
+                border: "1px solid rgba(var(--accent-bright-rgb),0.4)",
                 color: "var(--accent-vivid)",
               }}
             >
@@ -135,8 +135,8 @@ export default function ContactPage() {
                   type="submit"
                   className="w-full inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
                   style={{
-                    background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
-                    boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+                    background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)",
+                    boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.5), 0 8px 32px rgba(var(--accent-rgb),0.35)",
                   }}
                 >
                   Send Message <ArrowRight className="h-4 w-4" />

@@ -55,13 +55,13 @@ const services: Service[] = [
 export function FeatureGrid() {
   return (
     <section id="services" className="relative bg-[--mkt-section] py-16 px-6 overflow-hidden">
-      <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(139,92,246,0.3), transparent)" }} />
+      <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(var(--accent-bright-rgb),0.3), transparent)" }} />
       <div className="max-w-6xl mx-auto space-y-10">
         <div className="text-center space-y-3">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-[--accent-vivid]">Services</p>
           <h2 className="text-3xl md:text-4xl font-semibold text-[--text-primary]">
             Three Services.{" "}
-            <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%)" }}>
+            <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright) 0%, var(--accent-vivid) 100%)" }}>
               One Compounding System.
             </span>
           </h2>
@@ -76,9 +76,9 @@ export function FeatureGrid() {
               href={href}
               className="group relative flex flex-col bg-[--mkt-card] border border-[--mkt-border] rounded-2xl p-6 space-y-5 transition-all duration-300 hover:border-[rgba(139,92,246,0.35)] hover:shadow-[0_0_0_1px_rgba(139,92,246,0.12),0_20px_40px_-12px_rgba(0,0,0,0.6)]"
             >
-              <div className="absolute top-0 inset-x-0 h-[1.5px] rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: "linear-gradient(90deg, transparent 0%, #8b5cf6 40%, #a78bfa 60%, transparent 100%)" }} />
+              <div className="absolute top-0 inset-x-0 h-[1.5px] rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: "linear-gradient(90deg, transparent 0%, var(--accent-bright) 40%, var(--accent-vivid) 60%, transparent 100%)" }} />
               <span className="absolute top-5 right-5 text-xs font-mono font-bold text-[--text-muted] opacity-30 select-none">{number}</span>
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl shrink-0" style={{ background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)", boxShadow: "0 4px 14px rgba(124,58,237,0.4)" }}>
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl shrink-0" style={{ background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)", boxShadow: "0 4px 14px rgba(var(--accent-rgb),0.4)" }}>
                 <Icon className="h-6 w-6 text-white" strokeWidth={1.75} />
               </div>
               <div className="space-y-1.5">

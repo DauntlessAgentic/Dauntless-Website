@@ -101,7 +101,7 @@ export default function PricingPage() {
           className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse at center, rgba(124,58,237,0.12) 0%, transparent 65%)",
+              "radial-gradient(ellipse at center, rgba(var(--accent-rgb),0.12) 0%, transparent 65%)",
           }}
         />
         <div className="relative max-w-3xl mx-auto text-center space-y-5">
@@ -123,20 +123,20 @@ export default function PricingPage() {
             const barOpacity = [0.35, 0.75, 1.00][i];
             const bgOpacity  = [0.05, 0.09, 0.12][i];
             const glowOpacity = [0.10, 0.22, 0.35][i];
-            const accentColor = i === 2 ? "#a78bfa" : i === 1 ? "#8b5cf6" : "#7c3aed";
+            const accentColor = i === 2 ? "var(--accent-vivid)" : i === 1 ? "var(--accent-bright)" : "var(--accent)";
             return (
             <div
               key={tier.name}
               className="flex flex-col rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1"
               style={{
-                background: `linear-gradient(150deg, rgba(124,58,237,${bgOpacity}) 0%, #10101e 55%)`,
-                boxShadow: `0 0 0 1px rgba(124,58,237,${glowOpacity}), 0 4px 20px rgba(0,0,0,0.4)`,
+                background: `linear-gradient(150deg, rgba(var(--accent-rgb),${bgOpacity}) 0%, var(--mkt-card) 55%)`,
+                boxShadow: `0 0 0 1px rgba(var(--accent-rgb),${glowOpacity}), 0 4px 20px rgba(0,0,0,0.4)`,
               }}
             >
               {/* Top accent bar */}
               <div
                 className="h-[3px] w-full shrink-0"
-                style={{ background: `linear-gradient(90deg, transparent, rgba(124,58,237,${barOpacity * 0.5}) 25%, rgba(124,58,237,${barOpacity}) 50%, rgba(124,58,237,${barOpacity * 0.5}) 75%, transparent)` }}
+                style={{ background: `linear-gradient(90deg, transparent, rgba(var(--accent-rgb),${barOpacity * 0.5}) 25%, rgba(var(--accent-rgb),${barOpacity}) 50%, rgba(var(--accent-rgb),${barOpacity * 0.5}) 75%, transparent)` }}
               />
 
               <div className="flex flex-col gap-5 p-7 flex-1">
@@ -153,8 +153,8 @@ export default function PricingPage() {
                 <div
                   className="rounded-xl p-4 space-y-0.5"
                   style={{
-                    background: `rgba(124,58,237,${bgOpacity + 0.04})`,
-                    border: `1px solid rgba(124,58,237,${glowOpacity})`,
+                    background: `rgba(var(--accent-rgb),${bgOpacity + 0.04})`,
+                    border: `1px solid rgba(var(--accent-rgb),${glowOpacity})`,
                   }}
                 >
                   <p
@@ -199,8 +199,8 @@ export default function PricingPage() {
                   href="/contact"
                   className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
                   style={{
-                    background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
-                    boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+                    background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)",
+                    boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.5), 0 8px 32px rgba(var(--accent-rgb),0.35)",
                   }}
                 >
                   Start a Conversation <ArrowRight className="h-4 w-4" />

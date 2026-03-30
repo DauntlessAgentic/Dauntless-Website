@@ -78,7 +78,7 @@ export default function ManifestoPage() {
       {/* Hero */}
       <section className="relative pt-32 pb-24 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.16) 0%, transparent 65%)" }} />
+          style={{ background: "radial-gradient(ellipse at center, rgba(var(--accent-rgb),0.16) 0%, transparent 65%)" }} />
         <div className="relative max-w-3xl mx-auto text-center space-y-6">
           <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">The Dauntless Manifesto</p>
           <h1 className="text-4xl md:text-6xl font-bold text-[--text-primary] leading-tight">
@@ -121,7 +121,7 @@ export default function ManifestoPage() {
       </section>
 
       {/* Closing */}
-      <section className="py-24 px-6" style={{ background: "linear-gradient(135deg, var(--mkt-bg) 0%, rgba(124,58,237,0.08) 50%, var(--mkt-bg) 100%)" }}>
+      <section className="py-24 px-6" style={{ background: "linear-gradient(135deg, var(--mkt-bg) 0%, rgba(var(--accent-rgb),0.08) 50%, var(--mkt-bg) 100%)" }}>
         <div className="max-w-3xl mx-auto text-center space-y-8">
           <h2 className="text-3xl font-semibold text-[--text-primary]">The Invitation</h2>
           <p className="text-[--text-secondary] leading-relaxed">
@@ -134,8 +134,8 @@ export default function ManifestoPage() {
               href="/contact"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
               style={{
-                background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
-                boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+                background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)",
+                boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.5), 0 8px 32px rgba(var(--accent-rgb),0.35)",
               }}
             >
               Start a Conversation <ArrowRight className="h-4 w-4" />

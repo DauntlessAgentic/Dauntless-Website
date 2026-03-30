@@ -51,6 +51,28 @@
   --mkt-card:        #10101e;
   --mkt-border:      rgba(255,255,255,0.07);
 
+  /* ─── Service brand colours ─────────────────────────────────────────── */
+  --svc-training:            #10b981;
+  --svc-training-bright:     #34d399;
+  --svc-consulting:          #2563eb;
+  --svc-consulting-mid:      #3b82f6;
+  --svc-consulting-bright:   #60a5fa;
+  --svc-agentic:             #ec4899;
+  --svc-agentic-bright:      #f472b6;
+
+  /* ─── RGB triplets (for rgba() usage in components) ─────────────────── */
+  /* Usage: rgba(var(--svc-training-rgb), 0.08)                            */
+  --svc-training-rgb:        16, 185, 129;
+  --svc-training-bright-rgb: 52, 211, 153;
+  --svc-consulting-rgb:      37, 99, 235;
+  --svc-consulting-mid-rgb:  59, 130, 246;
+  --svc-consulting-bright-rgb: 96, 165, 250;
+  --svc-agentic-rgb:         236, 72, 153;
+  --svc-agentic-bright-rgb:  244, 114, 182;
+  --accent-rgb:              124, 58, 237;
+  --accent-bright-rgb:       139, 92, 246;
+  --accent-vivid-rgb:        167, 139, 250;
+
   --chart-1: #8b5cf6;
   --chart-2: #22d3ee;
   --chart-3: #f59e0b;
@@ -187,7 +209,7 @@ html { color-scheme: dark; }
 body {
   background: var(--app-bg);
   color: var(--text-primary);
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -243,6 +265,17 @@ h1, h2, h3 {
   font-family: var(--font-display), var(--font-inter), sans-serif;
   letter-spacing: -0.02em;
 }
+
+/* ── Type Scale (8 steps — do not add intermediate sizes) ──────
+   Display:   text-5xl / text-6xl    48–60px  Hero main headline
+   H1:        text-4xl / text-5xl    36–48px  Page hero headings
+   H2:        text-2xl / text-3xl    24–30px  Section headings
+   H3:        text-xl                20px     Card / component headings
+   Lead:      text-lg                18px     Subheadlines, lead body
+   Body:      text-base              16px     Standard body copy
+   Secondary: text-sm                14px     Supporting text, descriptions
+   Label:     text-xs                12px     Overlines, badges, captions
+   ─────────────────────────────────────────────────────────── */
 
 code, pre, kbd {
   font-family: var(--font-mono-code), 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;

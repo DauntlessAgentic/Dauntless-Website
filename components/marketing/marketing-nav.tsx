@@ -21,7 +21,7 @@ function LogoMark() {
       <div
         className="shrink-0 flex items-center justify-center rounded-xl p-1.5"
         style={{
-          background: "#10101e",
+          background: "var(--mkt-card)",
           boxShadow: "0 0 0 1px rgba(255,255,255,0.04), 0 2px 12px rgba(0,0,0,0.3)",
         }}
       >
@@ -37,7 +37,7 @@ function LogoMark() {
       <span className="text-base font-semibold tracking-tight text-[--text-primary]">
         Dauntless{" "}
         <span className="text-transparent bg-clip-text"
-          style={{ backgroundImage: "linear-gradient(135deg, #8b5cf6, #a78bfa)" }}>
+          style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright), var(--accent-vivid))" }}>
           Agentic
         </span>
       </span>
@@ -89,8 +89,8 @@ export function MarketingNav() {
           <Link href="/contact"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[--radius-lg] text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
             style={{
-              background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
-              boxShadow: "0 0 0 1px rgba(139,92,246,0.4), 0 4px 16px rgba(124,58,237,0.3)",
+              background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)",
+              boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.4), 0 4px 16px rgba(var(--accent-rgb),0.3)",
             }}>
             Start a Conversation
             <ArrowRight className="h-3.5 w-3.5" />
@@ -125,7 +125,7 @@ export function MarketingNav() {
           <div className="pt-3">
             <Link href="/contact" onClick={() => setMobileOpen(false)}
               className="flex items-center justify-center gap-1.5 w-full px-4 py-2.5 rounded-[--radius-lg] text-sm font-medium text-white"
-              style={{ background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)" }}>
+              style={{ background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)" }}>
               Start a Conversation <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>

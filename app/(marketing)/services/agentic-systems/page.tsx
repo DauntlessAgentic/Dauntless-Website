@@ -100,15 +100,15 @@ export default function AgenticSystemsPage() {
       <section className="relative pt-10 pb-24 px-6 overflow-hidden">
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at center, rgba(236,72,153,0.12) 0%, transparent 65%)" }}
+          style={{ background: "radial-gradient(ellipse at center, rgba(var(--svc-agentic-rgb),0.12) 0%, transparent 65%)" }}
         />
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
-          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "#f472b6" }}>Agentic Systems</p>
+          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--svc-agentic-bright)" }}>Agentic Systems</p>
           <h1 className="text-4xl md:text-6xl font-bold text-[--text-primary] leading-tight">
             Beyond Tools. Beyond Automation.{" "}
             <span
               className="text-transparent bg-clip-text"
-              style={{ backgroundImage: "linear-gradient(135deg, #f472b6, #ec4899)" }}
+              style={{ backgroundImage: "linear-gradient(135deg, var(--svc-agentic-bright), var(--svc-agentic))" }}
             >
               Into Agentic.
             </span>
@@ -120,8 +120,8 @@ export default function AgenticSystemsPage() {
             href="/contact"
             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
             style={{
-              background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
-              boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+              background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)",
+              boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.5), 0 8px 32px rgba(var(--accent-rgb),0.35)",
             }}
           >
             Explore Agentic Architecture <ArrowRight className="h-4 w-4" />
@@ -133,15 +133,15 @@ export default function AgenticSystemsPage() {
       <section className="bg-[--mkt-section] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-8">
           <div className="text-center space-y-3">
-            <p className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "#f472b6" }}>The Distinction</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "var(--svc-agentic-bright)" }}>The Distinction</p>
             <h2 className="text-3xl font-semibold text-[--text-primary]">From Tools to Agents</h2>
             <p className="max-w-2xl mx-auto text-sm text-[--text-secondary] leading-relaxed">
               The key insight: agentic systems aren&apos;t about removing humans. They&apos;re about amplifying human judgment — letting AI handle the volume while humans handle the decisions that matter.
             </p>
           </div>
           <div className="overflow-x-auto rounded-2xl"
-            style={{ boxShadow: "0 0 0 1px rgba(236,72,153,0.12), 0 4px 20px rgba(0,0,0,0.4)" }}>
-            <table className="w-full text-sm" style={{ background: "linear-gradient(150deg, rgba(236,72,153,0.05) 0%, #10101e 55%)" }}>
+            style={{ boxShadow: "0 0 0 1px rgba(var(--svc-agentic-rgb),0.12), 0 4px 20px rgba(0,0,0,0.4)" }}>
+            <table className="w-full text-sm" style={{ background: "linear-gradient(150deg, rgba(var(--svc-agentic-rgb),0.05) 0%, var(--mkt-card) 55%)" }}>
               <thead>
                 <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
                   <th className="text-left py-4 px-5 text-xs font-bold uppercase tracking-widest text-[--text-muted] w-36"></th>
@@ -149,7 +149,7 @@ export default function AgenticSystemsPage() {
                     <th
                       key={h}
                       className="text-left py-4 px-5 text-xs font-bold uppercase tracking-widest"
-                      style={{ color: h === "Agentic Systems" ? "#f472b6" : "var(--text-muted)" }}
+                      style={{ color: h === "Agentic Systems" ? "var(--svc-agentic-bright)" : "var(--text-muted)" }}
                     >
                       {h}
                     </th>
@@ -190,7 +190,7 @@ export default function AgenticSystemsPage() {
       <section className="bg-[--mkt-bg] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
-            <p className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "#f472b6" }}>Architecture</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "var(--svc-agentic-bright)" }}>Architecture</p>
             <h2 className="text-3xl font-semibold text-[--text-primary]">The Agentic Architecture Stack</h2>
             <p className="max-w-2xl mx-auto text-sm text-[--text-secondary] leading-relaxed">
               Every agentic system we design follows a proven architecture — the same architecture that powers Dauntless Agentic, our own operating system.
@@ -201,14 +201,14 @@ export default function AgenticSystemsPage() {
               const barOpacity   = [0.35, 0.55, 0.75, 1.00][i];
               const glowStrength = [
                 "0 0 0 1px rgba(255,255,255,0.04), 0 2px 16px rgba(0,0,0,0.4)",
-                "0 0 0 1px rgba(236,72,153,0.14), 0 2px 16px rgba(0,0,0,0.4)",
-                "0 0 0 1px rgba(236,72,153,0.24), 0 4px 24px rgba(236,72,153,0.06)",
-                "0 0 0 1px rgba(236,72,153,0.40), 0 8px 40px rgba(236,72,153,0.10)",
+                "0 0 0 1px rgba(var(--svc-agentic-rgb),0.14), 0 2px 16px rgba(0,0,0,0.4)",
+                "0 0 0 1px rgba(var(--svc-agentic-rgb),0.24), 0 4px 24px rgba(var(--svc-agentic-rgb),0.06)",
+                "0 0 0 1px rgba(var(--svc-agentic-rgb),0.40), 0 8px 40px rgba(var(--svc-agentic-rgb),0.10)",
               ][i];
               const isFlagship = i === 3;
               const cardBg = isFlagship
-                ? "linear-gradient(160deg, rgba(236,72,153,0.09) 0%, #10101e 45%)"
-                : "#10101e";
+                ? "linear-gradient(160deg, rgba(var(--svc-agentic-rgb),0.09) 0%, var(--mkt-card) 45%)"
+                : "var(--mkt-card)";
 
               return (
                 <div key={title} className="relative rounded-2xl overflow-hidden" style={{ boxShadow: glowStrength }}>
@@ -216,7 +216,7 @@ export default function AgenticSystemsPage() {
                   <div
                     className="h-[3px] w-full"
                     style={{
-                      background: `linear-gradient(90deg, transparent 0%, rgba(244,114,182,${barOpacity * 0.6}) 15%, #ec4899 50%, rgba(244,114,182,${barOpacity * 0.6}) 85%, transparent 100%)`,
+                      background: `linear-gradient(90deg, transparent 0%, rgba(var(--svc-agentic-bright-rgb),${barOpacity * 0.6}) 15%, var(--svc-agentic) 50%, rgba(var(--svc-agentic-bright-rgb),${barOpacity * 0.6}) 85%, transparent 100%)`,
                     }}
                   />
                   <div className="relative p-7 md:p-8 space-y-6" style={{ background: cardBg }}>
@@ -224,7 +224,7 @@ export default function AgenticSystemsPage() {
                     {/* Watermark */}
                     <span
                       className="absolute bottom-4 right-6 text-[88px] font-black leading-none select-none pointer-events-none tabular-nums"
-                      style={{ color: `rgba(236,72,153,${[0.04, 0.06, 0.09, 0.13][i]})` }}
+                      style={{ color: `rgba(var(--svc-agentic-rgb),${[0.04, 0.06, 0.09, 0.13][i]})` }}
                       aria-hidden="true"
                     >
                       {num}
@@ -235,16 +235,16 @@ export default function AgenticSystemsPage() {
                       <div
                         className="flex h-10 w-10 items-center justify-center rounded-xl shrink-0"
                         style={{
-                          background: `rgba(236,72,153,${[0.10, 0.13, 0.16, 0.20][i]})`,
-                          border: `1px solid rgba(244,114,182,${[0.20, 0.26, 0.32, 0.40][i]})`,
+                          background: `rgba(var(--svc-agentic-rgb),${[0.10, 0.13, 0.16, 0.20][i]})`,
+                          border: `1px solid rgba(var(--svc-agentic-bright-rgb),${[0.20, 0.26, 0.32, 0.40][i]})`,
                         }}
                       >
-                        <Icon className="h-5 w-5" style={{ color: "#f472b6" }} />
+                        <Icon className="h-5 w-5" style={{ color: "var(--svc-agentic-bright)" }} />
                       </div>
                       <div className="space-y-1">
                         <span
                           className="text-xs font-bold tracking-[0.18em] uppercase"
-                          style={{ color: `rgba(244,114,182,${[0.55, 0.70, 0.85, 1.0][i]})` }}
+                          style={{ color: `rgba(var(--svc-agentic-bright-rgb),${[0.55, 0.70, 0.85, 1.0][i]})` }}
                         >
                           Layer {num}
                         </span>
@@ -262,8 +262,8 @@ export default function AgenticSystemsPage() {
                           key={name}
                           className="rounded-xl p-4 space-y-1"
                           style={{
-                            background: `rgba(236,72,153,${[0.03, 0.04, 0.05, 0.06][i]})`,
-                            border: `1px solid rgba(244,114,182,${[0.08, 0.10, 0.13, 0.16][i]})`,
+                            background: `rgba(var(--svc-agentic-rgb),${[0.03, 0.04, 0.05, 0.06][i]})`,
+                            border: `1px solid rgba(var(--svc-agentic-bright-rgb),${[0.08, 0.10, 0.13, 0.16][i]})`,
                           }}
                         >
                           <p className="text-sm font-semibold text-[--text-primary]">{name}</p>
@@ -277,11 +277,11 @@ export default function AgenticSystemsPage() {
                       <div
                         className="rounded-xl p-4"
                         style={{
-                          background: "rgba(236,72,153,0.07)",
-                          border: "1px solid rgba(244,114,182,0.22)",
+                          background: "rgba(var(--svc-agentic-rgb),0.07)",
+                          border: "1px solid rgba(var(--svc-agentic-bright-rgb),0.22)",
                         }}
                       >
-                        <p className="text-sm font-medium leading-relaxed" style={{ color: "#f472b6" }}>{callout}</p>
+                        <p className="text-sm font-medium leading-relaxed" style={{ color: "var(--svc-agentic-bright)" }}>{callout}</p>
                       </div>
                     )}
                   </div>
@@ -296,7 +296,7 @@ export default function AgenticSystemsPage() {
       <section className="bg-[--mkt-section] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
-            <p className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "#f472b6" }}>Use Cases</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "var(--svc-agentic-bright)" }}>Use Cases</p>
             <h2 className="text-3xl font-semibold text-[--text-primary]">Where Agentic Systems Create the Most Value</h2>
             <p className="max-w-xl mx-auto text-sm text-[--text-secondary] leading-relaxed">
               Six high-leverage domains where autonomous agent architectures consistently outperform human-only or tool-only approaches.
@@ -307,13 +307,13 @@ export default function AgenticSystemsPage() {
               <div
                 key={title}
                 className="relative rounded-2xl overflow-hidden"
-                style={{ boxShadow: "0 0 0 1px rgba(236,72,153,0.14), 0 4px 20px rgba(0,0,0,0.4)" }}
+                style={{ boxShadow: "0 0 0 1px rgba(var(--svc-agentic-rgb),0.14), 0 4px 20px rgba(0,0,0,0.4)" }}
               >
                 <div
                   className="h-[3px] w-full"
-                  style={{ background: "linear-gradient(90deg, transparent, rgba(244,114,182,0.5) 25%, #ec4899 50%, rgba(244,114,182,0.5) 75%, transparent)" }}
+                  style={{ background: "linear-gradient(90deg, transparent, rgba(var(--svc-agentic-bright-rgb),0.5) 25%, var(--svc-agentic) 50%, rgba(var(--svc-agentic-bright-rgb),0.5) 75%, transparent)" }}
                 />
-                <div className="p-6 space-y-4" style={{ background: "linear-gradient(150deg, rgba(236,72,153,0.06) 0%, #10101e 55%)" }}>
+                <div className="p-6 space-y-4" style={{ background: "linear-gradient(150deg, rgba(var(--svc-agentic-rgb),0.06) 0%, var(--mkt-card) 55%)" }}>
                   <span className="text-2xl" aria-hidden="true">{icon}</span>
                   <h3 className="text-base font-bold text-[--text-primary]">{title}</h3>
                   <p className="text-sm text-[--text-secondary] leading-relaxed">{desc}</p>
@@ -328,7 +328,7 @@ export default function AgenticSystemsPage() {
       <section className="bg-[--mkt-bg] py-16 px-6">
         <div className="max-w-6xl mx-auto space-y-10">
           <div className="text-center space-y-3">
-            <p className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "#f472b6" }}>Engagement</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "var(--svc-agentic-bright)" }}>Engagement</p>
             <h2 className="text-3xl font-semibold text-[--text-primary]">How an Agentic Engagement Works</h2>
             <p className="max-w-xl mx-auto text-sm text-[--text-secondary] leading-relaxed">
               Five phases from first conversation to compounding system. Each phase builds on the last — nothing is throwaway, nothing is repeated.
@@ -339,12 +339,12 @@ export default function AgenticSystemsPage() {
           <div
             className="rounded-2xl p-7 text-center space-y-3"
             style={{
-              background: "linear-gradient(150deg, rgba(236,72,153,0.08) 0%, #10101e 55%)",
-              border: "1px solid rgba(244,114,182,0.18)",
-              boxShadow: "0 0 0 1px rgba(236,72,153,0.08), 0 6px 24px rgba(0,0,0,0.4)",
+              background: "linear-gradient(150deg, rgba(var(--svc-agentic-rgb),0.08) 0%, var(--mkt-card) 55%)",
+              border: "1px solid rgba(var(--svc-agentic-bright-rgb),0.18)",
+              boxShadow: "0 0 0 1px rgba(var(--svc-agentic-rgb),0.08), 0 6px 24px rgba(0,0,0,0.4)",
             }}
           >
-            <p className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "#f472b6" }}>Our Credibility</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "var(--svc-agentic-bright)" }}>Our Credibility</p>
             <h3 className="text-lg font-semibold text-[--text-primary]">We Don&apos;t Just Design Agentic Systems. We Run One.</h3>
             <p className="text-sm text-[--text-secondary] leading-relaxed max-w-2xl mx-auto">
               Every architecture we design for clients is informed by the agentic operating system we built and operate ourselves — daily. This isn&apos;t theory drawn from whitepapers. It&apos;s practice forged through real operational use. We&apos;ve encountered the edge cases, solved the governance problems, and refined the patterns so you don&apos;t have to.
@@ -360,22 +360,22 @@ export default function AgenticSystemsPage() {
                   key={phase}
                   className="relative rounded-2xl overflow-hidden pl-7 pr-6 py-6 flex gap-5 items-start"
                   style={{
-                    background: "linear-gradient(150deg, rgba(236,72,153,0.04) 0%, #10101e 60%)",
-                    boxShadow: `0 0 0 1px rgba(236,72,153,${[0.10, 0.13, 0.16, 0.20, 0.26][i]}), 0 2px 12px rgba(0,0,0,0.3)`,
+                    background: "linear-gradient(150deg, rgba(var(--svc-agentic-rgb),0.04) 0%, var(--mkt-card) 60%)",
+                    boxShadow: `0 0 0 1px rgba(var(--svc-agentic-rgb),${[0.10, 0.13, 0.16, 0.20, 0.26][i]}), 0 2px 12px rgba(0,0,0,0.3)`,
                   }}
                 >
                   {/* Left accent bar */}
                   <div
                     className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-2xl"
-                    style={{ background: `linear-gradient(to bottom, rgba(244,114,182,${intensity}), rgba(236,72,153,0.08))` }}
+                    style={{ background: `linear-gradient(to bottom, rgba(var(--svc-agentic-bright-rgb),${intensity}), rgba(var(--svc-agentic-rgb),0.08))` }}
                   />
                   {/* Phase number badge */}
                   <div
                     className="flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold shrink-0"
                     style={{
-                      background: `rgba(236,72,153,${[0.10, 0.13, 0.16, 0.20, 0.26][i]})`,
-                      border: `1px solid rgba(244,114,182,${[0.20, 0.26, 0.32, 0.40, 0.50][i]})`,
-                      color: "#f472b6",
+                      background: `rgba(var(--svc-agentic-rgb),${[0.10, 0.13, 0.16, 0.20, 0.26][i]})`,
+                      border: `1px solid rgba(var(--svc-agentic-bright-rgb),${[0.20, 0.26, 0.32, 0.40, 0.50][i]})`,
+                      color: "var(--svc-agentic-bright)",
                     }}
                   >
                     {i + 1}
@@ -386,7 +386,7 @@ export default function AgenticSystemsPage() {
                       <span className="hidden md:inline text-xs text-[--text-muted]">·</span>
                       <span
                         className="hidden md:inline text-xs font-mono font-semibold"
-                        style={{ color: `rgba(244,114,182,${intensity})` }}
+                        style={{ color: `rgba(var(--svc-agentic-bright-rgb),${intensity})` }}
                       >
                         {duration}
                       </span>
@@ -396,7 +396,7 @@ export default function AgenticSystemsPage() {
                   </div>
                   <span
                     className="shrink-0 text-xs font-mono font-semibold md:hidden"
-                    style={{ color: `rgba(244,114,182,${intensity})` }}
+                    style={{ color: `rgba(var(--svc-agentic-bright-rgb),${intensity})` }}
                   >
                     {duration}
                   </span>
@@ -411,7 +411,7 @@ export default function AgenticSystemsPage() {
       <section className="bg-[--mkt-section] py-16 px-6 border-t border-[--mkt-border]">
         <div className="max-w-6xl mx-auto space-y-10">
           <div className="text-center space-y-3">
-            <p className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "#f472b6" }}>Client Voices</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "var(--svc-agentic-bright)" }}>Client Voices</p>
             <h2 className="text-2xl md:text-3xl font-semibold text-[--text-primary]">In Their Words</h2>
             <p className="max-w-xl mx-auto text-sm text-[--text-secondary] leading-relaxed">
               From knowledge management architects to systems directors — what clients say after engaging with our agentic design work.
@@ -423,22 +423,22 @@ export default function AgenticSystemsPage() {
             <div
               className="relative rounded-2xl p-7 flex flex-col gap-5 overflow-hidden"
               style={{
-                background: "linear-gradient(150deg, rgba(236,72,153,0.08) 0%, #10101e 55%)",
-                border: "1px solid rgba(244,114,182,0.16)",
-                boxShadow: "0 0 0 1px rgba(236,72,153,0.08), 0 6px 24px rgba(0,0,0,0.4)",
+                background: "linear-gradient(150deg, rgba(var(--svc-agentic-rgb),0.08) 0%, var(--mkt-card) 55%)",
+                border: "1px solid rgba(var(--svc-agentic-bright-rgb),0.16)",
+                boxShadow: "0 0 0 1px rgba(var(--svc-agentic-rgb),0.08), 0 6px 24px rgba(0,0,0,0.4)",
               }}
             >
               <div
                 className="text-5xl leading-none font-black select-none opacity-20"
-                style={{ backgroundImage: "linear-gradient(135deg, #ec4899, #f472b6)", WebkitBackgroundClip: "text", color: "transparent" }}
+                style={{ backgroundImage: "linear-gradient(135deg, var(--svc-agentic), var(--svc-agentic-bright))", WebkitBackgroundClip: "text", color: "transparent" }}
                 aria-hidden="true"
               >&ldquo;</div>
               <blockquote className="text-sm text-[--text-primary] leading-relaxed italic flex-1">
                 &ldquo;The knowledge architecture they designed changed how we think about institutional memory. We used to lose everything at turnover. Now it compounds.&rdquo;
               </blockquote>
-              <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(244,114,182,0.15)" }}>
+              <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(var(--svc-agentic-bright-rgb),0.15)" }}>
                 <p className="text-sm font-semibold text-[--text-primary]">Director, Knowledge Management</p>
-                <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "#f472b6" }}>Government of Canada</p>
+                <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "var(--svc-agentic-bright)" }}>Government of Canada</p>
                 <p className="text-xs text-[--text-muted]">Natural Resources Canada</p>
               </div>
             </div>
@@ -447,22 +447,22 @@ export default function AgenticSystemsPage() {
             <div
               className="relative rounded-2xl p-7 flex flex-col gap-5 overflow-hidden"
               style={{
-                background: "linear-gradient(150deg, rgba(236,72,153,0.09) 0%, #10101e 55%)",
-                border: "1px solid rgba(244,114,182,0.18)",
-                boxShadow: "0 0 0 1px rgba(236,72,153,0.10), 0 6px 24px rgba(0,0,0,0.4)",
+                background: "linear-gradient(150deg, rgba(var(--svc-agentic-rgb),0.09) 0%, var(--mkt-card) 55%)",
+                border: "1px solid rgba(var(--svc-agentic-bright-rgb),0.18)",
+                boxShadow: "0 0 0 1px rgba(var(--svc-agentic-rgb),0.10), 0 6px 24px rgba(0,0,0,0.4)",
               }}
             >
               <div
                 className="text-5xl leading-none font-black select-none opacity-20"
-                style={{ backgroundImage: "linear-gradient(135deg, #ec4899, #f472b6)", WebkitBackgroundClip: "text", color: "transparent" }}
+                style={{ backgroundImage: "linear-gradient(135deg, var(--svc-agentic), var(--svc-agentic-bright))", WebkitBackgroundClip: "text", color: "transparent" }}
                 aria-hidden="true"
               >&ldquo;</div>
               <blockquote className="text-sm text-[--text-primary] leading-relaxed italic flex-1">
                 &ldquo;The systems model they built gave us a way to see our industry ecosystem as a whole. Three years of decisions have referenced that work.&rdquo;
               </blockquote>
-              <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(244,114,182,0.15)" }}>
+              <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(var(--svc-agentic-bright-rgb),0.15)" }}>
                 <p className="text-sm font-semibold text-[--text-primary]">Executive Director, Industry Systems</p>
-                <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "#f472b6" }}>Government of Canada</p>
+                <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "var(--svc-agentic-bright)" }}>Government of Canada</p>
                 <p className="text-xs text-[--text-muted]">Innovation, Science &amp; Economic Development</p>
               </div>
             </div>
@@ -471,22 +471,22 @@ export default function AgenticSystemsPage() {
             <div
               className="relative rounded-2xl p-7 flex flex-col gap-5 overflow-hidden"
               style={{
-                background: "linear-gradient(150deg, rgba(236,72,153,0.10) 0%, #10101e 55%)",
-                border: "1px solid rgba(244,114,182,0.20)",
-                boxShadow: "0 0 0 1px rgba(236,72,153,0.12), 0 6px 24px rgba(0,0,0,0.4)",
+                background: "linear-gradient(150deg, rgba(var(--svc-agentic-rgb),0.10) 0%, var(--mkt-card) 55%)",
+                border: "1px solid rgba(var(--svc-agentic-bright-rgb),0.20)",
+                boxShadow: "0 0 0 1px rgba(var(--svc-agentic-rgb),0.12), 0 6px 24px rgba(0,0,0,0.4)",
               }}
             >
               <div
                 className="text-5xl leading-none font-black select-none opacity-20"
-                style={{ backgroundImage: "linear-gradient(135deg, #ec4899, #f472b6)", WebkitBackgroundClip: "text", color: "transparent" }}
+                style={{ backgroundImage: "linear-gradient(135deg, var(--svc-agentic), var(--svc-agentic-bright))", WebkitBackgroundClip: "text", color: "transparent" }}
                 aria-hidden="true"
               >&ldquo;</div>
               <blockquote className="text-sm text-[--text-primary] leading-relaxed italic flex-1">
                 &ldquo;The governance architecture wasn&apos;t just a framework — it was a decision system. It changed how we structure authority across complex multi-stakeholder processes.&rdquo;
               </blockquote>
-              <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(244,114,182,0.15)" }}>
+              <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(var(--svc-agentic-bright-rgb),0.15)" }}>
                 <p className="text-sm font-semibold text-[--text-primary]">Director, Governance &amp; Systems Architecture</p>
-                <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "#f472b6" }}>Government of Canada</p>
+                <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "var(--svc-agentic-bright)" }}>Government of Canada</p>
                 <p className="text-xs text-[--text-muted]">Crown-Indigenous Relations</p>
               </div>
             </div>
@@ -503,11 +503,11 @@ export default function AgenticSystemsPage() {
             <Link
               href="/services/training"
               className="relative flex flex-col gap-0 rounded-2xl overflow-hidden group text-left transition-all duration-200 hover:-translate-y-0.5"
-              style={{ background: "linear-gradient(150deg, rgba(16,185,129,0.08) 0%, #10101e 55%)", boxShadow: "0 0 0 1px rgba(16,185,129,0.16), 0 4px 20px rgba(0,0,0,0.4)" }}
+              style={{ background: "linear-gradient(150deg, rgba(var(--svc-training-rgb),0.08) 0%, var(--mkt-card) 55%)", boxShadow: "0 0 0 1px rgba(var(--svc-training-rgb),0.16), 0 4px 20px rgba(0,0,0,0.4)" }}
             >
-              <div className="h-[3px] w-full" style={{ background: "linear-gradient(90deg, transparent, rgba(16,185,129,0.6) 25%, #10b981 50%, rgba(16,185,129,0.6) 75%, transparent)" }} />
+              <div className="h-[3px] w-full" style={{ background: "linear-gradient(90deg, transparent, rgba(var(--svc-training-rgb),0.6) 25%, var(--svc-training) 50%, rgba(var(--svc-training-rgb),0.6) 75%, transparent)" }} />
               <div className="p-5 space-y-1.5">
-                <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "#10b981" }}>AI Literacy Training</p>
+                <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--svc-training)" }}>AI Literacy Training</p>
                 <p className="text-base font-semibold text-[--text-primary] flex items-center gap-1.5">
                   Transform team capability <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </p>
@@ -517,11 +517,11 @@ export default function AgenticSystemsPage() {
             <Link
               href="/services/consulting"
               className="relative flex flex-col gap-0 rounded-2xl overflow-hidden group text-left transition-all duration-200 hover:-translate-y-0.5"
-              style={{ background: "linear-gradient(150deg, rgba(37,99,235,0.08) 0%, #10101e 55%)", boxShadow: "0 0 0 1px rgba(37,99,235,0.16), 0 4px 20px rgba(0,0,0,0.4)" }}
+              style={{ background: "linear-gradient(150deg, rgba(var(--svc-consulting-rgb),0.08) 0%, var(--mkt-card) 55%)", boxShadow: "0 0 0 1px rgba(var(--svc-consulting-rgb),0.16), 0 4px 20px rgba(0,0,0,0.4)" }}
             >
-              <div className="h-[3px] w-full" style={{ background: "linear-gradient(90deg, transparent, rgba(59,130,246,0.6) 25%, #3b82f6 50%, rgba(59,130,246,0.6) 75%, transparent)" }} />
+              <div className="h-[3px] w-full" style={{ background: "linear-gradient(90deg, transparent, rgba(var(--svc-consulting-mid-rgb),0.6) 25%, var(--svc-consulting-mid) 50%, rgba(var(--svc-consulting-mid-rgb),0.6) 75%, transparent)" }} />
               <div className="p-5 space-y-1.5">
-                <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "#3b82f6" }}>AI Ops Consulting</p>
+                <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--svc-consulting-mid)" }}>AI Ops Consulting</p>
                 <p className="text-base font-semibold text-[--text-primary] flex items-center gap-1.5">
                   Operationalize AI at scale <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </p>
@@ -544,8 +544,8 @@ export default function AgenticSystemsPage() {
               href="/contact"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
               style={{
-                background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
-                boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+                background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)",
+                boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.5), 0 8px 32px rgba(var(--accent-rgb),0.35)",
               }}
             >
               Explore Agentic Architecture <ArrowRight className="h-4 w-4" />

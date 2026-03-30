@@ -18,7 +18,7 @@ export function HeroSection() {
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] rounded-full"
-          style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.15) 0%, transparent 65%)" }}
+          style={{ background: "radial-gradient(ellipse at center, rgba(var(--accent-rgb),0.15) 0%, transparent 65%)" }}
         />
         <div
           className="absolute inset-0 opacity-[0.025]"
@@ -35,7 +35,7 @@ export function HeroSection() {
         {/* Eyebrow — category signal */}
         <p
           className="text-xs font-bold uppercase tracking-widest"
-          style={{ color: "#a78bfa" }}
+          style={{ color: "var(--accent-vivid)" }}
         >
           AI Training, Strategy &amp; Systems &nbsp;·&nbsp; Built for Any Scale
         </p>
@@ -50,7 +50,7 @@ export function HeroSection() {
             <br />
             <span
               className="text-transparent bg-clip-text"
-              style={{ backgroundImage: "linear-gradient(135deg, #8b5cf6 0%, #c4b5fd 60%, #a78bfa 100%)" }}
+              style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright) 0%, #c4b5fd 60%, var(--accent-vivid) 100%)" }}
             >
               Potential.
             </span>
@@ -68,8 +68,8 @@ export function HeroSection() {
             href="/contact"
             className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
             style={{
-              background: "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)",
-              boxShadow: "0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(124,58,237,0.35)",
+              background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)",
+              boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.5), 0 8px 32px rgba(var(--accent-rgb),0.35)",
             }}
           >
             Start a Conversation <ArrowRight className="h-4 w-4" />
@@ -89,7 +89,7 @@ export function HeroSection() {
             <div key={label} className="text-center">
               <p
                 className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text"
-                style={{ backgroundImage: "linear-gradient(135deg, #8b5cf6 0%, #c4b5fd 100%)" }}
+                style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright) 0%, #c4b5fd 100%)" }}
               >
                 {value}
               </p>
