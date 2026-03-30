@@ -64,7 +64,7 @@ export default function LoginPage() {
             <div className="rounded-[--radius-md] bg-[--danger-dim] border border-[--danger] px-3 py-2">
               <p className="text-xs text-[--danger]">{error}</p>
               {error.includes("not configured") && (
-                <p className="text-[10px] text-[--text-muted] mt-1">
+                <p className="text-xs text-[--text-muted] mt-1">
                   See <code className="font-mono">lib/auth/supabase.ts</code> to configure.
                 </p>
               )}
@@ -73,7 +73,7 @@ export default function LoginPage() {
 
           <div className="flex items-center gap-3">
             <Separator className="flex-1" />
-            <span className="text-[10px] text-[--text-muted]">or</span>
+            <span className="text-xs text-[--text-muted]">or</span>
             <Separator className="flex-1" />
           </div>
 
@@ -89,14 +89,14 @@ export default function LoginPage() {
             </div>
             <Button variant="primary" size="md" className="w-full" disabled>
               Sign in with email
-              <span className="ml-2 text-[10px] opacity-60">(configure Supabase)</span>
+              <span className="ml-2 text-xs opacity-60">(configure Supabase)</span>
             </Button>
           </div>
         </div>
 
         {/* Footer */}
         <div className="text-center space-y-1">
-          <p className="text-[10px] text-[--text-muted]">
+          <p className="text-xs text-[--text-muted]">
             Auth powered by{" "}
             <a href="https://supabase.com" target="_blank" rel="noopener" className="text-[--text-secondary] hover:text-[--text-primary]">
               Supabase
@@ -106,7 +106,7 @@ export default function LoginPage() {
               Google OAuth
             </a>
           </p>
-          <Link href="/dashboard" className="text-[10px] text-[--text-muted] hover:text-[--text-secondary] transition-colors">
+          <Link href="/dashboard" className="text-xs text-[--text-muted] hover:text-[--text-secondary] transition-colors">
             Skip for now →
           </Link>
         </div>

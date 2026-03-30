@@ -59,7 +59,7 @@ function MobileNav() {
         return (
           <Link key={item.href} href={item.href}
             className={cn(
-              "flex flex-1 flex-col items-center gap-1 py-2.5 text-[10px] font-medium transition-colors",
+              "flex flex-1 flex-col items-center gap-1 py-2.5 text-xs font-medium transition-colors",
               isActive ? "text-[--accent-vivid]" : "text-[--text-muted] hover:text-[--text-secondary]"
             )}>
             <item.icon className={cn("h-4.5 w-4.5", isActive && "text-[--accent-bright]")} />

@@ -44,7 +44,7 @@ export function DonutChartViz({ data, innerRadius = 55, outerRadius = 75 }: Donu
       {/* Center text */}
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
         <span className="text-xl font-bold text-[--text-primary] tabular-nums">{total}</span>
-        <span className="text-[10px] text-[--text-muted] uppercase tracking-wider">Total</span>
+        <span className="text-xs text-[--text-muted] uppercase tracking-wider">Total</span>
       </div>
     </div>
   );

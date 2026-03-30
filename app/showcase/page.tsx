@@ -30,7 +30,7 @@ import {
 } from "lucide-react";
 import { kpiData, timeSeriesData, barData, donutData, feedItems, summaryContent, tableData } from "@/lib/mock-data";
 
-const LABEL_CLASSES = "text-[10px] font-bold uppercase tracking-widest text-[--text-muted] mb-3 block";
+const LABEL_CLASSES = "text-xs font-bold uppercase tracking-widest text-[--text-muted] mb-3 block";
 
 function ShowcaseSection({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
@@ -52,7 +52,7 @@ function TokenSwatch({ name, value, type }: { name: string; value: string; type:
       )}
       <div>
         <p className="text-xs font-mono text-[--text-primary]">{name}</p>
-        <p className="text-[10px] text-[--text-muted] font-mono">{value}</p>
+        <p className="text-xs text-[--text-muted] font-mono">{value}</p>
       </div>
     </div>
   );
@@ -252,7 +252,7 @@ export default function ShowcasePage() {
                   </CardTabsList>
                   <CardTabsContent value="all" className="p-3">
                     <p className="text-xs text-[--text-secondary]">All items — 12 total</p>
-                    <p className="text-[10px] text-[--text-muted] mt-1">CardTabs use underline indicator, no pill background. Sit flush to card header.</p>
+                    <p className="text-xs text-[--text-muted] mt-1">CardTabs use underline indicator, no pill background. Sit flush to card header.</p>
                   </CardTabsContent>
                   <CardTabsContent value="active" className="p-3">
                     <p className="text-xs text-[--text-secondary]">Active items — 4 running</p>

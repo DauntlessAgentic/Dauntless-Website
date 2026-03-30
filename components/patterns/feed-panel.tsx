@@ -48,13 +48,13 @@ export function FeedPanel({ items, className }: FeedPanelProps) {
               <div className="flex-1 min-w-0 pb-1">
                 <div className="flex items-start justify-between gap-2">
                   <p className="text-xs font-medium text-[--text-primary] leading-snug">{item.title}</p>
-                  <span className="text-[10px] text-[--text-muted] shrink-0 tabular-nums font-mono">
+                  <span className="text-xs text-[--text-muted] shrink-0 tabular-nums font-mono">
                     {relativeTime(item.timestamp)}
                   </span>
                 </div>
 
                 {item.description && (
-                  <p className="text-[11px] text-[--text-muted] mt-0.5 leading-snug">
+                  <p className="text-xs text-[--text-muted] mt-0.5 leading-snug">
                     {item.description}
                   </p>
                 )}

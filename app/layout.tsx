@@ -23,15 +23,15 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: {
-    default: "Dauntless — AI Operations for Organizations That Can't Afford to Get It Wrong",
-    template: "%s | Dauntless",
+    default: "Dauntless Agentic — AI Strategy, Systems & Training for Any Scale",
+    template: "%s | Dauntless Agentic",
   },
   description:
-    "Dauntless builds AI operating architectures — training, consulting, and agentic systems — for government and private sector organizations. 20+ years. 150+ projects. Real outcomes.",
-  metadataBase: new URL("https://dauntless.ai"),
+    "AI strategy, systems, and training for solopreneurs, growing teams, and national institutions. 18+ years of transformation. $50M+ documented savings. Ottawa, Canada.",
+  metadataBase: new URL("https://dauntlessagentic.com"),
   openGraph: {
     type: "website",
-    siteName: "Dauntless",
+    siteName: "Dauntless Agentic",
     images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
   twitter: { card: "summary_large_image" },

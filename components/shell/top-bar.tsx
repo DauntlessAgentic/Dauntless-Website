@@ -41,7 +41,7 @@ export function TopBar({ title, subtitle, actions }: TopBarProps) {
         <button className="flex items-center gap-2 h-7 px-2 rounded-[--radius-md] bg-[--elevated] border border-[--border-subtle] text-[--text-muted] hover:text-[--text-secondary] hover:border-[--border-default] transition-colors text-xs">
           <Search className="h-3.5 w-3.5" />
           <span className="hidden md:block">Search</span>
-          <kbd className="hidden md:block text-[10px] bg-[--elevated-2] px-1 rounded border border-[--border-default]">⌘K</kbd>
+          <kbd className="hidden md:block text-xs bg-[--elevated-2] px-1 rounded border border-[--border-default]">⌘K</kbd>
         </button>
 
         <ThemeToggle />
@@ -60,7 +60,7 @@ export function TopBar({ title, subtitle, actions }: TopBarProps) {
           <DropdownMenuTrigger asChild>
             <button className="flex items-center gap-1.5 h-7 px-1.5 rounded-[--radius-md] hover:bg-[--elevated] transition-colors ml-0.5">
               <Avatar className="h-5 w-5">
-                <AvatarFallback className="text-[10px]">OP</AvatarFallback>
+                <AvatarFallback className="text-xs">OP</AvatarFallback>
               </Avatar>
               <ChevronDown className="h-3 w-3 text-[--text-muted]" />
             </button>

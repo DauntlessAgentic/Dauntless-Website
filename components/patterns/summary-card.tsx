@@ -29,12 +29,12 @@ export function SummaryCard({ title, content, updated, tags, className }: Summar
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-1.5">
               <div className="h-1.5 w-1.5 rounded-full bg-[--accent-bright] animate-pulse-glow" />
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[--accent-vivid]">AI SUMMARY</span>
+              <span className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">AI SUMMARY</span>
             </div>
             {updated && (
               <div className="flex items-center gap-1 text-[--text-muted]">
                 <Clock className="h-2.5 w-2.5" />
-                <span className="text-[10px]">{relativeTime(updated)}</span>
+                <span className="text-xs">{relativeTime(updated)}</span>
               </div>
             )}
           </div>
@@ -52,7 +52,7 @@ export function SummaryCard({ title, content, updated, tags, className }: Summar
             <div className="flex items-center gap-1.5 flex-wrap">
               <Tag className="h-3 w-3 text-[--text-muted]" />
               {tags.map((tag) => (
-                <Badge key={tag} variant="outline" className="text-[9px]">{tag}</Badge>
+                <Badge key={tag} variant="outline" className="text-xs">{tag}</Badge>
               ))}
             </div>
           )}

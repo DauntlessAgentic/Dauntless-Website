@@ -27,7 +27,7 @@ const STATE_STYLES = {
 export function AgentStatusStrip({ agents, className }: AgentStatusStripProps) {
   return (
     <div className={cn("flex items-center gap-3 px-3 py-1.5 bg-[--chrome-bg] border-b border-[--border-subtle]", className)}>
-      <span className="text-[9px] font-bold uppercase tracking-widest text-[--text-muted]">Agents</span>
+      <span className="text-xs font-bold uppercase tracking-widest text-[--text-muted]">Agents</span>
       <div className="flex items-center gap-2 flex-wrap">
         {agents.map((agent) => {
           const style = STATE_STYLES[agent.state];
@@ -37,8 +37,8 @@ export function AgentStatusStrip({ agents, className }: AgentStatusStripProps) {
                 agent.state === "thinking" && "animate-thinking",
                 agent.state === "active" && "animate-pulse-glow"
               )} />
-              <span className="text-[10px] text-[--text-primary]">{agent.name}</span>
-              <span className={cn("text-[9px] font-mono", style.color)}>{style.label}</span>
+              <span className="text-xs text-[--text-primary]">{agent.name}</span>
+              <span className={cn("text-xs font-mono", style.color)}>{style.label}</span>
             </div>
           );
         })}
@@ -176,9 +176,9 @@ export function TaskCard({ tasks, className }: TaskCardProps) {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-2">
                   <p className="text-xs text-[--text-primary] truncate">{task.title}</p>
-                  <span className="text-[9px] text-[--text-muted] shrink-0">{style.label}</span>
+                  <span className="text-xs text-[--text-muted] shrink-0">{style.label}</span>
                 </div>
-                {task.detail && <p className="text-[10px] text-[--text-muted] mt-0.5">{task.detail}</p>}
+                {task.detail && <p className="text-xs text-[--text-muted] mt-0.5">{task.detail}</p>}
                 {task.progress !== undefined && (
                   <div className="mt-1.5 h-0.5 rounded-full bg-[--elevated-2] overflow-hidden">
                     <div

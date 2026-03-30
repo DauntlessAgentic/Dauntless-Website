@@ -40,7 +40,7 @@ export function KpiTile({
         {status !== "default" && (
           <span className={cn("h-1.5 w-1.5 rounded-full shrink-0", styles.indicator)} />
         )}
-        <p className="text-[10px] font-semibold uppercase tracking-widest text-[--text-muted] truncate">
+        <p className="text-xs font-semibold uppercase tracking-widest text-[--text-muted] truncate">
           {label}
         </p>
       </div>
@@ -63,7 +63,7 @@ export function KpiTile({
             </span>
           )}
           {trendLabel && (
-            <span className="text-[10px] text-[--text-muted]">{trendLabel}</span>
+            <span className="text-xs text-[--text-muted]">{trendLabel}</span>
           )}
         </div>
       )}

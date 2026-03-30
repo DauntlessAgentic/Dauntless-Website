@@ -20,7 +20,7 @@ const contentTagVariants = cva(
     "inline-flex items-center gap-1",
     "px-1.5 py-0.5",
     "rounded-[--radius-sm]",
-    "text-[9px] font-bold uppercase tracking-wide leading-none",
+    "text-xs font-bold uppercase tracking-wide leading-none",
     "whitespace-nowrap select-none",
   ].join(" "),
   {

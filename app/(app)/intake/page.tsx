@@ -23,7 +23,7 @@ function FormGroup({ label, hint, required, children }: {
         {label}
       </Label>
       {children}
-      {hint && <p className="text-[11px] text-[--text-muted]">{hint}</p>}
+      {hint && <p className="text-xs text-[--text-muted]">{hint}</p>}
     </div>
   );
 }
@@ -73,7 +73,7 @@ export default function IntakePage() {
                 i > step && "text-[--text-muted] cursor-not-allowed"
               )}>
                 <div className={cn(
-                  "flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold",
+                  "flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold",
                   i < step  ? "bg-[--success] text-white" :
                   i === step? "bg-[--accent] text-white border border-[--border-focus]" :
                               "bg-[--elevated-2] text-[--text-muted] border border-[--border-default]"
@@ -86,7 +86,7 @@ export default function IntakePage() {
           </div>
 
           <div className="mt-6 space-y-1.5">
-            <div className="flex justify-between text-[10px] text-[--text-muted]">
+            <div className="flex justify-between text-xs text-[--text-muted]">
               <span>Progress</span>
               <span>{Math.round(progress)}%</span>
             </div>

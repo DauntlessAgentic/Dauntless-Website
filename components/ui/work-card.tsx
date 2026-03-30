@@ -87,7 +87,7 @@ export function WorkCard({ department, project, category, sector, image }: WorkC
 
         {/* Category badge */}
         <span
-          className="mt-1 self-start px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider"
+          className="mt-1 self-start px-2 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider"
           style={{
             color: cfg.color,
             background: cfg.bg,

@@ -34,9 +34,9 @@ export function HowItWorks() {
           <div
             className="relative rounded-2xl p-10 md:p-14 overflow-hidden"
             style={{
-              background: "linear-gradient(135deg, rgba(var(--accent-rgb),0.1) 0%, rgba(16,16,30,0.9) 50%, rgba(109,40,217,0.08) 100%)",
+              background: "var(--deep-card-bg)",
               border: "1px solid rgba(var(--accent-bright-rgb),0.2)",
-              boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)",
+              boxShadow: "var(--deep-card-shadow)",
             }}
           >
             {/* Decorative quote mark */}

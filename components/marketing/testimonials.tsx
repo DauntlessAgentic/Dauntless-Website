@@ -296,9 +296,9 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
     <div
       className="shrink-0 w-[360px] rounded-2xl p-7 flex flex-col gap-4"
       style={{
-        background: "linear-gradient(135deg, rgba(var(--accent-rgb),0.10) 0%, rgba(16,16,30,0.9) 50%, rgba(109,40,217,0.08) 100%)",
+        background: "var(--testimonial-card-bg)",
         border: "1px solid rgba(var(--accent-bright-rgb),0.18)",
-        boxShadow: "0 8px 24px -6px rgba(0,0,0,0.4)",
+        boxShadow: "var(--testimonial-card-shadow)",
       }}
     >
       {/* Quote mark */}

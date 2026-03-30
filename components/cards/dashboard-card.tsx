@@ -61,18 +61,18 @@ function CardHeader({
     <div className="flex items-center gap-2 px-3 pt-2.5 pb-2 border-b border-[--border-subtle] shrink-0">
       <div className="flex-1 min-w-0">
         {eyebrow && (
-          <p className="text-[9px] font-bold uppercase tracking-widest text-[--text-muted] mb-0.5">
+          <p className="text-xs font-bold uppercase tracking-widest text-[--text-muted] mb-0.5">
             {eyebrow}
           </p>
         )}
         <div className="flex items-center gap-1.5">
           <span className="text-xs font-semibold text-[--text-primary] truncate">{title}</span>
           {badge && (
-            <Badge variant="default" className="text-[9px] px-1 py-0">{badge}</Badge>
+            <Badge variant="default" className="text-xs px-1 py-0">{badge}</Badge>
           )}
         </div>
         {subtitle && (
-          <p className="text-[10px] text-[--text-muted] truncate">{subtitle}</p>
+          <p className="text-xs text-[--text-muted] truncate">{subtitle}</p>
         )}
       </div>
 
@@ -86,7 +86,7 @@ function CardHeader({
               agentState === "active" && "animate-pulse-glow",
             )}
           />
-          <span className="text-[9px] uppercase tracking-wide text-[--text-muted]">
+          <span className="text-xs uppercase tracking-wide text-[--text-muted]">
             {agentStyle.label}
           </span>
         </div>

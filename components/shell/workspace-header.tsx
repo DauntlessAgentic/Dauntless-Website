@@ -22,7 +22,7 @@ export function WorkspaceHeader({
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-0.5 min-w-0">
           {eyebrow && (
-            <p className="text-[10px] font-semibold uppercase tracking-widest text-[--text-muted]">{eyebrow}</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-[--text-muted]">{eyebrow}</p>
           )}
           <div className="flex items-center gap-2">
             <h1 className="text-sm font-semibold text-[--text-primary]">{title}</h1>

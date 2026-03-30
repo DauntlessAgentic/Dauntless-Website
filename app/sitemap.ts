@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://dauntless.ai";
+  const base = "https://dauntlessagentic.com";
   const pages = [
     "/",
     "/about",

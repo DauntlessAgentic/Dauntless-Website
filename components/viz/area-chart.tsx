@@ -15,7 +15,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
   return (
     <div className="rounded-[6px] border border-[--border-strong] bg-[--elevated-2] px-2.5 py-2 shadow-[--shadow-md]">
-      <p className="text-[10px] text-[--text-muted] mb-1.5 font-mono">{label}</p>
+      <p className="text-xs text-[--text-muted] mb-1.5 font-mono">{label}</p>
       {payload.map((entry: any) => (
         <div key={entry.dataKey} className="flex items-center gap-2 text-xs">
           <span className="h-1.5 w-1.5 rounded-full" style={{ background: entry.stroke }} />

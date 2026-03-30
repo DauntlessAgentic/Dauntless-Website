@@ -75,7 +75,7 @@ export function DataTable<T>({
                   <th
                     key={header.id}
                     className={cn(
-                      "px-3 py-2 text-left text-[10px] font-semibold uppercase tracking-wider text-[--text-muted]",
+                      "px-3 py-2 text-left text-xs font-semibold uppercase tracking-wider text-[--text-muted]",
                       header.column.getCanSort() && "cursor-pointer select-none hover:text-[--text-secondary]"
                     )}
                     onClick={header.column.getToggleSortingHandler()}
@@ -111,7 +111,7 @@ export function DataTable<T>({
           </tbody>
         </table>
       </ScrollArea>
-      <div className="px-3 py-1.5 border-t border-[--border-subtle] text-[10px] text-[--text-muted] shrink-0">
+      <div className="px-3 py-1.5 border-t border-[--border-subtle] text-xs text-[--text-muted] shrink-0">
         {table.getFilteredRowModel().rows.length} of {data.length} rows
       </div>
     </div>
@@ -122,7 +122,7 @@ export function DataTable<T>({
 export const defaultTableColumns: ColumnDef<any>[] = [
   { accessorKey: "id", header: "ID", size: 80,
     cell: ({ getValue }) => (
-      <span className="font-mono text-[10px] text-[--text-muted]">{getValue() as string}</span>
+      <span className="font-mono text-xs text-[--text-muted]">{getValue() as string}</span>
     ),
   },
   { accessorKey: "name", header: "Name",

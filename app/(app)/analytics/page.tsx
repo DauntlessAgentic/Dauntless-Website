@@ -80,7 +80,7 @@ export default function AnalyticsPage() {
                 </div>
                 <div className="px-3 pb-2 flex flex-wrap gap-2 shrink-0">
                   {donutData.map(d => (
-                    <div key={d.name} className="flex items-center gap-1 text-[10px]">
+                    <div key={d.name} className="flex items-center gap-1 text-xs">
                       <span className="h-1.5 w-1.5 rounded-full" style={{ background: d.color }} />
                       <span className="text-[--text-muted]">{d.name}: {d.value}%</span>
                     </div>

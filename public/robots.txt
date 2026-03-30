@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://dauntless.ai/sitemap.xml
+Sitemap: https://dauntlessagentic.com/sitemap.xml

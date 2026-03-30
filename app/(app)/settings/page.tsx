@@ -38,7 +38,7 @@ function SettingsRow({
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="space-y-0.5">
-      <h3 className="text-[10px] font-bold uppercase tracking-widest text-[--text-muted] mb-3">{title}</h3>
+      <h3 className="text-xs font-bold uppercase tracking-widest text-[--text-muted] mb-3">{title}</h3>
       <div className="rounded-[--radius-lg] border border-[--border-subtle] bg-[--panel-bg] overflow-hidden divide-y divide-[--border-subtle] px-4">
         {children}
       </div>
@@ -58,7 +58,7 @@ export default function SettingsPage() {
     <div className="flex h-full">
       {/* Settings sidebar */}
       <div className="w-48 shrink-0 border-r border-[--border-subtle] bg-[--chrome-bg] p-2">
-        <p className="text-[9px] font-bold uppercase tracking-widest text-[--text-muted] px-2 mb-2 mt-1">Settings</p>
+        <p className="text-xs font-bold uppercase tracking-widest text-[--text-muted] px-2 mb-2 mt-1">Settings</p>
         <nav className="flex flex-col gap-0.5">
           {sections.map((section) => (
             <button
@@ -166,8 +166,8 @@ export default function SettingsPage() {
                 ].map(({ label, value, status }) => (
                   <SettingsRow key={label} label={label}>
                     <div className="flex items-center gap-2">
-                      <code className="text-[10px] text-[--text-muted] font-mono">{value}</code>
-                      <Badge variant="success" className="text-[9px]">{status}</Badge>
+                      <code className="text-xs text-[--text-muted] font-mono">{value}</code>
+                      <Badge variant="success" className="text-xs">{status}</Badge>
                       <Button variant="ghost" size="xs">Rotate</Button>
                     </div>
                   </SettingsRow>

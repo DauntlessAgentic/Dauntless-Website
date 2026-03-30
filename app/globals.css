@@ -51,6 +51,22 @@
   --mkt-card:        #10101e;
   --mkt-border:      rgba(255,255,255,0.07);
 
+  /* Deep card — used for quote/testimonial cards that need a rich dark feel */
+  --deep-card-bg:           linear-gradient(135deg, rgba(124,58,237,0.10) 0%, rgba(16,16,30,0.9) 50%, rgba(109,40,217,0.08) 100%);
+  --deep-card-shadow:       0 25px 50px -12px rgba(0,0,0,0.5);
+  --testimonial-card-bg:    linear-gradient(135deg, rgba(124,58,237,0.10) 0%, rgba(16,16,30,0.9) 50%, rgba(109,40,217,0.08) 100%);
+  --testimonial-card-shadow: 0 8px 24px -6px rgba(0,0,0,0.4);
+
+  /* Bio card — founder callout card */
+  --bio-card-bg:            linear-gradient(135deg, rgba(124,58,237,0.07) 0%, rgba(16,16,30,0.6) 100%);
+
+  /* Heavy CTA card shadow */
+  --cta-card-shadow:        0 0 60px rgba(124,58,237,0.12), 0 25px 50px -12px rgba(0,0,0,0.6);
+
+  /* Pill backgrounds for subtle category chips */
+  --pill-subtle-bg:         rgba(255,255,255,0.03);
+  --pill-subtle-border:     rgba(255,255,255,0.07);
+
   /* ─── Service brand colours ─────────────────────────────────────────── */
   --svc-training:            #10b981;
   --svc-training-bright:     #34d399;
@@ -331,6 +347,22 @@ code, pre, kbd {
   --mkt-card:        #ffffff;
   --mkt-border:      rgba(0,0,0,0.07);
 
+  /* Deep card — lightened for readability on light backgrounds */
+  --deep-card-bg:           linear-gradient(135deg, rgba(124,58,237,0.07) 0%, #ffffff 60%, rgba(124,58,237,0.04) 100%);
+  --deep-card-shadow:       0 12px 40px -8px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.06);
+  --testimonial-card-bg:    linear-gradient(135deg, rgba(124,58,237,0.06) 0%, #ffffff 100%);
+  --testimonial-card-shadow: 0 4px 16px -4px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.06);
+
+  /* Bio card */
+  --bio-card-bg:            linear-gradient(135deg, rgba(124,58,237,0.05) 0%, #ffffff 100%);
+
+  /* CTA card shadow — softened for light bg */
+  --cta-card-shadow:        0 0 40px rgba(124,58,237,0.08), 0 12px 40px -8px rgba(0,0,0,0.12);
+
+  /* Pill backgrounds for subtle category chips */
+  --pill-subtle-bg:         rgba(0,0,0,0.04);
+  --pill-subtle-border:     rgba(0,0,0,0.09);
+
   /* ─── Service brand colours — deeper for contrast on light bg ───────── */
   --svc-training:              #047857;
   --svc-training-bright:       #059669;
@@ -383,4 +415,22 @@ code, pre, kbd {
   background: linear-gradient(90deg, var(--elevated-2) 25%, var(--elevated) 50%, var(--elevated-2) 75%);
   background-size: 200% 100%;
   animation: shimmer 2s linear infinite;
+}
+
+/* ── Fix: Tailwind v4 generates empty rules for bg-[--token] arbitrary values.
+   These overrides ensure section/card backgrounds respond to theme changes.  */
+@layer utilities {
+  .bg-\[--mkt-bg\]       { background-color: var(--mkt-bg); }
+  .bg-\[--mkt-section\]  { background-color: var(--mkt-section); }
+  .bg-\[--mkt-card\]     { background-color: var(--mkt-card); }
+  /* Nav backdrop with opacity modifiers */
+  .bg-\[--mkt-bg\]\/90   { background-color: color-mix(in srgb, var(--mkt-bg) 90%, transparent); }
+  .bg-\[--mkt-bg\]\/98   { background-color: color-mix(in srgb, var(--mkt-bg) 98%, transparent); }
+  /* Text colours */
+  .text-\[--text-primary\]   { color: var(--text-primary); }
+  .text-\[--text-secondary\] { color: var(--text-secondary); }
+  .text-\[--text-muted\]     { color: var(--text-muted); }
+  .text-\[--accent-vivid\]   { color: var(--accent-vivid); }
+  /* Border */
+  .border-\[--mkt-border\]   { border-color: var(--mkt-border); }
 }

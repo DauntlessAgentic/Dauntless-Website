@@ -48,7 +48,7 @@ const CardTabsTrigger = React.forwardRef<
       // Layout
       "px-2.5 py-1.5 -mb-px",
       // Typography
-      "text-[10px] font-bold uppercase tracking-widest",
+      "text-xs font-bold uppercase tracking-widest",
       // Border — the active indicator
       "border-b-2 border-transparent",
       // Colors — inactive

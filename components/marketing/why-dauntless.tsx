@@ -72,7 +72,7 @@ export function WhyDauntless() {
             <div className="flex flex-wrap justify-center gap-2">
               {privateSectors.map((sector) => (
                 <span key={sector} className="px-3 py-1.5 rounded-full text-xs font-medium text-[--text-muted]"
-                  style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                  style={{ background: "var(--pill-subtle-bg)", border: "1px solid var(--pill-subtle-border)" }}>
                   {sector}
                 </span>
               ))}
@@ -83,7 +83,7 @@ export function WhyDauntless() {
         <div className="max-w-2xl mx-auto">
           <div
             className="relative rounded-2xl p-8 space-y-4"
-            style={{ background: "linear-gradient(135deg, rgba(var(--accent-rgb),0.07) 0%, rgba(16,16,30,0.6) 100%)", border: "1px solid rgba(var(--accent-bright-rgb),0.15)" }}
+            style={{ background: "var(--bio-card-bg)", border: "1px solid rgba(var(--accent-bright-rgb),0.15)" }}
           >
             <div className="flex items-start gap-4">
               <div className="h-12 w-12 rounded-full shrink-0 overflow-hidden mt-0.5">

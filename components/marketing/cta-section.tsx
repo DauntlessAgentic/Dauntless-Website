@@ -16,7 +16,7 @@ export function CTASection() {
           style={{
             background: "linear-gradient(var(--mkt-card), var(--mkt-card)) padding-box, linear-gradient(135deg, rgba(var(--accent-bright-rgb),0.6) 0%, rgba(var(--accent-vivid-rgb),0.3) 50%, rgba(var(--accent-bright-rgb),0.6) 100%) border-box",
             border: "1px solid transparent",
-            boxShadow: "0 0 60px rgba(var(--accent-rgb),0.12), 0 25px 50px -12px rgba(0,0,0,0.6)",
+            boxShadow: "var(--cta-card-shadow)",
           }}
         >
           <div className="space-y-4">
