@@ -20,9 +20,8 @@ function LogoMark() {
   return (
     <Link href="/" className="flex items-center gap-3 group">
       <div
-        className="shrink-0 flex items-center justify-center rounded-xl p-1.5"
+        className="shrink-0 w-12 h-12 rounded-xl overflow-hidden"
         style={{
-          background: "var(--mkt-card)",
           boxShadow: "0 0 0 1px rgba(255,255,255,0.04), 0 2px 12px rgba(0,0,0,0.3)",
         }}
       >
@@ -31,7 +30,7 @@ function LogoMark() {
           alt="Dauntless Agentic"
           width={48}
           height={48}
-          className="shrink-0"
+          className="w-full h-full object-cover"
           unoptimized
         />
       </div>
