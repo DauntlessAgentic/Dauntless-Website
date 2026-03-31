@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 const footerLinks = {
   Services: [
@@ -30,22 +29,7 @@ const footerLinks = {
 
 function FooterLogo() {
   return (
-    <Link href="/" className="flex items-center gap-2.5">
-      <div
-        className="shrink-0 w-8 h-8 rounded-xl overflow-hidden"
-        style={{
-          boxShadow: "0 0 0 1px rgba(255,255,255,0.04), 0 2px 12px rgba(0,0,0,0.3)",
-        }}
-      >
-        <Image
-          src="/images/logo-icon.png"
-          alt="Dauntless Agentic"
-          width={32}
-          height={32}
-          className="w-full h-full object-cover"
-          unoptimized
-        />
-      </div>
+    <Link href="/" className="flex items-center">
       <span className="text-sm font-semibold tracking-tight text-[--text-primary]">
         Dauntless{" "}
         <span

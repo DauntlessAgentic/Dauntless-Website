@@ -76,7 +76,7 @@ export default function MethodPage() {
       <MarketingNav />
       {/* Sticky section jump nav */}
       <nav
-        className="hidden md:block sticky top-14 z-40 border-b border-[--mkt-border]"
+        className="hidden md:block sticky top-[72px] z-40 border-b border-[--mkt-border]"
         style={{ background: "var(--mkt-section)" }}
       >
         <div className="max-w-6xl mx-auto px-6 py-3 flex items-center gap-6">
@@ -114,7 +114,7 @@ export default function MethodPage() {
       </section>
 
       {/* Principles */}
-      <section id="principles" className="bg-[--mkt-bg] py-16 px-6">
+      <section id="principles" className="bg-[--mkt-bg] py-16 px-6 scroll-mt-[112px]">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Principles</p>
@@ -134,7 +134,7 @@ export default function MethodPage() {
       </section>
 
       {/* CI + AI Section */}
-      <section id="intelligence" className="bg-[--mkt-section] py-12 px-6 border-t border-[--mkt-border]">
+      <section id="intelligence" className="bg-[--mkt-section] py-12 px-6 border-t border-[--mkt-border] scroll-mt-[112px]">
         <div className="max-w-6xl mx-auto space-y-10">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Intelligence Architecture</p>
@@ -167,7 +167,7 @@ export default function MethodPage() {
       </section>
 
       {/* Engagement Phases */}
-      <section id="phases" className="bg-[--mkt-bg] py-16 px-6">
+      <section id="phases" className="bg-[--mkt-bg] py-16 px-6 scroll-mt-[112px]">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Engagement Experience</p>
@@ -202,7 +202,7 @@ export default function MethodPage() {
       </section>
 
       {/* Trust Architecture */}
-      <section id="trust" className="bg-[--mkt-section] py-16 px-6">
+      <section id="trust" className="bg-[--mkt-section] py-16 px-6 scroll-mt-[112px]">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Trust Architecture</p>
