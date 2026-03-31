@@ -4,6 +4,7 @@ import { Target, Layers, RefreshCw, Shield, Users, BarChart3, Search, FileText, 
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
 import { PageCTA } from "@/components/marketing/page-cta";
+import { MethodSubnav } from "@/components/marketing/method-subnav";
 
 const principles = [
   { icon: Target, title: "Start With the Problem, Not the Technology", description: "We don't show up with a hammer looking for nails. Every engagement starts by deeply understanding your challenge — the people, the processes, the politics, the constraints. AI is the answer only when it's the right answer." },
@@ -74,18 +75,7 @@ export default function MethodPage() {
   return (
     <div className="min-h-screen bg-[--mkt-bg]">
       <MarketingNav />
-      {/* Sticky section jump nav */}
-      <nav
-        className="hidden md:block sticky top-[72px] z-40 border-b border-[--mkt-border]"
-        style={{ background: "var(--mkt-section)" }}
-      >
-        <div className="max-w-6xl mx-auto px-6 py-3 flex items-center gap-6">
-          <a href="#principles" className="text-xs font-medium text-[--text-secondary] hover:text-[--accent-vivid] transition-colors">Principles</a>
-          <a href="#intelligence" className="text-xs font-medium text-[--text-secondary] hover:text-[--accent-vivid] transition-colors">CI + AI</a>
-          <a href="#phases" className="text-xs font-medium text-[--text-secondary] hover:text-[--accent-vivid] transition-colors">Engagement Phases</a>
-          <a href="#trust" className="text-xs font-medium text-[--text-secondary] hover:text-[--accent-vivid] transition-colors">Trust Architecture</a>
-        </div>
-      </nav>
+      <MethodSubnav />
 
       <section className="relative pt-32 pb-24 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full pointer-events-none"
