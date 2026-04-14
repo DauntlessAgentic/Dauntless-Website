@@ -5,6 +5,7 @@ import { ArrowRight, Linkedin, Mail, Globe } from "lucide-react";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
 import { PageCTA } from "@/components/marketing/page-cta";
+import { identity } from "@/config/identity";
 
 const credentials = [
   { value: "20+", label: "Years designing AI & systems architecture", note: "Before AI was a consulting trend" },
@@ -15,14 +16,7 @@ const credentials = [
   { value: "27+", label: "Interconnected operational databases", note: "Building the second brain before it had a name" },
 ];
 
-const background = [
-  "VP Innovation, BDO Canada",
-  "FutureCraft Program Architect",
-  "Systems Thinking practitioner",
-  "Notion-native operating system designer",
-  "AI agent fleet architect",
-  "Public sector digital transformation specialist",
-];
+const background = identity.background;
 
 const threeAs = [
   {
@@ -47,8 +41,8 @@ const threeAs = [
 
 
 export const metadata: Metadata = {
-  title: "About — Craig Marchand",
-  description: "20+ years designing AI and systems architecture for government and enterprise. The story behind Dauntless and why we build the way we do.",
+  title: identity.aboutPageTitle,
+  description: identity.aboutPageDescription,
 };
 
 export default function AboutPage() {
@@ -74,40 +68,65 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Craig Bio */}
+      {/* Founder Bio */}
       <section className="bg-[--mkt-section] py-14 px-6">
         <div className="max-w-6xl mx-auto space-y-8">
           <div className="soft-card p-8 space-y-5">
             <div>
-              <h2 className="text-2xl font-semibold text-[--text-primary]">Craig Marchand</h2>
-              <p className="text-sm text-[--accent-vivid] mt-1">Founder, Dauntless Agentic · Systems Architect · AI Strategist · Builder</p>
+              <h2 className="text-2xl font-semibold text-[--text-primary]">
+                {identity.founderName ?? "The Team Behind Dauntless"}
+              </h2>
+              <p className="text-sm text-[--accent-vivid] mt-1">{identity.founderTitle}</p>
             </div>
-            <p className="text-[--text-secondary] leading-relaxed">
-              Craig is a systems thinker who builds operating architectures at the intersection of AI, human capability, and organizational design.
-            </p>
-            <p className="text-[--text-secondary] leading-relaxed">
-              As <span className="text-[--text-primary] font-medium">VP Innovation at BDO Canada</span>, he architected the FutureCraft program — designing 180+ AI-augmented workflows that served 5,000+ professionals and generated $4M+ in documented productivity savings. He didn't just introduce AI tools. He redesigned how an entire professional services firm thought about work.
-            </p>
-            <p className="text-[--text-secondary] leading-relaxed">
-              Before that, 20+ years in public sector innovation — designing systems that actually work inside complex organizations with real constraints, real politics, and real consequences.
-            </p>
-            <p className="text-[--text-secondary] leading-relaxed">
-              Now, through Dauntless Agentic, he's building the practice he always wished existed: one where the system compounds, the work gets better, and the architecture is the advantage.
-            </p>
+            {identity.founderName ? (
+              <>
+                <p className="text-[--text-secondary] leading-relaxed">
+                  Craig is a systems thinker who builds operating architectures at the intersection of AI, human capability, and organizational design.
+                </p>
+                <p className="text-[--text-secondary] leading-relaxed">
+                  As <span className="text-[--text-primary] font-medium">VP Innovation at BDO Canada</span>, he architected the FutureCraft program — designing 180+ AI-augmented workflows that served 5,000+ professionals and generated $4M+ in documented productivity savings. He didn&apos;t just introduce AI tools. He redesigned how an entire professional services firm thought about work.
+                </p>
+                <p className="text-[--text-secondary] leading-relaxed">
+                  Before that, 20+ years in public sector innovation — designing systems that actually work inside complex organizations with real constraints, real politics, and real consequences.
+                </p>
+                <p className="text-[--text-secondary] leading-relaxed">
+                  Now, through Dauntless Agentic, he&apos;s building the practice he always wished existed: one where the system compounds, the work gets better, and the architecture is the advantage.
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="text-[--text-secondary] leading-relaxed">
+                  Dauntless Agentic is built by practitioners, not theorists. Our team brings 20+ years of direct experience designing operating architectures at the intersection of AI, human capability, and organizational design.
+                </p>
+                <p className="text-[--text-secondary] leading-relaxed">
+                  Across professional services and the public sector, we&apos;ve designed 180+ AI-augmented workflows, served 5,000+ professionals, and delivered $50M+ in documented value. We didn&apos;t just introduce AI tools — we redesigned how organizations think about work.
+                </p>
+                <p className="text-[--text-secondary] leading-relaxed">
+                  Before Dauntless, our team spent two decades inside complex organizations with real constraints, real politics, and real consequences. That&apos;s why what we build actually works.
+                </p>
+                <p className="text-[--text-secondary] leading-relaxed">
+                  Dauntless Agentic is the practice we always wished existed: one where the system compounds, the work gets better, and the architecture is the advantage.
+                </p>
+              </>
+            )}
             <div className="flex gap-3 flex-wrap pt-2">
-              <a href="https://linkedin.com/in/craigmarchand" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-[--radius-md] text-sm font-medium text-[--accent-vivid] transition-all"
-                style={{ background: "rgba(var(--accent-rgb),0.12)", border: "1px solid rgba(var(--accent-rgb),0.3)" }}>
-                <Linkedin className="h-4 w-4" /> LinkedIn
-              </a>
-              <a href="mailto:craig@dauntlessagentic.com"
+              {identity.linkedIn && (
+                <a href={identity.linkedIn} target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-[--radius-md] text-sm font-medium text-[--accent-vivid] transition-all"
+                  style={{ background: "rgba(var(--accent-rgb),0.12)", border: "1px solid rgba(var(--accent-rgb),0.3)" }}>
+                  <Linkedin className="h-4 w-4" /> LinkedIn
+                </a>
+              )}
+              <a href={`mailto:${identity.email}`}
                 className="inline-flex items-center gap-2 px-4 py-2 bg-[--mkt-bg] border border-[--mkt-border] rounded-[--radius-md] text-sm font-medium text-[--text-secondary] hover:text-[--text-primary] hover:border-[--border-active] transition-all">
-                <Mail className="h-4 w-4" /> Email Craig
+                <Mail className="h-4 w-4" /> {identity.emailLabel}
               </a>
-              <a href="https://craigmarchand.com" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-[--mkt-bg] border border-[--mkt-border] rounded-[--radius-md] text-sm font-medium text-[--text-secondary] hover:text-[--text-primary] hover:border-[--border-active] transition-all">
-                <Globe className="h-4 w-4" /> Personal Site
-              </a>
+              {identity.personalWebsite && (
+                <a href={identity.personalWebsite} target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-[--mkt-bg] border border-[--mkt-border] rounded-[--radius-md] text-sm font-medium text-[--text-secondary] hover:text-[--text-primary] hover:border-[--border-active] transition-all">
+                  <Globe className="h-4 w-4" /> Personal Site
+                </a>
+              )}
             </div>
           </div>
         </div>

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
 import { PageCTA } from "@/components/marketing/page-cta";
+import { identity } from "@/config/identity";
 
 const theses = [
   {
@@ -140,9 +141,11 @@ export default function ManifestoPage() {
             >
               Start a Conversation <ArrowRight className="h-4 w-4" />
             </Link>
-            <a href="https://linkedin.com/in/craigmarchand" target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" size="lg" className="gap-2"><Linkedin className="h-4 w-4" /> Follow on LinkedIn</Button>
-            </a>
+            {identity.linkedIn && (
+              <a href={identity.linkedIn} target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="lg" className="gap-2"><Linkedin className="h-4 w-4" /> Follow on LinkedIn</Button>
+              </a>
+            )}
           </div>
         </div>
       </section>

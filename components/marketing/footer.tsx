@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { identity } from "@/config/identity";
 
 const footerLinks = {
   Services: [
@@ -58,19 +59,21 @@ export function MarketingFooter() {
             </p>
             <p className="text-xs text-[--text-muted]">Ottawa, Canada</p>
             <a
-              href="mailto:craig@dauntlessagentic.com"
+              href={`mailto:${identity.email}`}
               className="block text-xs text-[--text-muted] hover:text-[--text-secondary] transition-colors"
             >
-              craig@dauntlessagentic.com
+              {identity.email}
             </a>
-            <a
-              href="https://linkedin.com/in/craigmarchand"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block text-xs text-[--text-muted] hover:text-[--text-secondary] transition-colors"
-            >
-              LinkedIn
-            </a>
+            {identity.linkedIn && (
+              <a
+                href={identity.linkedIn}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-xs text-[--text-muted] hover:text-[--text-secondary] transition-colors"
+              >
+                LinkedIn
+              </a>
+            )}
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 flex-1">
             {Object.entries(footerLinks).map(([category, links]) => (

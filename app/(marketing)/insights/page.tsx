@@ -5,6 +5,7 @@ import { ArrowRight, Brain, Zap, Layers, GraduationCap, RefreshCw, Globe, Linked
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
 import { PageCTA } from "@/components/marketing/page-cta";
+import { identity } from "@/config/identity";
 
 const categories = [
   { icon: Brain, title: "AI & Human Intelligence", description: "How humans and AI work together — augmentation patterns, decision-making, the role of judgment in an automated world." },
@@ -187,19 +188,21 @@ export default function InsightsPage() {
             <h2 className="text-2xl font-semibold text-[--text-primary]">Where the Real-Time Thinking Happens</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-4">
+            {identity.linkedIn && (
             <div className="soft-card p-5 space-y-3">
               <div className="flex h-9 w-9 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim]"><Linkedin className="h-4 w-4 text-[--accent-vivid]" /></div>
               <h3 className="font-bold text-[--text-primary]">LinkedIn</h3>
               <p className="text-sm text-[--text-secondary]">Follow for daily insights, manifesto drops, and conversations about the future of work.</p>
-              <a href="https://linkedin.com/in/craigmarchand" target="_blank" rel="noopener noreferrer"
+              <a href={identity.linkedIn} target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-[--accent-vivid] hover:text-[--accent-bright] transition-colors">
-                Follow Craig <ArrowRight className="h-3.5 w-3.5" />
+                Follow on LinkedIn <ArrowRight className="h-3.5 w-3.5" />
               </a>
             </div>
+            )}
             <div className="soft-card p-5 space-y-3">
               <div className="flex h-9 w-9 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim]"><Zap className="h-4 w-4 text-[--accent-vivid]" /></div>
               <h3 className="font-bold text-[--text-primary]">Speaking</h3>
-              <p className="text-sm text-[--text-secondary]">Craig speaks on AI strategy, agentic architecture, and the future of human capability. Available for keynotes, panels, and executive briefings.</p>
+              <p className="text-sm text-[--text-secondary]">Our team speaks on AI strategy, agentic architecture, and the future of human capability. Available for keynotes, panels, and executive briefings.</p>
               <Link href="/contact" className="inline-flex items-center gap-1.5 text-sm font-medium text-[--accent-vivid] hover:text-[--accent-bright] transition-colors">
                 Book a Speaking Engagement <ArrowRight className="h-3.5 w-3.5" />
               </Link>

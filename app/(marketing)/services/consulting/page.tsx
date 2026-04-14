@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import { identity } from "@/config/identity";
 
 const whatWeDo = [
   { icon: Layers,    title: "Operating Model Design",   description: "How should your organization actually work with AI? We design the roles, workflows, decision gates, and governance that turn AI from a tool into an operating capability." },
@@ -362,7 +363,7 @@ export default function ConsultingPage() {
                 style={{ backgroundImage: "linear-gradient(135deg, var(--svc-consulting-mid), var(--svc-consulting-bright))", WebkitBackgroundClip: "text", color: "transparent" }}
                 aria-hidden="true">&ldquo;</div>
               <blockquote className="text-sm text-[--text-primary] leading-relaxed italic flex-1">
-                &ldquo;Working with Craig&apos;s team changed how our team thinks about planning and process. Using rich visual process maps and layering in detail really helped us to understand where there are high leverage opportunities for improvement and automation.&rdquo;
+                &ldquo;{identity.consultingTestimonialOpener} changed how our team thinks about planning and process. Using rich visual process maps and layering in detail really helped us to understand where there are high leverage opportunities for improvement and automation.&rdquo;
               </blockquote>
               <div className="border-t pt-4 space-y-0.5" style={{ borderColor: "rgba(var(--svc-consulting-mid-rgb),0.15)" }}>
                 <p className="text-sm font-semibold text-[--text-primary]">Project Executive, Benefits Modernization</p>

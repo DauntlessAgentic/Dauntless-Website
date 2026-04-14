@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Mail, Linkedin, MapPin, Clock, ArrowRight, BookOpen, Layers, Calendar as CalendarIcon } from "lucide-react";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
+import { identity } from "@/config/identity";
 
 const steps = [
   { step: "1. Response", what: "We acknowledge your message and confirm next steps", timeline: "Within 24 hours" },
@@ -150,8 +151,8 @@ export default function ContactPage() {
             <div className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-5 space-y-4">
               <p className="text-xs font-bold uppercase tracking-widest text-[--text-muted]">Quick Reference</p>
               {[
-                { icon: Mail, label: "Email", value: "craig@dauntlessagentic.com", href: "mailto:craig@dauntlessagentic.com" },
-                { icon: Linkedin, label: "LinkedIn", value: "linkedin.com/in/craigmarchand", href: "https://linkedin.com/in/craigmarchand" },
+                { icon: Mail, label: "Email", value: identity.email, href: `mailto:${identity.email}` },
+                ...(identity.linkedIn ? [{ icon: Linkedin, label: "LinkedIn", value: identity.linkedInDisplay!, href: identity.linkedIn }] : []),
                 { icon: MapPin, label: "Based In", value: "Ottawa, Canada · Global delivery", href: null },
                 { icon: Clock, label: "Response Time", value: "Within 24 hours, business days", href: null },
               ].map(({ icon: Icon, label, value, href }) => (

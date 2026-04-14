@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
+import { identity } from "@/config/identity";
 
 export const metadata: Metadata = {
   title: "Terms of Use",
@@ -92,8 +93,8 @@ export default function TermsPage() {
               <h2 className="text-lg font-semibold text-[--text-primary]">8. Contact</h2>
               <p className="text-[--text-secondary] leading-relaxed">
                 Questions about these terms:{" "}
-                <a href="mailto:craig@dauntlessagentic.com" className="text-[--accent-vivid] hover:underline">
-                  craig@dauntlessagentic.com
+                <a href={`mailto:${identity.email}`} className="text-[--accent-vivid] hover:underline">
+                  {identity.email}
                 </a>
               </p>
             </div>

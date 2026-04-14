@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Clock, GitBranch, Users, TrendingUp } from "lucide-react";
+import { identity } from "@/config/identity";
 
 const stats = [
   { icon: Clock,      value: "18+",    label: "Years designing AI & systems architecture" },
@@ -86,16 +87,22 @@ export function WhyDauntless() {
             style={{ background: "var(--bio-card-bg)", border: "1px solid rgba(var(--accent-bright-rgb),0.15)" }}
           >
             <div className="flex items-start gap-4">
-              <div className="h-12 w-12 rounded-full shrink-0 overflow-hidden mt-0.5">
-                <Image src="/images/craig-headshot.jpg" alt="Craig Marchand" width={48} height={48} unoptimized className="object-cover object-top w-full h-full" />
-              </div>
+              {identity.founderPhoto && (
+                <div className="h-12 w-12 rounded-full shrink-0 overflow-hidden mt-0.5">
+                  <Image src={identity.founderPhoto} alt={identity.founderPhotoAlt} width={48} height={48} unoptimized className="object-cover object-top w-full h-full" />
+                </div>
+              )}
               <div className="space-y-2">
-                <p className="text-[--text-primary] font-medium text-sm">Craig Marchand</p>
-                <p className="text-xs text-[--accent-vivid] uppercase tracking-wider font-medium">Founder, Dauntless Agentic</p>
+                <p className="text-[--text-primary] font-medium text-sm">
+                  {identity.founderName ?? "Dauntless Agentic"}
+                </p>
+                <p className="text-xs text-[--accent-vivid] uppercase tracking-wider font-medium">
+                  {identity.founderShortTitle}
+                </p>
               </div>
             </div>
             <p className="text-[--text-secondary] text-sm leading-relaxed">
-              Former VP Innovation at BDO Canada, FutureCraft program architect, systems thinker, and builder of operating architectures at the intersection of AI, human capability, and organizational design.
+              {identity.founderBioShort}
             </p>
             <Link
               href="/about"

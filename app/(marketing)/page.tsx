@@ -10,6 +10,7 @@ import { Testimonials } from "@/components/marketing/testimonials";
 import { ManifestoTeaser } from "@/components/marketing/manifesto-teaser";
 import { CTASection } from "@/components/marketing/cta-section";
 import { MarketingFooter } from "@/components/marketing/footer";
+import { identity } from "@/config/identity";
 
 export const metadata: Metadata = {
   title: { absolute: "Dauntless Agentic — AI Strategy, Systems & Training for Any Scale" },
@@ -31,7 +32,7 @@ const organizationSchema = {
     addressRegion: "ON",
     addressCountry: "CA",
   },
-  sameAs: ["https://linkedin.com/in/craigmarchand"],
+  sameAs: identity.sameAs,
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Dauntless Services",

@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
+import { identity } from "@/config/identity";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -35,8 +36,8 @@ export default function PrivacyPage() {
               </p>
               <p className="text-[--text-secondary] leading-relaxed">
                 Questions about this policy can be directed to:{" "}
-                <a href="mailto:craig@dauntlessagentic.com" className="text-[--accent-vivid] hover:underline">
-                  craig@dauntlessagentic.com
+                <a href={`mailto:${identity.email}`} className="text-[--accent-vivid] hover:underline">
+                  {identity.email}
                 </a>
               </p>
             </div>
@@ -79,8 +80,8 @@ export default function PrivacyPage() {
               <p className="text-[--text-secondary] leading-relaxed">
                 We retain contact form submissions for up to 24 months for engagement tracking purposes.
                 You may request deletion of your data at any time by emailing{" "}
-                <a href="mailto:craig@dauntlessagentic.com" className="text-[--accent-vivid] hover:underline">
-                  craig@dauntlessagentic.com
+                <a href={`mailto:${identity.email}`} className="text-[--accent-vivid] hover:underline">
+                  {identity.email}
                 </a>
                 .
               </p>
@@ -101,8 +102,8 @@ export default function PrivacyPage() {
                 Under Canadian privacy law (PIPEDA) and applicable provincial legislation, you have the
                 right to access, correct, or request deletion of your personal information. To exercise
                 these rights, contact us at{" "}
-                <a href="mailto:craig@dauntlessagentic.com" className="text-[--accent-vivid] hover:underline">
-                  craig@dauntlessagentic.com
+                <a href={`mailto:${identity.email}`} className="text-[--accent-vivid] hover:underline">
+                  {identity.email}
                 </a>
                 .
               </p>
