@@ -14,7 +14,11 @@ land in any phase and ground quickly.
 
 ## Where we are
 
-**Phase 6.0 — Telemetry event bus + Quarterly Impact Report (shipped, PR TBD)**
+**Phase 7.0 — Innovation Studio surface (shipped, PR TBD)**
+
+Branch: `claude/portal-phase-7-innovation-studio`. See the Phase 7 section.
+
+**Phase 6.0 — Telemetry event bus + Quarterly Impact Report (shipped, PR #7)**
 
 Branch: `claude/portal-phase-6-telemetry-impact`. See the Phase 6 section.
 
@@ -515,9 +519,45 @@ start enriched by prior ones.
 
 ## Phase 7 — Innovation Studio and the Autonomous Innovation Engine
 
+**Status**: **Phase 7.0 shipped** on `claude/portal-phase-7-innovation-studio`.
+The Studio surface, pattern library seed (15 patterns), roadmap simulator,
+and decision-tree visualization are live. Phase 7.1 (continuous
+Autonomous Innovation Engine + telemetry-derived probabilities) is the
+remaining work.
 **Theme**: the top marketing tier becomes operational.
-**Estimate**: 12–16 weeks
+**Estimate**: 8–10 weeks (Phase 7.1)
 **Unlocks**: the strategic-partner price point; Dauntless's most ambitious client motion.
+
+### Phase 7.0 — what shipped
+
+- `/portal/innovation` — Innovation Studio surface. KPI tiles, scenario
+  simulator output, decision-tree, pattern library browser, matched-
+  patterns card per engagement.
+- `lib/portal/innovation/patterns.ts` — `PatternLibraryEntry` shape +
+  15-pattern curated seed across consulting / training / agentic /
+  governance / activation. `matchPatternsForEngagement()` ranks patterns
+  for a given engagement.
+- `lib/portal/innovation/simulator.ts` — `runScenarioSimulations()`
+  forward-projects three default scenarios across the workspace's
+  metrics. Reversibility cost + option value modify the overall score.
+  `buildDecisionTree()` produces a 3-level branching consequence graph
+  for any Decision (root → options → outcomes).
+- Command Center now exposes a top-bar link to the Innovation Studio.
+- `tests/portal/innovation.test.mjs` — 9 smoke tests across pattern
+  library / matcher / simulator / decision tree.
+
+### Phase 7.1 — what's left
+
+- Autonomous Innovation Engine: a long-running agent that watches
+  signals and emits proposals continuously (today the Studio is read-
+  only — proposals come from the Phase 5 strategists).
+- Telemetry-derived probabilities + impact scores on decision trees
+  (today they are stub coefficients).
+- Pattern emergence detection — auto-promote a pattern from
+  `emergent` → `validated` once usage signals cross a threshold.
+- Backtesting against historical engagement series (requires Phase 6.1
+  persisted metrics).
+- Per-partner Studio scoping (when multi-workspace lands in Phase 8).
 
 ### Why now
 
