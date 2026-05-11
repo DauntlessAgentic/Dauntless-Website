@@ -118,8 +118,20 @@ export function DataTable<T>({
   );
 }
 
-// Pre-built columns for tableData
-export const defaultTableColumns: ColumnDef<any>[] = [
+// Pre-built columns for the shape produced by `lib/mock-data` → `tableData`.
+// Kept loose intentionally — these columns work with any row object that
+// exposes the same string keys.
+export interface DefaultTableRow {
+  id: string;
+  name: string;
+  status: string;
+  priority: string;
+  assignee: string;
+  score: number;
+  updated?: Date;
+}
+
+export const defaultTableColumns: ColumnDef<DefaultTableRow>[] = [
   { accessorKey: "id", header: "ID", size: 80,
     cell: ({ getValue }) => (
       <span className="font-mono text-xs text-[--text-muted]">{getValue() as string}</span>

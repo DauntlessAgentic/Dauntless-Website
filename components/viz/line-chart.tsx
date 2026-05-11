@@ -2,8 +2,9 @@
 import React from "react";
 import {
   ResponsiveContainer, LineChart, Line, XAxis, YAxis,
-  CartesianGrid, Tooltip as ReTooltip, Legend,
+  CartesianGrid, Tooltip as ReTooltip,
 } from "recharts";
+import type { ChartTooltipProps } from "./types";
 
 interface LineChartCardProps {
   data: Array<Record<string, string | number>>;
@@ -12,15 +13,15 @@ interface LineChartCardProps {
   className?: string;
 }
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+const CustomTooltip = ({ active, payload, label }: ChartTooltipProps) => {
   if (!active || !payload?.length) return null;
   return (
     <div className="rounded-[6px] border border-[--border-strong] bg-[--elevated-2] px-2.5 py-2 shadow-[--shadow-md]">
       <p className="text-xs text-[--text-muted] mb-1.5 font-mono">{label}</p>
-      {payload.map((entry: any) => (
-        <div key={entry.dataKey} className="flex items-center gap-2 text-xs">
+      {payload.map((entry) => (
+        <div key={String(entry.dataKey)} className="flex items-center gap-2 text-xs">
           <span className="h-1.5 w-1.5 rounded-full" style={{ background: entry.color }} />
-          <span className="text-[--text-secondary]">{entry.name || entry.dataKey}:</span>
+          <span className="text-[--text-secondary]">{entry.name ?? entry.dataKey}:</span>
           <span className="font-medium tabular-nums text-[--text-primary]">{entry.value}</span>
         </div>
       ))}

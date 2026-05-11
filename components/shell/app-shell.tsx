@@ -39,15 +39,16 @@ export function AppShell({ children, topBarTitle, topBarSubtitle, topBarActions 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  LayoutDashboard, BarChart3, Settings2, ClipboardList,
+  LayoutDashboard, BarChart3, Settings2, ClipboardList, Command,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 
 const mobileNavItems = [
+  { icon: Command,         label: "Portal",    href: "/portal" },
   { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
-  { icon: BarChart3,       label: "Analytics",  href: "/analytics" },
-  { icon: ClipboardList,   label: "Intake",     href: "/intake" },
-  { icon: Settings2,       label: "Settings",   href: "/settings" },
+  { icon: BarChart3,       label: "Analytics", href: "/analytics" },
+  { icon: ClipboardList,   label: "Intake",    href: "/intake" },
+  { icon: Settings2,       label: "Settings",  href: "/settings" },
 ];
 
 function MobileNav() {

@@ -4,12 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, BarChart3, Settings2,
-  ClipboardList, Cpu,
+  ClipboardList, Cpu, Command,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { Tooltip } from "@/components/ui/tooltip";
 
 const navItems = [
+  { icon: Command,         label: "Portal",     href: "/portal" },
   { icon: LayoutDashboard, label: "Dashboard",  href: "/dashboard" },
   { icon: BarChart3,       label: "Analytics",  href: "/analytics" },
   { icon: ClipboardList,   label: "Intake",     href: "/intake" },

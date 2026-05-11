@@ -8,6 +8,7 @@ import type { AgentState } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 
 export type CardStatus = "default" | "active" | "loading" | "error" | "updated";
+type BadgeVariant = React.ComponentProps<typeof Badge>["variant"];
 
 interface DashboardCardProps {
   id: string;
@@ -15,6 +16,7 @@ interface DashboardCardProps {
   eyebrow?: string;
   subtitle?: string;
   badge?: string;
+  badgeVariant?: BadgeVariant;
   status?: CardStatus;
   agentState?: AgentState;
   agentId?: string;
@@ -44,6 +46,7 @@ interface CardHeaderProps {
   eyebrow?: string;
   subtitle?: string;
   badge?: string;
+  badgeVariant?: BadgeVariant;
   agentState?: AgentState;
   agentStyle: (typeof AGENT_STATE_STYLES)[AgentState] | null;
   actions?: React.ReactNode;
@@ -54,7 +57,7 @@ interface CardHeaderProps {
 }
 
 function CardHeader({
-  title, eyebrow, subtitle, badge, agentState, agentStyle,
+  title, eyebrow, subtitle, badge, badgeVariant, agentState, agentStyle,
   actions, expanded, expandable, onExpand, onRemove,
 }: CardHeaderProps) {
   return (
@@ -68,7 +71,7 @@ function CardHeader({
         <div className="flex items-center gap-1.5">
           <span className="text-xs font-semibold text-[--text-primary] truncate">{title}</span>
           {badge && (
-            <Badge variant="default" className="text-xs px-1 py-0">{badge}</Badge>
+            <Badge variant={badgeVariant ?? "default"} className="text-xs px-1 py-0">{badge}</Badge>
           )}
         </div>
         {subtitle && (
@@ -152,17 +155,21 @@ function CardSkeleton() {
 }
 
 export function DashboardCard({
-  id, title, eyebrow, subtitle, badge,
+  id, title, eyebrow, subtitle, badge, badgeVariant,
   status = "default", agentState, agentId,
   loading, children, footer, actions,
   className, bodyClassName, onRemove,
   expandable = true,
 }: DashboardCardProps) {
+  // `status` and `agentId` are part of the public surface (consumers wire them
+  // for analytics / persistence) but they don't drive visual state here yet.
+  void status;
+  void agentId;
   const [expanded, setExpanded] = useState(false);
   const agentStyle = agentState ? AGENT_STATE_STYLES[agentState] : null;
 
   const headerProps: CardHeaderProps = {
-    title, eyebrow, subtitle, badge, agentState, agentStyle,
+    title, eyebrow, subtitle, badge, badgeVariant, agentState, agentStyle,
     actions, expanded, expandable,
     onExpand: () => setExpanded(v => !v),
     onRemove: onRemove ? () => onRemove(id) : undefined,
