@@ -19,13 +19,46 @@ const RISK_TONE: Record<RiskTier, React.ComponentProps<typeof ContentTag>["varia
   high:   "warning",
 };
 
+interface AgentRunSummaryProps {
+  id: string;
+  agentId: string;
+  finishedAt: Date;
+  model: string;
+  status: "completed" | "errored" | "stub";
+  proposedDecisionId?: string;
+  inputTokens: number;
+  outputTokens: number;
+  cacheHitRate: number;
+  totalUsd: number;
+  notes?: string;
+  error?: string;
+}
+
+interface AgentTelemetrySummary {
+  totalRuns: number;
+  completedRuns: number;
+  erroredRuns: number;
+  totalCostUsd: number;
+  averageCacheHitRate: number;
+  averageInputTokens: number;
+  decisionsProposed: number;
+}
+
 interface GovernanceViewProps {
   snapshot: PortalSnapshot;
   membership: MembershipContext;
   activationStatus: RepositoryActivationStatus;
+  agentTelemetry: AgentTelemetrySummary;
+  agentRuns: AgentRunSummaryProps[];
 }
 
-export function GovernanceView({ snapshot, membership, activationStatus }: GovernanceViewProps) {
+export function GovernanceView({
+  snapshot,
+  membership,
+  activationStatus,
+  agentTelemetry,
+  agentRuns,
+}: GovernanceViewProps) {
   const {
     auditLog: mockAuditLog,
     memberships: mockMemberships,
@@ -95,6 +128,103 @@ export function GovernanceView({ snapshot, membership, activationStatus }: Gover
               </p>
             </div>
           </DashboardCard>
+        </div>
+
+        {/* Agent runtime telemetry */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+          <DashboardCard
+            id="agent-cost"
+            eyebrow="AGENT RUNTIME"
+            title="Cost & cache health"
+            subtitle="Last 50 Engagement Analyst runs · Phase 3 telemetry"
+            badge={agentTelemetry.totalRuns === 0 ? "No runs yet" : `${agentTelemetry.totalRuns} runs`}
+            badgeVariant={agentTelemetry.erroredRuns > 0 ? "warning" : "accent"}
+          >
+            <div className="px-3 py-2.5 grid grid-cols-2 gap-3 text-xs">
+              <div>
+                <p className="text-2xl font-bold tabular-nums text-[--text-primary] leading-none">
+                  ${agentTelemetry.totalCostUsd.toFixed(4)}
+                </p>
+                <p className="text-xs uppercase tracking-widest text-[--text-muted] mt-1">Spend</p>
+              </div>
+              <div>
+                <p className="text-2xl font-bold tabular-nums text-[--text-primary] leading-none">
+                  {Math.round(agentTelemetry.averageCacheHitRate * 100)}%
+                </p>
+                <p className="text-xs uppercase tracking-widest text-[--text-muted] mt-1">Cache hit rate</p>
+              </div>
+              <div>
+                <p className="text-2xl font-bold tabular-nums text-[--text-primary] leading-none">
+                  {agentTelemetry.decisionsProposed}
+                </p>
+                <p className="text-xs uppercase tracking-widest text-[--text-muted] mt-1">Decisions proposed</p>
+              </div>
+              <div>
+                <p className="text-2xl font-bold tabular-nums text-[--text-primary] leading-none">
+                  {Math.round(agentTelemetry.averageInputTokens)}
+                </p>
+                <p className="text-xs uppercase tracking-widest text-[--text-muted] mt-1">Avg input tokens</p>
+              </div>
+            </div>
+          </DashboardCard>
+
+          <div className="lg:col-span-2">
+            <DashboardCard
+              id="agent-runs-recent"
+              eyebrow="RECENT AGENT RUNS"
+              title="Trace · model · cost · proposal"
+              subtitle="Every run is auditable. Click a proposed decision to review it in the Register."
+              bodyClassName="overflow-hidden"
+            >
+              <ScrollArea className="h-full max-h-[260px]">
+                <ul className="flex flex-col divide-y divide-[--border-subtle]">
+                  {agentRuns.length === 0 ? (
+                    <li className="px-3 py-6 text-center text-xs text-[--text-muted]">
+                      No agent runs recorded in this server process yet. Trigger one from the Agents page.
+                    </li>
+                  ) : (
+                    agentRuns.map((run) => (
+                      <li key={run.id} className="flex flex-col gap-1 px-3 py-2">
+                        <div className="flex items-center gap-2">
+                          <ContentTag
+                            variant={run.status === "errored" ? "danger" : run.status === "completed" ? "success" : "accent"}
+                            dot
+                          >
+                            {run.status}
+                          </ContentTag>
+                          <p className="text-xs font-semibold text-[--text-primary] flex-1 truncate">
+                            {run.agentId} · {run.model}
+                          </p>
+                          <span className="text-xs font-mono tabular-nums text-[--text-muted]">
+                            {relativeAgo(run.finishedAt)}
+                          </span>
+                        </div>
+                        <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-[--text-muted]">
+                          <span>${run.totalUsd.toFixed(4)}</span>
+                          <span>{run.inputTokens} in / {run.outputTokens} out</span>
+                          <span>cache {Math.round(run.cacheHitRate * 100)}%</span>
+                          {run.proposedDecisionId && (
+                            <Link
+                              href="/portal/decisions"
+                              className="text-[--accent-vivid] hover:underline font-mono"
+                            >
+                              {run.proposedDecisionId}
+                            </Link>
+                          )}
+                        </div>
+                        {run.notes && (
+                          <p className="text-xs text-[--text-secondary] leading-snug">{run.notes}</p>
+                        )}
+                        {run.error && (
+                          <p className="text-xs text-[--danger] leading-snug">{run.error}</p>
+                        )}
+                      </li>
+                    ))
+                  )}
+                </ul>
+              </ScrollArea>
+            </DashboardCard>
+          </div>
         </div>
 
         {/* Tier breakdown */}

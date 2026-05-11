@@ -14,10 +14,15 @@ land in any phase and ground quickly.
 
 ## Where we are
 
-**Phase 2.0 — Repository abstraction & identity gate (shipped, PR TBD)**
+**Phase 3.0 — Engagement Analyst end-to-end (shipped, PR TBD)**
+
+Branch: `claude/portal-phase-3-engagement-analyst`. See the Phase 3
+section below.
+
+**Phase 2.0 — Repository abstraction & identity gate (shipped, PR #2)**
 
 Branch: `claude/portal-phase-2-persistence-identity`. See the Phase 2
-section below for the full slice.
+section below.
 
 **Phase 1 — Foundation slice (shipped, PR #1)**
 
@@ -142,23 +147,60 @@ Sub-phase still required to claim "Phase 2 complete":
 
 ## Phase 3 — One real agent, end-to-end
 
+**Status**: **Phase 3.0 shipped** on `claude/portal-phase-3-engagement-analyst`.
+The orchestrator, tools, telemetry, propose→approve flow, and a stub mode
+are in. Phase 3.1 (live evaluation harness + cache-hit-rate hardening) is
+the remaining work.
 **Theme**: the propose→approve→commit loop running against a real model.
-**Estimate**: 6–8 weeks
+**Estimate**: 4–6 weeks (Phase 3.1)
 **Unlocks**: every other agent in the fleet; the credibility claim on `/services/agentic-systems`.
 
-### Why now
+### Phase 3.0 — what shipped
+
+- `lib/portal/agents/runtime/anthropic.ts` — direct `fetch` against the
+  Anthropic Messages API, prompt caching headers, normalized
+  `ProviderRuntimeError` shapes. No SDK dep.
+- `lib/portal/agents/tools.ts` — five-tool surface: `search_artifacts`,
+  `read_decision`, `summarize_signals`, `cite_evidence`, `propose_decision`.
+  Read tools go through the `PortalRepository`; the only write is
+  `propose_decision` which lands a `pending-approval` row.
+- `lib/portal/agents/engagement-analyst.ts` — orchestrator with a tool-use
+  loop (up to 6 turns), system prompt + workspace bookshelf cached. Falls
+  back to a deterministic stub when `ANTHROPIC_API_KEY` is unset so the
+  UX is exercisable end-to-end without paying for tokens.
+- `lib/portal/agents/telemetry.ts` — in-process run ledger with token,
+  cost, and cache-hit-rate summaries. Surfaced on `/portal/governance`
+  as the "Cost & cache health" card + "Recent agent runs" feed.
+- `lib/portal/agents/actions.ts` — `runEngagementAnalystAction`,
+  gated to owner / executive / lead.
+- `app/(app)/portal/agents` — "Live runtime" card with a steering prompt
+  textarea and a Run button. Shows the last run's status, cost, cache hit
+  rate, tools called, and links to the proposed decision in the Register.
+- Repository extended with `proposeDecision()` — appends an `agent-run`
+  audit entry and a `decision-proposed` signal atomically.
+- `tests/portal/agent-engagement-analyst.test.mjs` — 5-test smoke suite
+  covering the stub run, repository state transitions, audit + signal
+  emission, and telemetry recording.
+
+### Phase 3.1 — what's left
+
+- Evaluation harness: replayable transcripts for shipped decisions. Each
+  proposal becomes a test fixture; we run the agent against the workspace
+  state at the time and assert the same option scored highest.
+- Conversation persistence: today the agent run is one-shot. The next
+  iteration should write each run's tool trace + assistant turns into a
+  `Conversation` so it's citeable as Evidence.
+- Confidence auto-routing: when `confidence < 0.5`, label the proposal with
+  a "human review required" flag and gate the executive approval button
+  behind a second pair of eyes.
+- Live cache-hit-rate ≥ 0.6 acceptance criterion (the roadmap's gate).
+  Requires repeated runs against a stable system prompt + bookshelf, and
+  is only meaningful with an API key.
+
+### Why now (original)
 
 It's easier to harden the entire governance flow against one well-scoped agent
 than to scale a fleet that hasn't proven the loop.
-
-### Deliverables
-
-- The Engagement Analyst agent backed by the Claude API with prompt caching
-- Tool surface: `search_artifacts`, `read_decision`, `propose_decision`, `summarize_signals`, `cite_evidence`
-- Decision lifecycle wired end-to-end: agent proposal → `pending-approval` row → human approve / defer / reject / supersede → audit-log entry → signal emitted
-- Conversation persistence: messages stored per `Conversation`, citeable, become reusable evidence
-- Confidence scoring surfaced in the UI (already present); low confidence auto-routes to human review
-- Prompt-caching observability: cache hit rate, token counts, cost per decision proposed
 - One canonical evaluation harness: replayable "did the agent propose the right decision?" trace for every shipped decision
 
 ### Acceptance criteria

@@ -52,6 +52,7 @@ import type {
   DecisionOutcomeInput,
   KnowledgePromotionInput,
   PortalRepository,
+  ProposeDecisionRepoInput,
 } from "./types";
 
 /**
@@ -276,6 +277,54 @@ export class InMemoryPortalRepository implements PortalRepository {
     });
 
     return structuredClone(target);
+  }
+
+  async proposeDecision(input: ProposeDecisionRepoInput): Promise<Decision> {
+    this.assertWorkspace(input.workspaceId);
+    if (!this.state.engagements.some((e) => e.id === input.engagementId)) {
+      throw new Error(`Engagement not found: ${input.engagementId}`);
+    }
+    const decision: Decision = {
+      id: generateId("dec"),
+      engagementId: input.engagementId,
+      title: input.title,
+      status: "pending-approval",
+      riskTier: input.riskTier,
+      dueAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+      recommendation: {
+        ...input.recommendation,
+        options: input.recommendation.options.map((o) => ({ ...o })),
+      },
+      evidenceIds: [...input.evidenceIds],
+      artifactIds: [...input.artifactIds],
+      proposedBy: input.proposedBy,
+    };
+    this.state.decisions.push(decision);
+
+    await this.appendAuditEntry({
+      workspaceId: input.workspaceId,
+      action: "agent-run",
+      actor: input.actorDisplayName,
+      actorKind: input.actorKind,
+      refId: decision.id,
+      detail: `${input.actorDisplayName} proposed decision "${decision.title}".`,
+      riskTier: decision.riskTier,
+    });
+
+    this.state.signals.unshift({
+      id: generateId("sig"),
+      workspaceId: input.workspaceId,
+      engagementId: decision.engagementId,
+      kind: "decision-proposed",
+      severity: decision.riskTier === "high" ? "important" : "notable",
+      title: `Decision proposed: ${decision.title}`,
+      detail: input.recommendation.summary,
+      source: input.actorDisplayName,
+      refId: decision.id,
+      capturedAt: new Date(),
+    });
+
+    return structuredClone(decision);
   }
 
   async promoteKnowledgeToCanonical(input: KnowledgePromotionInput): Promise<KnowledgeItem> {
