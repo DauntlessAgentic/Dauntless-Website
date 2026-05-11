@@ -14,7 +14,11 @@ land in any phase and ground quickly.
 
 ## Where we are
 
-**Phase 5.1 — NBA ranking pipeline + Schedule surface (shipped, PR TBD)**
+**Phase 8.0 — Multi-workspace + org rollup (shipped, PR TBD)**
+
+Branch: `claude/portal-phase-8-multi-workspace`. See the Phase 8 section.
+
+**Phase 5.1 — NBA ranking pipeline + Schedule surface (shipped, PR #9)**
 
 Branch: `claude/portal-phase-5-1-nba-schedule`. See the Phase 5 section.
 
@@ -613,9 +617,41 @@ built the substrate; Phase 7 makes the autonomous claim real.
 
 ## Phase 8 — Multi-workspace, org rollups, cross-department visibility
 
+**Status**: **Phase 8.0 shipped** on `claude/portal-phase-8-multi-workspace`.
+Org rollup view, workspace switcher in TopBar, per-workspace health
+scoring, cross-workspace dependency hints — all in. Phase 8.1 (real
+multi-tenant repository + workspace-swap on switcher click + RLS) is
+the remaining work.
 **Theme**: clients with multiple departments or programs see the whole portfolio.
-**Estimate**: 8–10 weeks
+**Estimate**: 6–8 weeks (Phase 8.1)
 **Unlocks**: enterprise / large-government sales motion; multi-program engagements.
+
+### Phase 8.0 — what shipped
+
+- `lib/portal/org-rollup.ts` — `getOrgRollup(orgId)`. Returns active
+  workspace + 2 synthetic peer workspaces with deterministic seeds so
+  the rollup view has meaningful comparison surface.
+- `/portal/org` — Org rollup route. Aggregate KPIs across all
+  workspaces, per-workspace health card with health score + breakdown,
+  cross-workspace dependency hints.
+- `components/shell/workspace-switcher.tsx` — TopBar switcher. Shows
+  active workspace + sibling workspaces under the same org. Read-only
+  in Phase 8.0; routes to the rollup view.
+- `tests/portal/org-rollup.test.mjs` — 3 smoke tests.
+- Docs: roadmap Phase 8.0 marked shipped.
+
+### Phase 8.1 — what's left
+
+- Real multi-tenant repository (Phase 2.1 Supabase persistence
+  feeds this).
+- Switcher actually swaps the active workspace.
+- Cross-workspace memberships: same user can hold different roles in
+  different workspaces under the same org.
+- Org-level Governance view aggregating audit logs across workspaces.
+- Permission inheritance: org-level executives gain read-only access
+  into any workspace by default.
+- Tenancy isolation hardening: per-org encryption keys, per-workspace
+  data residency.
 
 ### Why now
 
