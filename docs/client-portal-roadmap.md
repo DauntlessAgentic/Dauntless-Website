@@ -14,7 +14,12 @@ land in any phase and ground quickly.
 
 ## Where we are
 
-**Phase 5.0 — Full agent fleet with separation of powers (shipped, PR TBD)**
+**Phase 4.1 — Artifact editor + canonical promotion (shipped, PR TBD)**
+
+Branch: `claude/portal-phase-4-1-canonical-editor`. See the Phase 4
+section below.
+
+**Phase 5.0 — Full agent fleet with separation of powers (shipped, PR #5)**
 
 Branch: `claude/portal-phase-5-agent-fleet`. See the Phase 5 section below.
 
@@ -264,17 +269,36 @@ artifact editor + canonical promotion workflow) is the remaining work.
   filters, decay monotonicity, revalidation queue ordering, and
   incremental upsert.
 
-### Phase 4.1 — what's left
+### Phase 4.1 — what shipped
 
-- Rich artifact editor (Markdown + structured fields per `ArtifactType`).
-- Inline citations: every claim in an artifact links to an `Evidence` row.
-- Artifact diff view between any two versions.
-- "Propose for canonical" workflow routed through the Governance Auditor.
+- Markdown editor at `/portal/deliverables/[id]/edit` with live preview.
+  Inline citations via `[[ev-id]]` render as `EvidenceLink` chips.
+- Save-draft and mint-new-version flows in one keystroke. Minting bumps
+  semver (patch/minor/major) and drops the artifact to `in-review`.
+- "Propose for canonical" workflow on the detail page: a click routes the
+  artifact to the Governance Auditor (live or stub), records the verdict
+  on `Artifact.canonicalProposal`, and surfaces approve/reject controls
+  to executives/owners.
+- Approval flips `Artifact.canonical = true` and emits a
+  `knowledge-promoted` signal so the Bookshelf actually compounds.
+- Line-level diff between the current version and the prior one on the
+  detail page (LCS-based, sufficient for ≤200-line artifacts).
+- `ArtifactComment` model + repository methods (`postArtifactComment`,
+  `resolveArtifactComment`). Comments render on the editor page; UI for
+  posting from the detail view lands in Phase 4.2.
+- New `components/patterns/artifact-markdown.tsx` — token-only,
+  citation-aware Markdown renderer.
+- 6 smoke tests in `tests/portal/artifact-editor.test.mjs`.
+
+### Phase 4.2 — what's left
+
 - Embedding-backed knowledge adapter (Postgres + pgvector). Drop-in
   replacement for `InMemoryKnowledgeAdapter`.
-- Confidence-decay cron job (today the math runs at request time; Phase
-  4.1 persists the decayed values + emits "needs revalidation" signals).
-- Comment threads tied to specific artifact versions.
+- Confidence-decay cron job (today the math runs at request time;
+  4.2 persists the decayed values + emits "needs revalidation" signals).
+- UI for posting comments inline from the detail view; resolve flow.
+- Heavier diff (chunked, syntax-aware) for long artifact bodies.
+- Cross-engagement clone / adapt / fork primitive.
 
 ### Why now
 

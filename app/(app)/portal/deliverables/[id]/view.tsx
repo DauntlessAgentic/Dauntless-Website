@@ -1,16 +1,25 @@
 "use client";
 
-import React from "react";
+import React, { useState, useTransition } from "react";
 import Link from "next/link";
-import { ArrowRight, ChevronLeft, FileText, GitBranch, Star } from "lucide-react";
+import { ArrowRight, ChevronLeft, FileText, GitBranch, Star, Sparkles, Check, X } from "lucide-react";
 
 import { WorkspaceHeader } from "@/components/shell/workspace-header";
 import { DashboardCard } from "@/components/cards/dashboard-card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ContentTag } from "@/components/ui/content-tag";
+import { Button } from "@/components/ui/button";
 import { EvidenceLink } from "@/components/patterns/evidence-link";
+import { ArtifactMarkdown } from "@/components/patterns/artifact-markdown";
 
 import type { MembershipContext } from "@/lib/auth/session";
+import { canPerform } from "@/lib/auth/membership-gate";
+import {
+  approveCanonical,
+  proposeForCanonical,
+  rejectCanonical,
+  type CanonicalProposalOutcome,
+} from "@/lib/portal/artifact-actions";
 import type {
   Artifact,
   Decision,
@@ -36,6 +45,16 @@ interface ArtifactDetailViewProps {
   membership: MembershipContext;
 }
 
+function ProposalBadgeTone(status: NonNullable<Artifact["canonicalProposal"]>["status"]):
+  React.ComponentProps<typeof ContentTag>["variant"] {
+  switch (status) {
+    case "pending":          return "info";
+    case "approved":         return "success";
+    case "rejected":         return "danger";
+    case "needs-revision":   return "warning";
+  }
+}
+
 const STATE_TONE: Record<Artifact["reviewState"], "default" | "success" | "warning" | "danger" | "info" | "accent"> = {
   draft:            "default",
   "in-review":      "info",
@@ -56,11 +75,55 @@ export function ArtifactDetailView({
   decisions,
   evidence,
   knowledge,
-  membership: _membership,
+  membership,
 }: ArtifactDetailViewProps) {
   const versions = [...artifact.versions].sort(
     (a, b) => b.changedAt.getTime() - a.changedAt.getTime(),
   );
+  const evidenceById = React.useMemo(() => {
+    return new Map(evidence.map((e) => [e.id, e]));
+  }, [evidence]);
+  const canEdit = canPerform(membership.role, "edit-artifact");
+  const canApproveCanonical = membership.role === "owner" || membership.role === "executive";
+  const [isProposing, startProposing] = useTransition();
+  const [isDeciding, startDeciding] = useTransition();
+  const [actionError, setActionError] = useState<string | null>(null);
+  const [auditOutcome, setAuditOutcome] = useState<CanonicalProposalOutcome | null>(null);
+
+  const proposal = artifact.canonicalProposal;
+  const handleProposeCanonical = () => {
+    setActionError(null);
+    startProposing(async () => {
+      try {
+        const outcome = await proposeForCanonical({ artifactId: artifact.id });
+        setAuditOutcome(outcome);
+      } catch (err) {
+        setActionError(err instanceof Error ? err.message : "Propose failed.");
+      }
+    });
+  };
+  const handleApproveCanonical = () => {
+    setActionError(null);
+    startDeciding(async () => {
+      try {
+        await approveCanonical({ artifactId: artifact.id });
+      } catch (err) {
+        setActionError(err instanceof Error ? err.message : "Approve failed.");
+      }
+    });
+  };
+  const handleRejectCanonical = () => {
+    setActionError(null);
+    startDeciding(async () => {
+      try {
+        await rejectCanonical({ artifactId: artifact.id });
+      } catch (err) {
+        setActionError(err instanceof Error ? err.message : "Reject failed.");
+      }
+    });
+  };
+
+  const diff = useArtifactDiff(versions);
   const currentVersion = versions.find((v) => v.id === artifact.currentVersionId) ?? versions[0];
 
   return (
@@ -168,23 +231,161 @@ export function ArtifactDetailView({
             subtitle={
               artifact.canonical
                 ? "Reusable across engagements with the original provenance intact."
-                : "When this artifact's evidence stabilizes, the Governance Auditor proposes it for canonical."
+                : "Propose for canonical to route this artifact through the Governance Auditor's audit."
             }
+            badge={proposal ? proposal.status : artifact.canonical ? "canonical" : "not proposed"}
+            badgeVariant={
+              artifact.canonical ? "accent" :
+              proposal?.status === "approved" ? "success" :
+              proposal?.status === "rejected" ? "danger" :
+              proposal?.status === "needs-revision" ? "warning" :
+              proposal?.status === "pending" ? "info" : "default"
+            }
+            agentId={proposal ? "agent-governance-auditor" : undefined}
+            agentState={proposal && !proposal.auditedAt ? "thinking" : undefined}
           >
             <div className="px-3 py-2.5 space-y-2 text-xs">
-              <p className="text-[--text-secondary] leading-snug">
-                Phase 4.1 will wire a one-click &quot;Propose for canonical&quot; action that drops the artifact into
-                the Governance Auditor&apos;s queue. Today the path runs through the Decision Register.
-              </p>
-              <Link
-                href="/portal/decisions"
-                className="inline-flex items-center gap-1 text-[--accent-vivid] hover:underline"
-              >
-                Decision Register <ArrowRight className="h-3 w-3" />
-              </Link>
+              {!artifact.canonical && !proposal && (
+                <>
+                  <p className="text-[--text-secondary] leading-snug">
+                    Proposing routes this artifact to the Governance Auditor for an evidence + freshness audit. The
+                    audit runs immediately; final approval is still a human gate.
+                  </p>
+                  <Button
+                    size="sm"
+                    variant="primary"
+                    className="gap-1.5"
+                    disabled={!canEdit || isProposing}
+                    onClick={handleProposeCanonical}
+                  >
+                    <Sparkles className="h-3 w-3" />
+                    {isProposing ? "Auditing…" : "Propose for canonical"}
+                  </Button>
+                  {!canEdit && (
+                    <p className="text-[--text-muted] leading-snug">
+                      Your role ({membership.role}) cannot propose canonical promotions.
+                    </p>
+                  )}
+                </>
+              )}
+
+              {proposal && !artifact.canonical && (
+                <div className="space-y-2">
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <MetaField label="Status">
+                      <ContentTag variant={ProposalBadgeTone(proposal.status)} dot>
+                        {proposal.status}
+                      </ContentTag>
+                    </MetaField>
+                    <MetaField label="Proposed by">{proposal.proposedBy}</MetaField>
+                    {proposal.auditVerdict && (
+                      <MetaField label="Audit verdict">
+                        <ContentTag
+                          variant={proposal.auditVerdict === "pass" ? "success" : proposal.auditVerdict === "fail" ? "danger" : "warning"}
+                          dot
+                        >
+                          {proposal.auditVerdict}
+                        </ContentTag>
+                      </MetaField>
+                    )}
+                    {proposal.auditedAt && (
+                      <MetaField label="Audited">{proposal.auditedAt.toLocaleDateString()}</MetaField>
+                    )}
+                  </div>
+                  {proposal.auditNotes && (
+                    <p className="text-[--text-secondary] leading-snug">
+                      <strong className="text-[--text-primary] font-mono">Audit notes — </strong>
+                      {proposal.auditNotes}
+                    </p>
+                  )}
+                  {(proposal.status === "pending" || proposal.status === "needs-revision") && canApproveCanonical && (
+                    <div className="flex flex-wrap gap-1.5">
+                      <Button
+                        size="sm"
+                        variant="primary"
+                        className="gap-1.5"
+                        disabled={isDeciding}
+                        onClick={handleApproveCanonical}
+                      >
+                        <Check className="h-3 w-3" /> Approve canonical
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="gap-1.5"
+                        disabled={isDeciding}
+                        onClick={handleRejectCanonical}
+                      >
+                        <X className="h-3 w-3" /> Reject
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {auditOutcome && (
+                <p className="text-[--text-muted] leading-snug">
+                  Most recent audit: {auditOutcome.status === "audited" ? auditOutcome.verdict : "skipped"} via {auditOutcome.toolCalls.map((t) => t.tool).join(", ")}.
+                </p>
+              )}
+
+              {actionError && (
+                <p className="text-[--danger] leading-snug">{actionError}</p>
+              )}
             </div>
           </DashboardCard>
         </div>
+
+        <DashboardCard
+          id="artifact-body"
+          eyebrow="BODY"
+          title={`v${versions[0]?.version ?? "0.0.0"} — current draft`}
+          subtitle={canEdit ? "Edit in the Markdown editor." : `Read-only for ${membership.role}.`}
+          actions={
+            canEdit && (
+              <Link
+                href={`/portal/deliverables/${artifact.id}/edit`}
+                className="text-xs text-[--accent-vivid] hover:underline inline-flex items-center gap-1"
+              >
+                Open editor <ArrowRight className="h-3 w-3" />
+              </Link>
+            )
+          }
+        >
+          <ScrollArea className="h-full max-h-[420px]">
+            <div className="px-3 py-3">
+              <ArtifactMarkdown body={artifact.body ?? artifact.description} evidenceById={evidenceById} />
+            </div>
+          </ScrollArea>
+        </DashboardCard>
+
+        {diff && (
+          <DashboardCard
+            id="artifact-diff"
+            eyebrow="DIFF"
+            title={`v${diff.previousVersion} → v${diff.currentVersion}`}
+            subtitle="Line-level diff between the current version and the prior one. Heavy diff UI lands in Phase 4.2."
+            bodyClassName="overflow-hidden"
+          >
+            <ScrollArea className="h-full max-h-[320px]">
+              <pre className="px-3 py-2 text-xs font-mono leading-relaxed whitespace-pre-wrap break-words">
+                {diff.lines.map((line, idx) => (
+                  <div
+                    key={idx}
+                    className={
+                      line.kind === "add" ? "text-[--success]" :
+                      line.kind === "remove" ? "text-[--danger]" :
+                      "text-[--text-muted]"
+                    }
+                  >
+                    {line.kind === "add" ? "+ " : line.kind === "remove" ? "- " : "  "}
+                    {line.text}
+                  </div>
+                ))}
+              </pre>
+            </ScrollArea>
+          </DashboardCard>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <DashboardCard
@@ -299,4 +500,66 @@ function MetaField({ label, children }: { label: string; children: React.ReactNo
       <div className="text-xs text-[--text-primary]">{children}</div>
     </div>
   );
+}
+
+interface DiffLine {
+  kind: "context" | "add" | "remove";
+  text: string;
+}
+
+interface ArtifactDiff {
+  currentVersion: string;
+  previousVersion: string;
+  lines: DiffLine[];
+}
+
+function useArtifactDiff(versions: ArtifactDetailViewProps["artifact"]["versions"]): ArtifactDiff | null {
+  return React.useMemo(() => {
+    if (versions.length < 2) return null;
+    const current = versions[0];
+    const previous = versions[1];
+    if (!current.body || !previous.body) return null;
+    const a = previous.body.split(/\r?\n/);
+    const b = current.body.split(/\r?\n/);
+    const lines: DiffLine[] = naiveLineDiff(a, b);
+    return {
+      currentVersion: current.version,
+      previousVersion: previous.version,
+      lines,
+    };
+  }, [versions]);
+}
+
+// Very small LCS-based line diff. Sufficient for the artifact bodies we
+// expect (≤200 lines). For longer artifacts swap in `diff` package in
+// Phase 4.2.
+function naiveLineDiff(a: string[], b: string[]): DiffLine[] {
+  const m = a.length;
+  const n = b.length;
+  const lcs: number[][] = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
+  for (let i = m - 1; i >= 0; i -= 1) {
+    for (let j = n - 1; j >= 0; j -= 1) {
+      if (a[i] === b[j]) lcs[i][j] = lcs[i + 1][j + 1] + 1;
+      else lcs[i][j] = Math.max(lcs[i + 1][j], lcs[i][j + 1]);
+    }
+  }
+  const out: DiffLine[] = [];
+  let i = 0;
+  let j = 0;
+  while (i < m && j < n) {
+    if (a[i] === b[j]) {
+      out.push({ kind: "context", text: a[i] });
+      i += 1;
+      j += 1;
+    } else if (lcs[i + 1][j] >= lcs[i][j + 1]) {
+      out.push({ kind: "remove", text: a[i] });
+      i += 1;
+    } else {
+      out.push({ kind: "add", text: b[j] });
+      j += 1;
+    }
+  }
+  while (i < m) out.push({ kind: "remove", text: a[i++] });
+  while (j < n) out.push({ kind: "add", text: b[j++] });
+  return out;
 }

@@ -150,11 +150,13 @@ interface MockArtifactSeed {
   name: string;
   type: Artifact["type"];
   description: string;
+  /** Markdown body. May embed `[[ev-id]]` references that render as evidence chips. */
+  body?: string;
   ownerName: string;
   reviewState: Artifact["reviewState"];
   canonical: boolean;
   lastReviewedAgoDays: number;
-  versions: Array<{ version: string; summary: string; changedBy: string; agoDays: number }>;
+  versions: Array<{ version: string; summary: string; changedBy: string; agoDays: number; body?: string }>;
   linkedDecisionIds: string[];
   linkedEvidenceIds: string[];
 }
@@ -331,6 +333,7 @@ const artifactSeeds: MockArtifactSeed[] = [
 ];
 
 export const mockArtifacts: Artifact[] = artifactSeeds.map((seed) => {
+  const seedBody = seed.body ?? defaultBodyFor(seed);
   const versions: ArtifactVersion[] = seed.versions.map((v, idx) => ({
     id: `${seed.id}-v${idx + 1}`,
     artifactId: seed.id,
@@ -338,6 +341,9 @@ export const mockArtifacts: Artifact[] = artifactSeeds.map((seed) => {
     summary: v.summary,
     changedBy: v.changedBy,
     changedAt: days(v.agoDays),
+    // Newest version inherits the seed body; older versions get an
+    // abridged snapshot so the diff view has something to render.
+    body: idx === 0 ? seedBody : `${seedBody.split("\n").slice(0, 5).join("\n")}\n\n_(historical snapshot of v${v.version})_`,
   }));
   return {
     id: seed.id,
@@ -345,6 +351,7 @@ export const mockArtifacts: Artifact[] = artifactSeeds.map((seed) => {
     name: seed.name,
     type: seed.type,
     description: seed.description,
+    body: seedBody,
     ownerName: seed.ownerName,
     reviewState: seed.reviewState,
     currentVersionId: versions[0].id,
@@ -353,8 +360,14 @@ export const mockArtifacts: Artifact[] = artifactSeeds.map((seed) => {
     linkedEvidenceIds: seed.linkedEvidenceIds,
     lastReviewedAt: days(seed.lastReviewedAgoDays),
     canonical: seed.canonical,
+    comments: [],
   };
 });
+
+function defaultBodyFor(seed: MockArtifactSeed): string {
+  const cites = seed.linkedEvidenceIds.slice(0, 2).map((id) => `[[${id}]]`).join(" ");
+  return `# ${seed.name}\n\n${seed.description}\n\n## Why this matters\n\nThis artifact anchors the workspace's thinking on ${seed.type.replace("-", " ")}. Cited evidence: ${cites || "_(none yet)_"}.\n\n## Status\n\n- Owner: ${seed.ownerName}\n- Review: ${seed.reviewState}\n${seed.canonical ? "- Canonical: yes\n" : ""}\n## Open questions\n\nReplace this block with the open questions surfaced by the engagement team.`;
+}
 
 // ── Decisions ───────────────────────────────────────────────────────
 

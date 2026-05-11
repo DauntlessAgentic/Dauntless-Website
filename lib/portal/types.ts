@@ -116,6 +116,27 @@ export interface ArtifactVersion {
   summary: string;
   changedBy: string;
   changedAt: Date;
+  /**
+   * Markdown body captured at the time the version was minted. Older
+   * versions persist their body even after a newer version supersedes them
+   * — this is how the diff view works.
+   *
+   * Optional for backwards compatibility with seed data that pre-dates
+   * Phase 4.1. The mock-data backfill assigns each version a body.
+   */
+  body?: string;
+}
+
+export interface ArtifactComment {
+  id: string;
+  artifactId: string;
+  /** Tied to a specific version; comments on "the artifact" are tied to the current version. */
+  versionId: string;
+  author: string;
+  authorKind: "human" | "agent";
+  body: string;
+  postedAt: Date;
+  resolved: boolean;
 }
 
 export interface Artifact {
@@ -124,6 +145,12 @@ export interface Artifact {
   name: string;
   type: ArtifactType;
   description: string;
+  /**
+   * Authored Markdown body for the current version. The body field on
+   * ArtifactVersion is the per-version snapshot; this field is a fast
+   * lookup for the current state. Phase 4.1 introduces this.
+   */
+  body?: string;
   ownerName: string;
   reviewState: ReviewState;
   currentVersionId: string;
@@ -132,6 +159,22 @@ export interface Artifact {
   linkedEvidenceIds: string[];
   lastReviewedAt: Date;
   canonical: boolean;
+  /**
+   * State of the canonical-promotion workflow. Independent of the
+   * artifact's review state — a `pending-review` artifact can also
+   * have an in-flight canonical proposal.
+   */
+  canonicalProposal?: {
+    status: "pending" | "approved" | "rejected" | "needs-revision";
+    proposedBy: string;
+    proposedAt: Date;
+    auditVerdict?: "pass" | "needs-revision" | "fail";
+    auditNotes?: string;
+    auditedAt?: Date;
+    decidedBy?: string;
+    decidedAt?: Date;
+  };
+  comments?: ArtifactComment[];
 }
 
 // ── Decisions & recommendations ─────────────────────────────────────

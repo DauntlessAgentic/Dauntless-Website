@@ -50,12 +50,18 @@ export { InMemoryPortalRepository } from "./in-memory";
 export { computeActivationStatus } from "./activation-status";
 export type {
   AgentHandoffInput,
+  DecideCanonicalInput,
   PortalRepository,
   DecisionOutcomeInput,
   DraftArtifactVersionInput,
   KnowledgePromotionInput,
+  PostArtifactCommentInput,
   ProposeDecisionRepoInput,
+  ProposeForCanonicalInput,
   ProposeRevisionRepoInput,
+  RecordCanonicalAuditInput,
   RequestReviewRepoInput,
+  ResolveArtifactCommentInput,
   RepositoryActivationStatus,
+  SaveArtifactBodyInput,
 } from "./types";

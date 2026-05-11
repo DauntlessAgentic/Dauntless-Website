@@ -50,13 +50,19 @@ import type {
 
 import type {
   AgentHandoffInput,
+  DecideCanonicalInput,
   DecisionOutcomeInput,
   DraftArtifactVersionInput,
   KnowledgePromotionInput,
   PortalRepository,
+  PostArtifactCommentInput,
   ProposeDecisionRepoInput,
+  ProposeForCanonicalInput,
   ProposeRevisionRepoInput,
+  RecordCanonicalAuditInput,
   RequestReviewRepoInput,
+  ResolveArtifactCommentInput,
+  SaveArtifactBodyInput,
 } from "./types";
 
 /**
@@ -82,6 +88,15 @@ function cloneSnapshot(): PortalSnapshot {
       versions: a.versions.map((v) => ({ ...v, changedAt: new Date(v.changedAt) })),
       linkedDecisionIds: [...a.linkedDecisionIds],
       linkedEvidenceIds: [...a.linkedEvidenceIds],
+      comments: a.comments ? a.comments.map((c) => ({ ...c, postedAt: new Date(c.postedAt) })) : [],
+      canonicalProposal: a.canonicalProposal
+        ? {
+            ...a.canonicalProposal,
+            proposedAt: new Date(a.canonicalProposal.proposedAt),
+            auditedAt: a.canonicalProposal.auditedAt ? new Date(a.canonicalProposal.auditedAt) : undefined,
+            decidedAt: a.canonicalProposal.decidedAt ? new Date(a.canonicalProposal.decidedAt) : undefined,
+          }
+        : undefined,
     })),
     decisions: mockDecisions.map((d) => ({
       ...d,
@@ -495,6 +510,200 @@ export class InMemoryPortalRepository implements PortalRepository {
       source: input.fromAgentId,
       refId: input.refId,
       capturedAt: new Date(),
+    });
+  }
+
+  async saveArtifactBody(input: SaveArtifactBodyInput): Promise<void> {
+    this.assertWorkspace(input.workspaceId);
+    const artifact = this.state.artifacts.find((a) => a.id === input.artifactId);
+    if (!artifact) throw new Error(`Artifact not found: ${input.artifactId}`);
+    const previousReviewState = artifact.reviewState;
+    artifact.body = input.body;
+    const currentVersion = artifact.versions.find((v) => v.id === artifact.currentVersionId);
+    if (currentVersion) currentVersion.body = input.body;
+    artifact.lastReviewedAt = new Date();
+    if (input.reopenForReview && previousReviewState === "approved") {
+      artifact.reviewState = "in-review";
+    }
+    await this.appendAuditEntry({
+      workspaceId: input.workspaceId,
+      action: "agent-run",
+      actor: input.actor,
+      actorKind: input.actorKind,
+      refId: artifact.id,
+      detail: `${input.actor} edited ${artifact.name}.`,
+      riskTier: "low",
+    });
+    if (previousReviewState !== artifact.reviewState) {
+      this.state.signals.unshift({
+        id: generateId("sig"),
+        workspaceId: input.workspaceId,
+        engagementId: artifact.engagementId,
+        kind: "artifact-updated",
+        severity: "info",
+        title: `${artifact.name} reopened for review`,
+        detail: "An edit on an approved artifact dropped it back into in-review.",
+        source: input.actor,
+        refId: artifact.id,
+        capturedAt: new Date(),
+      });
+    }
+  }
+
+  async proposeArtifactForCanonical(input: ProposeForCanonicalInput): Promise<void> {
+    this.assertWorkspace(input.workspaceId);
+    const artifact = this.state.artifacts.find((a) => a.id === input.artifactId);
+    if (!artifact) throw new Error(`Artifact not found: ${input.artifactId}`);
+    if (artifact.canonical) throw new Error(`Artifact is already canonical.`);
+    artifact.canonicalProposal = {
+      status: "pending",
+      proposedBy: input.proposedBy,
+      proposedAt: new Date(),
+    };
+    await this.appendAuditEntry({
+      workspaceId: input.workspaceId,
+      action: "agent-run",
+      actor: input.proposedBy,
+      actorKind: input.proposedByKind,
+      refId: artifact.id,
+      detail: `${input.proposedBy} proposed ${artifact.name} for canonical.`,
+      riskTier: "medium",
+    });
+    this.state.signals.unshift({
+      id: generateId("sig"),
+      workspaceId: input.workspaceId,
+      engagementId: artifact.engagementId,
+      kind: "knowledge-promoted",
+      severity: "notable",
+      title: `Canonical proposal: ${artifact.name}`,
+      detail: "Routed to the Governance Auditor for evidence + freshness review.",
+      source: input.proposedBy,
+      refId: artifact.id,
+      capturedAt: new Date(),
+    });
+  }
+
+  async recordCanonicalAuditVerdict(input: RecordCanonicalAuditInput): Promise<void> {
+    this.assertWorkspace(input.workspaceId);
+    const artifact = this.state.artifacts.find((a) => a.id === input.artifactId);
+    if (!artifact || !artifact.canonicalProposal) {
+      throw new Error(`Canonical proposal not found for ${input.artifactId}`);
+    }
+    artifact.canonicalProposal.auditVerdict = input.verdict;
+    artifact.canonicalProposal.auditNotes = input.notes;
+    artifact.canonicalProposal.auditedAt = new Date();
+    if (input.verdict === "needs-revision") {
+      artifact.canonicalProposal.status = "needs-revision";
+    } else if (input.verdict === "fail") {
+      artifact.canonicalProposal.status = "rejected";
+    }
+    await this.appendAuditEntry({
+      workspaceId: input.workspaceId,
+      action: "agent-run",
+      actor: input.auditedBy,
+      actorKind: "agent",
+      refId: artifact.id,
+      detail: `${input.auditedBy} verdict on canonical proposal for ${artifact.name}: ${input.verdict}. ${input.notes}`,
+      riskTier: input.verdict === "fail" ? "high" : "medium",
+    });
+  }
+
+  async approveCanonicalProposal(input: DecideCanonicalInput): Promise<void> {
+    this.assertWorkspace(input.workspaceId);
+    const artifact = this.state.artifacts.find((a) => a.id === input.artifactId);
+    if (!artifact || !artifact.canonicalProposal) {
+      throw new Error(`Canonical proposal not found for ${input.artifactId}`);
+    }
+    artifact.canonicalProposal.status = "approved";
+    artifact.canonicalProposal.decidedBy = input.actor;
+    artifact.canonicalProposal.decidedAt = new Date();
+    artifact.canonical = true;
+    await this.appendAuditEntry({
+      workspaceId: input.workspaceId,
+      action: "artifact-published",
+      actor: input.actor,
+      actorKind: input.actorKind,
+      refId: artifact.id,
+      detail: `${input.actor} approved canonical promotion of ${artifact.name}.`,
+      riskTier: "low",
+    });
+    this.state.signals.unshift({
+      id: generateId("sig"),
+      workspaceId: input.workspaceId,
+      engagementId: artifact.engagementId,
+      kind: "knowledge-promoted",
+      severity: "notable",
+      title: `Canonical approved: ${artifact.name}`,
+      detail: "Artifact promoted to the Bookshelf — reusable across engagements.",
+      source: input.actor,
+      refId: artifact.id,
+      capturedAt: new Date(),
+    });
+  }
+
+  async rejectCanonicalProposal(input: DecideCanonicalInput & { reason?: string }): Promise<void> {
+    this.assertWorkspace(input.workspaceId);
+    const artifact = this.state.artifacts.find((a) => a.id === input.artifactId);
+    if (!artifact || !artifact.canonicalProposal) {
+      throw new Error(`Canonical proposal not found for ${input.artifactId}`);
+    }
+    artifact.canonicalProposal.status = "rejected";
+    artifact.canonicalProposal.decidedBy = input.actor;
+    artifact.canonicalProposal.decidedAt = new Date();
+    await this.appendAuditEntry({
+      workspaceId: input.workspaceId,
+      action: "decision-rejected",
+      actor: input.actor,
+      actorKind: input.actorKind,
+      refId: artifact.id,
+      detail: `${input.actor} rejected canonical promotion of ${artifact.name}. ${input.reason ?? ""}`.trim(),
+      riskTier: "low",
+    });
+  }
+
+  async postArtifactComment(input: PostArtifactCommentInput) {
+    this.assertWorkspace(input.workspaceId);
+    const artifact = this.state.artifacts.find((a) => a.id === input.artifactId);
+    if (!artifact) throw new Error(`Artifact not found: ${input.artifactId}`);
+    const comment = {
+      id: generateId("cmt"),
+      artifactId: artifact.id,
+      versionId: input.versionId,
+      author: input.author,
+      authorKind: input.authorKind,
+      body: input.body,
+      postedAt: new Date(),
+      resolved: false,
+    };
+    artifact.comments = [...(artifact.comments ?? []), comment];
+    await this.appendAuditEntry({
+      workspaceId: input.workspaceId,
+      action: "agent-run",
+      actor: input.author,
+      actorKind: input.authorKind,
+      refId: artifact.id,
+      detail: `${input.author} commented on ${artifact.name} v${input.versionId.slice(-3)}.`,
+      riskTier: "low",
+    });
+    return structuredClone(comment);
+  }
+
+  async resolveArtifactComment(input: ResolveArtifactCommentInput): Promise<void> {
+    this.assertWorkspace(input.workspaceId);
+    const artifact = this.state.artifacts.find((a) => a.id === input.artifactId);
+    const comment = artifact?.comments?.find((c) => c.id === input.commentId);
+    if (!artifact || !comment) {
+      throw new Error(`Comment not found: ${input.commentId}`);
+    }
+    comment.resolved = true;
+    await this.appendAuditEntry({
+      workspaceId: input.workspaceId,
+      action: "agent-run",
+      actor: input.actor,
+      actorKind: "human",
+      refId: artifact.id,
+      detail: `${input.actor} resolved a comment on ${artifact.name}.`,
+      riskTier: "low",
     });
   }
 
