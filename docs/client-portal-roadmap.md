@@ -14,7 +14,11 @@ land in any phase and ground quickly.
 
 ## Where we are
 
-**Phase 3.0 — Engagement Analyst end-to-end (shipped, PR TBD)**
+**Phase 4.0 — Knowledge mem-palace + workspace search (shipped, PR TBD)**
+
+Branch: `claude/portal-phase-4-mem-palace`. See the Phase 4 section below.
+
+**Phase 3.0 — Engagement Analyst end-to-end (shipped, PR #3)**
 
 Branch: `claude/portal-phase-3-engagement-analyst`. See the Phase 3
 section below.
@@ -223,9 +227,50 @@ than to scale a fleet that hasn't proven the loop.
 
 ## Phase 4 — Artifact engine and the canonical promotion loop
 
+**Status**: **Phase 4.0 shipped** on `claude/portal-phase-4-mem-palace`.
+The knowledge subsystem (port of CAIA mem-palace), workspace-wide search,
+artifact detail route, and confidence decay are in. Phase 4.1 (rich
+artifact editor + canonical promotion workflow) is the remaining work.
 **Theme**: make artifacts first-class. Make compounding literal.
-**Estimate**: 6–8 weeks
+**Estimate**: 6–8 weeks (Phase 4.1)
 **Unlocks**: the Bookshelf actually compounds; cross-engagement reuse becomes possible.
+
+### Phase 4.0 — what shipped
+
+- `lib/portal/knowledge/` — port of CAIA's mem-palace pattern adapted to
+  the portal domain.
+  - `types.ts` — `KnowledgeAdapter` interface, `KnowledgeIndexedRow`,
+    `SearchQuery` / `SearchResult` shapes; `DecayInput` / `DecayOutput`;
+    `RevalidationCandidate`.
+  - `in-memory-adapter.ts` — TF-IDF + token-overlap scorer with provenance
+    boosts (canonical, fresh). Drop-in replacement for the Phase 4.1
+    embedding-backed adapter.
+  - `index.ts` — `searchWorkspace()`, `decayConfidence()`,
+    `computeRevalidationQueue()`, `getKnowledgeAdapter()`, lazy reindex.
+- `/portal/search` — new surface. One query across artifacts, decisions,
+  knowledge, signals, conversations. Entity / shelf / freshness filters in
+  the URL. TopBar search box now links here.
+- `/portal/deliverables/[id]` — artifact detail route with: meta panel,
+  immutable version timeline, linked decisions, evidence vault, related
+  knowledge with live-decayed confidence values.
+- Knowledge page: "Decayed confidence" card now drives off the
+  revalidation queue (ranked by urgency, surface action recommendations:
+  revalidate / supersede / archive).
+- `tests/portal/knowledge.test.mjs` — 5-test smoke suite covering search,
+  filters, decay monotonicity, revalidation queue ordering, and
+  incremental upsert.
+
+### Phase 4.1 — what's left
+
+- Rich artifact editor (Markdown + structured fields per `ArtifactType`).
+- Inline citations: every claim in an artifact links to an `Evidence` row.
+- Artifact diff view between any two versions.
+- "Propose for canonical" workflow routed through the Governance Auditor.
+- Embedding-backed knowledge adapter (Postgres + pgvector). Drop-in
+  replacement for `InMemoryKnowledgeAdapter`.
+- Confidence-decay cron job (today the math runs at request time; Phase
+  4.1 persists the decayed values + emits "needs revalidation" signals).
+- Comment threads tied to specific artifact versions.
 
 ### Why now
 

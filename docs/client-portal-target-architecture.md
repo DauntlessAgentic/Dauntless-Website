@@ -271,8 +271,29 @@ marketing site:
 - **Filing Cabinet** — `M4`. Archived evidence and superseded versions. Retrievable, not noisy.
 
 Each `KnowledgeItem` carries `shelf`, `memoryTier`, `confidence`, `freshness`,
-`canonical`. Confidence decay isn't simulated dynamically in v1 — we hardcode
-freshness states. The shape is ready for a background job to update them.
+`canonical`.
+
+### 7.1 Phase 4.0 — mem-palace, search, decay
+
+The retrieval layer lives in `lib/portal/knowledge/` (ported from CAIA's
+`lib/mempalace/`, re-skinned to the portal's domain):
+
+- `KnowledgeAdapter` interface — `reindex` / `upsert` / `search` / `size`.
+  Implementations: `InMemoryKnowledgeAdapter` (Phase 4.0, TF-IDF + token
+  overlap). The Phase 4.1 `PgvectorKnowledgeAdapter` is a drop-in
+  replacement.
+- `searchWorkspace()` — ranks across artifacts, decisions, knowledge,
+  signals, conversations. Provenance + freshness boosts inline. Surfaced
+  on `/portal/search`.
+- `decayConfidence()` — pure function; ages a row's confidence using a
+  half-life model parameterized by memory tier. Called at request time
+  on `/portal/knowledge` and `/portal/deliverables/[id]`.
+- `computeRevalidationQueue()` — ranks decayed-knowledge candidates by
+  urgency, with action recommendations (revalidate / supersede / archive).
+
+Indexing is lazy and per-process for Phase 4.0. Phase 4.1 wires event-
+driven incremental upserts (every `proposeDecision` / `promoteKnowledge`
+mutation invalidates the affected row).
 
 ---
 

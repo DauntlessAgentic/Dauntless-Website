@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 import { Bell, Search, ChevronDown } from "lucide-react";
 import { IconButton } from "@/components/ui/icon-button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -38,11 +39,14 @@ export function TopBar({ title, subtitle, actions }: TopBarProps) {
       {/* Right controls */}
       <div className="flex items-center gap-1 ml-auto">
         {/* Search */}
-        <button className="flex items-center gap-2 h-7 px-2 rounded-[--radius-md] bg-[--elevated] border border-[--border-subtle] text-[--text-muted] hover:text-[--text-secondary] hover:border-[--border-default] transition-colors text-xs">
+        <Link
+          href="/portal/search"
+          className="flex items-center gap-2 h-7 px-2 rounded-[--radius-md] bg-[--elevated] border border-[--border-subtle] text-[--text-muted] hover:text-[--text-secondary] hover:border-[--border-default] transition-colors text-xs"
+        >
           <Search className="h-3.5 w-3.5" />
           <span className="hidden md:block">Search</span>
           <kbd className="hidden md:block text-xs bg-[--elevated-2] px-1 rounded border border-[--border-default]">⌘K</kbd>
-        </button>
+        </Link>
 
         <ThemeToggle />
 
