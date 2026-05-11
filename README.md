@@ -78,6 +78,7 @@ architecture, outcomes telemetry, and governance.
 |-----|---------|
 | `docs/client-portal-target-architecture.md` | Binding architecture — domain model, surfaces, components, data layer, trust mapping |
 | `docs/client-portal-roadmap.md` | 15-phase product roadmap from real persistence through open agent market |
+| `docs/caia-mapping.md` | CAIA → portal subsystem inventory; what to port, what to skip |
 
 Routes:
 
@@ -93,6 +94,29 @@ Routes:
 Domain types and mock data live in `lib/portal/`. Portal-specific reusable patterns
 live in `components/patterns/` (`portal-status-card`, `decision-list`, `artifact-list`,
 `agent-fleet-panel`, `evidence-link`, `knowledge-shelf`).
+
+### Data layer (Phase 2)
+
+Every portal page is a server component that calls `loadPortalContext()`
+(`lib/portal/server.ts`) to fetch a typed `{ snapshot, membership }` tuple
+through the `PortalRepository` interface (`lib/portal/repositories/`).
+
+- **Default**: `InMemoryPortalRepository` — wraps `mock-data.ts`; mutations
+  persist for the lifetime of the dev server.
+- **Hosted**: `SupabasePortalRepository` — activated by `SUPABASE_URL` or
+  `PORTAL_DATABASE_URL`. Concrete adapter lands in Phase 2.1.
+
+Mutations route through server actions in `lib/portal/actions.ts`. Every
+write goes through the membership-gate (`lib/auth/membership-gate.ts`), appends
+an audit-log entry, and emits a `Signal` so the Command Center's "What
+changed?" feed updates on the next render.
+
+Identity is resolved by `lib/auth/session.ts#getCurrentMembership()`. Without
+OAuth configured, the portal runs in `dev-bypass` mode and a TopBar role
+switcher writes a cookie that drives the gate. See `.env.local.example` for
+the full set of knobs.
+
+Repository contract smoke tests: `npm test` (runs under `tsx --test`).
 
 ---
 
