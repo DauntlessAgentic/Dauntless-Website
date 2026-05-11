@@ -12,6 +12,10 @@ that lives under `app/(app)/portal/`. It is intentionally tight enough to be bui
 against, and loose enough to evolve as we wire real data, agents, and governance
 in.
 
+> **Companion document**: `docs/client-portal-roadmap.md` is the forward-looking
+> roadmap — 15 phases from "real persistence" through "open agent market".
+> This doc says **what the portal is**; the roadmap says **what comes next**.
+
 ---
 
 ## 1. Product Intent
@@ -306,6 +310,9 @@ Inherited verbatim from `AGENTS.md`:
 - Cross-workspace org switcher.
 
 ### Next backlog (in priority order)
+
+The short list below is the immediate next-up; the full long-arc plan lives in
+`docs/client-portal-roadmap.md` (15 phases, mapped onto the four marketing tiers).
 
 1. Wire `Membership.role` into the portal pages and add a real role switcher in the TopBar.
 2. Move mock data into per-entity `lib/portal/repositories/*.ts` and behind a feature flag for real data.

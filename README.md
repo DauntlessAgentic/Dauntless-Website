@@ -56,6 +56,7 @@ Open [http://localhost:3000/dashboard](http://localhost:3000/dashboard) → Comm
 | Route | Description |
 |-------|-------------|
 | `/` | Marketing homepage |
+| `/portal` | **Client Intelligence Portal** — the living cockpit for client engagements (see below) |
 | `/dashboard` | Command Center — flagship draggable card workspace |
 | `/workspace` | Internal Tool — split queue / inspector layout |
 | `/agents` | Multi-Agent Workspace — coordinated agent cards |
@@ -63,6 +64,35 @@ Open [http://localhost:3000/dashboard](http://localhost:3000/dashboard) → Comm
 | `/settings` | Settings — dense, elegant preferences surface |
 | `/intake` | Forms / Intake — multi-step workflow |
 | `/showcase` | Component Style Guide — all tokens, primitives, patterns |
+
+---
+
+## Client Intelligence Portal
+
+The portal is the post-marketing product surface that lives under `app/(app)/portal/`.
+It turns the "engagements compound" marketing promise into a working cockpit: living
+deliverables, decision register, evidence vault, contextual agent fleet, knowledge
+architecture, outcomes telemetry, and governance.
+
+| Doc | Purpose |
+|-----|---------|
+| `docs/client-portal-target-architecture.md` | Binding architecture — domain model, surfaces, components, data layer, trust mapping |
+| `docs/client-portal-roadmap.md` | 15-phase product roadmap from real persistence through open agent market |
+
+Routes:
+
+- `/portal` — Command Center with the five-section Decision Surface
+- `/portal/engagements` — success criteria, risks, milestones, in-flight decisions
+- `/portal/deliverables` — artifact library, version history, canonical bookshelf
+- `/portal/decisions` — Decision Register with evidence vault
+- `/portal/agents` — agent fleet by archetype (Strategist · Operator · Auditor · Chief of Staff)
+- `/portal/knowledge` — Desk · Bookshelf · Filing Cabinet with M0–M4 tiers
+- `/portal/outcomes` — KPI grid, compounding chart, executive narrative
+- `/portal/governance` — audit log, risk tiers, access roster, retention controls
+
+Domain types and mock data live in `lib/portal/`. Portal-specific reusable patterns
+live in `components/patterns/` (`portal-status-card`, `decision-list`, `artifact-list`,
+`agent-fleet-panel`, `evidence-link`, `knowledge-shelf`).
 
 ---
 
