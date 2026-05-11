@@ -64,6 +64,7 @@ import type {
   ResolveArtifactCommentInput,
   SaveArtifactBodyInput,
 } from "./types";
+import { emitPortalEvent } from "@/lib/portal/telemetry/event-bus";
 
 /**
  * Mutable working snapshot. We seed from the deterministic fixtures and
@@ -295,6 +296,21 @@ export class InMemoryPortalRepository implements PortalRepository {
       capturedAt: new Date(),
     });
 
+    const cycleMs = target.decidedAt && target.dueAt
+      ? target.decidedAt.getTime() - (target.dueAt.getTime() - 7 * 24 * 60 * 60 * 1000)
+      : undefined;
+    emitPortalEvent({
+      kind: "decision-outcome-recorded",
+      workspaceId: input.workspaceId,
+      engagementId: target.engagementId,
+      actor: input.actor,
+      actorKind: input.actorKind,
+      decisionId: target.id,
+      outcome: input.outcome,
+      decisionCycleMs: cycleMs,
+      riskTier: target.riskTier,
+    });
+
     return structuredClone(target);
   }
 
@@ -343,6 +359,17 @@ export class InMemoryPortalRepository implements PortalRepository {
       capturedAt: new Date(),
     });
 
+    emitPortalEvent({
+      kind: "decision-proposed",
+      workspaceId: input.workspaceId,
+      engagementId: decision.engagementId,
+      actor: input.actorDisplayName,
+      actorKind: input.actorKind,
+      decisionId: decision.id,
+      riskTier: decision.riskTier,
+      proposerId: input.proposedBy,
+    });
+
     return structuredClone(decision);
   }
 
@@ -379,6 +406,14 @@ export class InMemoryPortalRepository implements PortalRepository {
       source: input.actor,
       refId: target.id,
       capturedAt: new Date(),
+    });
+
+    emitPortalEvent({
+      kind: "knowledge-promoted",
+      workspaceId: input.workspaceId,
+      actor: input.actor,
+      actorKind: input.actorKind,
+      knowledgeId: target.id,
     });
 
     return structuredClone(target);
@@ -429,6 +464,18 @@ export class InMemoryPortalRepository implements PortalRepository {
       source: input.actor,
       refId: artifact.id,
       capturedAt: new Date(),
+    });
+
+    emitPortalEvent({
+      kind: "artifact-version-minted",
+      workspaceId: input.workspaceId,
+      engagementId: artifact.engagementId,
+      actor: input.actor,
+      actorKind: input.actorKind,
+      artifactId: artifact.id,
+      versionId: newVersion.id,
+      version: newVersion.version,
+      versionBump: input.versionBump,
     });
 
     return structuredClone(newVersion);
@@ -511,6 +558,14 @@ export class InMemoryPortalRepository implements PortalRepository {
       refId: input.refId,
       capturedAt: new Date(),
     });
+    emitPortalEvent({
+      kind: "agent-handoff",
+      workspaceId: input.workspaceId,
+      actor: input.fromAgentId,
+      actorKind: "agent",
+      fromAgentId: input.fromAgentId,
+      toArchetype: input.toArchetype,
+    });
   }
 
   async saveArtifactBody(input: SaveArtifactBodyInput): Promise<void> {
@@ -548,6 +603,15 @@ export class InMemoryPortalRepository implements PortalRepository {
         capturedAt: new Date(),
       });
     }
+    emitPortalEvent({
+      kind: "artifact-saved",
+      workspaceId: input.workspaceId,
+      engagementId: artifact.engagementId,
+      actor: input.actor,
+      actorKind: input.actorKind,
+      artifactId: artifact.id,
+      reopenedForReview: previousReviewState !== artifact.reviewState,
+    });
   }
 
   async proposeArtifactForCanonical(input: ProposeForCanonicalInput): Promise<void> {
@@ -581,6 +645,14 @@ export class InMemoryPortalRepository implements PortalRepository {
       refId: artifact.id,
       capturedAt: new Date(),
     });
+    emitPortalEvent({
+      kind: "canonical-proposal-submitted",
+      workspaceId: input.workspaceId,
+      engagementId: artifact.engagementId,
+      actor: input.proposedBy,
+      actorKind: input.proposedByKind,
+      artifactId: artifact.id,
+    });
   }
 
   async recordCanonicalAuditVerdict(input: RecordCanonicalAuditInput): Promise<void> {
@@ -605,6 +677,15 @@ export class InMemoryPortalRepository implements PortalRepository {
       refId: artifact.id,
       detail: `${input.auditedBy} verdict on canonical proposal for ${artifact.name}: ${input.verdict}. ${input.notes}`,
       riskTier: input.verdict === "fail" ? "high" : "medium",
+    });
+    emitPortalEvent({
+      kind: "canonical-audit-verdict",
+      workspaceId: input.workspaceId,
+      engagementId: artifact.engagementId,
+      actor: input.auditedBy,
+      actorKind: "agent",
+      artifactId: artifact.id,
+      verdict: input.verdict,
     });
   }
 
@@ -638,6 +719,14 @@ export class InMemoryPortalRepository implements PortalRepository {
       source: input.actor,
       refId: artifact.id,
       capturedAt: new Date(),
+    });
+    emitPortalEvent({
+      kind: "artifact-promoted-canonical",
+      workspaceId: input.workspaceId,
+      engagementId: artifact.engagementId,
+      actor: input.actor,
+      actorKind: input.actorKind,
+      artifactId: artifact.id,
     });
   }
 
@@ -684,6 +773,15 @@ export class InMemoryPortalRepository implements PortalRepository {
       refId: artifact.id,
       detail: `${input.author} commented on ${artifact.name} v${input.versionId.slice(-3)}.`,
       riskTier: "low",
+    });
+    emitPortalEvent({
+      kind: "comment-posted",
+      workspaceId: input.workspaceId,
+      engagementId: artifact.engagementId,
+      actor: input.author,
+      actorKind: input.authorKind,
+      artifactId: artifact.id,
+      resolved: false,
     });
     return structuredClone(comment);
   }

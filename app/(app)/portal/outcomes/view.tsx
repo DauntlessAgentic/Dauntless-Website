@@ -74,9 +74,14 @@ export function OutcomesView({ snapshot, membership: _membership }: OutcomesView
         badge="Q2 2026"
         badgeVariant="success"
         actions={
-          <Link href="/portal" className="text-xs text-[--accent-vivid] hover:underline inline-flex items-center gap-1">
-            Command Center <ArrowRight className="h-3 w-3" />
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link href="/portal/outcomes/impact-report" className="text-xs text-[--accent-vivid] hover:underline inline-flex items-center gap-1">
+              Quarterly Impact Report <ArrowRight className="h-3 w-3" />
+            </Link>
+            <Link href="/portal" className="text-xs text-[--accent-vivid] hover:underline inline-flex items-center gap-1">
+              Command Center <ArrowRight className="h-3 w-3" />
+            </Link>
+          </div>
         }
       />
 

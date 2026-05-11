@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "tsx --test tests/portal/repository.test.mjs tests/portal/agent-engagement-analyst.test.mjs tests/portal/knowledge.test.mjs tests/portal/agent-fleet.test.mjs tests/portal/artifact-editor.test.mjs"
+    "test": "tsx --test tests/portal/repository.test.mjs tests/portal/agent-engagement-analyst.test.mjs tests/portal/knowledge.test.mjs tests/portal/agent-fleet.test.mjs tests/portal/artifact-editor.test.mjs tests/portal/telemetry.test.mjs"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.11",
