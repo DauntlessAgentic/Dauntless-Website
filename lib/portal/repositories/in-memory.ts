@@ -49,10 +49,14 @@ import type {
 } from "@/lib/portal/types";
 
 import type {
+  AgentHandoffInput,
   DecisionOutcomeInput,
+  DraftArtifactVersionInput,
   KnowledgePromotionInput,
   PortalRepository,
   ProposeDecisionRepoInput,
+  ProposeRevisionRepoInput,
+  RequestReviewRepoInput,
 } from "./types";
 
 /**
@@ -365,6 +369,135 @@ export class InMemoryPortalRepository implements PortalRepository {
     return structuredClone(target);
   }
 
+  async draftArtifactVersion(input: DraftArtifactVersionInput) {
+    this.assertWorkspace(input.workspaceId);
+    const artifact = this.state.artifacts.find((a) => a.id === input.artifactId);
+    if (!artifact) {
+      throw new Error(`Artifact not found: ${input.artifactId}`);
+    }
+    const current = artifact.versions.find((v) => v.id === artifact.currentVersionId)
+      ?? artifact.versions[artifact.versions.length - 1];
+    const nextVersion = bumpVersion(current?.version ?? "0.1.0", input.versionBump);
+    const newVersion = {
+      id: generateId("ver"),
+      artifactId: artifact.id,
+      version: nextVersion,
+      summary: input.summary,
+      changedBy: input.actor,
+      changedAt: new Date(),
+    };
+    artifact.versions = [...artifact.versions, newVersion];
+    artifact.currentVersionId = newVersion.id;
+    artifact.reviewState = "in-review";
+    artifact.lastReviewedAt = new Date();
+    // Stash the new body on the artifact description so the UI can show it
+    // until Phase 4.1 lands a dedicated `body` field on Artifact.
+    artifact.description = `${input.body}\n\n— Drafted by ${input.actor} as v${nextVersion}`;
+
+    await this.appendAuditEntry({
+      workspaceId: input.workspaceId,
+      action: "agent-run",
+      actor: input.actor,
+      actorKind: input.actorKind,
+      refId: artifact.id,
+      detail: `${input.actor} drafted ${artifact.name} → v${nextVersion}. ${input.summary}`,
+      riskTier: "low",
+    });
+    this.state.signals.unshift({
+      id: generateId("sig"),
+      workspaceId: input.workspaceId,
+      engagementId: artifact.engagementId,
+      kind: "artifact-updated",
+      severity: "notable",
+      title: `Draft: ${artifact.name} v${nextVersion}`,
+      detail: input.summary,
+      source: input.actor,
+      refId: artifact.id,
+      capturedAt: new Date(),
+    });
+
+    return structuredClone(newVersion);
+  }
+
+  async requestArtifactReview(input: RequestReviewRepoInput): Promise<void> {
+    this.assertWorkspace(input.workspaceId);
+    const artifact = this.state.artifacts.find((a) => a.id === input.artifactId);
+    if (!artifact) throw new Error(`Artifact not found: ${input.artifactId}`);
+    await this.appendAuditEntry({
+      workspaceId: input.workspaceId,
+      action: "agent-run",
+      actor: input.actor,
+      actorKind: input.actorKind,
+      refId: artifact.id,
+      detail: `${input.actor} requested review on ${artifact.name}. ${input.notes ?? ""}`.trim(),
+      riskTier: "low",
+    });
+    this.state.signals.unshift({
+      id: generateId("sig"),
+      workspaceId: input.workspaceId,
+      engagementId: artifact.engagementId,
+      kind: "agent-action",
+      severity: "notable",
+      title: `Review requested: ${artifact.name}`,
+      detail: input.notes ?? "Operator handing off to an Auditor.",
+      source: input.actor,
+      refId: artifact.id,
+      capturedAt: new Date(),
+    });
+  }
+
+  async proposeRevision(input: ProposeRevisionRepoInput): Promise<void> {
+    this.assertWorkspace(input.workspaceId);
+    const riskTier: "low" | "medium" | "high" = input.severity;
+    const titlePrefix = input.targetKind === "artifact" ? "Artifact" : "Decision";
+    const title = `${titlePrefix} revision requested`;
+
+    await this.appendAuditEntry({
+      workspaceId: input.workspaceId,
+      action: "agent-run",
+      actor: input.actor,
+      actorKind: input.actorKind,
+      refId: input.targetId,
+      detail: `${input.actor} requested ${input.severity} revision on ${input.targetKind} ${input.targetId}: ${input.requestedChange}`,
+      riskTier,
+    });
+    this.state.signals.unshift({
+      id: generateId("sig"),
+      workspaceId: input.workspaceId,
+      kind: "risk-raised",
+      severity: input.severity === "high" ? "urgent" : input.severity === "medium" ? "important" : "notable",
+      title,
+      detail: input.requestedChange,
+      source: input.actor,
+      refId: input.targetId,
+      capturedAt: new Date(),
+    });
+  }
+
+  async recordAgentHandoff(input: AgentHandoffInput): Promise<void> {
+    this.assertWorkspace(input.workspaceId);
+    await this.appendAuditEntry({
+      workspaceId: input.workspaceId,
+      action: "agent-run",
+      actor: input.fromAgentId,
+      actorKind: "agent",
+      refId: input.refId,
+      detail: `Handoff from ${input.fromAgentId} → ${input.toArchetype}: ${input.reason}`,
+      riskTier: "low",
+    });
+    this.state.signals.unshift({
+      id: generateId("sig"),
+      workspaceId: input.workspaceId,
+      kind: "agent-action",
+      severity: "info",
+      title: `Handoff to ${input.toArchetype}`,
+      detail: input.reason,
+      source: input.fromAgentId,
+      refId: input.refId,
+      capturedAt: new Date(),
+    });
+  }
+
   // ── helpers ──────────────────────────────────────────────────
 
   private assertWorkspace(workspaceId: string) {
@@ -378,6 +511,20 @@ export class InMemoryPortalRepository implements PortalRepository {
   private scope<T>(workspaceId: string, rows: T[], selector: (row: T) => string): T[] {
     this.assertWorkspace(workspaceId);
     return structuredClone(rows.filter((row) => selector(row) === workspaceId));
+  }
+}
+
+function bumpVersion(current: string, bump: "major" | "minor" | "patch"): string {
+  const parts = current.split(".").map((p) => Number.parseInt(p, 10));
+  while (parts.length < 3) parts.push(0);
+  let [major, minor, patch] = parts;
+  if (Number.isNaN(major)) major = 0;
+  if (Number.isNaN(minor)) minor = 1;
+  if (Number.isNaN(patch)) patch = 0;
+  switch (bump) {
+    case "major": return `${major + 1}.0.0`;
+    case "minor": return `${major}.${minor + 1}.0`;
+    case "patch": return `${major}.${minor}.${patch + 1}`;
   }
 }
 

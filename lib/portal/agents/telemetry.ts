@@ -95,6 +95,42 @@ export function getTelemetrySummary(): {
   };
 }
 
+export interface PerAgentTelemetry {
+  agentId: string;
+  runs: number;
+  decisionsProposed: number;
+  totalCostUsd: number;
+  averageCacheHitRate: number;
+  lastRunAt?: Date;
+  hasError: boolean;
+}
+
+export function getPerAgentTelemetry(): PerAgentTelemetry[] {
+  const byAgent = new Map<string, PerAgentTelemetry>();
+  for (const record of records) {
+    const existing = byAgent.get(record.agentId) ?? {
+      agentId: record.agentId,
+      runs: 0,
+      decisionsProposed: 0,
+      totalCostUsd: 0,
+      averageCacheHitRate: 0,
+      lastRunAt: undefined,
+      hasError: false,
+    };
+    existing.runs += 1;
+    if (record.proposedDecisionId) existing.decisionsProposed += 1;
+    existing.totalCostUsd += record.cost.totalUsd;
+    existing.averageCacheHitRate =
+      (existing.averageCacheHitRate * (existing.runs - 1) + record.cost.cacheHitRate) / existing.runs;
+    existing.hasError = existing.hasError || record.status === "errored";
+    if (!existing.lastRunAt || existing.lastRunAt < record.finishedAt) {
+      existing.lastRunAt = record.finishedAt;
+    }
+    byAgent.set(record.agentId, existing);
+  }
+  return [...byAgent.values()].sort((a, b) => b.runs - a.runs);
+}
+
 /** Test-only escape hatch — clears the in-memory ledger. */
 export function __resetAgentTelemetry(): void {
   records.length = 0;

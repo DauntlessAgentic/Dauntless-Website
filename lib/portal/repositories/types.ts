@@ -106,6 +106,34 @@ export interface PortalRepository {
    * MUST emit a matching `knowledge-promoted` signal and audit entry.
    */
   promoteKnowledgeToCanonical(input: KnowledgePromotionInput): Promise<KnowledgeItem>;
+
+  /**
+   * Land a new ArtifactVersion in the artifact's version stack and shift
+   * the artifact's reviewState to `in-review`. Used by Operator-archetype
+   * agents (Report Builder, Artifact Drafter) and by the Phase 4.1
+   * artifact editor.
+   *
+   * Implementations MUST emit an audit-log entry and a signal.
+   */
+  draftArtifactVersion(input: DraftArtifactVersionInput): Promise<import("@/lib/portal/types").ArtifactVersion>;
+
+  /**
+   * Hand the artifact off to an Auditor. Emits an `artifact-published`-shaped
+   * audit entry with action `agent-run` and a `risk-raised` signal.
+   */
+  requestArtifactReview(input: RequestReviewRepoInput): Promise<void>;
+
+  /**
+   * Surface a revision request against an artifact or decision. Emits a
+   * `risk-raised` signal and an audit-log entry.
+   */
+  proposeRevision(input: ProposeRevisionRepoInput): Promise<void>;
+
+  /**
+   * Inter-agent handoff entry. Emits an audit-log row and a signal.
+   * Used when one archetype completes its work and routes to another.
+   */
+  recordAgentHandoff(input: AgentHandoffInput): Promise<void>;
 }
 
 export interface DecisionOutcomeInput {
@@ -123,6 +151,45 @@ export interface KnowledgePromotionInput {
   actor: string;
   actorKind: "human" | "agent";
   promotionNotes?: string;
+}
+
+export interface DraftArtifactVersionInput {
+  workspaceId: string;
+  artifactId: string;
+  versionBump: "major" | "minor" | "patch";
+  summary: string;
+  body: string;
+  actor: string;
+  actorKind: "human" | "agent";
+}
+
+export interface RequestReviewRepoInput {
+  workspaceId: string;
+  artifactId: string;
+  actor: string;
+  actorKind: "human" | "agent";
+  notes?: string;
+  /** Optional target archetype the handoff should land at. */
+  targetArchetype?: import("@/lib/portal/types").AgentArchetype;
+}
+
+export interface ProposeRevisionRepoInput {
+  workspaceId: string;
+  targetKind: "artifact" | "decision";
+  targetId: string;
+  requestedChange: string;
+  severity: "low" | "medium" | "high";
+  actor: string;
+  actorKind: "human" | "agent";
+}
+
+export interface AgentHandoffInput {
+  workspaceId: string;
+  fromAgentId: string;
+  toArchetype: import("@/lib/portal/types").AgentArchetype;
+  reason: string;
+  refKind?: "artifact" | "decision" | "knowledge";
+  refId?: string;
 }
 
 export interface ProposeDecisionRepoInput {

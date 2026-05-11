@@ -222,6 +222,35 @@ When the Supabase adapter lands:
 
 This will be the first time the portal ships a database migration.
 
+### 5.5 v3.1 — Agent fleet with separation of powers (Phase 5.0 shipped)
+
+The four-archetype fleet now runs through a single generic orchestrator:
+
+- `lib/portal/agents/registry.ts` — every agent declares its archetype,
+  system prompt, preferred model, and example questions in one place.
+  Eight agents ship: Engagement Analyst + Roadmap Strategist (Strategists);
+  Report Builder + Artifact Drafter + Activation Coach (Operators);
+  Governance Auditor + Evidence Auditor (Auditors); Concierge (Chief of
+  Staff).
+- `lib/portal/agents/tool-catalog.ts` — separation-of-powers is encoded
+  at the catalog. Each archetype gets a tool list:
+  - Shared reads: `search_artifacts`, `read_decision`, `summarize_signals`,
+    `cite_evidence`.
+  - Strategist: `propose_decision`.
+  - Operator: `draft_artifact_version`, `request_review`.
+  - Auditor: `audit_evidence_completeness`, `audit_canonical_candidate`,
+    `propose_revision`.
+  - Chief of Staff: `generate_briefing`, `summarize_engagement`.
+  - The catalog enforces this via `isToolPermitted(archetype, toolName)` —
+    any tool call from outside the archetype's surface returns an error
+    instead of executing.
+- `lib/portal/agents/runner.ts` — single tool-use loop reused by every
+  agent. Stub mode mirrors the real loop for each archetype so the entire
+  UX is exercisable without API spend.
+- Inter-agent handoff: when an Operator's run ends with `request_review`,
+  the runner emits a `recordAgentHandoff` audit + signal so an Auditor can
+  pick up the work. (Auto-routing of the receiving archetype is Phase 5.1.)
+
 ### 5.4 v3 — Agent integration (Phase 3.0 shipped)
 
 The Engagement Analyst is live end-to-end:
