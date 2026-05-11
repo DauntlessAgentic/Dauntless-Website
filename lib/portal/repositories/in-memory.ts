@@ -25,6 +25,7 @@ import {
   mockMetrics,
   mockNextBestActions,
   mockOrganization,
+  mockSchedule,
   mockSignals,
   mockTasks,
   mockWorkspace,
@@ -43,6 +44,7 @@ import type {
   NextBestAction,
   Organization,
   PortalSnapshot,
+  ScheduleItem,
   Signal,
   Task,
   Workspace,
@@ -59,10 +61,12 @@ import type {
   ProposeDecisionRepoInput,
   ProposeForCanonicalInput,
   ProposeRevisionRepoInput,
+  ProposeScheduleItemInput,
   RecordCanonicalAuditInput,
   RequestReviewRepoInput,
   ResolveArtifactCommentInput,
   SaveArtifactBodyInput,
+  UpdateScheduleItemStatusInput,
 } from "./types";
 import { emitPortalEvent } from "@/lib/portal/telemetry/event-bus";
 
@@ -139,6 +143,7 @@ function cloneSnapshot(): PortalSnapshot {
     evidence: mockEvidence.map((e) => ({ ...e, capturedAt: new Date(e.capturedAt) })),
     nextBestActions: mockNextBestActions.map((n) => ({ ...n })),
     auditLog: mockAuditLog.map((a) => ({ ...a, at: new Date(a.at) })),
+    schedule: mockSchedule.map((s) => ({ ...s, startsAt: new Date(s.startsAt), attendees: [...s.attendees] })),
   };
 }
 
@@ -222,6 +227,76 @@ export class InMemoryPortalRepository implements PortalRepository {
     this.assertWorkspace(workspaceId);
     return structuredClone(this.state.nextBestActions);
   }
+  async listScheduleItems(workspaceId: string): Promise<ScheduleItem[]> {
+    this.assertWorkspace(workspaceId);
+    const rows = (this.state.schedule ?? []).map((s) => ({
+      ...s,
+      startsAt: new Date(s.startsAt),
+      attendees: [...s.attendees],
+    }));
+    rows.sort((a, b) => a.startsAt.getTime() - b.startsAt.getTime());
+    return structuredClone(rows);
+  }
+
+  async proposeScheduleItem(input: ProposeScheduleItemInput): Promise<ScheduleItem> {
+    this.assertWorkspace(input.workspaceId);
+    const item: ScheduleItem = {
+      id: generateId("sch"),
+      workspaceId: input.workspaceId,
+      engagementId: input.engagementId,
+      kind: input.kind,
+      title: input.title,
+      startsAt: input.startsAt,
+      durationMins: input.durationMins,
+      attendees: [...input.attendees],
+      status: "tentative",
+      linkedDecisionId: input.linkedDecisionId,
+      linkedArtifactId: input.linkedArtifactId,
+      notes: input.notes,
+    };
+    this.state.schedule = [...(this.state.schedule ?? []), item];
+
+    await this.appendAuditEntry({
+      workspaceId: input.workspaceId,
+      action: "agent-run",
+      actor: input.proposedBy,
+      actorKind: input.proposedByKind,
+      refId: item.id,
+      detail: `${input.proposedBy} proposed schedule item "${item.title}".`,
+      riskTier: "low",
+    });
+
+    this.state.signals.unshift({
+      id: generateId("sig"),
+      workspaceId: input.workspaceId,
+      engagementId: input.engagementId,
+      kind: "agent-action",
+      severity: "info",
+      title: `Schedule proposed: ${item.title}`,
+      detail: `${item.kind} · ${item.startsAt.toLocaleDateString()} · ${item.durationMins}m`,
+      source: input.proposedBy,
+      refId: item.id,
+      capturedAt: new Date(),
+    });
+    return structuredClone(item);
+  }
+
+  async updateScheduleItemStatus(input: UpdateScheduleItemStatusInput): Promise<void> {
+    this.assertWorkspace(input.workspaceId);
+    const item = (this.state.schedule ?? []).find((s) => s.id === input.scheduleItemId);
+    if (!item) throw new Error(`Schedule item not found: ${input.scheduleItemId}`);
+    item.status = input.status;
+    await this.appendAuditEntry({
+      workspaceId: input.workspaceId,
+      action: "agent-run",
+      actor: input.actor,
+      actorKind: input.actorKind,
+      refId: item.id,
+      detail: `${input.actor} marked schedule item "${item.title}" → ${input.status}.`,
+      riskTier: "low",
+    });
+  }
+
   async listAuditLog(workspaceId: string, limit?: number): Promise<AuditEntry[]> {
     const rows = this.state.auditLog
       .filter((a) => a.workspaceId === workspaceId)

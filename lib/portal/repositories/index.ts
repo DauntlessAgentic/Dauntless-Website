@@ -59,9 +59,11 @@ export type {
   ProposeDecisionRepoInput,
   ProposeForCanonicalInput,
   ProposeRevisionRepoInput,
+  ProposeScheduleItemInput,
   RecordCanonicalAuditInput,
   RequestReviewRepoInput,
   ResolveArtifactCommentInput,
   RepositoryActivationStatus,
   SaveArtifactBodyInput,
+  UpdateScheduleItemStatusInput,
 } from "./types";

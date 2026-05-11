@@ -14,7 +14,11 @@ land in any phase and ground quickly.
 
 ## Where we are
 
-**Phase 7.0 — Innovation Studio surface (shipped, PR TBD)**
+**Phase 5.1 — NBA ranking pipeline + Schedule surface (shipped, PR TBD)**
+
+Branch: `claude/portal-phase-5-1-nba-schedule`. See the Phase 5 section.
+
+**Phase 7.0 — Innovation Studio surface (shipped, PR #8)**
 
 Branch: `claude/portal-phase-7-innovation-studio`. See the Phase 7 section.
 
@@ -377,20 +381,35 @@ Supabase Realtime + Next-Best-Actions ranking engine) is the remaining work.
 - `tests/portal/agent-fleet.test.mjs` — 15-test separation-of-powers +
   per-archetype stub run suite.
 
-### Phase 5.1 — what's left
+### Phase 5.1 — what shipped
 
-- Real-time signals via Supabase Realtime: the "What changed?" feed
-  updates live.
-- Next-Best-Actions engine wired as a real ranking pipeline (impact ×
-  confidence × due-date × engagement-phase weight).
-- Concierge narration on cadence — generate this-week briefings on a
-  schedule and post them to the workspace feed.
-- Calendar surface: port CAIA calendar gizmos into
-  `app/(app)/portal/schedule/`.
-- Inter-agent handoff protocol hardening: today handoffs are recorded as
-  audit entries; the next iteration should queue them and route the
-  receiving archetype's run automatically.
-- Per-agent cost budgets in Governance.
+- `lib/portal/next-best-actions.ts` — `computeNextBestActions()` —
+  ranking pipeline that derives the Command Center NBA list from current
+  state. Factors: pending-decision tier × confidence × due-date weight,
+  engagement risks, stale knowledge, audit gaps, schedule touchpoints
+  without prep. Command Center now uses this live; the static seed is
+  the fallback.
+- `lib/portal/types.ts` — `ScheduleItem` type + `NextBestAction` extended
+  with `score` + `source` + `refKind/refId` provenance.
+- `/portal/schedule` — Schedule surface. Upcoming + past lists, propose
+  form, confirm / complete / cancel controls. Items link back to
+  artifacts + decisions.
+- Repository extensions: `listScheduleItems`, `proposeScheduleItem`,
+  `updateScheduleItemStatus`. All audited.
+- Command Center exposes a top-bar link to `/portal/schedule`.
+- `tests/portal/schedule-nba.test.mjs` — 6 smoke tests.
+
+### Phase 5.2 — what's still left
+
+- Real-time signals via Supabase Realtime ("What changed?" updates
+  without page reload).
+- Concierge narration on cadence: scheduled briefings posted to the
+  workspace feed automatically.
+- Inter-agent handoff auto-routing (today handoffs are audit entries;
+  next pass queues + dispatches).
+- Per-agent cost budgets with hard cutoffs.
+- Calendar provider integration (Outlook / Google) — today the surface
+  is portal-internal only.
 
 ### Why now
 
