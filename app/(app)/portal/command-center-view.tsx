@@ -139,6 +139,12 @@ export function CommandCenterView({ snapshot, membership: _membership }: Command
             >
               Federation <ArrowRight className="h-3 w-3" />
             </Link>
+            <Link
+              href="/portal/about"
+              className="text-xs text-[--accent-vivid] hover:underline inline-flex items-center gap-1"
+            >
+              About <ArrowRight className="h-3 w-3" />
+            </Link>
             <Button variant="ghost" size="sm" className="gap-1.5">
               <CalendarPlus className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">Book walkthrough</span>
