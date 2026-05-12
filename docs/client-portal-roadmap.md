@@ -14,7 +14,11 @@ land in any phase and ground quickly.
 
 ## Where we are
 
-**Phase 11.0 — Outbound action sandbox (shipped, PR TBD)**
+**Phase 12.0 — Federation primitive + cross-tenant search (shipped, PR TBD)**
+
+Branch: `claude/portal-phase-12-federation`. See the Phase 12 section.
+
+**Phase 11.0 — Outbound action sandbox (shipped, PR #13)**
 
 Branch: `claude/portal-phase-11-outbound-actions`. See the Phase 11 section.
 
@@ -885,9 +889,30 @@ governance contract.
 
 ## Phase 12 — Federated trust and cross-tenant knowledge
 
+**Status**: **Phase 12.0 shipped** on `claude/portal-phase-12-federation`.
+Federation primitive (4 sector federations), opt-in / opt-out membership,
+three-tier anonymization pipeline, cross-tenant search are live. Phase
+12.1 wires the real cross-tenant repository + remote cache invalidation.
 **Theme**: organizations opt into a shared canonical layer.
-**Estimate**: 16–20 weeks
+**Estimate**: 12–16 weeks (Phase 12.1)
 **Unlocks**: the flywheel; sector-wide intelligence; defensible moat at the network level.
+
+### Phase 12.0 — what shipped
+
+- `lib/portal/federation/types.ts` — Federation / Membership /
+  Contribution shapes.
+- `lib/portal/federation/index.ts` — 4 sector federations
+  (Federal-Canada, Federal-US, Healthcare, Financial-Services). Joins /
+  leaves / contributions / withdrawals. Three-tier anonymization
+  pipeline (`light` / `standard` / `strict`). Cross-tenant search that
+  intentionally omits workspace provenance from results.
+- `lib/portal/federation/actions.ts` — server actions gated to owner /
+  executive roles.
+- `/portal/federation` — surface. Federation catalog with join/leave,
+  contribute form with anonymization selector, contributions table with
+  withdraw button, cross-tenant search input.
+- Command Center exposes a Federation link.
+- `tests/portal/federation.test.mjs` — 6 smoke tests.
 
 ### Why now
 
