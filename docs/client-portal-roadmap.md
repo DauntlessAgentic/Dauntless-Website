@@ -14,7 +14,11 @@ land in any phase and ground quickly.
 
 ## Where we are
 
-**Phase 8.0 — Multi-workspace + org rollup (shipped, PR TBD)**
+**Phase 9.0 — REST API + SDK + webhook ledger (shipped, PR TBD)**
+
+Branch: `claude/portal-phase-9-api-sdk`. See the Phase 9 section.
+
+**Phase 8.0 — Multi-workspace + org rollup (shipped, PR #10)**
 
 Branch: `claude/portal-phase-8-multi-workspace`. See the Phase 8 section.
 
@@ -684,9 +688,37 @@ model is a wall. Solving this is the unlock for the deeper public-sector contrac
 
 ## Phase 9 — Public API, SDK, and the extension model
 
+**Status**: **Phase 9.0 shipped** on `claude/portal-phase-9-api-sdk`.
+A read-mostly v1 REST surface, a typed in-repo SDK, a webhook ledger,
+and an in-portal API explorer are live. Phase 9.1 wires real HTTP
+delivery for webhooks, per-Membership scoped tokens, the npm-published
+SDK, and the extension marketplace skeleton.
 **Theme**: clients with engineering teams build on top of the portal.
-**Estimate**: 10–14 weeks
+**Estimate**: 8–10 weeks (Phase 9.1)
 **Unlocks**: integration partnerships; deeper product stickiness; the developer-tier sales motion.
+
+### Phase 9.0 — what shipped
+
+- `app/api/portal/v1/*` — 7 routes:
+  - `GET /engagements`, `GET /artifacts`, `GET /signals`, `GET /metrics`,
+    `GET /knowledge` (with `?q=…` search), `GET /schedule`.
+  - `GET/POST /decisions` (record outcome), `GET/POST /schedule`
+    (propose item).
+- `lib/portal/api/auth.ts` — Bearer-token gate driven by
+  `PORTAL_API_KEY`. Dev-bypass when unset.
+- `lib/portal/webhooks.ts` — in-memory ledger of would-be-delivered
+  events. Phase 9.0 records `decision-outcome` and
+  `schedule-item-proposed` from the API writes; Phase 9.1 wires real
+  HTTP delivery.
+- `lib/portal-sdk/index.ts` — `createPortalClient({ baseUrl, apiKey })`.
+  Typed methods for every resource. Universal — runs in any
+  fetch-capable environment. Will be published as
+  `@dauntlessagentic/portal-sdk` in Phase 9.1.
+- `/portal/api` — explorer page. Endpoints, request bodies, sample
+  curl, recent webhook events, SDK snippet.
+- `tests/portal/api-sdk.test.mjs` — 12 smoke tests across auth,
+  webhook ledger, and SDK transport.
+- Command Center exposes an API link.
 
 ### Why now
 
