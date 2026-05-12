@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "tsx --test tests/portal/repository.test.mjs"
+    "test": "tsx --test tests/portal/repository.test.mjs tests/portal/agent-engagement-analyst.test.mjs"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.11",
@@ -36,6 +36,7 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "recharts": "^3.8.0",
+    "server-only": "^0.0.1",
     "tailwind-merge": "^3.5.0",
     "zod": "^4.3.6"
   },

@@ -222,12 +222,28 @@ When the Supabase adapter lands:
 
 This will be the first time the portal ships a database migration.
 
-### 5.3 v3 — Agent integration
+### 5.4 v3 — Agent integration (Phase 3.0 shipped)
 
-Each agent record exposes a tool surface and a model identifier. When the
-Anthropic API integration lands, the agent fleet panel becomes the live control
-room — same UI, real backing. The `agentState` lifecycle is already wired in the
-chassis (`idle` / `active` / `thinking` / `blocked` / `complete` / `updated`).
+The Engagement Analyst is live end-to-end:
+
+- `lib/portal/agents/runtime/anthropic.ts` — direct `fetch` against the
+  Anthropic Messages API with prompt caching headers. No SDK dep.
+- `lib/portal/agents/tools.ts` — five tools: `search_artifacts`,
+  `read_decision`, `summarize_signals`, `cite_evidence`,
+  `propose_decision`. Reads route through the repository; the only write
+  is `propose_decision`, which lands a `pending-approval` Decision.
+- `lib/portal/agents/engagement-analyst.ts` — orchestrator with a tool-use
+  loop. System prompt + bookshelf context are cached so repeated runs hit
+  the cache. When `ANTHROPIC_API_KEY` is unset, the orchestrator runs a
+  deterministic stub that still produces a real Decision row — the entire
+  propose→approve UX is exercisable without paying for tokens.
+- `lib/portal/agents/telemetry.ts` — in-process ledger of every run with
+  token, cost, and cache-hit-rate summaries. Surfaced on
+  `/portal/governance` as the "Cost & cache health" card.
+- `lib/portal/agents/actions.ts` — gated server action.
+
+The four-archetype fleet pattern is unchanged; future agents add new
+orchestrator modules + tool surfaces against the same `PortalRepository`.
 
 ---
 

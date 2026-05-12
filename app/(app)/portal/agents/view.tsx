@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useTransition } from "react";
 import Link from "next/link";
-import { ArrowRight, Sparkles, Send } from "lucide-react";
+import { ArrowRight, Sparkles, Send, Play } from "lucide-react";
 import { WorkspaceHeader } from "@/components/shell/workspace-header";
 import { DashboardCard } from "@/components/cards/dashboard-card";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,9 @@ import { ContentTag } from "@/components/ui/content-tag";
 import { AgentFleetPanel } from "@/components/patterns/agent-fleet-panel";
 import type { PortalSnapshot } from "@/lib/portal/types";
 import type { MembershipContext } from "@/lib/auth/session";
+import { canPerform } from "@/lib/auth/membership-gate";
+import { runEngagementAnalystAction, type AgentRunSummary } from "@/lib/portal/agents/actions";
+import { ENGAGEMENT_ANALYST_ID } from "@/lib/portal/agents/engagement-analyst.shared";
 
 const STATE_TAG: Record<string, React.ComponentProps<typeof ContentTag>["variant"]> = {
   idle: "default", active: "success", thinking: "info",
@@ -22,7 +25,7 @@ interface AgentsViewProps {
   membership: MembershipContext;
 }
 
-export function AgentsView({ snapshot, membership: _membership }: AgentsViewProps) {
+export function AgentsView({ snapshot, membership }: AgentsViewProps) {
   const {
     agents: mockAgents,
     conversations: mockConversations,
@@ -38,6 +41,30 @@ export function AgentsView({ snapshot, membership: _membership }: AgentsViewProp
   const relatedSignals = mockSignals
     .filter((s) => s.kind === "agent-action" && s.refId === selected.id)
     .slice(0, 6);
+
+  const isEngagementAnalyst = selected.id === ENGAGEMENT_ANALYST_ID;
+  const canRun =
+    isEngagementAnalyst &&
+    (membership.role === "owner" || membership.role === "executive" || membership.role === "lead");
+  const [steeringPrompt, setSteeringPrompt] = useState("");
+  const [lastRun, setLastRun] = useState<AgentRunSummary | null>(null);
+  const [runError, setRunError] = useState<string | null>(null);
+  const [isRunning, startRun] = useTransition();
+
+  const handleRun = () => {
+    setRunError(null);
+    startRun(async () => {
+      try {
+        const result = await runEngagementAnalystAction({
+          prompt: steeringPrompt.trim() || undefined,
+        });
+        setLastRun(result);
+        setSteeringPrompt("");
+      } catch (err) {
+        setRunError(err instanceof Error ? err.message : "Agent run failed.");
+      }
+    });
+  };
 
   return (
     <div className="flex flex-col h-full">
@@ -55,6 +82,91 @@ export function AgentsView({ snapshot, membership: _membership }: AgentsViewProp
       />
 
       <div className="flex-1 overflow-auto p-4 space-y-4 pb-20 md:pb-4">
+
+        {isEngagementAnalyst && (
+          <DashboardCard
+            id="agent-runner"
+            eyebrow="LIVE RUNTIME"
+            title={`Run the ${selected.name}`}
+            subtitle={canRun
+              ? "Propose a new decision against the workspace. Every run is audited; the proposal lands in pending-approval status."
+              : `Your role (${membership.role}) can read agent state but cannot trigger runs.`}
+            agentId={selected.id}
+            agentState={isRunning ? "thinking" : selected.state}
+            badge={lastRun?.status === "stub" ? "Stub mode" : lastRun?.status ?? "Idle"}
+            badgeVariant={lastRun?.status === "errored" ? "danger" : lastRun?.status === "completed" ? "success" : "accent"}
+          >
+            <div className="px-3 py-3 space-y-3">
+              <div className="flex flex-col gap-2">
+                <Textarea
+                  placeholder="Optional steering prompt (e.g. 'Focus on the Agentic Systems engagement; weigh the GCKey identity gap')."
+                  value={steeringPrompt}
+                  onChange={(e) => setSteeringPrompt(e.target.value)}
+                  disabled={!canRun || isRunning}
+                  className="min-h-[60px] text-xs"
+                />
+                <div className="flex items-center gap-2">
+                  <Button
+                    size="sm"
+                    variant="primary"
+                    className="gap-1.5"
+                    disabled={!canRun || isRunning}
+                    onClick={handleRun}
+                  >
+                    <Play className="h-3 w-3" />
+                    {isRunning ? "Running…" : "Run agent"}
+                  </Button>
+                  {runError && (
+                    <p className="text-xs text-[--danger] leading-snug">{runError}</p>
+                  )}
+                </div>
+              </div>
+
+              {lastRun && (
+                <div className="rounded-[--radius-md] bg-[--elevated] border border-[--border-subtle] p-3 space-y-2">
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="text-xs font-bold uppercase tracking-widest text-[--text-muted]">Last run</p>
+                    <ContentTag variant={lastRun.status === "errored" ? "danger" : lastRun.status === "completed" ? "success" : "accent"} dot>
+                      {lastRun.status}
+                    </ContentTag>
+                  </div>
+                  <p className="text-xs text-[--text-primary] leading-relaxed">{lastRun.summary}</p>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                    <Field label="Model">{lastRun.model}</Field>
+                    <Field label="Cost">{lastRun.costUsd}</Field>
+                    <Field label="Cache hit">{Math.round(lastRun.cacheHitRate * 100)}%</Field>
+                    <Field label="In / out tokens">{lastRun.inputTokens} / {lastRun.outputTokens}</Field>
+                  </div>
+                  {lastRun.toolCalls.length > 0 && (
+                    <div className="space-y-1">
+                      <p className="text-xs font-bold uppercase tracking-widest text-[--text-muted]">Tools called</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {lastRun.toolCalls.map((t, idx) => (
+                          <ContentTag
+                            key={`${t.tool}-${idx}`}
+                            variant={t.isError ? "danger" : t.tool === "propose_decision" ? "accent" : "info"}
+                          >
+                            {t.tool}
+                          </ContentTag>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {lastRun.decisionId && (
+                    <p className="text-xs text-[--text-secondary]">
+                      Decision <span className="font-mono">{lastRun.decisionId}</span> queued in the{" "}
+                      <Link href="/portal/decisions" className="text-[--accent-vivid] hover:underline">
+                        Decision Register
+                      </Link>{" "}
+                      for approval.
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
+          </DashboardCard>
+        )}
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
           <div className="lg:col-span-1 min-h-[500px]">
             <DashboardCard

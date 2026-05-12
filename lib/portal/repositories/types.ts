@@ -94,6 +94,14 @@ export interface PortalRepository {
   recordDecisionOutcome(input: DecisionOutcomeInput): Promise<Decision>;
 
   /**
+   * Land a new Decision in `pending-approval` state. Used by the agent
+   * runtime when the Engagement Analyst's `propose_decision` tool fires.
+   * Implementations MUST emit an `agent-run` audit entry and a
+   * `decision-proposed` signal.
+   */
+  proposeDecision(input: ProposeDecisionRepoInput): Promise<Decision>;
+
+  /**
    * Promote a knowledge item to canonical (Bookshelf, M3+). Implementations
    * MUST emit a matching `knowledge-promoted` signal and audit entry.
    */
@@ -115,6 +123,21 @@ export interface KnowledgePromotionInput {
   actor: string;
   actorKind: "human" | "agent";
   promotionNotes?: string;
+}
+
+export interface ProposeDecisionRepoInput {
+  engagementId: string;
+  workspaceId: string;
+  title: string;
+  riskTier: import("@/lib/portal/types").RiskTier;
+  /** Agent id or human name; persisted into Decision.proposedBy. */
+  proposedBy: string;
+  /** Human-readable name for the audit-log row. */
+  actorDisplayName: string;
+  actorKind: "human" | "agent";
+  recommendation: import("@/lib/portal/types").Recommendation;
+  artifactIds: string[];
+  evidenceIds: string[];
 }
 
 /**

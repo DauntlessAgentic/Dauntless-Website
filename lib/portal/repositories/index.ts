@@ -52,5 +52,6 @@ export type {
   PortalRepository,
   DecisionOutcomeInput,
   KnowledgePromotionInput,
+  ProposeDecisionRepoInput,
   RepositoryActivationStatus,
 } from "./types";
