@@ -134,6 +134,51 @@ export interface PortalRepository {
    * Used when one archetype completes its work and routes to another.
    */
   recordAgentHandoff(input: AgentHandoffInput): Promise<void>;
+
+  /**
+   * Save the working body of an artifact. Phase 4.1's editor calls this
+   * on every save. Doesn't mint a new version — that's `draftArtifactVersion`.
+   * Implementations MUST emit an audit-log entry but should NOT spam the
+   * signals feed for every keystroke; emit a signal only when the
+   * artifact's reviewState changes.
+   */
+  saveArtifactBody(input: SaveArtifactBodyInput): Promise<void>;
+
+  /**
+   * Submit the artifact for canonical promotion. Sets
+   * `artifact.canonicalProposal.status = "pending"` and emits an audit
+   * entry + signal. The Governance Auditor agent picks up from here.
+   */
+  proposeArtifactForCanonical(input: ProposeForCanonicalInput): Promise<void>;
+
+  /**
+   * Record the Governance Auditor's verdict on a canonical proposal.
+   * Doesn't approve the artifact — that's an executive's call.
+   */
+  recordCanonicalAuditVerdict(input: RecordCanonicalAuditInput): Promise<void>;
+
+  /**
+   * Approve a canonical proposal. Sets `artifact.canonical = true`,
+   * updates `canonicalProposal.status`, and emits a knowledge-promoted
+   * signal (the artifact joins the Bookshelf).
+   */
+  approveCanonicalProposal(input: DecideCanonicalInput): Promise<void>;
+
+  /**
+   * Reject or send back for revision.
+   */
+  rejectCanonicalProposal(input: DecideCanonicalInput & { reason?: string }): Promise<void>;
+
+  /**
+   * Post a comment thread entry against an artifact version. Emits an
+   * audit entry but no signal (comments are routine traffic).
+   */
+  postArtifactComment(input: PostArtifactCommentInput): Promise<import("@/lib/portal/types").ArtifactComment>;
+
+  /**
+   * Mark a comment as resolved.
+   */
+  resolveArtifactComment(input: ResolveArtifactCommentInput): Promise<void>;
 }
 
 export interface DecisionOutcomeInput {
@@ -181,6 +226,54 @@ export interface ProposeRevisionRepoInput {
   severity: "low" | "medium" | "high";
   actor: string;
   actorKind: "human" | "agent";
+}
+
+export interface SaveArtifactBodyInput {
+  workspaceId: string;
+  artifactId: string;
+  body: string;
+  actor: string;
+  actorKind: "human" | "agent";
+  /** If true and the artifact was `approved`, drops it back to `in-review`. */
+  reopenForReview?: boolean;
+}
+
+export interface ProposeForCanonicalInput {
+  workspaceId: string;
+  artifactId: string;
+  proposedBy: string;
+  proposedByKind: "human" | "agent";
+}
+
+export interface RecordCanonicalAuditInput {
+  workspaceId: string;
+  artifactId: string;
+  verdict: "pass" | "needs-revision" | "fail";
+  notes: string;
+  auditedBy: string;
+}
+
+export interface DecideCanonicalInput {
+  workspaceId: string;
+  artifactId: string;
+  actor: string;
+  actorKind: "human" | "agent";
+}
+
+export interface PostArtifactCommentInput {
+  workspaceId: string;
+  artifactId: string;
+  versionId: string;
+  body: string;
+  author: string;
+  authorKind: "human" | "agent";
+}
+
+export interface ResolveArtifactCommentInput {
+  workspaceId: string;
+  artifactId: string;
+  commentId: string;
+  actor: string;
 }
 
 export interface AgentHandoffInput {
