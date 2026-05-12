@@ -34,6 +34,7 @@ import {
   recordAgentRun,
   type AgentRunRecord,
 } from "./telemetry";
+import { emitPortalEvent } from "@/lib/portal/telemetry/event-bus";
 import {
   executeArchetypeTool,
   TOOLS_BY_ARCHETYPE,
@@ -230,6 +231,20 @@ export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
     notes: finalText || undefined,
   };
   recordAgentRun(runRecord);
+  emitPortalEvent({
+    kind: "agent-run-completed",
+    workspaceId: workspace.id,
+    actor: definition.id,
+    actorKind: "agent",
+    agentId: definition.id,
+    archetype: definition.archetype,
+    status,
+    totalUsd: runRecord.cost.totalUsd,
+    inputTokens: runRecord.usage.inputTokens + runRecord.usage.cacheReadTokens,
+    outputTokens: runRecord.usage.outputTokens,
+    cacheHitRate: runRecord.cost.cacheHitRate,
+    proposedDecisionId,
+  });
 
   // If a Strategist or Operator ended a run with a write tool, emit a
   // handoff signal so the next role can pick it up.
@@ -330,6 +345,20 @@ async function runArchetypeStub(
     notes: prompt ? `Stub run. Operator prompt: "${prompt}". ${summary}` : summary,
   };
   recordAgentRun(runRecord);
+  emitPortalEvent({
+    kind: "agent-run-completed",
+    workspaceId,
+    actor: definition.id,
+    actorKind: "agent",
+    agentId: definition.id,
+    archetype: definition.archetype,
+    status: "stub",
+    totalUsd: 0,
+    inputTokens: 0,
+    outputTokens: 0,
+    cacheHitRate: 0,
+    proposedDecisionId,
+  });
 
   if (handoffTo) {
     await repository.recordAgentHandoff({

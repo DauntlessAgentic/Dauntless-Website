@@ -14,7 +14,11 @@ land in any phase and ground quickly.
 
 ## Where we are
 
-**Phase 4.1 — Artifact editor + canonical promotion (shipped, PR TBD)**
+**Phase 6.0 — Telemetry event bus + Quarterly Impact Report (shipped, PR TBD)**
+
+Branch: `claude/portal-phase-6-telemetry-impact`. See the Phase 6 section.
+
+**Phase 4.1 — Artifact editor + canonical promotion (shipped, PR #6)**
 
 Branch: `claude/portal-phase-4-1-canonical-editor`. See the Phase 4
 section below.
@@ -426,9 +430,58 @@ produces and audits" is unproven.
 
 ## Phase 6 — Outcomes telemetry and cross-engagement intelligence
 
+**Status**: **Phase 6.0 shipped** on `claude/portal-phase-6-telemetry-impact`.
+The event bus, derived metrics, Quarterly Impact Report, and cross-
+engagement intelligence are live. Phase 6.1 (persisted events, signed
+exports, partner-read-only view) is the remaining work.
 **Theme**: prove the ROI. Close the compounding loop.
-**Estimate**: 10–14 weeks
+**Estimate**: 6–8 weeks (Phase 6.1)
 **Unlocks**: quarterly proof reports; the second-engagement-is-faster claim becomes literal.
+
+### Phase 6.0 — what shipped
+
+- `lib/portal/telemetry/event-bus.ts` — in-process typed event bus.
+  Every portal mutation through the repository now emits a structured
+  event (artifact-saved, artifact-version-minted,
+  artifact-promoted-canonical, canonical-proposal-submitted,
+  canonical-audit-verdict, decision-proposed, decision-outcome-recorded,
+  knowledge-promoted, agent-run-completed, agent-handoff,
+  comment-posted).
+- `lib/portal/telemetry/metrics.ts` — `computeDerivedMetrics()`
+  reduces the bus into 7 metrics (decisions proposed, approval rate,
+  cycle time, canonical promotions, audit pass rate, agent spend,
+  handoffs) with 4-week series.
+- `lib/portal/telemetry/impact-report.ts` —
+  `generateImpactReport(workspaceId)` assembles a board-ready briefing
+  from telemetry + repository state. Renders deterministic Markdown
+  immediately; the Report Builder agent can elaborate on demand.
+- `/portal/outcomes/impact-report` — new route. KPI tiles, narrative,
+  derived metrics, recent events, Markdown download.
+- `lib/portal/cross-engagement.ts` —
+  `computeCrossEngagementSuggestions()` ranks canonical artifacts
+  cross-engagement by significant-token overlap. Phase 6.1 swaps to
+  cosine similarity over embeddings.
+- Engagements page now shows a "Cross-engagement intelligence" card
+  per engagement: matching canonical artifacts from other engagements
+  with relevance scores.
+- `tests/portal/telemetry.test.mjs` — 5 tests covering emission,
+  metric reduction, impact report assembly, agent-run events, and
+  cross-engagement suggestions.
+
+### Phase 6.1 — what's left
+
+- Persist events into a `portal_events` table; persist computed
+  metrics into the existing `Metric` rows so historical series
+  outlive the server process.
+- Quarterly Impact Report becomes a real `Artifact` (saved into the
+  workspace artifact list with the Report Builder as author).
+- Signed evidence exports: every download is signed and watermarked
+  with the requesting member.
+- Partner read-only view: time-boxed link to a single artifact or
+  decision packet for stakeholders outside the workspace.
+- Embedding-cosine cross-engagement suggestions.
+- Engagement archetype detection + auto-pull of matching canonical
+  playbooks on engagement creation.
 
 ### Why now
 

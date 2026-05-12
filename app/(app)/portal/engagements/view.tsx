@@ -17,12 +17,21 @@ const TASK_TONE: Record<string, React.ComponentProps<typeof ContentTag>["variant
   todo: "default", "in-progress": "accent", blocked: "danger", complete: "success",
 };
 
+interface CrossEngagementSuggestion {
+  artifactId: string;
+  artifactName: string;
+  sourceEngagementId: string;
+  score: number;
+  reason: string;
+}
+
 interface EngagementsViewProps {
   snapshot: PortalSnapshot;
   membership: MembershipContext;
+  crossSuggestions: Record<string, CrossEngagementSuggestion[]>;
 }
 
-export function EngagementsView({ snapshot, membership: _membership }: EngagementsViewProps) {
+export function EngagementsView({ snapshot, membership: _membership, crossSuggestions }: EngagementsViewProps) {
   const {
     engagements: mockEngagements,
     artifacts: mockArtifacts,
@@ -71,6 +80,7 @@ export function EngagementsView({ snapshot, membership: _membership }: Engagemen
             artifacts={mockArtifacts.filter((a) => a.engagementId === engagement.id)}
             tasks={mockTasks.filter((t) => t.engagementId === engagement.id)}
             decisions={mockDecisions.filter((d) => d.engagementId === engagement.id)}
+            suggestions={crossSuggestions[engagement.id] ?? []}
           />
         ))}
       </div>
@@ -93,11 +103,13 @@ function EngagementDetail({
   artifacts,
   tasks,
   decisions,
+  suggestions,
 }: {
   engagement: Engagement;
   artifacts: PortalSnapshot["artifacts"];
   tasks: PortalSnapshot["tasks"];
   decisions: PortalSnapshot["decisions"];
+  suggestions: CrossEngagementSuggestion[];
 }) {
   return (
     <section className="space-y-2">
@@ -246,6 +258,35 @@ function EngagementDetail({
             </ScrollArea>
           </DashboardCard>
         </div>
+
+        {suggestions.length > 0 && (
+          <DashboardCard
+            id={`eng-${engagement.id}-cross`}
+            eyebrow="CROSS-ENGAGEMENT INTELLIGENCE"
+            title="Canonical artifacts that match this engagement"
+            subtitle="Suggested from the workspace bookshelf. The second engagement is faster, sharper, and more valuable — this is the surface that makes that real."
+            agentId="agent-roadmap-strategist"
+            agentState="updated"
+            bodyClassName="overflow-hidden"
+          >
+            <ScrollArea className="h-full max-h-[260px]">
+              <ul className="flex flex-col divide-y divide-[--border-subtle]">
+                {suggestions.map((s) => (
+                  <li key={s.artifactId} className="flex items-center gap-2 px-3 py-2">
+                    <Link
+                      href={`/portal/deliverables/${s.artifactId}`}
+                      className="text-xs font-semibold text-[--text-primary] flex-1 truncate hover:underline"
+                    >
+                      {s.artifactName}
+                    </Link>
+                    <p className="text-xs text-[--text-muted] truncate">{s.reason}</p>
+                    <span className="text-xs font-mono tabular-nums text-[--text-primary]">{Math.round(s.score * 100)}%</span>
+                  </li>
+                ))}
+              </ul>
+            </ScrollArea>
+          </DashboardCard>
+        )}
       </div>
     </section>
   );
