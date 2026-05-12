@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Link from "next/link";
 import { Bell, Search, ChevronDown } from "lucide-react";
 import { IconButton } from "@/components/ui/icon-button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -38,15 +37,20 @@ export function TopBar({ title, subtitle, actions }: TopBarProps) {
 
       {/* Right controls */}
       <div className="flex items-center gap-1 ml-auto">
-        {/* Search */}
-        <Link
-          href="/portal/search"
+        {/* Search → opens the Cmd+K palette */}
+        <button
+          type="button"
+          onClick={() => {
+            type WithPortalPalette = Window & { __dauntlessPortalPalette?: { open: () => void } };
+            (window as WithPortalPalette).__dauntlessPortalPalette?.open();
+          }}
           className="flex items-center gap-2 h-7 px-2 rounded-[--radius-md] bg-[--elevated] border border-[--border-subtle] text-[--text-muted] hover:text-[--text-secondary] hover:border-[--border-default] transition-colors text-xs"
+          aria-label="Open command palette"
         >
           <Search className="h-3.5 w-3.5" />
           <span className="hidden md:block">Search</span>
           <kbd className="hidden md:block text-xs bg-[--elevated-2] px-1 rounded border border-[--border-default]">⌘K</kbd>
-        </Link>
+        </button>
 
         <ThemeToggle />
 

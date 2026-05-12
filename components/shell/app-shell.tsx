@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { CommandPalette } from "./command-palette";
 import { SideRail } from "./side-rail";
 import { TopBar } from "./top-bar";
 
@@ -31,6 +32,9 @@ export function AppShell({ children, topBarTitle, topBarSubtitle, topBarActions 
 
       {/* Mobile bottom nav */}
       <MobileNav />
+
+      {/* Cmd+K palette — global overlay */}
+      <CommandPalette />
     </div>
   );
 }

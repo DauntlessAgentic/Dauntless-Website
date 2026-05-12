@@ -192,6 +192,14 @@ export function AgentsView({ snapshot, membership }: AgentsViewProps) {
               badgeVariant="accent"
               agentId={selected.id}
               agentState={selected.state}
+              actions={
+                <Link
+                  href={`/portal/agents/${selected.id}`}
+                  className="text-xs text-[--accent-vivid] hover:underline inline-flex items-center gap-1"
+                >
+                  Open detail <ArrowRight className="h-3 w-3" />
+                </Link>
+              }
               bodyClassName="overflow-hidden"
             >
               <ScrollArea className="h-full">
