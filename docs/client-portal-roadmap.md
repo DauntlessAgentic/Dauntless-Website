@@ -14,7 +14,11 @@ land in any phase and ground quickly.
 
 ## Where we are
 
-**Phase 12.0 — Federation primitive + cross-tenant search (shipped, PR TBD)**
+**Phase 13.0 — Per-workspace model registry + fine-tunes (shipped, PR TBD)**
+
+Branch: `claude/portal-phase-13-fine-tunes`. See the Phase 13 section.
+
+**Phase 12.0 — Federation primitive + cross-tenant search (shipped, PR #14)**
 
 Branch: `claude/portal-phase-12-federation`. See the Phase 12 section.
 
@@ -945,9 +949,31 @@ without losing tenancy isolation.
 
 ## Phase 13 — Portal-trained models and per-workspace fine-tunes
 
+**Status**: **Phase 13.0 shipped** on `claude/portal-phase-13-fine-tunes`.
+Model registry, propose / route / rollback flow, quality gate (≥ 2-point
+lift over baseline), and drift-based auto-rollback are live. Phase 13.1
+wires real fine-tune jobs against the Anthropic API + persistent
+training-data extraction pipeline.
 **Theme**: the agents get smarter on **your** patterns specifically.
-**Estimate**: 12–16 weeks
+**Estimate**: 10–14 weeks (Phase 13.1)
 **Unlocks**: the most defensible per-client moat; an obvious upgrade path for power clients.
+
+### Phase 13.0 — what shipped
+
+- `lib/portal/models/types.ts` — `ModelVariant` + propose / rollback
+  shapes; status lifecycle (`training` → `evaluating` → `ready` →
+  `active` / `rolled-back` / `failed`).
+- `lib/portal/models/store.ts` — in-process registry with deterministic
+  seed (baseline Claude Sonnet 4.6 + one fine-tuned variant). Quality
+  gate refuses routing when the variant doesn't outperform baseline by
+  ≥ 2 points. Drift > 0.4 auto-rolls back to baseline.
+- `lib/portal/models/actions.ts` — gated server actions (owner /
+  executive). Each transition appends an audit entry.
+- `/portal/models` — registry surface. Per-variant card with eval
+  bars, drift bar, source-artifact count, route / rollback controls.
+  Propose-a-fine-tune form lists canonical/approved artifacts.
+- `tests/portal/models.test.mjs` — 5 smoke tests across seed, propose
+  lift, quality gate, drift auto-rollback, manual rollback.
 
 ### Why now
 
