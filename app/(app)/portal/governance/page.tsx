@@ -1,4 +1,8 @@
-import { getTelemetrySummary, listAgentRuns } from "@/lib/portal/agents/telemetry";
+import {
+  getPerAgentTelemetry,
+  getTelemetrySummary,
+  listAgentRuns,
+} from "@/lib/portal/agents/telemetry";
 import { computeActivationStatus, getPortalRepository } from "@/lib/portal/repositories";
 import { loadPortalContext } from "@/lib/portal/server";
 import { GovernanceView } from "./view";
@@ -23,6 +27,7 @@ export default async function GovernancePage() {
     notes: run.notes,
     error: run.error,
   }));
+  const perAgent = getPerAgentTelemetry();
   return (
     <GovernanceView
       snapshot={snapshot}
@@ -30,6 +35,7 @@ export default async function GovernancePage() {
       activationStatus={activationStatus}
       agentTelemetry={telemetry}
       agentRuns={agentRuns}
+      perAgentTelemetry={perAgent}
     />
   );
 }

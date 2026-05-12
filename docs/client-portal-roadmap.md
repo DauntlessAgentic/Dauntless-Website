@@ -14,7 +14,11 @@ land in any phase and ground quickly.
 
 ## Where we are
 
-**Phase 4.0 — Knowledge mem-palace + workspace search (shipped, PR TBD)**
+**Phase 5.0 — Full agent fleet with separation of powers (shipped, PR TBD)**
+
+Branch: `claude/portal-phase-5-agent-fleet`. See the Phase 5 section below.
+
+**Phase 4.0 — Knowledge mem-palace + workspace search (shipped, PR #4)**
 
 Branch: `claude/portal-phase-4-mem-palace`. See the Phase 4 section below.
 
@@ -310,9 +314,51 @@ doesn't let you author or evolve them. Without this, "compounding" stays a sloga
 
 ## Phase 5 — Full agent fleet and the real-time Decision Surface
 
+**Status**: **Phase 5.0 shipped** on `claude/portal-phase-5-agent-fleet`.
+All four archetypes ship as runnable agents with hard separation of powers
+enforced at the tool catalog level. Phase 5.1 (real-time signals via
+Supabase Realtime + Next-Best-Actions ranking engine) is the remaining work.
 **Theme**: the cockpit is alive.
-**Estimate**: 8–12 weeks
+**Estimate**: 6–8 weeks (Phase 5.1)
 **Unlocks**: the Advanced Portal tier; sells multi-engagement clients.
+
+### Phase 5.0 — what shipped
+
+- `lib/portal/agents/registry.ts` — single source of truth for the fleet:
+  8 agents across all 4 archetypes (Strategist · Operator · Auditor ·
+  Chief of Staff).
+- `lib/portal/agents/tool-catalog.ts` — separation-of-powers enforced at
+  the catalog level. `propose_decision` is strategist-only;
+  `draft_artifact_version` + `request_review` are operator-only;
+  `audit_*` + `propose_revision` are auditor-only; `generate_briefing` +
+  `summarize_engagement` are chief-of-staff-only.
+- `lib/portal/agents/runner.ts` — generic orchestrator. Every agent
+  executes through the same tool-use loop. Per-archetype stub modes
+  produce realistic state mutations when ANTHROPIC_API_KEY is unset.
+- Repository extended: `draftArtifactVersion`, `requestArtifactReview`,
+  `proposeRevision`, `recordAgentHandoff`. All atomic with audit + signal
+  emission.
+- Agents page now exposes every agent (not just Engagement Analyst).
+  Role-gated per-archetype.
+- Governance page: new "Fleet telemetry" table — runs / decisions / cost
+  / cache / last-run by agent.
+- `tests/portal/agent-fleet.test.mjs` — 15-test separation-of-powers +
+  per-archetype stub run suite.
+
+### Phase 5.1 — what's left
+
+- Real-time signals via Supabase Realtime: the "What changed?" feed
+  updates live.
+- Next-Best-Actions engine wired as a real ranking pipeline (impact ×
+  confidence × due-date × engagement-phase weight).
+- Concierge narration on cadence — generate this-week briefings on a
+  schedule and post them to the workspace feed.
+- Calendar surface: port CAIA calendar gizmos into
+  `app/(app)/portal/schedule/`.
+- Inter-agent handoff protocol hardening: today handoffs are recorded as
+  audit entries; the next iteration should queue them and route the
+  receiving archetype's run automatically.
+- Per-agent cost budgets in Governance.
 
 ### Why now
 

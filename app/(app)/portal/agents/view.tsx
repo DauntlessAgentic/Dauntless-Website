@@ -11,9 +11,7 @@ import { ContentTag } from "@/components/ui/content-tag";
 import { AgentFleetPanel } from "@/components/patterns/agent-fleet-panel";
 import type { PortalSnapshot } from "@/lib/portal/types";
 import type { MembershipContext } from "@/lib/auth/session";
-import { canPerform } from "@/lib/auth/membership-gate";
-import { runEngagementAnalystAction, type AgentRunSummary } from "@/lib/portal/agents/actions";
-import { ENGAGEMENT_ANALYST_ID } from "@/lib/portal/agents/engagement-analyst.shared";
+import { runAgentAction, type AgentRunSummary } from "@/lib/portal/agents/actions";
 
 const STATE_TAG: Record<string, React.ComponentProps<typeof ContentTag>["variant"]> = {
   idle: "default", active: "success", thinking: "info",
@@ -42,10 +40,7 @@ export function AgentsView({ snapshot, membership }: AgentsViewProps) {
     .filter((s) => s.kind === "agent-action" && s.refId === selected.id)
     .slice(0, 6);
 
-  const isEngagementAnalyst = selected.id === ENGAGEMENT_ANALYST_ID;
-  const canRun =
-    isEngagementAnalyst &&
-    (membership.role === "owner" || membership.role === "executive" || membership.role === "lead");
+  const canRun = roleCanRun(membership.role, selected.archetype);
   const [steeringPrompt, setSteeringPrompt] = useState("");
   const [lastRun, setLastRun] = useState<AgentRunSummary | null>(null);
   const [runError, setRunError] = useState<string | null>(null);
@@ -55,7 +50,8 @@ export function AgentsView({ snapshot, membership }: AgentsViewProps) {
     setRunError(null);
     startRun(async () => {
       try {
-        const result = await runEngagementAnalystAction({
+        const result = await runAgentAction({
+          agentId: selected.id,
           prompt: steeringPrompt.trim() || undefined,
         });
         setLastRun(result);
@@ -83,14 +79,13 @@ export function AgentsView({ snapshot, membership }: AgentsViewProps) {
 
       <div className="flex-1 overflow-auto p-4 space-y-4 pb-20 md:pb-4">
 
-        {isEngagementAnalyst && (
-          <DashboardCard
+        <DashboardCard
             id="agent-runner"
             eyebrow="LIVE RUNTIME"
             title={`Run the ${selected.name}`}
             subtitle={canRun
-              ? "Propose a new decision against the workspace. Every run is audited; the proposal lands in pending-approval status."
-              : `Your role (${membership.role}) can read agent state but cannot trigger runs.`}
+              ? archetypeRunSubtitle(selected.archetype)
+              : `Your role (${membership.role}) can read agent state but cannot trigger ${selected.archetype} runs.`}
             agentId={selected.id}
             agentState={isRunning ? "thinking" : selected.state}
             badge={lastRun?.status === "stub" ? "Stub mode" : lastRun?.status ?? "Idle"}
@@ -165,7 +160,6 @@ export function AgentsView({ snapshot, membership }: AgentsViewProps) {
               )}
             </div>
           </DashboardCard>
-        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
           <div className="lg:col-span-1 min-h-[500px]">
@@ -353,6 +347,22 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
       <div className="text-xs text-[--text-primary]">{children}</div>
     </div>
   );
+}
+
+function roleCanRun(role: string, archetype: string): boolean {
+  if (role === "owner" || role === "executive" || role === "lead") return true;
+  if (role === "auditor" && (archetype === "auditor" || archetype === "chief-of-staff")) return true;
+  return false;
+}
+
+function archetypeRunSubtitle(archetype: string): string {
+  switch (archetype) {
+    case "strategist":     return "Propose a new decision against the workspace. Every run is audited; the proposal lands in pending-approval status.";
+    case "operator":       return "Draft a new artifact version. Operators must hand off to an Auditor before publication.";
+    case "auditor":        return "Run an evidence-completeness audit. Verdicts ride through to the Decision Register.";
+    case "chief-of-staff": return "Generate an executive briefing from current workspace state.";
+    default:               return "Run the agent against the workspace.";
+  }
 }
 
 function relativeAgo(date: Date): string {

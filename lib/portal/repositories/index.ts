@@ -49,9 +49,13 @@ function createRepository(): PortalRepository {
 export { InMemoryPortalRepository } from "./in-memory";
 export { computeActivationStatus } from "./activation-status";
 export type {
+  AgentHandoffInput,
   PortalRepository,
   DecisionOutcomeInput,
+  DraftArtifactVersionInput,
   KnowledgePromotionInput,
   ProposeDecisionRepoInput,
+  ProposeRevisionRepoInput,
+  RequestReviewRepoInput,
   RepositoryActivationStatus,
 } from "./types";

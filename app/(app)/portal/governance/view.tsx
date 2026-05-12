@@ -44,12 +44,23 @@ interface AgentTelemetrySummary {
   decisionsProposed: number;
 }
 
+interface PerAgentTelemetryProps {
+  agentId: string;
+  runs: number;
+  decisionsProposed: number;
+  totalCostUsd: number;
+  averageCacheHitRate: number;
+  lastRunAt?: Date;
+  hasError: boolean;
+}
+
 interface GovernanceViewProps {
   snapshot: PortalSnapshot;
   membership: MembershipContext;
   activationStatus: RepositoryActivationStatus;
   agentTelemetry: AgentTelemetrySummary;
   agentRuns: AgentRunSummaryProps[];
+  perAgentTelemetry: PerAgentTelemetryProps[];
 }
 
 export function GovernanceView({
@@ -58,6 +69,7 @@ export function GovernanceView({
   activationStatus,
   agentTelemetry,
   agentRuns,
+  perAgentTelemetry,
 }: GovernanceViewProps) {
   const {
     auditLog: mockAuditLog,
@@ -226,6 +238,57 @@ export function GovernanceView({
             </DashboardCard>
           </div>
         </div>
+
+        {/* Per-agent fleet telemetry */}
+        <DashboardCard
+          id="agent-fleet-telemetry"
+          eyebrow="FLEET TELEMETRY"
+          title="Cost + run health by agent"
+          subtitle="Phase 5 separation-of-powers means every archetype has a separate ledger. Use this to spot agents that haven't run, agents that error, and where cost concentrates."
+          bodyClassName="overflow-hidden"
+        >
+          <ScrollArea className="h-full max-h-[320px]">
+            <table className="w-full text-xs">
+              <thead className="sticky top-0 bg-[--panel-bg] z-10">
+                <tr className="border-b border-[--border-subtle]">
+                  <th className="px-3 py-2 text-left text-xs font-semibold uppercase tracking-widest text-[--text-muted]">Agent</th>
+                  <th className="px-3 py-2 text-left text-xs font-semibold uppercase tracking-widest text-[--text-muted]">Runs</th>
+                  <th className="px-3 py-2 text-left text-xs font-semibold uppercase tracking-widest text-[--text-muted]">Decisions</th>
+                  <th className="px-3 py-2 text-left text-xs font-semibold uppercase tracking-widest text-[--text-muted]">Cost</th>
+                  <th className="px-3 py-2 text-left text-xs font-semibold uppercase tracking-widest text-[--text-muted]">Cache</th>
+                  <th className="px-3 py-2 text-left text-xs font-semibold uppercase tracking-widest text-[--text-muted]">Last run</th>
+                </tr>
+              </thead>
+              <tbody>
+                {perAgentTelemetry.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="px-3 py-6 text-center text-xs text-[--text-muted]">
+                      No agent runs recorded in this server process yet.
+                    </td>
+                  </tr>
+                ) : (
+                  perAgentTelemetry.map((row) => (
+                    <tr key={row.agentId} className="border-b border-[--border-subtle] hover:bg-[--elevated] transition-colors">
+                      <td className="px-3 py-2 text-[--text-primary] font-mono">{row.agentId}</td>
+                      <td className="px-3 py-2 text-[--text-primary]">{row.runs}</td>
+                      <td className="px-3 py-2 text-[--text-primary]">{row.decisionsProposed}</td>
+                      <td className="px-3 py-2 text-[--text-primary] font-mono tabular-nums">${row.totalCostUsd.toFixed(4)}</td>
+                      <td className="px-3 py-2 text-[--text-primary] tabular-nums">{Math.round(row.averageCacheHitRate * 100)}%</td>
+                      <td className="px-3 py-2 text-[--text-muted] font-mono tabular-nums">
+                        {row.lastRunAt ? relativeAgo(row.lastRunAt) : "—"}
+                        {row.hasError && (
+                          <ContentTag variant="danger" className="ml-1.5">
+                            errors
+                          </ContentTag>
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </ScrollArea>
+        </DashboardCard>
 
         {/* Tier breakdown */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
