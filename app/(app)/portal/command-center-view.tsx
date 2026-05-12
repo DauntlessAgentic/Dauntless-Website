@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useTransition } from "react";
 import Link from "next/link";
 import {
   ArrowRight, Sparkles, CalendarPlus, Download, Shield, FileText,
@@ -23,6 +23,7 @@ import { EvidenceLink } from "@/components/patterns/evidence-link";
 
 import type { KnowledgeShelf as KnowledgeShelfKind, PortalSnapshot } from "@/lib/portal/types";
 import type { MembershipContext } from "@/lib/auth/session";
+import { runAgentAction, type AgentRunSummary } from "@/lib/portal/agents/actions";
 
 function relativeTime(date: Date): string {
   const diff = Date.now() - date.getTime();
@@ -46,7 +47,23 @@ interface CommandCenterViewProps {
   membership: MembershipContext;
 }
 
-export function CommandCenterView({ snapshot, membership: _membership }: CommandCenterViewProps) {
+export function CommandCenterView({ snapshot, membership }: CommandCenterViewProps) {
+  const canRunConcierge =
+    membership.role === "owner" || membership.role === "executive" || membership.role === "lead";
+  const [conciergeRun, setConciergeRun] = useState<AgentRunSummary | null>(null);
+  const [conciergeError, setConciergeError] = useState<string | null>(null);
+  const [isConciergeRunning, startConcierge] = useTransition();
+  const handleConcierge = () => {
+    setConciergeError(null);
+    startConcierge(async () => {
+      try {
+        const result = await runAgentAction({ agentId: "agent-concierge" });
+        setConciergeRun(result);
+      } catch (err) {
+        setConciergeError(err instanceof Error ? err.message : "Concierge run failed.");
+      }
+    });
+  };
   const {
     organization: mockOrganization,
     workspace: mockWorkspace,
@@ -159,15 +176,51 @@ export function CommandCenterView({ snapshot, membership: _membership }: Command
               <Download className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">Export briefing</span>
             </Button>
-            <Button variant="primary" size="sm" className="gap-1.5">
+            <Button
+              variant="primary"
+              size="sm"
+              className="gap-1.5"
+              disabled={!canRunConcierge || isConciergeRunning}
+              onClick={handleConcierge}
+            >
               <Sparkles className="h-3.5 w-3.5" />
-              Ask the Concierge
+              {isConciergeRunning ? "Briefing…" : "Ask the Concierge"}
             </Button>
           </>
         }
       />
 
       <div className="flex-1 overflow-auto p-4 space-y-4 pb-20 md:pb-4">
+
+        {conciergeRun && (
+          <DashboardCard
+            id="concierge-result"
+            eyebrow="CONCIERGE BRIEFING"
+            title={`${conciergeRun.agentName} · ${conciergeRun.status}`}
+            subtitle={`${conciergeRun.model} · ${conciergeRun.costUsd} · cache ${Math.round(conciergeRun.cacheHitRate * 100)}%`}
+            agentId={conciergeRun.agentId}
+            agentState={conciergeRun.status === "errored" ? "blocked" : "complete"}
+          >
+            <div className="px-3 py-2.5 text-xs space-y-1.5 text-[--text-secondary] leading-snug">
+              <p className="whitespace-pre-line">{conciergeRun.summary}</p>
+              {conciergeRun.toolCalls.length > 0 && (
+                <div className="flex flex-wrap gap-1.5">
+                  {conciergeRun.toolCalls.map((t, idx) => (
+                    <ContentTag
+                      key={`${t.tool}-${idx}`}
+                      variant={t.isError ? "danger" : "info"}
+                    >
+                      {t.tool}
+                    </ContentTag>
+                  ))}
+                </div>
+              )}
+            </div>
+          </DashboardCard>
+        )}
+        {conciergeError && (
+          <p className="text-xs text-[--danger] leading-snug px-3">{conciergeError}</p>
+        )}
 
         {/* ── Promise band ─────────────────────────────────────── */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
