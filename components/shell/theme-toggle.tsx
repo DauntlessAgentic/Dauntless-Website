@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import { IconButton } from "@/components/ui/icon-button";
 
@@ -7,29 +7,34 @@ import { IconButton } from "@/components/ui/icon-button";
 // Reads/writes localStorage and toggles class on <html>.
 // next-themes can replace this if needed, but this avoids hydration flicker
 // and works cleanly with our CSS class strategy.
+function applyTheme(dark: boolean) {
+  const html = document.documentElement;
+  html.classList.remove("light", "dark");
+  html.classList.add(dark ? "dark" : "light");
+}
+
 export function ThemeToggle() {
-  const [isDark, setIsDark] = useState(true);
+  // Lazy initializer reads saved preference once on mount; on the server
+  // (where window is undefined) we default to dark to match the SSR class.
+  const [isDark, setIsDark] = useState<boolean>(() => {
+    if (typeof window === "undefined") return true;
+    const saved = window.localStorage.getItem("app-chassis-theme");
+    return saved ? saved === "dark" : true;
+  });
 
+  // Sync the <html> class with current preference. This is the external-system
+  // write that effects exist for; it does not call setState.
   useEffect(() => {
-    // Read saved preference; default to dark
-    const saved = localStorage.getItem("app-chassis-theme");
-    const dark = saved ? saved === "dark" : true;
-    setIsDark(dark);
-    applyTheme(dark);
+    applyTheme(isDark);
+  }, [isDark]);
+
+  const toggle = useCallback(() => {
+    setIsDark((current) => {
+      const next = !current;
+      window.localStorage.setItem("app-chassis-theme", next ? "dark" : "light");
+      return next;
+    });
   }, []);
-
-  function applyTheme(dark: boolean) {
-    const html = document.documentElement;
-    html.classList.remove("light", "dark");
-    html.classList.add(dark ? "dark" : "light");
-  }
-
-  function toggle() {
-    const next = !isDark;
-    setIsDark(next);
-    applyTheme(next);
-    localStorage.setItem("app-chassis-theme", next ? "dark" : "light");
-  }
 
   return (
     <IconButton

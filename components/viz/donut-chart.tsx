@@ -3,6 +3,7 @@ import React from "react";
 import {
   ResponsiveContainer, PieChart, Pie, Cell, Tooltip as ReTooltip,
 } from "recharts";
+import type { ChartTooltipProps } from "./types";
 
 interface DonutChartVizProps {
   data: Array<{ name: string; value: number; color: string }>;
@@ -10,14 +11,16 @@ interface DonutChartVizProps {
   outerRadius?: number;
 }
 
-const CustomTooltip = ({ active, payload }: any) => {
+const CustomTooltip = ({ active, payload }: ChartTooltipProps) => {
   if (!active || !payload?.length) return null;
+  const slice = payload[0];
+  const sliceColor = (slice.payload?.color as string | undefined) ?? slice.color;
   return (
     <div className="rounded-[6px] border border-[--border-strong] bg-[--elevated-2] px-2.5 py-2 shadow-[--shadow-md]">
       <div className="flex items-center gap-2 text-xs">
-        <span className="h-1.5 w-1.5 rounded-full" style={{ background: payload[0].payload.color }} />
-        <span className="text-[--text-secondary]">{payload[0].name}:</span>
-        <span className="font-medium tabular-nums text-[--text-primary]">{payload[0].value}%</span>
+        <span className="h-1.5 w-1.5 rounded-full" style={{ background: sliceColor }} />
+        <span className="text-[--text-secondary]">{slice.name}:</span>
+        <span className="font-medium tabular-nums text-[--text-primary]">{slice.value}%</span>
       </div>
     </div>
   );

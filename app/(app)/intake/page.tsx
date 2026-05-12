@@ -30,7 +30,7 @@ function FormGroup({ label, hint, required, children }: {
 
 export default function IntakePage() {
   const [step, setStep] = useState(0);
-  const [submitted, setSubmitted] = useState(false);
+  const [submitted, setSubmitted] = useState<null | { id: string }>(null);
   const [assignToAgent, setAssignToAgent] = useState(true);
   const [priority, setPriority] = useState("medium");
 
@@ -44,14 +44,21 @@ export default function IntakePage() {
         </div>
         <div className="text-center space-y-1">
           <h2 className="text-base font-semibold text-[--text-primary]">Submitted successfully</h2>
-          <p className="text-sm text-[--text-muted]">Item queued for processing · ID: ITEM-{Math.floor(Math.random() * 9000 + 1000)}</p>
+          <p className="text-sm text-[--text-muted]">Item queued for processing · ID: {submitted.id}</p>
         </div>
-        <Button variant="accent" onClick={() => { setStep(0); setSubmitted(false); }}>
+        <Button variant="accent" onClick={() => { setStep(0); setSubmitted(null); }}>
           Submit another
         </Button>
       </div>
     );
   }
+
+  // Generate the item ID at submit time, never during render. Avoids hydration
+  // drift and keeps the render path pure.
+  const submit = () => {
+    const id = `ITEM-${Math.floor(Math.random() * 9000 + 1000)}`;
+    setSubmitted({ id });
+  };
 
   return (
     <div className="flex flex-col h-full">
@@ -230,7 +237,7 @@ export default function IntakePage() {
                   <ChevronRight className="h-3.5 w-3.5 ml-1" />
                 </Button>
               ) : (
-                <Button variant="primary" size="sm" onClick={() => setSubmitted(true)}>
+                <Button variant="primary" size="sm" onClick={submit}>
                   Submit Item
                 </Button>
               )}

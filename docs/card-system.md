@@ -30,6 +30,7 @@ import { DashboardCard } from "@/components/cards/dashboard-card";
   eyebrow="AI SUMMARY"
   subtitle="Updated 3m ago"
   badge="Live"
+  badgeVariant="accent"          // optional — Badge variant for the inline badge
   agentState="active"
   agentId="agent-alpha"
   loading={isLoading}
@@ -39,6 +40,11 @@ import { DashboardCard } from "@/components/cards/dashboard-card";
   <MyCardContent />
 </DashboardCard>
 ```
+
+`badgeVariant` accepts any `Badge` variant (`default`, `accent`, `info`, `success`,
+`warning`, `danger`, `outline`). Omit it to get the default tone. Use it to color
+the badge against the card's status (`accent` for "Live" / "Canonical", `warning`
+for "Pending", `success` for "Approved", etc.).
 
 ## Agent States
 
