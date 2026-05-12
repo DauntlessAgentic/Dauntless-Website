@@ -4,7 +4,6 @@ import Link from "next/link";
 import { ArrowRight, Target, AlertTriangle, ListChecks } from "lucide-react";
 import { WorkspaceHeader } from "@/components/shell/workspace-header";
 import { DashboardCard } from "@/components/cards/dashboard-card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ContentTag } from "@/components/ui/content-tag";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -118,9 +117,12 @@ function EngagementDetail({
           <p className="text-xs font-bold uppercase tracking-widest text-[--text-muted]">{engagement.name}</p>
           <ContentTag variant="accent">{engagement.service}</ContentTag>
         </div>
-        <Button variant="ghost" size="xs" className="gap-1">
+        <Link
+          href={`/portal/engagements/${engagement.id}`}
+          className="text-xs text-[--accent-vivid] hover:underline inline-flex items-center gap-1"
+        >
           Open <ArrowRight className="h-3 w-3" />
-        </Button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
