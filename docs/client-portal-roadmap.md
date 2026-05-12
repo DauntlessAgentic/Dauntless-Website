@@ -14,7 +14,11 @@ land in any phase and ground quickly.
 
 ## Where we are
 
-**Phase 14.0 — Dauntless portfolio rollup + internal decision register (shipped, PR TBD)**
+**Phase 15.0 — Third-party agent marketplace + eval harness (shipped, PR TBD)**
+
+Branch: `claude/portal-phase-15-marketplace`. See the Phase 15 section.
+
+**Phase 14.0 — Dauntless portfolio rollup + internal decision register (shipped, PR #16)**
 
 Branch: `claude/portal-phase-14-portfolio`. See the Phase 14 section.
 
@@ -1061,9 +1065,33 @@ company's operational backbone.
 
 ## Phase 15 — Open agent market and third-party tools
 
+**Status**: **Phase 15.0 shipped** on `claude/portal-phase-15-marketplace`.
+Submission spec, eval harness (re-uses the Phase 5 tool catalog to
+enforce separation-of-powers at the listing level), assurance reports,
+install / uninstall / killswitch flow, and revenue-share ledger are
+live. Phase 15.1 wires the public submission API + ACH payouts.
 **Theme**: the portal is an operating system. Third parties build for it.
-**Estimate**: 14–20 weeks
+**Estimate**: 8–12 weeks (Phase 15.1)
 **Unlocks**: ecosystem; network defensibility; sales velocity from partner-led motion.
+
+### Phase 15.0 — what shipped
+
+- `lib/portal/marketplace/types.ts` — `MarketplaceListing` lifecycle
+  + `MarketplaceEvalResult` + `AssuranceReport` + `MarketplaceInstall`
+  + `MarketplacePayout` shapes.
+- `lib/portal/marketplace/store.ts` — in-process store with 3 seeded
+  listings (Policy Foresight, Procurement Auditor, RFP Drafter
+  pending eval). `submitListing` / `runEvalForListing` (eval re-uses
+  the Phase 5 `isToolPermitted()` predicate — out-of-archetype tool
+  declarations fail automatically) / `publishListing` /
+  `installListing` / `removeInstall` / `killSwitch` (revokes globally).
+- `lib/portal/marketplace/actions.ts` — gated server actions (eval +
+  publish + killswitch owner-only; install owner/executive).
+- `/portal/marketplace` — surface. Listings card with status pills,
+  eval verdict / assurance report inspectors, install / uninstall /
+  killswitch controls, owner-only revenue-share ledger.
+- `tests/portal/marketplace.test.mjs` — 5 smoke tests including a
+  separation-of-powers violation that fails eval.
 
 ### Why now
 
