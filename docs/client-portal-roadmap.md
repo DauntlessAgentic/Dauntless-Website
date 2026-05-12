@@ -14,7 +14,11 @@ land in any phase and ground quickly.
 
 ## Where we are
 
-**Phase 13.0 — Per-workspace model registry + fine-tunes (shipped, PR TBD)**
+**Phase 14.0 — Dauntless portfolio rollup + internal decision register (shipped, PR TBD)**
+
+Branch: `claude/portal-phase-14-portfolio`. See the Phase 14 section.
+
+**Phase 13.0 — Per-workspace model registry + fine-tunes (shipped, PR #15)**
 
 Branch: `claude/portal-phase-13-fine-tunes`. See the Phase 13 section.
 
@@ -1005,9 +1009,26 @@ proposes decisions in that organization's voice and within its policy posture.
 
 ## Phase 14 — Portfolio intelligence and the Dauntless-side rollup
 
+**Status**: **Phase 14.0 shipped** on `claude/portal-phase-14-portfolio`.
+Owner-gated portfolio rollup, per-account health + margin table,
+pattern-emergence detector, and internal decision register are live.
+Phase 14.1 wires real per-workspace telemetry projection.
 **Theme**: Dauntless-the-company sees its entire client portfolio as one cockpit.
-**Estimate**: 6–10 weeks (mostly reuses existing surfaces)
+**Estimate**: 4–6 weeks (Phase 14.1)
 **Unlocks**: Dauntless internal operations; pricing intelligence; account-management leverage.
+
+### Phase 14.0 — what shipped
+
+- `lib/portal/portfolio/*` — `PortfolioAccount` shape, 4-account seed
+  (TBS, ESDC, Health Canada, NRCan), `PortfolioEmergentPattern` shape
+  with 4 candidates (3 ready for federation), `InternalDecision`
+  register with pricing / sector-focus / hiring / marketing categories.
+- `/portal/portfolio` — owner-gated surface. KPI tiles (MRR, gross
+  margin, at-risk accounts, emergent patterns), per-account table with
+  health + churn risk + expansion score, emergent-patterns feed,
+  internal decision register.
+- `tests/portal/portfolio.test.mjs` — 4 smoke tests on tier coverage,
+  totals, federation candidates, status coverage.
 
 ### Why now
 
