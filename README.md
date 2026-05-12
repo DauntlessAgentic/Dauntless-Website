@@ -80,16 +80,36 @@ architecture, outcomes telemetry, and governance.
 | `docs/client-portal-roadmap.md` | 15-phase product roadmap from real persistence through open agent market |
 | `docs/caia-mapping.md` | CAIA → portal subsystem inventory; what to port, what to skip |
 
-Routes:
+Routes (22 portal routes + 7 API routes):
 
 - `/portal` — Command Center with the five-section Decision Surface
-- `/portal/engagements` — success criteria, risks, milestones, in-flight decisions
+- `/portal/engagements` — success criteria, risks, milestones, in-flight decisions + cross-engagement intelligence
 - `/portal/deliverables` — artifact library, version history, canonical bookshelf
-- `/portal/decisions` — Decision Register with evidence vault
-- `/portal/agents` — agent fleet by archetype (Strategist · Operator · Auditor · Chief of Staff)
-- `/portal/knowledge` — Desk · Bookshelf · Filing Cabinet with M0–M4 tiers
+- `/portal/deliverables/[id]` — artifact detail with version timeline, evidence vault, diff, canonical proposal
+- `/portal/deliverables/[id]/edit` — Markdown editor with live preview + inline `[[ev-id]]` citation chips
+- `/portal/decisions` — Decision Register with approve / defer / reject controls
+- `/portal/agents` — agent fleet by archetype + live runtime card (every archetype runnable)
+- `/portal/knowledge` — Desk · Bookshelf · Filing Cabinet, revalidation queue with urgency ranking
 - `/portal/outcomes` — KPI grid, compounding chart, executive narrative
-- `/portal/governance` — audit log, risk tiers, access roster, retention controls
+- `/portal/outcomes/impact-report` — Quarterly Impact Report assembled from telemetry
+- `/portal/governance` — audit log, risk tiers, access roster, fleet telemetry, repository activation status
+- `/portal/search` — workspace-wide search across artifacts/decisions/knowledge/signals/conversations
+- `/portal/schedule` — engagement touchpoints, bookings, SteerCo prep
+- `/portal/innovation` — Innovation Studio: pattern library, roadmap simulator, decision-tree visualization
+- `/portal/org` — Organization rollup with workspace switcher
+- `/portal/api` — REST API explorer + webhook ledger
+- `/portal/actions` — outbound action sandbox (propose → approve → dry-run → commit → rollback)
+- `/portal/federation` — federation primitive + cross-tenant search + anonymization pipeline
+- `/portal/compliance` — cross-framework readiness (Protected B IL2, FedRAMP Low, SOC 2 II, HIPAA)
+- `/portal/models` — per-workspace model registry + fine-tunes with quality gate + drift-based auto-rollback
+- `/portal/marketplace` — third-party agent marketplace + eval harness + killswitch
+- `/portal/portfolio` — Dauntless-internal firm-level cockpit (owner-gated)
+
+REST API (under `/api/portal/v1`):
+
+- `GET /engagements`, `GET /artifacts`, `GET /signals`, `GET /metrics`
+- `GET /knowledge` (with `?q=…` search), `GET /schedule`
+- `GET / POST /decisions` (record outcome), `GET / POST /schedule` (propose item)
 
 Domain types and mock data live in `lib/portal/`. Portal-specific reusable patterns
 live in `components/patterns/` (`portal-status-card`, `decision-list`, `artifact-list`,
