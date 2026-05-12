@@ -173,26 +173,54 @@ agent chat panel are all agent-bearing.
 
 ## 5. Data Layer
 
-### 5.1 v1 — Mock data, real types
-
-For this overnight slice:
+### 5.1 v1 — Mock data, real types (Phase 1)
 
 - Types live in `lib/portal/types.ts` (portal-scoped, distinct from the global `lib/types.ts` which holds chassis-wide types like `AgentState`).
 - Mock data lives in `lib/portal/mock-data.ts`. Deterministic — **no `Math.random()` in module scope, no random IDs in render**. Every value is hand-curated or generated from a stable seed.
 - The mock data models one realistic government client across three concurrent engagements (Discovery, Training, Agentic Systems).
 
-### 5.2 v2 — Supabase-backed (out of scope for this PR)
+### 5.2 v2 — Repository abstraction (Phase 2 — shipped)
 
-The type layer is intentionally shaped so that swapping the import path from
-`@/lib/portal/mock-data` to `@/lib/portal/repositories` will be a non-breaking
-change. The real layer will provide:
+The portal now reads through a `PortalRepository` interface (see
+`lib/portal/repositories/types.ts`). Every server-component page calls
+`loadPortalContext()` (from `lib/portal/server.ts`), which returns a typed
+`{ snapshot, membership }` tuple. Client components consume props; **no
+client-side imports of `mock-data` remain in `app/(app)/portal/*`.**
+
+Two implementations exist:
+
+- `InMemoryPortalRepository` — the default. Wraps `lib/portal/mock-data.ts`
+  and keeps mutations in-process for the lifetime of the server.
+- `SupabasePortalRepository` — placeholder interface, activated when
+  `SUPABASE_URL` / `PORTAL_DATABASE_URL` is set. Migrations and the concrete
+  adapter land in Phase 2.1.
+
+Mutations route through `lib/portal/actions.ts` (server actions). Each action:
+
+1. Resolves the current membership via `lib/auth/session.ts`.
+2. Checks the membership-gate (`lib/auth/membership-gate.ts`).
+3. Delegates to the repository, which appends an `AuditEntry` and emits a
+   `Signal` so the Command Center "What changed?" feed updates.
+4. Calls `revalidatePath("/portal", "layout")`.
+
+The two write paths wired in Phase 2 are:
+
+- `approveDecision` / `deferDecision` / `rejectDecision` — exposed on the
+  Decisions page detail panel.
+- `promoteKnowledge` — exposed on the Knowledge page "Canonical promotion"
+  panel.
+
+### 5.3 v3 — Database migrations + RLS (Phase 2.1)
+
+When the Supabase adapter lands:
 
 - Per-entity repositories returning typed `Promise<T>`.
-- Server components fetch via repositories; client components consume props.
 - Row-level security keyed off `workspaceId` and `Membership.role`.
 - Versions are append-only; soft-deletes only.
+- Migrations mirror `lib/portal/types.ts`; seed fixtures come from
+  `mock-data.ts` so demo and production share a shape.
 
-We will **not** ship a database migration in this PR.
+This will be the first time the portal ships a database migration.
 
 ### 5.3 v3 — Agent integration
 
@@ -234,18 +262,35 @@ freshness states. The shape is ready for a background job to update them.
 
 ## 8. Identity & Visibility
 
-The portal does **not** ship its own auth in v1.
+Phase 2 ships the gate, not the OAuth round-trip.
 
-- The app shell already has a Supabase stub (`lib/auth/supabase.ts`).
-- The portal pages are placed inside `app/(app)/` so they inherit the same shell as Dashboard / Analytics / Intake / Settings.
-- When real auth lands, `Membership.role` will gate the surfaces:
-  - `executive` → Command Center, Decisions, Outcomes
-  - `lead` → all surfaces except Governance write
-  - `viewer` → read-only
-  - `auditor` → Governance + Decisions read + audit log export
+- `lib/auth/runtime.ts` resolves the auth mode (`dev-bypass` /
+  `oauth-configured` / `auth-unavailable`) from environment variables.
+  Phase 2 default is `dev-bypass`.
+- `lib/auth/session.ts#getCurrentMembership(workspaceId)` returns a typed
+  `MembershipContext` tagged union (`member` / `dev-bypass` / `unmapped` /
+  `unauthenticated` / `auth-unavailable`). Every server component calls this.
+- `lib/auth/membership-gate.ts` exposes pure `canRead(role, surface)` and
+  `canPerform(role, action)` predicates used by both UI and server actions.
+- The TopBar role switcher (`components/shell/role-switcher.tsx`) is visible
+  in `dev-bypass` mode. It writes the `portal-role` cookie via a server
+  action and revalidates the portal layout.
 
-Trust badge on the workspace header is a token-only visual (`private` / `partner`
-/ `public`). For v1 it is a static prop on the mock workspace.
+Role gates currently in effect:
+
+- `owner` (Dauntless staff) → full read + write everywhere.
+- `executive` → read everywhere; can `approve-decision` / `defer-decision`
+  / `reject-decision`; can `export-audit-log`.
+- `lead` → read everywhere except governance; can `edit-artifact` /
+  `promote-knowledge`.
+- `viewer` → read everywhere except governance; no write surface.
+- `auditor` → read everywhere including governance; can `export-audit-log`;
+  no write surface on artifacts.
+
+OAuth (Google via NextAuth v5, ported pattern from CAIA) lands in Phase 2.1.
+
+Trust badge on the workspace header is a token-only visual (`private` /
+`partner` / `public`). It remains a static prop on the seeded workspace.
 
 ---
 

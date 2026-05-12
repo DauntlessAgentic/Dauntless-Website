@@ -13,6 +13,18 @@ const eslintConfig = defineConfig([
       // adds no safety and harms diff readability. We keep every other a11y
       // and React rule on.
       "react/no-unescaped-entities": "off",
+      // Respect the underscore convention for intentionally unused params /
+      // destructured fields. Without this, view components that receive props
+      // they don't yet consume have to suppress with inline disables.
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          destructuredArrayIgnorePattern: "^_",
+          ignoreRestSiblings: true,
+        },
+      ],
     },
   },
   // Override default ignores of eslint-config-next.

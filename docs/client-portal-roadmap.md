@@ -14,6 +14,11 @@ land in any phase and ground quickly.
 
 ## Where we are
 
+**Phase 2.0 — Repository abstraction & identity gate (shipped, PR TBD)**
+
+Branch: `claude/portal-phase-2-persistence-identity`. See the Phase 2
+section below for the full slice.
+
 **Phase 1 — Foundation slice (shipped, PR #1)**
 
 The first implementation slice of the portal is live on `claude/client-portal-mvp-3CFwb`:
@@ -68,34 +73,65 @@ repos can read those references and plan the port directly.
 
 ## Phase 2 — Real persistence and identity
 
+**Status**: **Phase 2.0 shipped** on `claude/portal-phase-2-persistence-identity`.
+Phase 2.1 (real Supabase OAuth + RLS) is the remaining work.
 **Theme**: stop pretending. Real users, real data, real RLS.
-**Estimate**: 4–6 weeks
+**Estimate**: 4–6 weeks (Phase 2.1)
 **Unlocks**: every subsequent phase. This is the gate.
 
-### Why now
+### Phase 2.0 — what shipped
 
-Phase 1 proved the UI works against the domain model. Until the workspace is
-persisted and gated by a real role, the portal cannot be shown to a real client.
+- `lib/portal/repositories/` — `PortalRepository` interface + in-memory
+  adapter that wraps the deterministic seed. Mutations append to an audit
+  log and emit signals in the same call.
+- `lib/portal/server.ts#loadPortalContext()` — every portal server-component
+  page now goes through this; **zero client-side imports of `mock-data`
+  remain in `app/(app)/portal/*`**.
+- `lib/auth/runtime.ts` + `lib/auth/session.ts` + `lib/auth/membership-gate.ts`
+  — typed `MembershipContext` tagged union, pure role/action predicates.
+- `components/shell/role-switcher.tsx` — TopBar dev-bypass impersonation,
+  cookie-driven, server-action backed.
+- `lib/portal/actions.ts` — `approveDecision`, `deferDecision`,
+  `rejectDecision`, `promoteKnowledge`. All audited, all gated, all
+  revalidate the portal layout.
+- Governance page now surfaces repository activation status + identity
+  status as the top row.
+- `tests/portal/repository.test.mjs` — six-test smoke suite covering the
+  repository contract (`npm test`, runs under `tsx --test`).
 
-### Deliverables
+### Phase 2.1 — what's left
 
-- Supabase schema mirroring `lib/portal/types.ts` (one table per entity; append-only
-  audit log; soft-deletes only; version tables for `Artifact` and `Decision`)
-- Row-level security keyed off `Membership.role` and `workspaceId`
-- Google OAuth via the existing `lib/auth/supabase.ts` stub (Microsoft / GCKey to follow as separate adapters)
-- Per-entity repositories under `lib/portal/repositories/*.ts` returning typed `Promise<T>` — UI imports do not change
-- Server components fetch via repositories; client components consume props (no client-side mock imports)
-- Seed fixtures generated from the same mock-data factories so demo and production share data shape
-- Real `Membership` model wired into page-level gates: `executive` → Command Center / Decisions / Outcomes; `lead` → all except Governance write; `viewer` → read-only; `auditor` → Governance + audit-log export
-- TopBar role switcher for impersonation (Dauntless staff only, gated)
-- `.env.local.example` updated with the full Supabase + OAuth config
+Sub-phase still required to claim "Phase 2 complete":
 
-### Acceptance criteria
+- Supabase schema mirroring `lib/portal/types.ts` (one table per entity;
+  append-only audit log; soft-deletes only; version tables for `Artifact`
+  and `Decision`).
+- Row-level security keyed off `Membership.role` and `workspaceId`.
+- `SupabasePortalRepository` concrete implementation behind
+  `SUPABASE_URL` env var, wired into the factory in
+  `lib/portal/repositories/index.ts`.
+- Google OAuth via NextAuth v5 (port the CAIA pattern). Microsoft / GCKey
+  follow as separate adapters.
+- Seed fixtures generated from the same `mock-data` factories so demo and
+  production share data shape.
+- One-shot provisioning script: `scripts/portal/provision-workspace.ts`.
 
-- A new workspace can be provisioned via a one-shot script
-- Two different test users see different views based on `Membership.role`
-- Pulling the plug on the mock-data imports leaves the UI fully functional
-- The audit-log table grows append-only on every approval / publish / agent run
+### Phase 2.0 acceptance — met by this branch
+
+- Pulling the plug on `mock-data` imports leaves the UI fully functional
+  (verified: zero `mock-data` imports remain in `app/(app)/portal/*`).
+- Two different "users" see different views based on `Membership.role`
+  (verified manually via the TopBar role switcher).
+- The audit-log grows append-only on every approval / promotion (verified
+  in `tests/portal/repository.test.mjs`).
+
+### Phase 2.1 acceptance
+
+- A new workspace can be provisioned via a one-shot script.
+- Two different test users authenticated via OAuth see different views
+  based on `Membership.role`.
+- The audit-log table grows append-only on every approval / publish /
+  agent run in the live Supabase backend.
 
 ### Risks
 
