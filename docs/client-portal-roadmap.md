@@ -14,7 +14,11 @@ land in any phase and ground quickly.
 
 ## Where we are
 
-**Phase 9.0 — REST API + SDK + webhook ledger (shipped, PR TBD)**
+**Phase 10.0 — Compliance posture + sector packs (shipped, PR TBD)**
+
+Branch: `claude/portal-phase-10-compliance`. See the Phase 10 section.
+
+**Phase 9.0 — REST API + SDK + webhook ledger (shipped, PR #11)**
 
 Branch: `claude/portal-phase-9-api-sdk`. See the Phase 9 section.
 
@@ -753,9 +757,38 @@ lets partners build value on top.
 
 ## Phase 10 — Compliance and sector packs
 
+**Status**: **Phase 10.0 shipped** on `claude/portal-phase-10-compliance`.
+The cross-framework posture surface (Protected B IL2 · FedRAMP Low · SOC
+2 Type II · HIPAA), control evaluators, and sector pack catalog are live.
+Phase 10.1 wires signed exports, third-party assessor coordination, and
+the PHI-tagging required to actually deploy in healthcare engagements.
 **Theme**: become procurable inside government and regulated enterprise.
-**Estimate**: 12–16 weeks (mostly process, partial engineering)
+**Estimate**: 10–14 weeks (Phase 10.1)
 **Unlocks**: the federal contracts the marketing site is already targeting (TBS, ESDC, NRCan, ECCC, ISED, CIR).
+
+### Phase 10.0 — what shipped
+
+- `lib/portal/compliance.ts` — `computePortalCompliance()` evaluates
+  workspace state across four frameworks with per-control verdicts.
+  Score model weighted pass/partial/gap with not-applicable controls
+  excluded from the denominator.
+- `/portal/compliance` — posture surface. Highlights, blocking gaps,
+  per-framework readiness with progress bars, sector pack catalog,
+  evidence export hint.
+- 5 sector packs seeded (Protected B Decision Architecture, Protected B
+  risk register, FedRAMP Low control mapping, SOC 2 CC7, HIPAA BAA).
+- `tests/portal/compliance.test.mjs` — 3 smoke tests on framework
+  coverage, hosted-bump, and sector-pack completeness.
+
+### Phase 10.1 — what's left
+
+- Signed, watermarked evidence exports (audit-log packets per
+  procurement officer + framework).
+- Continuous-audit instrumentation for SOC 2 Type II.
+- Third-party assessor coordination (FedRAMP Low).
+- PHI tagging + BAA template binding for HIPAA workspaces.
+- Data residency configuration per workspace (Canada / EU / US).
+- Customer-managed encryption keys (CMEK / BYOK) at the org level.
 
 ### Why now
 
