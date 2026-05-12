@@ -14,7 +14,11 @@ land in any phase and ground quickly.
 
 ## Where we are
 
-**Phase 10.0 — Compliance posture + sector packs (shipped, PR TBD)**
+**Phase 11.0 — Outbound action sandbox (shipped, PR TBD)**
+
+Branch: `claude/portal-phase-11-outbound-actions`. See the Phase 11 section.
+
+**Phase 10.0 — Compliance posture + sector packs (shipped, PR #12)**
 
 Branch: `claude/portal-phase-10-compliance`. See the Phase 10 section.
 
@@ -822,9 +826,32 @@ public-sector contracts is compliance posture, not features.
 
 ## Phase 11 — Embedded agentic operations
 
+**Status**: **Phase 11.0 shipped** on `claude/portal-phase-11-outbound-actions`.
+Outbound action contract, connector registry (7 connectors, 14
+capabilities), and sandbox surface are live. Phase 11.1 wires real HTTP
+adapters.
 **Theme**: agents take action **in client systems**, not just in the portal.
-**Estimate**: 14–18 weeks
+**Estimate**: 10–14 weeks (Phase 11.1)
 **Unlocks**: the marketing claim "managed agentic operations" becomes literal; deepest stickiness.
+
+### Phase 11.0 — what shipped
+
+- `lib/portal/outbound-actions/*` — typed lifecycle (propose → approve →
+  dry-run → commit → rollback), 7 connectors with 14 capabilities,
+  in-process store, server actions.
+- `/portal/actions` — sandbox surface. Connector catalog, propose form,
+  action queue with approve/dry-run/commit/rollback controls,
+  inverse-plan inspector, proposed-payload + simulated-diff inspectors.
+- Every transition emits an audit entry + webhook ledger event.
+- Command Center exposes an outbound-actions link.
+- `tests/portal/outbound-actions.test.mjs` — 5 smoke tests.
+
+### Phase 11.1 — what's left
+
+- Real HTTP adapters per connector.
+- Inverse action implementation (rollback calls real "undo" capability).
+- Custom connector SDK.
+- Per-capability budget caps with hard cutoffs.
 
 ### Why now
 
