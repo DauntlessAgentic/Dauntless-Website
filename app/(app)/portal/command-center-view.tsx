@@ -168,14 +168,20 @@ export function CommandCenterView({ snapshot, membership }: CommandCenterViewPro
             >
               About <ArrowRight className="h-3 w-3" />
             </Link>
-            <Button variant="ghost" size="sm" className="gap-1.5">
+            <Link
+              href="/portal/schedule"
+              className="inline-flex items-center gap-1.5 h-7 px-2 rounded-[--radius-md] text-xs text-[--text-muted] hover:text-[--text-primary] hover:bg-[--elevated] transition-colors"
+            >
               <CalendarPlus className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">Book walkthrough</span>
-            </Button>
-            <Button variant="ghost" size="sm" className="gap-1.5">
+            </Link>
+            <Link
+              href="/portal/outcomes/impact-report"
+              className="inline-flex items-center gap-1.5 h-7 px-2 rounded-[--radius-md] text-xs text-[--text-muted] hover:text-[--text-primary] hover:bg-[--elevated] transition-colors"
+            >
               <Download className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">Export briefing</span>
-            </Button>
+            </Link>
             <Button
               variant="primary"
               size="sm"
