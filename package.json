@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "tsx --test tests/portal/repository.test.mjs tests/portal/agent-engagement-analyst.test.mjs tests/portal/knowledge.test.mjs tests/portal/agent-fleet.test.mjs tests/portal/artifact-editor.test.mjs tests/portal/telemetry.test.mjs tests/portal/innovation.test.mjs tests/portal/schedule-nba.test.mjs tests/portal/org-rollup.test.mjs tests/portal/api-sdk.test.mjs tests/portal/compliance.test.mjs tests/portal/outbound-actions.test.mjs tests/portal/federation.test.mjs tests/portal/models.test.mjs tests/portal/portfolio.test.mjs tests/portal/marketplace.test.mjs tests/portal/roadmap-status.test.mjs"
+    "test": "tsx --test tests/portal/repository.test.mjs tests/portal/agent-engagement-analyst.test.mjs tests/portal/knowledge.test.mjs tests/portal/agent-fleet.test.mjs tests/portal/artifact-editor.test.mjs tests/portal/telemetry.test.mjs tests/portal/innovation.test.mjs tests/portal/schedule-nba.test.mjs tests/portal/org-rollup.test.mjs tests/portal/api-sdk.test.mjs tests/portal/compliance.test.mjs tests/portal/outbound-actions.test.mjs tests/portal/federation.test.mjs tests/portal/models.test.mjs tests/portal/portfolio.test.mjs tests/portal/marketplace.test.mjs tests/portal/roadmap-status.test.mjs tests/portal/changelog.test.mjs"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.11",

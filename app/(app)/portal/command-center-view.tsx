@@ -140,6 +140,12 @@ export function CommandCenterView({ snapshot, membership: _membership }: Command
               Federation <ArrowRight className="h-3 w-3" />
             </Link>
             <Link
+              href="/portal/changelog"
+              className="text-xs text-[--accent-vivid] hover:underline inline-flex items-center gap-1"
+            >
+              Changelog <ArrowRight className="h-3 w-3" />
+            </Link>
+            <Link
               href="/portal/about"
               className="text-xs text-[--accent-vivid] hover:underline inline-flex items-center gap-1"
             >
