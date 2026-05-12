@@ -14,6 +14,7 @@ import type {
 } from "@/lib/portal/types";
 import type { MembershipContext } from "@/lib/auth/session";
 import { canPerform } from "@/lib/auth/membership-gate";
+import type { RevalidationCandidate } from "@/lib/portal/knowledge";
 import { promoteKnowledge } from "@/lib/portal/actions";
 
 const TIER_DESCRIPTIONS: Record<MemoryTier, string> = {
@@ -27,9 +28,10 @@ const TIER_DESCRIPTIONS: Record<MemoryTier, string> = {
 interface KnowledgeViewProps {
   snapshot: PortalSnapshot;
   membership: MembershipContext;
+  revalidationQueue: RevalidationCandidate[];
 }
 
-export function KnowledgeView({ snapshot, membership }: KnowledgeViewProps) {
+export function KnowledgeView({ snapshot, membership, revalidationQueue }: KnowledgeViewProps) {
   const { knowledge: mockKnowledge } = snapshot;
   const getKnowledgeByShelf = (shelf: KnowledgeShelfKind) =>
     mockKnowledge.filter((k) => k.shelf === shelf);
@@ -146,24 +148,34 @@ export function KnowledgeView({ snapshot, membership }: KnowledgeViewProps) {
 
           <div className="min-h-[260px]">
             <DashboardCard
-              id="stale-warning"
-              eyebrow="CONFIDENCE DECAY"
-              title="What's drifting out of freshness?"
-              subtitle="Confidence decay is built in — knowledge that isn't validated degrades."
+              id="revalidation-queue"
+              eyebrow="REVALIDATION QUEUE"
+              title="Decayed confidence · ranked by urgency"
+              subtitle="Live confidence is recomputed from each item's last validation date and memory tier (half-life model). Urgency boosts canonical rows."
+              badge={revalidationQueue.length === 0 ? "All fresh" : `${revalidationQueue.length} flagged`}
+              badgeVariant={revalidationQueue.length === 0 ? "success" : "warning"}
               bodyClassName="overflow-hidden"
             >
               <ScrollArea className="h-full">
                 <ul className="flex flex-col divide-y divide-[--border-subtle]">
-                  {stale.length === 0 ? (
-                    <li className="px-3 py-6 text-center text-xs text-[--text-muted]">All knowledge is fresh. Nothing to revalidate.</li>
+                  {revalidationQueue.length === 0 ? (
+                    <li className="px-3 py-6 text-center text-xs text-[--text-muted]">
+                      All knowledge is fresh. Nothing to revalidate.
+                    </li>
                   ) : (
-                    stale.map((item) => (
-                      <li key={item.id} className="flex items-start gap-2 px-3 py-2.5">
-                        <AlertTriangle className="h-3.5 w-3.5 text-[--warning] shrink-0 mt-0.5" />
+                    revalidationQueue.slice(0, 6).map((candidate) => (
+                      <li key={candidate.knowledgeId} className="flex items-start gap-2 px-3 py-2.5">
+                        <AlertTriangle
+                          className={`h-3.5 w-3.5 shrink-0 mt-0.5 ${
+                            candidate.reason === "stale" ? "text-[--warning]" : "text-[--text-muted]"
+                          }`}
+                        />
                         <div className="flex-1 min-w-0">
-                          <p className="text-xs font-semibold text-[--text-primary] truncate">{item.title}</p>
+                          <p className="text-xs font-semibold text-[--text-primary] truncate">{candidate.title}</p>
                           <p className="text-xs text-[--text-muted] leading-snug">
-                            {item.memoryTier} · last validated {relativeDays(item.lastValidatedAt)} ago · confidence {Math.round(item.confidence * 100)}%
+                            {candidate.shelf} · {candidate.memoryTier} · reason: {candidate.reason} · recommend{" "}
+                            <span className="font-mono">{candidate.recommendedAction}</span> · urgency{" "}
+                            {Math.round(candidate.urgency * 100)}%
                           </p>
                         </div>
                       </li>

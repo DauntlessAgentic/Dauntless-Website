@@ -122,7 +122,15 @@ export function DeliverablesView({ snapshot, membership: _membership }: Delivera
                 <div className="px-3 py-3 space-y-3">
                   {selected && (
                     <>
-                      <p className="text-xs text-[--text-secondary] leading-relaxed">{selected.description}</p>
+                      <div className="flex items-center justify-between gap-2">
+                        <p className="text-xs text-[--text-secondary] leading-relaxed flex-1">{selected.description}</p>
+                        <Link
+                          href={`/portal/deliverables/${selected.id}`}
+                          className="text-xs text-[--accent-vivid] hover:underline inline-flex items-center gap-1 shrink-0"
+                        >
+                          Open detail <ArrowRight className="h-3 w-3" />
+                        </Link>
+                      </div>
                       <div className="space-y-1.5">
                         <p className="text-xs font-bold uppercase tracking-widest text-[--text-muted]">Owner</p>
                         <p className="text-xs text-[--text-secondary]">{selected.ownerName}</p>
