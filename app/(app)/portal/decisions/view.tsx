@@ -133,6 +133,16 @@ export function DecisionsView({ snapshot, membership }: DecisionsViewProps) {
               eyebrow="DECISION DETAIL"
               title={selected?.title ?? "No decision selected"}
               subtitle={engagement?.name}
+              actions={
+                selected && (
+                  <Link
+                    href={`/portal/decisions/${selected.id}`}
+                    className="text-xs text-[--accent-vivid] hover:underline inline-flex items-center gap-1"
+                  >
+                    Open detail <ArrowRight className="h-3 w-3" />
+                  </Link>
+                )
+              }
               bodyClassName="overflow-hidden"
             >
               <ScrollArea className="h-full">
