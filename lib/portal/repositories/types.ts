@@ -77,6 +77,20 @@ export interface PortalRepository {
   listNextBestActions(workspaceId: string): Promise<NextBestAction[]>;
   listAuditLog(workspaceId: string, limit?: number): Promise<AuditEntry[]>;
 
+  /** Phase 5.1 schedule items. */
+  listScheduleItems(workspaceId: string): Promise<import("@/lib/portal/types").ScheduleItem[]>;
+
+  /**
+   * Propose a new schedule item. Tentative by default; emits a signal
+   * so the Command Center surfaces upcoming touchpoints.
+   */
+  proposeScheduleItem(input: ProposeScheduleItemInput): Promise<import("@/lib/portal/types").ScheduleItem>;
+
+  /**
+   * Confirm or cancel an existing schedule item.
+   */
+  updateScheduleItemStatus(input: UpdateScheduleItemStatusInput): Promise<void>;
+
   // ── Write paths ───────────────────────────────────────────────
   //
   // Every mutation is audited. Implementations append to the audit
@@ -274,6 +288,29 @@ export interface ResolveArtifactCommentInput {
   artifactId: string;
   commentId: string;
   actor: string;
+}
+
+export interface ProposeScheduleItemInput {
+  workspaceId: string;
+  engagementId?: string;
+  kind: import("@/lib/portal/types").ScheduleItemKind;
+  title: string;
+  startsAt: Date;
+  durationMins: number;
+  attendees: string[];
+  linkedDecisionId?: string;
+  linkedArtifactId?: string;
+  notes?: string;
+  proposedBy: string;
+  proposedByKind: "human" | "agent";
+}
+
+export interface UpdateScheduleItemStatusInput {
+  workspaceId: string;
+  scheduleItemId: string;
+  status: import("@/lib/portal/types").ScheduleItemStatus;
+  actor: string;
+  actorKind: "human" | "agent";
 }
 
 export interface AgentHandoffInput {

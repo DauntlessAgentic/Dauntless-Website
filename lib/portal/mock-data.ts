@@ -32,6 +32,7 @@ import type {
   NextBestAction,
   AuditEntry,
   PortalSnapshot,
+  ScheduleItem,
 } from "./types";
 
 // ── Reference clock ──────────────────────────────────────────────────
@@ -1002,6 +1003,89 @@ export const mockAuditLog: AuditEntry[] = [
   { id: "au-10", workspaceId: mockWorkspace.id, action: "agent-run",           actor: "Activation Coach",         actorKind: "agent", refId: "agent-activation-coach",         detail: "Proposed Q3 calibration cadence; routed to activation plan.",   riskTier: "low",    at: hours(20) },
 ];
 
+// ── Schedule (Phase 5.1) ────────────────────────────────────────────
+
+const futureDays = (n: number) => new Date(NOW.getTime() + n * 24 * 60 * 60 * 1000);
+const futureHours = (n: number) => new Date(NOW.getTime() + n * 60 * 60 * 1000);
+
+export const mockSchedule: ScheduleItem[] = [
+  {
+    id: "sch-steerco-q2",
+    workspaceId: mockWorkspace.id,
+    engagementId: "eng-discovery-01",
+    kind: "steerco",
+    title: "AI Modernization SteerCo · Q2 packet",
+    startsAt: futureDays(3),
+    durationMins: 90,
+    attendees: ["Dr. Eleanor Vance", "Devak Kapoor", "Cassandra Reyes (Dauntless)", "Marie Tremblay"],
+    status: "scheduled",
+    linkedDecisionId: "dec-roadmap-h2-anchor",
+    notes: "Horizon-2 anchor decision packet + Phase-2 procurement readiness.",
+  },
+  {
+    id: "sch-walk-agentic",
+    workspaceId: mockWorkspace.id,
+    engagementId: "eng-agentic-01",
+    kind: "walkthrough",
+    title: "Agentic Systems architecture walkthrough",
+    startsAt: futureHours(38),
+    durationMins: 45,
+    attendees: ["Cassandra Reyes (Dauntless)", "Marie Tremblay"],
+    status: "tentative",
+    linkedArtifactId: "art-decision-architecture",
+    notes: "Walk through the Decision Architecture revisions before publication.",
+  },
+  {
+    id: "sch-cohort-2-debrief",
+    workspaceId: mockWorkspace.id,
+    engagementId: "eng-training-01",
+    kind: "review",
+    title: "Cohort 2 — post-program debrief",
+    startsAt: futureDays(7),
+    durationMins: 60,
+    attendees: ["Marie Tremblay", "Cassandra Reyes (Dauntless)"],
+    status: "scheduled",
+    linkedArtifactId: "art-curriculum",
+    notes: "Synthesise cohort-2 outcomes; lock the rebuild target for module 6.",
+  },
+  {
+    id: "sch-calibration-cycle",
+    workspaceId: mockWorkspace.id,
+    engagementId: "eng-training-01",
+    kind: "checkpoint",
+    title: "Q3 calibration cadence — fortnightly checkpoint #1",
+    startsAt: futureDays(12),
+    durationMins: 30,
+    attendees: ["Marie Tremblay", "Activation Coach (agent)"],
+    status: "tentative",
+    notes: "First touchpoint of the Q3 calibration cadence proposal.",
+  },
+  {
+    id: "sch-evidence-review",
+    workspaceId: mockWorkspace.id,
+    kind: "review",
+    title: "Evidence-bar sweep · Governance Auditor",
+    startsAt: futureDays(5),
+    durationMins: 45,
+    attendees: ["Soo-Jin Kim", "Governance Auditor (agent)"],
+    status: "scheduled",
+    notes: "Audit single-source evidence rows flagged in the last run.",
+  },
+  {
+    id: "sch-completed-steerco-march",
+    workspaceId: mockWorkspace.id,
+    engagementId: "eng-discovery-01",
+    kind: "steerco",
+    title: "AI Modernization SteerCo · March packet",
+    startsAt: days(28),
+    durationMins: 90,
+    attendees: ["Dr. Eleanor Vance", "Devak Kapoor", "Cassandra Reyes (Dauntless)"],
+    status: "completed",
+    linkedDecisionId: "dec-roadmap-h2-anchor",
+    notes: "Signalled openness to Service Design anchor; minutes archived in evidence.",
+  },
+];
+
 // ── Snapshot — what repositories will return ────────────────────────
 
 export const mockPortalSnapshot: PortalSnapshot = {
@@ -1020,6 +1104,7 @@ export const mockPortalSnapshot: PortalSnapshot = {
   evidence: mockEvidence,
   nextBestActions: mockNextBestActions,
   auditLog: mockAuditLog,
+  schedule: mockSchedule,
 };
 
 // ── Convenience helpers (used by portal pages) ──────────────────────

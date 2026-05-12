@@ -369,6 +369,14 @@ export interface Evidence {
 
 // ── Next-best-action (Command Center surface) ───────────────────────
 
+export type NextBestActionSource =
+  | "pending-decision"
+  | "stale-knowledge"
+  | "engagement-risk"
+  | "audit-gap"
+  | "scheduled-touchpoint"
+  | "manual";
+
 export interface NextBestAction {
   id: string;
   label: string;
@@ -376,6 +384,41 @@ export interface NextBestAction {
   engagementId?: string;
   estimatedEffort: "minutes" | "hours" | "days";
   priority: "primary" | "secondary";
+  /** Score used to sort the action list. Higher = more leverage. Optional
+   * so seeded actions without a numeric score still render. */
+  score?: number;
+  /** Where the action originated, for traceability. Optional for
+   * backwards compatibility with the Phase 1 seed. */
+  source?: NextBestActionSource;
+  /** Reference back to the entity the action is anchored to. */
+  refKind?: "decision" | "artifact" | "knowledge" | "schedule";
+  refId?: string;
+}
+
+// ── Schedule (Phase 5.1) ───────────────────────────────────────────
+
+export type ScheduleItemKind =
+  | "booking"
+  | "walkthrough"
+  | "steerco"
+  | "review"
+  | "checkpoint";
+
+export type ScheduleItemStatus = "scheduled" | "tentative" | "completed" | "cancelled";
+
+export interface ScheduleItem {
+  id: string;
+  workspaceId: string;
+  engagementId?: string;
+  kind: ScheduleItemKind;
+  title: string;
+  startsAt: Date;
+  durationMins: number;
+  attendees: string[];
+  status: ScheduleItemStatus;
+  linkedDecisionId?: string;
+  linkedArtifactId?: string;
+  notes?: string;
 }
 
 // ── Audit / governance ──────────────────────────────────────────────
@@ -421,4 +464,6 @@ export interface PortalSnapshot {
   evidence: Evidence[];
   nextBestActions: NextBestAction[];
   auditLog: AuditEntry[];
+  /** Schedule items (Phase 5.1). Optional for backwards compatibility. */
+  schedule?: ScheduleItem[];
 }
