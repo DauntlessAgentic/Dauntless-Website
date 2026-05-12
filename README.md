@@ -104,6 +104,10 @@ Routes (22 portal routes + 7 API routes):
 - `/portal/models` — per-workspace model registry + fine-tunes with quality gate + drift-based auto-rollback
 - `/portal/marketplace` — third-party agent marketplace + eval harness + killswitch
 - `/portal/portfolio` — Dauntless-internal firm-level cockpit (owner-gated)
+- `/portal/about` — self-documenting roadmap status (15 phases shipped)
+- `/portal/changelog` — unified activity stream across every signal source
+- `/portal/help` — five-minute getting-started tour + keyboard shortcuts
+- `/portal/decisions/[id]`, `/portal/agents/[id]`, `/portal/engagements/[id]` — detail routes
 
 REST API (under `/api/portal/v1`):
 
