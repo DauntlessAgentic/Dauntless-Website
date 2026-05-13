@@ -6,7 +6,6 @@ import { ArrowRight, Sparkles, BookOpen, GitBranch, Activity } from "lucide-reac
 
 import { WorkspaceHeader } from "@/components/shell/workspace-header";
 import { DashboardCard } from "@/components/cards/dashboard-card";
-import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ContentTag } from "@/components/ui/content-tag";
 import { Input } from "@/components/ui/input";

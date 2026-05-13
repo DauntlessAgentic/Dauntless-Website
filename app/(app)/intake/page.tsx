@@ -10,7 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/cn";
-import { Check, ChevronRight, Upload, Cpu } from "lucide-react";
+import { Check, ChevronRight, Cpu } from "lucide-react";
 
 const steps = ["Details", "Configuration", "Review & Submit"];
 

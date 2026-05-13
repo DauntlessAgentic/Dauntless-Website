@@ -1,11 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import { Bot, Send, ChevronRight } from "lucide-react";
+import { Bot, Send } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
 import type { AgentConfig } from "@/lib/types";
 
 // ── Agent Status Strip ────────────────────────────────────────
@@ -67,7 +66,6 @@ interface ChatCardProps {
 
 export function ChatCard({ messages, agentName = "Agent", agentState = "idle", onSend, className }: ChatCardProps) {
   const [input, setInput] = useState("");
-  const style = STATE_STYLES[agentState];
 
   const handleSend = () => {
     if (!input.trim() || !onSend) return;

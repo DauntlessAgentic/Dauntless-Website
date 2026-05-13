@@ -17,8 +17,6 @@ import { Tooltip } from "@/components/ui/tooltip";
 import { IconButton } from "@/components/ui/icon-button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { KpiTile } from "@/components/patterns/kpi-tile";
-import { FeedPanel } from "@/components/patterns/feed-panel";
-import { SummaryCard } from "@/components/patterns/summary-card";
 import { LineChartViz } from "@/components/viz/line-chart";
 import { BarChartViz } from "@/components/viz/bar-chart";
 import { DonutChartViz } from "@/components/viz/donut-chart";
@@ -28,7 +26,7 @@ import { DataTable, defaultTableColumns } from "@/components/patterns/data-table
 import {
   Settings, Search, Bell, Bot, ArrowLeft, Zap,
 } from "lucide-react";
-import { kpiData, timeSeriesData, barData, donutData, feedItems, summaryContent, tableData } from "@/lib/mock-data";
+import { kpiData, timeSeriesData, barData, donutData, tableData } from "@/lib/mock-data";
 
 const LABEL_CLASSES = "text-xs font-bold uppercase tracking-widest text-[--text-muted] mb-3 block";
 

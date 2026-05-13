@@ -27,7 +27,6 @@ import type {
   RevalidationCandidate,
   SearchQuery,
   SearchResult,
-  SearchableEntity,
 } from "./types";
 
 let cachedAdapter: KnowledgeAdapter | null = null;
