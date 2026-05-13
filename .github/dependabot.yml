@@ -1,0 +1,93 @@
+# Dependabot configuration.
+#
+# Weekly grouped PRs keep the dep tree current without flooding the
+# review queue. Major updates remain manual so they can land alongside
+# a deliberate test pass.
+
+version: 2
+
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "08:00"
+      timezone: "America/Toronto"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+    groups:
+      # Group all minor + patch updates into a single weekly PR per
+      # bucket so review stays scannable.
+      next-stack:
+        applies-to: "version-updates"
+        update-types:
+          - "minor"
+          - "patch"
+        patterns:
+          - "next"
+          - "react"
+          - "react-dom"
+          - "next-themes"
+          - "@next/*"
+      radix-ui:
+        applies-to: "version-updates"
+        update-types:
+          - "minor"
+          - "patch"
+        patterns:
+          - "@radix-ui/*"
+      tooling:
+        applies-to: "version-updates"
+        update-types:
+          - "minor"
+          - "patch"
+        patterns:
+          - "typescript"
+          - "@types/*"
+          - "eslint*"
+          - "tsx"
+          - "tailwindcss"
+          - "@tailwindcss/*"
+      ui-primitives:
+        applies-to: "version-updates"
+        update-types:
+          - "minor"
+          - "patch"
+        patterns:
+          - "lucide-react"
+          - "framer-motion"
+          - "recharts"
+          - "cmdk"
+          - "class-variance-authority"
+          - "clsx"
+          - "tailwind-merge"
+      data-layer:
+        applies-to: "version-updates"
+        update-types:
+          - "minor"
+          - "patch"
+        patterns:
+          - "@tanstack/*"
+          - "zod"
+          - "server-only"
+    ignore:
+      # Major bumps come through a deliberate manual upgrade — review
+      # the release notes, run the full test + build suite, and ship
+      # under a dedicated PR.
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "08:00"
+      timezone: "America/Toronto"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "ci"
