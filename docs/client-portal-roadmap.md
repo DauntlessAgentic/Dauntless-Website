@@ -71,6 +71,7 @@ repos can read those references and plan the port directly.
 **Theme**: stop pretending. Real users, real data, real RLS.
 **Estimate**: 4–6 weeks
 **Unlocks**: every subsequent phase. This is the gate.
+**Status**: scaffolding in flight — see *Phase 2 scaffolding (shipped)* below for what's already landed.
 
 ### Why now
 
@@ -101,6 +102,22 @@ persisted and gated by a real role, the portal cannot be shown to a real client.
 
 - Schema churn after Phase 4 (artifact engine) — mitigate by versioning the migrations and treating Phase 4's artifact tables as a separate concern
 - OAuth callback URL discipline across environments — document the Cloudflare / Vercel proxy rule (already noted in `lib/auth/supabase.ts`)
+
+### Phase 2 scaffolding (shipped)
+
+The architectural unlock has landed without depending on real Supabase keys or
+client wiring. Shipping today, ahead of the full wire-up:
+
+- `supabase/migrations/0001_portal_schema.sql` — schema for every entity in `lib/portal/types.ts` (organizations, workspaces, memberships, engagements, artifacts + versions, decisions, tasks, signals, agents, conversations + messages, knowledge items, metrics, evidence, next-best-actions, audit log). Soft-delete + `updated_at` triggers on every mutable table; audit log is strictly append-only.
+- `supabase/migrations/0002_portal_rls.sql` — draft RLS policies keyed off the `memberships` table. Helper functions `portal_has_membership` and `portal_has_role`. Audit-log policy is INSERT-anyone-with-membership / SELECT-auditors-and-owners-only.
+- `lib/portal/repositories/types.ts` — typed `PortalRepository` interface covering every entity, with sub-repositories per concern.
+- `lib/portal/repositories/mock.ts` — backend that re-exports `lib/portal/mock-data` behind the repository contract. Returns `Promise<T>` everywhere so call sites can be written as if persistence already exists.
+- `lib/portal/repositories/supabase.ts` — stub backend that compiles but throws a clear error on call. Activated by adding `@supabase/supabase-js` and implementing the methods; no UI changes required.
+- `lib/portal/repositories/index.ts` — factory + `portalRepository` singleton. Backend is chosen by `PORTAL_REPOSITORY_BACKEND` (defaults to `mock`).
+- `.env.local.example` documents the new env vars (`PORTAL_REPOSITORY_BACKEND`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`).
+- `tests/portal/repositories.test.ts` — 16 tests verifying the mock backend matches the underlying mock-data shape and that newest-first / limit semantics hold.
+
+**What still requires the full Phase 2 PR**: real OAuth round-trip, page-level wire-up from direct mock imports to `portalRepository`, seeding the live database, hand-rolling each table's insert/update policy in `0002`. The repository contract is stable; the wire-up is incremental.
 
 ---
 

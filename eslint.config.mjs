@@ -13,6 +13,17 @@ const eslintConfig = defineConfig([
       // adds no safety and harms diff readability. We keep every other a11y
       // and React rule on.
       "react/no-unescaped-entities": "off",
+      // Honor the underscore-prefix convention for intentionally-unused
+      // parameters (common in interface implementations where one backend
+      // ignores an arg the other backend uses).
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_",
+        },
+      ],
     },
   },
   // Override default ignores of eslint-config-next.
