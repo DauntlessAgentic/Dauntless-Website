@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, Code2, Key, Webhook } from "lucide-react";
+import { ArrowRight, Code2, Webhook } from "lucide-react";
 
 import { WorkspaceHeader } from "@/components/shell/workspace-header";
 import { DashboardCard } from "@/components/cards/dashboard-card";
@@ -11,11 +11,21 @@ import { ContentTag } from "@/components/ui/content-tag";
 
 import type { MembershipContext } from "@/lib/auth/session";
 import type { WebhookEvent } from "@/lib/portal/webhooks";
+import type { MembershipRole } from "@/lib/portal/types";
+
+import { TokensPanel, type ApiTokenRow } from "./tokens-panel";
 
 interface ApiExplorerViewProps {
   membership: MembershipContext;
   isConfigured: boolean;
   recentWebhooks: WebhookEvent[];
+  tokens: ApiTokenRow[];
+  canManageTokens: boolean;
+  issueAction: (input: {
+    label: string;
+    scopeRole: MembershipRole;
+  }) => Promise<{ ok: boolean; plaintext?: string; tokenId?: string; reason?: string }>;
+  revokeAction: (input: { tokenId: string }) => Promise<{ ok: boolean; reason?: string }>;
 }
 
 interface Endpoint {
@@ -100,15 +110,28 @@ const ENDPOINTS: Endpoint[] = [
   },
 ];
 
-export function ApiExplorerView({ membership, isConfigured, recentWebhooks }: ApiExplorerViewProps) {
+export function ApiExplorerView({
+  membership,
+  isConfigured,
+  recentWebhooks,
+  tokens,
+  canManageTokens,
+  issueAction,
+  revokeAction,
+}: ApiExplorerViewProps) {
+  const authBadge =
+    tokens.length > 0 ? "Scoped tokens" : isConfigured ? "Bearer required" : "Dev-bypass";
+  const authBadgeVariant: "accent" | "success" | "warning" =
+    tokens.length > 0 ? "accent" : isConfigured ? "success" : "warning";
+
   return (
     <div className="flex flex-col h-full">
       <WorkspaceHeader
         eyebrow="API & SDK"
         title="REST surface + typed client"
         description="Phase 9.0 read endpoints, two writes (decisions + schedule), and a typed SDK shipping in-repo. Phase 9.1 wires real webhooks + the published npm package."
-        badge={isConfigured ? "Bearer required" : "Dev-bypass"}
-        badgeVariant={isConfigured ? "success" : "warning"}
+        badge={authBadge}
+        badgeVariant={authBadgeVariant}
         actions={
           <Link href="/portal" className="text-xs text-[--accent-vivid] hover:underline inline-flex items-center gap-1">
             Command Center <ArrowRight className="h-3 w-3" />
@@ -119,25 +142,23 @@ export function ApiExplorerView({ membership, isConfigured, recentWebhooks }: Ap
       <div className="flex-1 overflow-auto p-4 space-y-4 pb-20 md:pb-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <DashboardCard
-            id="api-auth"
-            eyebrow="AUTH"
-            title="Bearer token"
+            id="api-tokens"
+            eyebrow="AUTH · SCOPED TOKENS"
+            title="Workspace API tokens"
             subtitle={
-              isConfigured
-                ? "PORTAL_API_KEY is set. Every request needs `Authorization: Bearer $PORTAL_API_KEY`."
-                : "PORTAL_API_KEY is not set. Dev-bypass mode: every request is accepted. Set the env var to enable the gate."
+              tokens.length > 0
+                ? `${tokens.length} active. Tokens issued here gate every /api/portal/v1 request.`
+                : isConfigured
+                  ? `PORTAL_API_KEY is set. Issuing scoped tokens (preferred) takes precedence per-request when used.`
+                  : `No tokens issued. Set PORTAL_API_KEY or issue a scoped token to gate the API.`
             }
           >
-            <div className="px-3 py-2.5 space-y-2 text-xs text-[--text-secondary]">
-              <div className="flex items-center gap-2">
-                <Key className="h-3.5 w-3.5 text-[--accent-vivid]" />
-                <code className="font-mono">PORTAL_API_KEY=…</code>
-              </div>
-              <p className="leading-snug">
-                Phase 9.1 will replace this with per-Membership scoped tokens persisted in the repository.
-                Rotate by changing the env var; an admin UI for scoped keys lands in Phase 10 alongside the compliance pack.
-              </p>
-            </div>
+            <TokensPanel
+              tokens={tokens}
+              canManage={canManageTokens}
+              issueAction={issueAction}
+              revokeAction={revokeAction}
+            />
           </DashboardCard>
           <DashboardCard
             id="api-sdk"

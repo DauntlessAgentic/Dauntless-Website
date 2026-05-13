@@ -34,7 +34,8 @@ export type PortalAction =
   | "edit-artifact"
   | "promote-knowledge"
   | "export-audit-log"
-  | "grant-membership";
+  | "grant-membership"
+  | "manage-api-tokens";
 
 export function canRead(role: MembershipRole, surface: PortalSurface): boolean {
   if (role === "owner") return true;
@@ -60,6 +61,10 @@ export function canPerform(role: MembershipRole, action: PortalAction): boolean 
       return role === "owner" || role === "auditor" || role === "executive";
     case "grant-membership":
       return role === "owner";
+    case "manage-api-tokens":
+      // API tokens grant API-level access to the workspace. Restrict to
+      // owners and executives until per-Membership scopes ship (Phase 9.x).
+      return role === "owner" || role === "executive";
     default:
       return false;
   }
