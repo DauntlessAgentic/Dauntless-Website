@@ -27,6 +27,7 @@ import {
   mockEvidence, mockNextBestActions, mockConversations,
   getKnowledgeByShelf,
 } from "@/lib/portal/mock-data";
+import { useDecisionOverrides } from "@/lib/portal/use-decision-overrides";
 
 function relativeTime(date: Date): string {
   const diff = Date.now() - date.getTime();
@@ -45,8 +46,12 @@ const SIGNAL_TONE: Record<string, React.ComponentProps<typeof ContentTag>["varia
   urgent:    "danger",
 };
 
+const buildDecisionHref = (id: string) => `/portal/decisions/${id}`;
+
 export default function PortalCommandCenterPage() {
-  const pending = mockDecisions.filter((d) => d.status === "pending-approval");
+  const overrides = useDecisionOverrides();
+  const decisions = React.useMemo(() => overrides.apply(mockDecisions), [overrides]);
+  const pending = decisions.filter((d) => d.status === "pending-approval");
   const topDecision = pending[0];
   const desk = getKnowledgeByShelf("desk");
   const bookshelf = getKnowledgeByShelf("bookshelf");
@@ -158,7 +163,13 @@ export default function PortalCommandCenterPage() {
                 bodyClassName="overflow-hidden"
               >
                 <ScrollArea className="h-full">
-                  <DecisionList decisions={pending} showActions emptyHint="No decisions are waiting on you." />
+                  <DecisionList
+                    decisions={pending}
+                    showActions
+                    onAction={overrides.act}
+                    openHref={buildDecisionHref}
+                    emptyHint="No decisions are waiting on you."
+                  />
                 </ScrollArea>
               </DashboardCard>
             </div>

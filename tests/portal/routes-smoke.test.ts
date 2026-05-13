@@ -6,14 +6,16 @@ import { describe, expect, it } from "vitest";
 // tests land alongside the persistence work in Phase 2.
 
 const routes = [
-  { route: "/portal",               importer: () => import("@/app/(app)/portal/page") },
-  { route: "/portal/engagements",   importer: () => import("@/app/(app)/portal/engagements/page") },
-  { route: "/portal/deliverables",  importer: () => import("@/app/(app)/portal/deliverables/page") },
-  { route: "/portal/decisions",     importer: () => import("@/app/(app)/portal/decisions/page") },
-  { route: "/portal/agents",        importer: () => import("@/app/(app)/portal/agents/page") },
-  { route: "/portal/knowledge",     importer: () => import("@/app/(app)/portal/knowledge/page") },
-  { route: "/portal/outcomes",      importer: () => import("@/app/(app)/portal/outcomes/page") },
-  { route: "/portal/governance",    importer: () => import("@/app/(app)/portal/governance/page") },
+  { route: "/portal",                       importer: () => import("@/app/(app)/portal/page") },
+  { route: "/portal/engagements",           importer: () => import("@/app/(app)/portal/engagements/page") },
+  { route: "/portal/deliverables",          importer: () => import("@/app/(app)/portal/deliverables/page") },
+  { route: "/portal/deliverables/[slug]",   importer: () => import("@/app/(app)/portal/deliverables/[slug]/page") },
+  { route: "/portal/decisions",             importer: () => import("@/app/(app)/portal/decisions/page") },
+  { route: "/portal/decisions/[id]",        importer: () => import("@/app/(app)/portal/decisions/[id]/page") },
+  { route: "/portal/agents",                importer: () => import("@/app/(app)/portal/agents/page") },
+  { route: "/portal/knowledge",             importer: () => import("@/app/(app)/portal/knowledge/page") },
+  { route: "/portal/outcomes",              importer: () => import("@/app/(app)/portal/outcomes/page") },
+  { route: "/portal/governance",            importer: () => import("@/app/(app)/portal/governance/page") },
 ];
 
 describe("portal route modules import cleanly", () => {

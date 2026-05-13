@@ -1,10 +1,19 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 import { Check, Clock, ShieldAlert, ShieldCheck, Shield, Sparkles, X, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/button";
 import { ContentTag } from "@/components/ui/content-tag";
-import type { Decision, RiskTier } from "@/lib/portal/types";
+import type { Decision, DecisionStatus, RiskTier } from "@/lib/portal/types";
+
+export type DecisionAction = "approve" | "defer" | "reject";
+
+export const DECISION_ACTION_TRANSITIONS: Record<DecisionAction, DecisionStatus> = {
+  approve: "approved",
+  defer:   "deferred",
+  reject:  "rejected",
+};
 
 const STATUS_TONE: Record<Decision["status"], { tag: React.ComponentProps<typeof ContentTag>["variant"]; label: string }> = {
   "pending-approval": { tag: "warning", label: "Pending approval" },
@@ -25,9 +34,21 @@ interface DecisionListProps {
   showActions?: boolean;
   emptyHint?: string;
   className?: string;
+  /** When provided, action buttons fire this callback. Wire to local state
+   *  to transition the decision's visible status. */
+  onAction?: (decisionId: string, action: DecisionAction) => void;
+  /** When provided, "Open" links to this href builder. */
+  openHref?: (decisionId: string) => string;
 }
 
-export function DecisionList({ decisions, showActions = false, emptyHint, className }: DecisionListProps) {
+export function DecisionList({
+  decisions,
+  showActions = false,
+  emptyHint,
+  className,
+  onAction,
+  openHref,
+}: DecisionListProps) {
   if (decisions.length === 0) {
     return (
       <div className={cn("flex h-full items-center justify-center px-3 py-6 text-center text-xs text-[--text-muted]", className)}>
@@ -44,6 +65,7 @@ export function DecisionList({ decisions, showActions = false, emptyHint, classN
         const RiskIcon = risk.Icon;
         const due = formatDue(decision);
         const confidence = Math.round(decision.recommendation.confidence * 100);
+        const openTo = openHref?.(decision.id);
         return (
           <article key={decision.id} className="flex flex-col gap-2 px-3 py-3 hover:bg-[--elevated] transition-colors">
             <div className="flex items-start gap-2">
@@ -80,16 +102,35 @@ export function DecisionList({ decisions, showActions = false, emptyHint, classN
 
             {showActions && decision.status === "pending-approval" && (
               <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                <Button variant="primary" size="xs" className="gap-1">
+                <Button
+                  variant="primary"
+                  size="xs"
+                  className="gap-1"
+                  onClick={() => onAction?.(decision.id, "approve")}
+                >
                   <Check className="h-3 w-3" /> Approve default
                 </Button>
-                <Button variant="ghost" size="xs" className="gap-1">
-                  <ArrowRight className="h-3 w-3" /> Open
-                </Button>
-                <Button variant="ghost" size="xs" className="gap-1">
+                {openTo && (
+                  <Button asChild variant="ghost" size="xs" className="gap-1">
+                    <Link href={openTo}>
+                      <ArrowRight className="h-3 w-3" /> Open
+                    </Link>
+                  </Button>
+                )}
+                <Button
+                  variant="ghost"
+                  size="xs"
+                  className="gap-1"
+                  onClick={() => onAction?.(decision.id, "defer")}
+                >
                   Defer
                 </Button>
-                <Button variant="ghost" size="xs" className="gap-1 text-[--text-muted] hover:text-[--danger]">
+                <Button
+                  variant="ghost"
+                  size="xs"
+                  className="gap-1 text-[--text-muted] hover:text-[--danger]"
+                  onClick={() => onAction?.(decision.id, "reject")}
+                >
                   <X className="h-3 w-3" /> Reject
                 </Button>
               </div>

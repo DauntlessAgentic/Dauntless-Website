@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { WorkspaceHeader } from "@/components/shell/workspace-header";
@@ -9,6 +9,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { DecisionList } from "@/components/patterns/decision-list";
 import { EvidenceLink } from "@/components/patterns/evidence-link";
 import { mockDecisions, mockEvidence, mockEngagements } from "@/lib/portal/mock-data";
+import { useDecisionOverrides } from "@/lib/portal/use-decision-overrides";
 import type { Decision } from "@/lib/portal/types";
 
 type Filter = "pending" | "approved" | "deferred" | "rejected" | "superseded" | "all";
@@ -31,12 +32,16 @@ function bucket(decision: Decision, filter: Filter): boolean {
   return false;
 }
 
+const buildDecisionHref = (id: string) => `/portal/decisions/${id}`;
+
 export default function DecisionsPage() {
   const [filter, setFilter] = useState<Filter>("pending");
   const [selectedId, setSelectedId] = useState<string>(mockDecisions[0].id);
+  const overrides = useDecisionOverrides();
 
-  const filtered = mockDecisions.filter((d) => bucket(d, filter));
-  const selected = mockDecisions.find((d) => d.id === selectedId) ?? filtered[0];
+  const decisions = useMemo(() => overrides.apply(mockDecisions), [overrides]);
+  const filtered = decisions.filter((d) => bucket(d, filter));
+  const selected = decisions.find((d) => d.id === selectedId) ?? filtered[0];
   const evidence = selected
     ? selected.evidenceIds.map((id) => mockEvidence.find((e) => e.id === id)).filter((e): e is NonNullable<typeof e> => Boolean(e))
     : [];
@@ -89,7 +94,12 @@ export default function DecisionsPage() {
                         onClick={() => setSelectedId(decision.id)}
                         className={`w-full text-left ${decision.id === selected?.id ? "bg-[--accent-dim] border-l-2 border-[--border-active]" : "hover:bg-[--elevated]"}`}
                       >
-                        <DecisionList decisions={[decision]} />
+                        <DecisionList
+                          decisions={[decision]}
+                          showActions
+                          onAction={overrides.act}
+                          openHref={buildDecisionHref}
+                        />
                       </button>
                     </li>
                   ))}

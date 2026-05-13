@@ -1,7 +1,7 @@
 "use client";
 import React, { useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Star, FileText, GitBranch } from "lucide-react";
+import { ArrowRight, Star, FileText, GitBranch, ExternalLink } from "lucide-react";
 import { WorkspaceHeader } from "@/components/shell/workspace-header";
 import { DashboardCard } from "@/components/cards/dashboard-card";
 import { Button } from "@/components/ui/button";
@@ -82,14 +82,21 @@ export default function DeliverablesPage() {
               <ScrollArea className="h-full">
                 <ul className="flex flex-col">
                   {filtered.map((artifact) => (
-                    <li key={artifact.id}>
+                    <li key={artifact.id} className="flex items-stretch">
                       <button
                         type="button"
                         onClick={() => setSelectedId(artifact.id)}
-                        className={`w-full text-left ${artifact.id === selected?.id ? "bg-[--accent-dim] border-l-2 border-[--border-active]" : "hover:bg-[--elevated]"}`}
+                        className={`flex-1 text-left ${artifact.id === selected?.id ? "bg-[--accent-dim] border-l-2 border-[--border-active]" : "hover:bg-[--elevated]"}`}
                       >
                         <ArtifactList artifacts={[artifact]} />
                       </button>
+                      <Link
+                        href={`/portal/deliverables/${artifact.id}`}
+                        title="Open detail view"
+                        className="flex items-center px-2 text-[--text-muted] hover:text-[--accent-vivid] hover:bg-[--elevated] transition-colors border-l border-[--border-subtle]"
+                      >
+                        <ExternalLink className="h-3.5 w-3.5" />
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -144,7 +151,12 @@ export default function DeliverablesPage() {
                         </div>
                       )}
                       <div className="flex flex-wrap gap-1.5 pt-1">
-                        <Button variant="primary" size="xs" className="gap-1">
+                        <Button asChild variant="primary" size="xs" className="gap-1">
+                          <Link href={`/portal/deliverables/${selected.id}`}>
+                            <ExternalLink className="h-3 w-3" /> Open detail view
+                          </Link>
+                        </Button>
+                        <Button variant="ghost" size="xs" className="gap-1">
                           <FileText className="h-3 w-3" /> Open canonical view
                         </Button>
                         {!selected.canonical && (
