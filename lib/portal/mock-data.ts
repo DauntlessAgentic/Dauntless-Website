@@ -54,6 +54,49 @@ export const mockOrganization: Organization = {
   trustTier: "elevated",
 };
 
+/**
+ * Multi-org seed (Pre-launch §A2 — minimal viable scope).
+ *
+ * The portal is single-workspace today; the active workspace's
+ * organization is `mockOrganization` (TBS). This array adds the
+ * other client organizations that the portfolio surface
+ * (`lib/portal/portfolio/*`) references so `getOrganization(orgId)`
+ * can resolve any of the four account orgIds.
+ *
+ * Phase 8.1 (launch-eve) extends this with per-org workspaces and
+ * the multi-tenant repository swap. Until then, the additional
+ * organizations exist as look-up rows only — no engagements,
+ * artifacts, or decisions are seeded against them. The portfolio
+ * surface seeds those synthetically in `lib/portal/portfolio/index.ts`.
+ */
+export const mockOrganizations: Organization[] = [
+  mockOrganization,
+  {
+    id: "org-esdc",
+    name: "Employment & Social Development Canada",
+    shortName: "ESDC",
+    sector: "Federal Government — Operating Department",
+    region: "Gatineau, Canada",
+    trustTier: "elevated",
+  },
+  {
+    id: "org-health-canada",
+    name: "Health Canada",
+    shortName: "Health Canada",
+    sector: "Federal Government — Health Portfolio",
+    region: "Ottawa, Canada",
+    trustTier: "restricted",
+  },
+  {
+    id: "org-nrcan",
+    name: "Natural Resources Canada · Clean Energy",
+    shortName: "NRCan",
+    sector: "Federal Government — Resources Portfolio",
+    region: "Ottawa, Canada",
+    trustTier: "elevated",
+  },
+];
+
 export const mockWorkspace: Workspace = {
   id: "ws-tbs-ai-modernization",
   orgId: mockOrganization.id,

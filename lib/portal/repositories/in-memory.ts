@@ -25,6 +25,7 @@ import {
   mockMetrics,
   mockNextBestActions,
   mockOrganization,
+  mockOrganizations,
   mockSchedule,
   mockSignals,
   mockTasks,
@@ -176,8 +177,27 @@ export class InMemoryPortalRepository implements PortalRepository {
   }
 
   async getOrganization(orgId: string): Promise<Organization | null> {
-    if (this.state.organization.id !== orgId) return null;
-    return structuredClone(this.state.organization);
+    // Active workspace's organization wins (returns mutated state if any).
+    if (this.state.organization.id === orgId) {
+      return structuredClone(this.state.organization);
+    }
+    // Look up the read-only multi-org seed (Pre-launch §A2).
+    const seeded = mockOrganizations.find((o) => o.id === orgId);
+    return seeded ? structuredClone(seeded) : null;
+  }
+
+  async listOrganizations(): Promise<Organization[]> {
+    // Merge: active workspace's (possibly mutated) org + the read-only seed,
+    // de-duplicating by id with the active one winning.
+    const result: Organization[] = [structuredClone(this.state.organization)];
+    const seen = new Set(result.map((o) => o.id));
+    for (const org of mockOrganizations) {
+      if (!seen.has(org.id)) {
+        result.push(structuredClone(org));
+        seen.add(org.id);
+      }
+    }
+    return result;
   }
 
   async listMemberships(workspaceId: string): Promise<Membership[]> {

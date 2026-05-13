@@ -63,6 +63,12 @@ export interface PortalRepository {
   getDefaultWorkspace(): Promise<Workspace>;
 
   getOrganization(orgId: string): Promise<Organization | null>;
+  /**
+   * Lists every organization the repository knows about. Pre-launch §A2
+   * uses this to surface multi-org context on the portfolio and federation
+   * surfaces without forcing a multi-workspace data graph yet.
+   */
+  listOrganizations(): Promise<Organization[]>;
   listMemberships(workspaceId: string): Promise<Membership[]>;
   listEngagements(workspaceId: string): Promise<Engagement[]>;
   listArtifacts(workspaceId: string): Promise<Artifact[]>;
