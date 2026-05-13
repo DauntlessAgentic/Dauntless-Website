@@ -210,7 +210,14 @@ The two write paths wired in Phase 2 are:
 - `promoteKnowledge` — exposed on the Knowledge page "Canonical promotion"
   panel.
 
-### 5.3 v3 — Database migrations + RLS (Phase 2.1)
+### 5.3 v3 — Database migrations + RLS (Phase 2.1 — scheduled for the launch-eve sprint)
+
+> **Schedule note (2026-05-13).** Phase 2.1 lands in the final ~2
+> weeks before client onboarding, not pre-launch. The repository
+> contract (`lib/portal/repositories/types.ts`) was designed for a
+> non-breaking swap; until then the in-memory adapter is the
+> production backend. See `docs/pre-launch-plan.md` §B1.
+
 
 When the Supabase adapter lands:
 

@@ -10,6 +10,16 @@ queue** (next phase work). Estimated time tags are honest: **5m** =
 minutes, **30m** = half an hour, **1d** = a working day, **wk** = ≥1
 week.
 
+> **Stealth → launch revision (2026-05-13).** The pick-up queue below
+> has been re-ordered around the reality that we are not paying for
+> Supabase or wiring real OAuth until ~2 weeks before client
+> onboarding (~2 months out). The pre-launch queue moved up; Phase
+> 2.1 and other persistence-gated work is now scheduled for the
+> launch-eve sprint. The authoritative pre-launch action queue lives
+> in `docs/pre-launch-plan.md`. The roadmap (`docs/client-portal-roadmap.md`)
+> bumped to v1.1 with each phase's remaining follow-up tagged
+> `pre-launch` / `launch-eve` / `post-launch`.
+
 ---
 
 ## 1 · Operational chores (do these first)
@@ -160,21 +170,32 @@ Without any `.env.local` configuration, the portal boots in
 hosted database. Everything is exercisable. Use the TopBar role
 switcher to walk the membership-gating.
 
-### 3.2 Configure the live stack · **wk**
+### 3.2 Configure the live stack · **wk** (mostly deferred to launch-eve)
 
 Copy `.env.local.example` to `.env.local` and start filling in. The
 file is annotated with notes per phase.
 
-Order I'd configure (matches `.env.local.example` sections):
+**Pre-launch order** (the only env var actually worth setting in the
+next 8 weeks):
 
-1. `PORTAL_DEV_BYPASS=false` once OAuth is live.
+1. `ANTHROPIC_API_KEY` + `ANTHROPIC_DEFAULT_MODEL` — Phase 3+ agents
+   go live; until set, agents run in deterministic stub mode. This is
+   the only paid dependency that pays back during stealth. See
+   `docs/pre-launch-plan.md` §A1.
+
+**Launch-eve order** (final 2 weeks before client onboarding):
+
 2. `AUTH_GOOGLE_ID` + `AUTH_GOOGLE_SECRET` + `AUTH_SECRET` (Phase 2.1
    identity).
 3. `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` (Phase 2.1
-   persistence; **lands the biggest unlock**).
-4. `ANTHROPIC_API_KEY` + `ANTHROPIC_DEFAULT_MODEL` (Phase 3+ agents
-   go live; until set, agents run in deterministic stub mode).
-5. `PORTAL_API_KEY` (Phase 9 API gate; lock down the REST surface).
+   persistence). The swap is a ~1-week effort because the contract is
+   already locked; see `docs/pre-launch-plan.md` §B1.
+4. `PORTAL_DEV_BYPASS=false` once OAuth is live.
+
+**Post-launch** (once clients are onboarding):
+
+5. `PORTAL_API_KEY` (Phase 9 API gate) — the in-memory token store
+   covers pre-launch; durable tokens come with Phase 2.1.
 
 ### 3.3 Verify
 
@@ -190,97 +211,54 @@ NEXT_TURBOPACK_EXPERIMENTAL_USE_SYSTEM_TLS_CERTS=1 npm run build
 ## 4 · The pick-up queue
 
 Each phase shipped its `.0` slice and scoped a `.1` follow-up. The
-`docs/client-portal-roadmap.md` doc has the full list; here is the
-**prioritized** queue I would tackle in your shoes, with concrete
-first-steps for each.
+`docs/client-portal-roadmap.md` doc has the full list; the
+**prioritized** queue below now reflects the stealth → launch posture
+(re-ordered 2026-05-13). The authoritative action queue is
+`docs/pre-launch-plan.md`; this section is a quick map.
 
-### Priority 1 · Phase 2.1 · Supabase persistence + real OAuth · **2–4 wks**
+### Pre-launch queue (next 8 weeks)
 
-This is the **gate** for every other phase. Until it ships, every
-mutation is per-process and OAuth is dev-bypass.
+These all work against the in-memory repository. Most need nothing
+beyond the existing repo; a few need an Anthropic API key.
 
-Concrete next-steps:
+| # | Item | Estimate | Doc |
+|---|------|----------|-----|
+| A1 | Real Anthropic-backed Engagement Analyst hardening (Phase 3.1 minus persistence) | 1 wk | `pre-launch-plan.md` §A1 |
+| A2 | Multi-org / multi-workspace mock data | 2 d | §A2 |
+| A3 | Playwright golden-path e2e tests | 3 d | §A3 |
+| A4 | Marketing → portal continuity polish | 2 d | §A4 |
+| A5 | Lighthouse / a11y / performance pass | 1 wk | §A5 |
+| A6 | Phase 11.1 — one real outbound connector (Google Calendar) | 1 wk | §A6 |
+| A7 | Phase 9.1 — published SDK + workspace-scoped tokens (in-memory) | 3 d | §A7 |
+| A8 | Phase 7.1 — autonomous innovation engine (in-memory) | 1 wk | §A8 |
+| A9 | `/showcase` enhancement (or Storybook) | 3 d | §A9 |
+| A10 | Marketing-site SEO + content additions | 1 wk | §A10 |
+| A11 | Stealth → launch transition prep | 3 d | §A11 |
 
-1. Provision a Supabase project. Note the URL + service-role key.
-2. Write migrations mirroring `lib/portal/types.ts`. Naming convention:
-   `db/migrations/0001_workspace_tables.sql` etc. Append-only audit log;
-   soft-deletes only.
-3. Build `lib/portal/repositories/supabase.ts` implementing
-   `PortalRepository`. The interface contract is already locked.
-4. Activate in `lib/portal/repositories/index.ts`'s factory:
-   `if (process.env.SUPABASE_URL) return new SupabasePortalRepository();`
-5. Smoke-test against a real Supabase project. The 6 tests in
-   `tests/portal/repository.test.mjs` already exercise the contract.
-6. Replace the `supabase` stub in `lib/auth/supabase.ts` with NextAuth
-   v5 + Google OAuth wiring (pattern in `docs/caia-mapping.md` §3).
-7. Drop `PORTAL_DEV_BYPASS`. Update the membership-gate to read
-   real session claims.
+### Launch-eve queue (final 2 weeks before client onboarding)
 
-### Priority 2 · Phase 6.1 · Persist the telemetry event bus · **1–2 wks**
+| # | Item | Estimate | Doc |
+|---|------|----------|-----|
+| B1 | Phase 2.1 — Supabase repository + Google OAuth via NextAuth v5 | 1 wk | `pre-launch-plan.md` §B1 |
+| B2 | Phase 6.1 — persist telemetry events | 3 d | §B2 |
+| B3 | Phase 10.1 — signed evidence exports + data residency | 3 d | §B3 |
 
-Today the event bus is in-process. After a server restart, the
-Quarterly Impact Report falls back to zeros.
+Phase 2.1 was originally listed as the "biggest unlock" gating
+everything else. The revised posture treats it as **a one-week swap
+against a locked contract** that lands the moment client onboarding is
+actually within sight. The repository interface
+(`lib/portal/repositories/types.ts`) was designed for this swap; every
+phase's `.0` slice already runs against it.
 
-Concrete next-steps:
+### Post-launch queue (after onboarding starts)
 
-1. Add a `portal_events` migration with the discriminated-union schema
-   from `lib/portal/telemetry/event-bus.ts`.
-2. Subscribe an emitter (`subscribePortalEvents`) that writes every
-   event to the table. Keep the in-memory cache as a fast read.
-3. Update `computeDerivedMetrics` to query the table instead of the
-   in-memory bus.
-4. Backfill historical events from the `audit_log` table on first
-   migration.
-
-### Priority 3 · Phase 4.2 · Pgvector knowledge adapter · **1–2 wks**
-
-The current `InMemoryKnowledgeAdapter` uses TF-IDF — good for
-deterministic dev but doesn't scale to ≥1000 artifacts.
-
-1. Enable `pgvector` on Supabase.
-2. Write `lib/portal/knowledge/pgvector-adapter.ts` against the
-   existing `KnowledgeAdapter` interface.
-3. Wire embedding generation. Default to Anthropic when the API key is
-   set; fallback to a local embed model (e.g. `gte-base`) if not.
-4. Update `getKnowledgeAdapter()` factory to choose by env var.
-5. Reuse the existing 5 tests in `tests/portal/knowledge.test.mjs`.
-
-### Priority 4 · Phase 9.1 · Published SDK + scoped API tokens · **1 wk**
-
-1. Publish `lib/portal-sdk/` to npm as `@dauntlessagentic/portal-sdk`.
-   Add a `package.json` exports map.
-2. Replace the single `PORTAL_API_KEY` with per-`Membership` scoped
-   tokens stored in the repository (new `api_tokens` table).
-3. The `/portal/api` explorer should let owners issue + revoke tokens
-   inline.
-4. Add per-token rate limits + surface usage in `/portal/governance`.
-
-### Priority 5 · Phase 10.1 · Signed evidence exports + data residency · **1–2 wks**
-
-Required for the procurement officers `/portal/compliance` already
-flags. Concrete:
-
-1. Sign Markdown exports with a per-workspace key.
-2. Watermark exports with the requesting member id.
-3. Wire a `DataResidency` per-workspace setting (CA / EU / US).
-4. Phase 10's `/portal/compliance` already evaluates the controls —
-   once these land, multiple `gap` rows will flip to `pass`
-   automatically.
-
-### Lower priority (do in any order)
-
-- **Phase 5.2** · Real-time signals via Supabase Realtime (live "What
-  changed?" feed).
-- **Phase 7.1** · Continuous Autonomous Innovation Engine (background
-  worker watching signals).
-- **Phase 11.1** · Real HTTP adapters per outbound connector (HubSpot,
-  Salesforce, Jira, ServiceNow, Microsoft Graph, Google Workspace).
-- **Phase 12.1** · Real cross-tenant federation repository +
-  adversarial deanonymization tests.
-- **Phase 13.1** · Real fine-tune jobs via the Anthropic API.
-- **Phase 14.1** · Read portfolio rollup from per-workspace telemetry
-  instead of the seeded fixtures.
-- **Phase 15.1** · Public marketplace submission API + ACH payouts.
+- **Phase 4.2** — pgvector knowledge adapter (needs Postgres + real corpus to be meaningful).
+- **Phase 5.2** — Realtime "What changed?" feed.
+- **Phase 11.1** continued — adapters 2–7 (HubSpot / Salesforce / Jira / ServiceNow / Microsoft Graph / one more).
+- **Phase 12.1** — real cross-tenant federation.
+- **Phase 13.1** — real fine-tune jobs (needs ≥ 50 real decisions per workspace to train against).
+- **Phase 14.1** — real portfolio projection from per-workspace telemetry.
+- **Phase 15.1** — public marketplace submission API + ACH payouts.
 
 ---
 

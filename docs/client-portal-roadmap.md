@@ -1,6 +1,6 @@
 # Dauntless Agentic — Client Intelligence Portal
 
-**Product Roadmap (v1.0)**
+**Product Roadmap (v1.1)**
 
 This roadmap is the forward-looking companion to `docs/client-portal-target-architecture.md`.
 The architecture doc says **what** the portal is. This doc says **what comes next, in what
@@ -9,6 +9,34 @@ order, why, and how we'll know we're done**.
 It is intentionally long-horizon. Phases 2–6 are concretely scoped; Phases 7–15 sketch
 the platform's strategic arc — enough detail that a future agent or operator can
 land in any phase and ground quickly.
+
+> **For the next two months: read `docs/pre-launch-plan.md` first.**
+> Every phase below has shipped its `.0` slice. The remaining `.x.y`
+> follow-ups are now tagged with a **Launch posture** of
+> `pre-launch` (green-light today against in-memory + Anthropic),
+> `launch-eve` (the final 2 weeks; needs real Supabase + OAuth), or
+> `post-launch` (needs real client traffic to be meaningful). The
+> pre-launch plan is the operational execution doc; this roadmap is the
+> canonical reference for what each phase is.
+
+## Why v1.1
+
+The product is in stealth and will be for ~2 months. We're not paying
+for Supabase Pro or wiring real OAuth until clients are within ~2
+weeks of onboarding. The original priority queue assumed Phase 2.1
+(persistence) was the immediate gate. The revised queue assumes the
+in-memory repository + the deterministic seed are the production
+backend through the stealth window, and that **the highest-leverage
+work today is the pre-launch queue in `docs/pre-launch-plan.md`** —
+real Anthropic-backed agent hardening, multi-org mock data, e2e
+coverage, marketing → portal continuity, accessibility / performance
+hardening, one real outbound connector, the SDK published, the
+autonomous innovation engine, and the marketing-site polish that
+launch demands.
+
+Phase numbering is unchanged. Phase 2.1 / 6.1 / 10.1 are explicitly
+re-tagged as `launch-eve`. Everything else is re-tagged per the launch
+posture matrix below.
 
 ---
 
@@ -116,6 +144,34 @@ they are phases of the same product.
 
 ---
 
+## Launch posture matrix
+
+Each phase's remaining `.x.y` follow-up is tagged for the stealth → launch arc:
+
+| Phase | `.0` status | Remaining follow-up | Launch posture | Why |
+|-------|-------------|---------------------|----------------|-----|
+| 1     | shipped     | —                   | shipped        | foundation |
+| 2.1   | scoped      | real Supabase + OAuth | **launch-eve** | needs hosted DB + real identity |
+| 3.1   | scoped      | eval harness + cache-hit instrumentation | **pre-launch** | Anthropic API only |
+| 4.1   | shipped     | —                   | shipped        | editor + canonical promotion |
+| 4.2   | scoped      | pgvector knowledge adapter | **launch-eve** | needs Postgres + pgvector |
+| 5.1   | shipped     | —                   | shipped        | NBA + Schedule |
+| 5.2   | scoped      | Realtime "what changed?" feed | **launch-eve** | needs Supabase Realtime |
+| 6.1   | scoped      | persisted event bus + signed exports | **launch-eve** | needs hosted DB |
+| 7.1   | scoped      | autonomous innovation engine | **pre-launch** | pure compute against in-memory |
+| 8.1   | scoped      | real multi-tenant + switcher swap | **launch-eve** | needs real persistence |
+| 9.1   | scoped      | published SDK + scoped tokens | **pre-launch** | npm publish + in-memory tokens |
+| 10.1  | scoped      | signed evidence exports + data residency | **launch-eve** | needs persisted workspace settings |
+| 11.1  | scoped      | real HTTP connector adapters | **pre-launch** | env-var creds only, no DB |
+| 12.1  | scoped      | real cross-tenant federation | **post-launch** | needs real cross-tenant traffic |
+| 13.1  | scoped      | real fine-tune jobs | **post-launch** | needs real workspace data |
+| 14.1  | scoped      | real portfolio projection | **post-launch** | needs real telemetry |
+| 15.1  | scoped      | public marketplace API + payouts | **post-launch** | needs Phase 2.1 + real users |
+
+The pre-launch queue is the action queue in `docs/pre-launch-plan.md`.
+
+---
+
 ## CAIA reference points
 
 Several phases pull architectural reference from the CAIA repo (sibling repo, not
@@ -137,9 +193,12 @@ repos can read those references and plan the port directly.
 
 **Status**: **Phase 2.0 shipped** on `claude/portal-phase-2-persistence-identity`.
 Phase 2.1 (real Supabase OAuth + RLS) is the remaining work.
+**Launch posture (Phase 2.1)**: **launch-eve** — the real Supabase swap
+and OAuth wiring lands in the final ~2 weeks before client onboarding,
+not pre-launch. Detail in `docs/pre-launch-plan.md` §B1.
 **Theme**: stop pretending. Real users, real data, real RLS.
-**Estimate**: 4–6 weeks (Phase 2.1)
-**Unlocks**: every subsequent phase. This is the gate.
+**Estimate**: 1 week (Phase 2.1; the swap is intentionally tight)
+**Unlocks**: every `launch-eve` follow-up. Not a gate for pre-launch work.
 
 ### Phase 2.0 — what shipped
 
@@ -208,8 +267,12 @@ Sub-phase still required to claim "Phase 2 complete":
 The orchestrator, tools, telemetry, propose→approve flow, and a stub mode
 are in. Phase 3.1 (live evaluation harness + cache-hit-rate hardening) is
 the remaining work.
+**Launch posture (Phase 3.1)**: **pre-launch** — needs only an Anthropic
+API key, no Supabase. Highest-leverage pre-launch item; see
+`docs/pre-launch-plan.md` §A1.
 **Theme**: the propose→approve→commit loop running against a real model.
-**Estimate**: 4–6 weeks (Phase 3.1)
+**Estimate**: 1 week (Phase 3.1 minus persistence — full conversation
+persistence comes with Phase 2.1)
 **Unlocks**: every other agent in the fleet; the credibility claim on `/services/agentic-systems`.
 
 ### Phase 3.0 — what shipped
@@ -281,11 +344,15 @@ than to scale a fleet that hasn't proven the loop.
 ## Phase 4 — Artifact engine and the canonical promotion loop
 
 **Status**: **Phase 4.0 shipped** on `claude/portal-phase-4-mem-palace`.
-The knowledge subsystem (port of CAIA mem-palace), workspace-wide search,
-artifact detail route, and confidence decay are in. Phase 4.1 (rich
-artifact editor + canonical promotion workflow) is the remaining work.
+**Phase 4.1 shipped** on `claude/portal-phase-4-1-canonical-editor`. Phase
+4.2 (pgvector knowledge adapter + comment inline UI + chunked diff +
+cross-engagement clone) is the remaining work.
+**Launch posture (Phase 4.2)**: **launch-eve** for the pgvector adapter
+(needs Postgres); **pre-launch** for the comment UI, chunked diff, and
+clone primitive (all in-memory). Detail in `docs/pre-launch-plan.md`.
 **Theme**: make artifacts first-class. Make compounding literal.
-**Estimate**: 6–8 weeks (Phase 4.1)
+**Estimate**: 3 days pre-launch (comment UI + chunked diff + clone) +
+3 days launch-eve (pgvector swap)
 **Unlocks**: the Bookshelf actually compounds; cross-engagement reuse becomes possible.
 
 ### Phase 4.0 — what shipped
@@ -383,11 +450,16 @@ doesn't let you author or evolve them. Without this, "compounding" stays a sloga
 ## Phase 5 — Full agent fleet and the real-time Decision Surface
 
 **Status**: **Phase 5.0 shipped** on `claude/portal-phase-5-agent-fleet`.
-All four archetypes ship as runnable agents with hard separation of powers
-enforced at the tool catalog level. Phase 5.1 (real-time signals via
-Supabase Realtime + Next-Best-Actions ranking engine) is the remaining work.
+**Phase 5.1 shipped** on `claude/portal-phase-5-1-nba-schedule` (NBA
+ranking + Schedule surface). Phase 5.2 (real-time signals via Supabase
+Realtime + cron-based Concierge narration + calendar provider
+integration) is the remaining work.
+**Launch posture (Phase 5.2)**: **launch-eve** for Realtime;
+**pre-launch** for the calendar provider integration (real outbound
+connector — see `docs/pre-launch-plan.md` §A6).
 **Theme**: the cockpit is alive.
-**Estimate**: 6–8 weeks (Phase 5.1)
+**Estimate**: 1 week pre-launch (one calendar connector) +
+3 days launch-eve (Realtime swap)
 **Unlocks**: the Advanced Portal tier; sells multi-engagement clients.
 
 ### Phase 5.0 — what shipped
@@ -489,8 +561,11 @@ produces and audits" is unproven.
 The event bus, derived metrics, Quarterly Impact Report, and cross-
 engagement intelligence are live. Phase 6.1 (persisted events, signed
 exports, partner-read-only view) is the remaining work.
+**Launch posture (Phase 6.1)**: **launch-eve** — every remaining item
+in this phase needs a hosted database. Detail in
+`docs/pre-launch-plan.md` §B2.
 **Theme**: prove the ROI. Close the compounding loop.
-**Estimate**: 6–8 weeks (Phase 6.1)
+**Estimate**: 3 days (Phase 6.1; the swap is mostly emitter wiring)
 **Unlocks**: quarterly proof reports; the second-engagement-is-faster claim becomes literal.
 
 ### Phase 6.0 — what shipped
@@ -575,8 +650,13 @@ The Studio surface, pattern library seed (15 patterns), roadmap simulator,
 and decision-tree visualization are live. Phase 7.1 (continuous
 Autonomous Innovation Engine + telemetry-derived probabilities) is the
 remaining work.
+**Launch posture (Phase 7.1)**: **pre-launch** for the autonomous engine
+(pure compute against the in-memory repository — see
+`docs/pre-launch-plan.md` §A8); **launch-eve** for telemetry-derived
+probabilities (needs persisted Phase 6.1 events).
 **Theme**: the top marketing tier becomes operational.
-**Estimate**: 8–10 weeks (Phase 7.1)
+**Estimate**: 1 week pre-launch (autonomous engine) +
+1 week post-Phase-2.1 (probabilities from persisted telemetry)
 **Unlocks**: the strategic-partner price point; Dauntless's most ambitious client motion.
 
 ### Phase 7.0 — what shipped
@@ -650,8 +730,13 @@ Org rollup view, workspace switcher in TopBar, per-workspace health
 scoring, cross-workspace dependency hints — all in. Phase 8.1 (real
 multi-tenant repository + workspace-swap on switcher click + RLS) is
 the remaining work.
+**Launch posture (Phase 8.1)**: **launch-eve** — the real swap needs
+Phase 2.1's Supabase + RLS. The **multi-org / multi-workspace mock
+data** that makes the Phase 8.0 surface render realistically is
+pre-launch (see `docs/pre-launch-plan.md` §A2).
 **Theme**: clients with multiple departments or programs see the whole portfolio.
-**Estimate**: 6–8 weeks (Phase 8.1)
+**Estimate**: 2 days pre-launch (mock data) +
+1 week launch-eve (real multi-tenant swap)
 **Unlocks**: enterprise / large-government sales motion; multi-program engagements.
 
 ### Phase 8.0 — what shipped
@@ -717,8 +802,12 @@ A read-mostly v1 REST surface, a typed in-repo SDK, a webhook ledger,
 and an in-portal API explorer are live. Phase 9.1 wires real HTTP
 delivery for webhooks, per-Membership scoped tokens, the npm-published
 SDK, and the extension marketplace skeleton.
+**Launch posture (Phase 9.1)**: **pre-launch** for the npm-published SDK
++ in-memory workspace-scoped tokens (see `docs/pre-launch-plan.md` §A7);
+**launch-eve** for token persistence across restarts; **post-launch**
+for the extension marketplace skeleton.
 **Theme**: clients with engineering teams build on top of the portal.
-**Estimate**: 8–10 weeks (Phase 9.1)
+**Estimate**: 3 days pre-launch (SDK + tokens) + token persistence in Phase 2.1
 **Unlocks**: integration partnerships; deeper product stickiness; the developer-tier sales motion.
 
 ### Phase 9.0 — what shipped
@@ -782,8 +871,12 @@ The cross-framework posture surface (Protected B IL2 · FedRAMP Low · SOC
 2 Type II · HIPAA), control evaluators, and sector pack catalog are live.
 Phase 10.1 wires signed exports, third-party assessor coordination, and
 the PHI-tagging required to actually deploy in healthcare engagements.
+**Launch posture (Phase 10.1)**: **launch-eve** for signed exports and
+data residency (need persistence). **Post-launch** for SOC 2 continuous
+audit instrumentation, FedRAMP assessor scheduling, HIPAA PHI tagging —
+these are sales-cycle activities not engineering activities.
 **Theme**: become procurable inside government and regulated enterprise.
-**Estimate**: 10–14 weeks (Phase 10.1)
+**Estimate**: 3 days launch-eve (signed exports + residency setting)
 **Unlocks**: the federal contracts the marketing site is already targeting (TBS, ESDC, NRCan, ECCC, ISED, CIR).
 
 ### Phase 10.0 — what shipped
@@ -846,8 +939,13 @@ public-sector contracts is compliance posture, not features.
 Outbound action contract, connector registry (7 connectors, 14
 capabilities), and sandbox surface are live. Phase 11.1 wires real HTTP
 adapters.
+**Launch posture (Phase 11.1)**: **pre-launch** for the first real
+connector (Google Workspace Calendar is the leading candidate — see
+`docs/pre-launch-plan.md` §A6); the remaining 6 connectors are
+**post-launch** unless a specific stealth-window need surfaces.
 **Theme**: agents take action **in client systems**, not just in the portal.
-**Estimate**: 10–14 weeks (Phase 11.1)
+**Estimate**: 1 week pre-launch (one connector); 1 week per additional
+connector post-launch
 **Unlocks**: the marketing claim "managed agentic operations" becomes literal; deepest stickiness.
 
 ### Phase 11.0 — what shipped
@@ -905,8 +1003,11 @@ governance contract.
 Federation primitive (4 sector federations), opt-in / opt-out membership,
 three-tier anonymization pipeline, cross-tenant search are live. Phase
 12.1 wires the real cross-tenant repository + remote cache invalidation.
+**Launch posture (Phase 12.1)**: **post-launch** — federation is only
+meaningful when there are real cross-tenant clients to federate. Defer
+all of Phase 12.1 until ≥ 3 production workspaces exist.
 **Theme**: organizations opt into a shared canonical layer.
-**Estimate**: 12–16 weeks (Phase 12.1)
+**Estimate**: 2 weeks (Phase 12.1)
 **Unlocks**: the flywheel; sector-wide intelligence; defensible moat at the network level.
 
 ### Phase 12.0 — what shipped
@@ -962,8 +1063,13 @@ Model registry, propose / route / rollback flow, quality gate (≥ 2-point
 lift over baseline), and drift-based auto-rollback are live. Phase 13.1
 wires real fine-tune jobs against the Anthropic API + persistent
 training-data extraction pipeline.
+**Launch posture (Phase 13.1)**: **post-launch** — fine-tunes need real
+workspace decisions to train on. Pre-launch traffic against the
+deterministic seed would produce a fine-tune that just re-learns the
+seed. Defer until ≥ 1 production workspace has accumulated ≥ 50 real
+decisions.
 **Theme**: the agents get smarter on **your** patterns specifically.
-**Estimate**: 10–14 weeks (Phase 13.1)
+**Estimate**: 2 weeks (Phase 13.1)
 **Unlocks**: the most defensible per-client moat; an obvious upgrade path for power clients.
 
 ### Phase 13.0 — what shipped
@@ -1017,8 +1123,12 @@ proposes decisions in that organization's voice and within its policy posture.
 Owner-gated portfolio rollup, per-account health + margin table,
 pattern-emergence detector, and internal decision register are live.
 Phase 14.1 wires real per-workspace telemetry projection.
+**Launch posture (Phase 14.1)**: **post-launch** — projection only makes
+sense when there are real workspaces emitting telemetry. The multi-org
+mock data added pre-launch (§A2) makes the Phase 14.0 surface feel
+real for sales demos without needing the projection.
 **Theme**: Dauntless-the-company sees its entire client portfolio as one cockpit.
-**Estimate**: 4–6 weeks (Phase 14.1)
+**Estimate**: 1 week (Phase 14.1)
 **Unlocks**: Dauntless internal operations; pricing intelligence; account-management leverage.
 
 ### Phase 14.0 — what shipped
@@ -1070,8 +1180,12 @@ Submission spec, eval harness (re-uses the Phase 5 tool catalog to
 enforce separation-of-powers at the listing level), assurance reports,
 install / uninstall / killswitch flow, and revenue-share ledger are
 live. Phase 15.1 wires the public submission API + ACH payouts.
+**Launch posture (Phase 15.1)**: **post-launch** — a public
+submission API needs Phase 2.1 + real client traffic to be a
+defensible developer-facing surface. ACH payouts need real banking
+integration (Stripe / Plaid) which costs money to provision.
 **Theme**: the portal is an operating system. Third parties build for it.
-**Estimate**: 8–12 weeks (Phase 15.1)
+**Estimate**: 2 weeks (Phase 15.1)
 **Unlocks**: ecosystem; network defensibility; sales velocity from partner-led motion.
 
 ### Phase 15.0 — what shipped
