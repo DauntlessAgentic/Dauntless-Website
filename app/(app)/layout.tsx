@@ -1,4 +1,6 @@
+import { Suspense } from "react";
 import { AppShell } from "@/components/shell/app-shell";
+import { DemoModeBanner } from "@/components/shell/demo-mode-banner";
 import { RoleSwitcher } from "@/components/shell/role-switcher";
 import { WorkspaceSwitcher } from "@/components/shell/workspace-switcher";
 import { getAuthRuntimeState } from "@/lib/auth/runtime";
@@ -34,6 +36,9 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         </>
       }
     >
+      <Suspense fallback={null}>
+        <DemoModeBanner />
+      </Suspense>
       {children}
     </AppShell>
   );

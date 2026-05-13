@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, FileText, Bot, BarChart3, RefreshCw, MessageSquare, TrendingUp, Compass, Search } from "lucide-react";
+import { ArrowRight, FileText, Bot, BarChart3, RefreshCw, MessageSquare, TrendingUp, Compass, Search, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
@@ -69,6 +69,22 @@ export default function PlatformPage() {
           >
             Explore the Platform <ArrowRight className="h-4 w-4" />
           </Link>
+          <div className="pt-2">
+            <Link
+              href="/portal?demo=1"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+              style={{
+                color: "var(--accent-vivid)",
+                background: "rgba(var(--accent-rgb),0.10)",
+                border: "1px solid rgba(var(--accent-bright-rgb),0.35)",
+              }}
+            >
+              <Sparkles className="h-4 w-4" /> Try the live portal demo
+            </Link>
+            <p className="text-xs text-[--text-muted] mt-2">
+              Loads the portal pre-seeded with one realistic government engagement. No login required.
+            </p>
+          </div>
         </div>
       </section>
 

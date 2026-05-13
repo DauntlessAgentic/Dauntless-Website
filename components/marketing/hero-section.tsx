@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 const stats = [
   { value: "18+",    label: "Years of transformation" },
@@ -73,6 +73,17 @@ export function HeroSection() {
             }}
           >
             Start a Conversation <ArrowRight className="h-4 w-4" />
+          </Link>
+          <Link
+            href="/portal?demo=1"
+            className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+            style={{
+              color: "var(--accent-vivid)",
+              background: "rgba(var(--accent-rgb),0.10)",
+              border: "1px solid rgba(var(--accent-bright-rgb),0.35)",
+            }}
+          >
+            <Sparkles className="h-4 w-4" /> Try the live portal demo
           </Link>
           <Link
             href="/work"
