@@ -61,11 +61,35 @@ const fc5Features = [
 export const metadata: Metadata = {
   title: "AI Literacy Training",
   description: "Team-wide AI fluency in days, not months. Executive briefings to full practitioner programs — built for government and enterprise.",
+  openGraph: {
+    title: "AI Literacy Training — Dauntless Agentic",
+    description: "Team-wide AI fluency in days, not months.",
+    type: "website",
+    siteName: "Dauntless Agentic",
+  },
+  twitter: { card: "summary_large_image", title: "AI Literacy Training — Dauntless Agentic", description: "Team-wide AI fluency in days, not months." },
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "AI Literacy Training",
+  provider: {
+    "@type": "ProfessionalService",
+    name: "Dauntless Agentic",
+    url: "https://dauntlessagentic.com",
+  },
+  description:
+    "Team-wide AI fluency in days, not months. Executive briefings to full practitioner programs — built for government and enterprise.",
+  areaServed: { "@type": "Country", name: "Canada" },
+  audience: { "@type": "BusinessAudience", audienceType: "Government & Enterprise teams" },
+  url: "https://dauntlessagentic.com/services/training",
 };
 
 export default function TrainingPage() {
   return (
     <div className="min-h-screen bg-[--mkt-bg]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <MarketingNav />
       <div className="max-w-6xl mx-auto px-6 pt-[88px] pb-2">
         <Breadcrumbs crumbs={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "AI Literacy Training" }]} />

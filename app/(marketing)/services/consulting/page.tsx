@@ -56,11 +56,35 @@ const differentiators = [
 export const metadata: Metadata = {
   title: "AI Operations Consulting",
   description: "We design the operating architecture, governance model, and workflow systems your organization needs to run AI at scale.",
+  openGraph: {
+    title: "AI Operations Consulting — Dauntless Agentic",
+    description: "We design the operating architecture, governance model, and workflow systems your organization needs to run AI at scale.",
+    type: "website",
+    siteName: "Dauntless Agentic",
+  },
+  twitter: { card: "summary_large_image", title: "AI Operations Consulting — Dauntless Agentic", description: "Operating architecture, governance, and workflow systems for AI at scale." },
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "AI Operations Consulting",
+  provider: {
+    "@type": "ProfessionalService",
+    name: "Dauntless Agentic",
+    url: "https://dauntlessagentic.com",
+  },
+  description:
+    "AI operating architecture, governance model, and workflow systems for organizations running AI at scale.",
+  areaServed: { "@type": "Country", name: "Canada" },
+  audience: { "@type": "BusinessAudience", audienceType: "Government & Enterprise programs" },
+  url: "https://dauntlessagentic.com/services/consulting",
 };
 
 export default function ConsultingPage() {
   return (
     <div className="min-h-screen bg-[--mkt-bg]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <MarketingNav />
       <div className="max-w-6xl mx-auto px-6 pt-[88px] pb-2">
         <Breadcrumbs crumbs={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "AI Operations Consulting" }]} />

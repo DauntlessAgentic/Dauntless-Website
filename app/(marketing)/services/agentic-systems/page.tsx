@@ -86,11 +86,35 @@ const engagementPhases = [
 export const metadata: Metadata = {
   title: "Agentic Systems",
   description: "Custom AI agent pipelines that connect your data, your processes, and your people. Built to run without constant maintenance.",
+  openGraph: {
+    title: "Agentic Systems — Dauntless Agentic",
+    description: "Custom AI agent pipelines that connect your data, your processes, and your people. Built to run without constant maintenance.",
+    type: "website",
+    siteName: "Dauntless Agentic",
+  },
+  twitter: { card: "summary_large_image", title: "Agentic Systems — Dauntless Agentic", description: "Custom AI agent pipelines built to run without constant maintenance." },
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Agentic Systems Design",
+  provider: {
+    "@type": "ProfessionalService",
+    name: "Dauntless Agentic",
+    url: "https://dauntlessagentic.com",
+  },
+  description:
+    "Custom AI agent pipelines, fleet design with separation of powers, decision architecture, and observability layers for production AI operations.",
+  areaServed: { "@type": "Country", name: "Canada" },
+  audience: { "@type": "BusinessAudience", audienceType: "Government & Enterprise programs" },
+  url: "https://dauntlessagentic.com/services/agentic-systems",
 };
 
 export default function AgenticSystemsPage() {
   return (
     <div className="min-h-screen bg-[--mkt-bg]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <MarketingNav />
       <div className="max-w-6xl mx-auto px-6 pt-[88px] pb-2">
         <Breadcrumbs crumbs={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "Agentic Systems" }]} />
