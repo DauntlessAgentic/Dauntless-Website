@@ -11,6 +11,8 @@ import { getPortalRepository } from "@/lib/portal/repositories";
 import { emitWebhook } from "@/lib/portal/webhooks";
 
 import { findCapability } from "./connectors";
+import { isConnectorEnabled } from "./enabled-connectors";
+import { isWorkspaceFrozen } from "./freeze";
 import { validateOutboundPayload } from "./schemas";
 import type {
   ApproveOutboundActionInput,
@@ -44,6 +46,14 @@ export async function proposeOutboundAction(input: ProposeOutboundActionInput): 
   const capability = findCapability(input.connectorId, input.capabilityId);
   if (!capability) {
     throw new Error(`Unknown capability: ${input.connectorId}/${input.capabilityId}`);
+  }
+  // Advisory-board action #19: per-workspace connector approval. Until
+  // a workspace owner explicitly enables a connector, propose calls
+  // referencing it are refused. Marcus's requirement.
+  if (!isConnectorEnabled(input.workspaceId, input.connectorId)) {
+    throw new Error(
+      `Connector "${input.connectorId}" is not enabled for this workspace. A workspace owner must enable it on /portal/governance first.`,
+    );
   }
   // Phase 11.1: validate payload against the per-capability schema at
   // propose-time so malformed payloads can't sit in pending-approval.
@@ -113,6 +123,15 @@ export async function commitOutboundAction(input: CommitOutboundActionInput): Pr
   const action = mustGet(input.actionId);
   if (action.status !== "approved" && action.status !== "dry-run") {
     throw new Error(`Cannot commit from status ${action.status}.`);
+  }
+  // Advisory-board action #16: workspace-level kill switch. Honoured
+  // before any external work. Dry-runs are blocked too — the point of
+  // the freeze is to give the workspace owner a single stop button.
+  const freeze = isWorkspaceFrozen(input.workspaceId);
+  if (freeze) {
+    throw new Error(
+      `Outbound actions are frozen for this workspace by ${freeze.frozenBy}: "${freeze.reason}". Lift the freeze on /portal/help/something-went-wrong before retrying.`,
+    );
   }
   const capability = findCapability(action.connectorId, action.capabilityId);
   if (!capability) {

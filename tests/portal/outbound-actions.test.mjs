@@ -14,12 +14,23 @@ const url = (rel) => pathToFileURL(path.join(repoRoot, rel)).href;
 const { __resetPortalRepository, getPortalRepository } = await import(url("lib/portal/repositories/index.ts"));
 const { listConnectors } = await import(url("lib/portal/outbound-actions/connectors.ts"));
 const store = await import(url("lib/portal/outbound-actions/store.ts"));
+const { enableConnector, __resetEnabledConnectors } = await import(
+  url("lib/portal/outbound-actions/enabled-connectors.ts"),
+);
+const { __resetWorkspaceFreezes } = await import(url("lib/portal/outbound-actions/freeze.ts"));
 
 test("Outbound actions", async (t) => {
   __resetPortalRepository();
   store.__resetOutboundActions();
+  __resetEnabledConnectors();
+  __resetWorkspaceFreezes();
   const repo = getPortalRepository();
   const ws = await repo.getDefaultWorkspace();
+  // Tests below assume jira, hubspot, internal, and google-workspace
+  // are enabled. `internal` is enabled by default.
+  for (const id of ["jira", "hubspot", "google-workspace"]) {
+    await enableConnector({ workspaceId: ws.id, connectorId: id, actor: "Test Owner" });
+  }
 
   await t.test("connector catalog lists at least 6 connectors", () => {
     const connectors = listConnectors({});

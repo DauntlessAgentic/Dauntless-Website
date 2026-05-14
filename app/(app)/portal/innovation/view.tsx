@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useTransition } from "react";
 import Link from "next/link";
-import { ArrowRight, Sparkles, BookOpen, GitBranch, Activity } from "lucide-react";
+import { ArrowRight, Sparkles, BookOpen, GitBranch, Activity, BellOff } from "lucide-react";
+import { snoozeProposalAction } from "@/lib/portal/innovation/proposal-actions";
 
 import { WorkspaceHeader } from "@/components/shell/workspace-header";
 import { DashboardCard } from "@/components/cards/dashboard-card";
@@ -65,16 +66,33 @@ export function InnovationStudioView({
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [activeMaturity, setActiveMaturity] = useState<string | null>(null);
+  const [proposalState, setProposalState] = useState(autonomousProposals);
+  const [snoozePending, startSnooze] = useTransition();
 
+  const handleSnooze = (id: string, hours = 24) => {
+    startSnooze(async () => {
+      await snoozeProposalAction(id, hours);
+      setProposalState((prev) => prev.filter((p) => p.id !== id));
+    });
+  };
+
+  // Advisory action #11: tokenizer fix. Split the query into tokens
+  // and require every token to appear somewhere in the haystack, so a
+  // longer query never returns fewer results than a shorter prefix
+  // unless the longer query introduces an unmatchable word.
   const filteredPatterns = useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const tokens = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
     return patterns.filter((p) => {
       if (activeCategory && p.category !== activeCategory) return false;
       if (activeMaturity && p.maturity !== activeMaturity) return false;
-      if (q && !`${p.title} ${p.summary} ${p.whenItApplies}`.toLowerCase().includes(q)) return false;
+      if (tokens.length > 0) {
+        const hay = `${p.title} ${p.summary} ${p.whenItApplies}`.toLowerCase();
+        if (!tokens.every((t) => hay.includes(t))) return false;
+      }
       return true;
     });
   }, [patterns, activeCategory, activeMaturity, query]);
+
 
   return (
     <div className="flex flex-col h-full">
@@ -122,26 +140,26 @@ export function InnovationStudioView({
         <DashboardCard
           id="autonomous-engine"
           eyebrow="AUTONOMOUS ENGINE"
-          title={`${autonomousProposals.length} live proposal${autonomousProposals.length === 1 ? "" : "s"}`}
+          title={`${proposalState.length} live proposal${proposalState.length === 1 ? "" : "s"}`}
           subtitle="Continuous in-process watcher. Heuristics run on every portal event and surface fresh proposals here."
-          badge={autonomousProposals.some((p) => p.urgency === "urgent") ? "urgent" : autonomousProposals.length === 0 ? "idle" : "live"}
+          badge={proposalState.some((p) => p.urgency === "urgent") ? "urgent" : proposalState.length === 0 ? "idle" : "live"}
           badgeVariant={
-            autonomousProposals.some((p) => p.urgency === "urgent")
+            proposalState.some((p) => p.urgency === "urgent")
               ? "warning"
-              : autonomousProposals.length === 0
+              : proposalState.length === 0
               ? "default"
               : "accent"
           }
           bodyClassName="overflow-hidden"
         >
           <ScrollArea className="h-full max-h-[360px]">
-            {autonomousProposals.length === 0 ? (
+            {proposalState.length === 0 ? (
               <p className="px-3 py-6 text-center text-xs text-[--text-muted]">
-                Engine warming up. As portal events fire, proposals will appear here.
+                Nothing requires your attention right now. New proposals will appear here as the engine notices things.
               </p>
             ) : (
               <ul className="flex flex-col divide-y divide-[--border-subtle]">
-                {autonomousProposals.map((p) => (
+                {proposalState.map((p) => (
                   <li key={p.id} className="flex flex-col gap-1.5 px-3 py-2.5">
                     <div className="flex items-center gap-2 flex-wrap">
                       <ContentTag
@@ -152,6 +170,16 @@ export function InnovationStudioView({
                       </ContentTag>
                       <ContentTag variant="default">{p.kind.replace(/-/g, " ")}</ContentTag>
                       <p className="flex-1 text-xs font-semibold text-[--text-primary]">{p.title}</p>
+                      <button
+                        type="button"
+                        onClick={() => handleSnooze(p.id, 24)}
+                        disabled={snoozePending}
+                        className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-[--radius-sm] text-xs text-[--text-muted] hover:text-[--text-primary] hover:bg-[--elevated] transition-colors"
+                        title="Dismiss for 24 hours."
+                        aria-label="Snooze 24 hours"
+                      >
+                        <BellOff className="h-3 w-3" /> {snoozePending ? "…" : "Snooze 24h"}
+                      </button>
                     </div>
                     <p className="text-xs text-[--text-secondary] leading-snug">{p.rationale}</p>
                     {p.suggestedActions.length > 0 && (

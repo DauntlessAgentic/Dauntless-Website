@@ -33,6 +33,7 @@ const TOUR: TourStop[] = [
   { href: "/portal/compliance", title: "Compliance posture", purpose: "Cross-framework readiness with sector packs." },
   { href: "/portal/about", title: "About this portal", purpose: "Self-documenting roadmap status (15 phases shipped)." },
   { href: "/portal/help/glossary", title: "Glossary", purpose: "Plain-language definitions of every piece of portal vocabulary." },
+  { href: "/portal/help/something-went-wrong", title: "Something went wrong", purpose: "One button to stop all outbound actions while you investigate. Reversible." },
 ];
 
 const SHORTCUTS: Array<{ keys: string; what: string }> = [

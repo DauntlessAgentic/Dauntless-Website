@@ -47,6 +47,8 @@ export interface InnovationProposal {
   generatedAt: Date;
   expiresAt: Date;
   acknowledgedAt?: Date;
+  /** When set, listProposals() hides this row until the time has passed. */
+  snoozedUntil?: Date;
 }
 
 interface EngineState {
@@ -325,9 +327,11 @@ function enforceWindow(engine: EngineState, workspaceId: string): void {
 export function listProposals(workspaceId: string): InnovationProposal[] {
   const engine = getEngine();
   const rows: InnovationProposal[] = [];
+  const now = Date.now();
   for (const proposal of engine.proposals.values()) {
     if (proposal.workspaceId !== workspaceId) continue;
     if (isExpired(proposal)) continue;
+    if (proposal.snoozedUntil && proposal.snoozedUntil.getTime() > now) continue;
     rows.push(proposal);
   }
   rows.sort((a, b) => {
@@ -344,6 +348,28 @@ export function acknowledgeProposal(id: string): InnovationProposal | null {
   for (const proposal of engine.proposals.values()) {
     if (proposal.id === id) {
       proposal.acknowledgedAt = new Date();
+      return proposal;
+    }
+  }
+  return null;
+}
+
+/**
+ * Snooze a proposal for `hours` (default 24). The proposal disappears
+ * from `listProposals()` until the snooze expires. Advisory action #6.
+ */
+export function snoozeProposal(id: string, hours = 24): InnovationProposal | null {
+  const engine = getEngine();
+  const now = Date.now();
+  for (const proposal of engine.proposals.values()) {
+    if (proposal.id === id) {
+      proposal.acknowledgedAt = new Date(now);
+      proposal.snoozedUntil = new Date(now + hours * 60 * 60 * 1000);
+      // Hide for the snooze window without dropping the dedupe key so
+      // re-discovery doesn't immediately resurrect it.
+      proposal.expiresAt = new Date(
+        Math.max(proposal.expiresAt.getTime(), now + hours * 60 * 60 * 1000),
+      );
       return proposal;
     }
   }

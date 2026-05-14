@@ -56,6 +56,29 @@ interface PerAgentTelemetryProps {
   hasError: boolean;
 }
 
+interface ConnectorRow {
+  id: string;
+  label: string;
+  enabled: boolean;
+}
+
+interface ControlRow {
+  id: string;
+  title: string;
+  status: "pass" | "partial" | "gap";
+  detail: string;
+}
+
+interface ControlsInForceProps {
+  generatedAt: string;
+  rows: ControlRow[];
+  summary: { passCount: number; partialCount: number; gapCount: number };
+}
+
+type FreezeStatus =
+  | { frozen: true; frozenBy: string; frozenAt: string; reason: string }
+  | { frozen: false };
+
 interface GovernanceViewProps {
   snapshot: PortalSnapshot;
   membership: MembershipContext;
@@ -63,6 +86,10 @@ interface GovernanceViewProps {
   agentTelemetry: AgentTelemetrySummary;
   agentRuns: AgentRunSummaryProps[];
   perAgentTelemetry: PerAgentTelemetryProps[];
+  controls: ControlsInForceProps;
+  freezeStatus: FreezeStatus;
+  connectors: ConnectorRow[];
+  enabledConnectors: string[];
 }
 
 export function GovernanceView({
@@ -72,6 +99,10 @@ export function GovernanceView({
   agentTelemetry,
   agentRuns,
   perAgentTelemetry,
+  controls,
+  freezeStatus,
+  connectors,
+  enabledConnectors,
 }: GovernanceViewProps) {
   const {
     auditLog: mockAuditLog,
@@ -122,6 +153,98 @@ export function GovernanceView({
       />
 
       <div className="flex-1 overflow-auto p-4 space-y-4 pb-20 md:pb-4">
+
+        {/* Controls in force — advisory-board action #15 */}
+        <DashboardCard
+          id="controls-in-force"
+          eyebrow="CONTROLS IN FORCE"
+          title="Posture right now — plain English"
+          subtitle={`${controls.summary.passCount} pass · ${controls.summary.partialCount} partial · ${controls.summary.gapCount} gap · refreshed ${new Date(controls.generatedAt).toLocaleString()}`}
+          badge={controls.summary.gapCount > 0 ? "Gap" : controls.summary.partialCount > 0 ? "Partial" : "Pass"}
+          badgeVariant={controls.summary.gapCount > 0 ? "warning" : controls.summary.partialCount > 0 ? "info" : "success"}
+        >
+          <ul className="flex flex-col divide-y divide-[--border-subtle]">
+            {controls.rows.map((row) => (
+              <li key={row.id} className="flex items-start gap-3 px-3 py-2">
+                <ContentTag
+                  variant={row.status === "pass" ? "success" : row.status === "partial" ? "info" : "warning"}
+                  dot
+                >
+                  {row.status}
+                </ContentTag>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-semibold text-[--text-primary]">{row.title}</p>
+                  <p className="text-xs text-[--text-muted] leading-snug">{row.detail}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </DashboardCard>
+
+        {/* Outbound action gates — connectors + freeze switch */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <DashboardCard
+            id="connectors-enabled"
+            eyebrow="CONNECTORS"
+            title={`${enabledConnectors.length} of ${connectors.length} enabled`}
+            subtitle="Workspace must explicitly enable each connector. Add a connector → Outbound Actions sandbox unlocks it."
+            badge={connectors.length === enabledConnectors.length ? "All" : `${enabledConnectors.length}/${connectors.length}`}
+            badgeVariant="default"
+          >
+            <ul className="flex flex-col divide-y divide-[--border-subtle]">
+              {connectors.map((c) => (
+                <li key={c.id} className="flex items-center gap-3 px-3 py-2 text-xs">
+                  <ContentTag variant={c.enabled ? "success" : "default"} dot>
+                    {c.enabled ? "enabled" : "off"}
+                  </ContentTag>
+                  <span className="flex-1 text-[--text-primary] font-medium">{c.label}</span>
+                  <span className="text-[--text-muted] font-mono">{c.id}</span>
+                </li>
+              ))}
+            </ul>
+          </DashboardCard>
+
+          <DashboardCard
+            id="freeze-status"
+            eyebrow="SAFETY SWITCH"
+            title={freezeStatus.frozen ? "Outbound actions frozen" : "Outbound actions live"}
+            subtitle="One-click freeze available on the Help → Something went wrong page."
+            badge={freezeStatus.frozen ? "Frozen" : "Live"}
+            badgeVariant={freezeStatus.frozen ? "warning" : "success"}
+          >
+            <div className="px-3 py-3 text-xs space-y-1.5 text-[--text-secondary] leading-snug">
+              {freezeStatus.frozen ? (
+                <>
+                  <p>
+                    <span className="font-semibold text-[--warning]">Frozen by:</span> {freezeStatus.frozenBy}
+                  </p>
+                  <p>
+                    <span className="font-semibold">When:</span> {new Date(freezeStatus.frozenAt).toLocaleString()}
+                  </p>
+                  <p>
+                    <span className="font-semibold">Reason:</span> <span className="italic">{freezeStatus.reason}</span>
+                  </p>
+                  <Link
+                    href="/portal/help/something-went-wrong"
+                    className="inline-flex items-center gap-1 text-[--accent-vivid] hover:underline"
+                  >
+                    Manage the freeze <ArrowRight className="h-3 w-3" />
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <p>All approved outbound actions can execute. Agents and humans can both commit.</p>
+                  <Link
+                    href="/portal/help/something-went-wrong"
+                    className="inline-flex items-center gap-1 text-[--accent-vivid] hover:underline"
+                  >
+                    Freeze workspace <ArrowRight className="h-3 w-3" />
+                  </Link>
+                </>
+              )}
+            </div>
+          </DashboardCard>
+        </div>
 
         {/* Repository activation + identity status */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
