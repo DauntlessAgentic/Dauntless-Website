@@ -49,6 +49,16 @@ export interface InnovationProposal {
   acknowledgedAt?: Date;
   /** When set, listProposals() hides this row until the time has passed. */
   snoozedUntil?: Date;
+  /**
+   * Optional inline-action buttons surfaced on the engine card.
+   * Advisory-board action #14. Each maps to a deep-link or server action.
+   */
+  quickActions?: ProposalQuickAction[];
+}
+
+export interface ProposalQuickAction {
+  label: string;
+  href: string;
 }
 
 interface EngineState {
@@ -130,6 +140,10 @@ export async function tick(workspaceId: string): Promise<InnovationProposal[]> {
             `Open Engagement Analyst on each gap engagement with prompt "Adapt ${canonical.name} for this engagement."`,
             "Promote the resulting artifact to canonical after audit.",
           ],
+          quickActions: [
+            { label: "Open Engagement Analyst", href: "/portal/agents/agent-engagement-analyst" },
+            { label: "View artifact", href: `/portal/deliverables/${canonical.id}` },
+          ],
           dedupeKey,
         }),
       );
@@ -171,6 +185,10 @@ export async function tick(workspaceId: string): Promise<InnovationProposal[]> {
             `Review pattern "${pattern.title}" in the Innovation Studio.`,
             `Spin up an Engagement Analyst run on ${engagement.name} citing this pattern.`,
           ],
+          quickActions: [
+            { label: "Open engagement", href: `/portal/engagements/${engagement.id}` },
+            { label: "Run Engagement Analyst", href: "/portal/agents/agent-engagement-analyst" },
+          ],
           dedupeKey,
         }),
       );
@@ -203,6 +221,10 @@ export async function tick(workspaceId: string): Promise<InnovationProposal[]> {
           "Schedule a decision-review sync with the SteerCo for this week.",
           "Trigger a Risk Inspector agent on each high-tier item.",
         ],
+        quickActions: [
+          { label: "Open decision register", href: "/portal/decisions" },
+          { label: "Run Risk Inspector", href: "/portal/agents/agent-evidence-auditor" },
+        ],
         dedupeKey,
       }),
     );
@@ -233,6 +255,10 @@ export async function tick(workspaceId: string): Promise<InnovationProposal[]> {
           suggestedActions: [
             "Open the Knowledge canvas and draft a cross-engagement playbook.",
             "Tag the resulting Knowledge item as canonical once two engagements adopt it.",
+          ],
+          quickActions: [
+            { label: "Open Knowledge", href: "/portal/knowledge" },
+            { label: "Run Roadmap Strategist", href: "/portal/agents/agent-roadmap-strategist" },
           ],
           dedupeKey,
         }),
@@ -267,6 +293,10 @@ export async function tick(workspaceId: string): Promise<InnovationProposal[]> {
           "Trigger a Risk Inspector run on each pending-approval high-risk decision.",
           "Add an automation rule so the Inspector fires on `decision-proposed` for tier=high.",
         ],
+        quickActions: [
+          { label: "Run Risk Inspector", href: "/portal/agents/agent-evidence-auditor" },
+          { label: "Open decisions", href: "/portal/decisions" },
+        ],
         dedupeKey,
       }),
     );
@@ -294,6 +324,7 @@ function makeProposal(input: {
   evidence: string[];
   suggestedActions: string[];
   dedupeKey: string;
+  quickActions?: ProposalQuickAction[];
 }): InnovationProposal {
   counter += 1;
   const now = new Date();
@@ -306,6 +337,7 @@ function makeProposal(input: {
     rationale: input.rationale,
     evidence: input.evidence,
     suggestedActions: input.suggestedActions,
+    quickActions: input.quickActions,
     dedupeKey: input.dedupeKey,
     generatedAt: now,
     expiresAt: new Date(now.getTime() + PROPOSAL_TTL_MS),

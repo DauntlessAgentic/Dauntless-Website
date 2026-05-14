@@ -47,6 +47,17 @@ export interface ImpactReportInput {
     canonicalPromotions: number;
     handoffs: number;
   };
+  /**
+   * Prior-window counts (same length as current window, immediately
+   * preceding). Powers ▲/▼ trend chips on the four tiles (advisory
+   * action #7). Optional — older callers see no trend chip.
+   */
+  priorAgentActivity?: {
+    totalRuns: number;
+    decisionsProposed: number;
+    canonicalPromotions: number;
+    handoffs: number;
+  };
   recentEvents: PortalEvent[];
 }
 
@@ -69,7 +80,13 @@ export async function generateImpactReport(workspaceId: string, horizonDays = 28
 
   const derived = computeDerivedMetrics(workspaceId);
   const sinceDate = new Date(Date.now() - horizonDays * 24 * 60 * 60 * 1000);
+  const priorSinceDate = new Date(Date.now() - 2 * horizonDays * 24 * 60 * 60 * 1000);
   const recentEvents = listPortalEvents({ workspaceId, since: sinceDate });
+  // Advisory action #7: compute the immediately-preceding equal-length
+  // window so tiles can display a ▲/▼ trend chip.
+  const priorEvents = listPortalEvents({ workspaceId, since: priorSinceDate }).filter(
+    (e) => e.at.getTime() < sinceDate.getTime(),
+  );
 
   const topDecisions = decisions
     .filter((d) => d.status !== "superseded")
@@ -83,6 +100,12 @@ export async function generateImpactReport(workspaceId: string, horizonDays = 28
   const decisionsProposed = recentEvents.filter((e) => e.kind === "decision-proposed").length;
   const canonicalPromotions = recentEvents.filter((e) => e.kind === "artifact-promoted-canonical").length;
   const handoffs = recentEvents.filter((e) => e.kind === "agent-handoff").length;
+  const priorAgentActivity = {
+    totalRuns: priorEvents.filter((e) => e.kind === "agent-run-completed").length,
+    decisionsProposed: priorEvents.filter((e) => e.kind === "decision-proposed").length,
+    canonicalPromotions: priorEvents.filter((e) => e.kind === "artifact-promoted-canonical").length,
+    handoffs: priorEvents.filter((e) => e.kind === "agent-handoff").length,
+  };
 
   const input: ImpactReportInput = {
     workspaceName: workspace.name,
@@ -95,6 +118,7 @@ export async function generateImpactReport(workspaceId: string, horizonDays = 28
     canonicalArtifacts,
     canonicalKnowledge,
     agentActivity: { totalRuns, decisionsProposed, canonicalPromotions, handoffs },
+    priorAgentActivity,
     recentEvents: recentEvents.slice(0, 50),
   };
 

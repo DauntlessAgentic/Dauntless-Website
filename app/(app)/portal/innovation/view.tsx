@@ -189,6 +189,19 @@ export function InnovationStudioView({
                         ))}
                       </ul>
                     )}
+                    {p.quickActions && p.quickActions.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 mt-1">
+                        {p.quickActions.map((qa, i) => (
+                          <Link
+                            key={i}
+                            href={qa.href}
+                            className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-[--radius-sm] border border-[--border-subtle] bg-[--elevated] text-[--text-primary] hover:border-[--accent-vivid] transition-colors"
+                          >
+                            {qa.label} <ArrowRight className="h-3 w-3" />
+                          </Link>
+                        ))}
+                      </div>
+                    )}
                   </li>
                 ))}
               </ul>
