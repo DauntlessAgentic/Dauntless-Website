@@ -14,6 +14,14 @@ land in any phase and ground quickly.
 
 ## Where we are
 
+**Post-audit hardening (May 2026) — five phases shipped following the May 2026 security audit (see `SECURITY_AUDIT.md`):**
+
+- **Phase A** (PR #33): Next 16.2.6 + postcss override, production refuses dev-bypass, constant-time bearer compare, cookie hardening.
+- **Phase B** (PR #34): Token-bucket rate limiter (per-token + per-IP), CodeQL workflow.
+- **Phase C** (PR #35): zod schemas for every connector capability (Phase 11.1 partial).
+- **Phase D** (PR #36): HMAC-signed evidence exports with per-workspace key + watermark (Phase 10.1 partial).
+- **Phase E** (PR #37): Continuous Autonomous Innovation Engine in-process watcher (Phase 7.1 partial).
+
 **Phase 15.0 — Third-party agent marketplace + eval harness (shipped, PR TBD)**
 
 Branch: `claude/portal-phase-15-marketplace`. See the Phase 15 section.
@@ -597,11 +605,29 @@ remaining work.
 - `tests/portal/innovation.test.mjs` — 9 smoke tests across pattern
   library / matcher / simulator / decision tree.
 
-### Phase 7.1 — what's left
+### Phase 7.1 — partial · shipped May 2026 (PR #37)
 
-- Autonomous Innovation Engine: a long-running agent that watches
-  signals and emits proposals continuously (today the Studio is read-
-  only — proposals come from the Phase 5 strategists).
+The continuous **Autonomous Innovation Engine** landed as an in-
+process watcher. Five heuristics produce dedupe'd proposals on every
+portal event:
+
+1. `canonical-leverage` — propagate freshly-canonical artifacts to
+   engagements that lack one of the same type
+2. `pattern-reuse` — match `PATTERN_LIBRARY` entries to active
+   engagements by archetype or token overlap
+3. `decision-velocity` — pending-approval decisions whose `dueAt` has
+   passed
+4. `cross-engagement-playbook` — overlapping success criteria across
+   two or more active engagements
+5. `capability-gap` — high-risk pending decisions with no Risk
+   Inspector run in the last 24h
+
+Surface: an **AUTONOMOUS ENGINE** card on `/portal/innovation`.
+
+### Phase 7.2 — what's still left
+
+- Persist proposals into an `innovation_proposals` table (today the
+  engine is per-process; restarts wipe the buffer).
 - Telemetry-derived probabilities + impact scores on decision trees
   (today they are stub coefficients).
 - Pattern emergence detection — auto-promote a pattern from
@@ -800,10 +826,21 @@ the PHI-tagging required to actually deploy in healthcare engagements.
 - `tests/portal/compliance.test.mjs` — 3 smoke tests on framework
   coverage, hosted-bump, and sector-pack completeness.
 
-### Phase 10.1 — what's left
+### Phase 10.1 — partial · shipped May 2026 (PR #36)
 
-- Signed, watermarked evidence exports (audit-log packets per
-  procurement officer + framework).
+Signed, watermarked evidence exports landed:
+
+- `lib/portal/exports/signing.ts` — `signBundle()` / `verifyBundle()`
+  with HMAC-SHA256, per-workspace key derivation from
+  `PORTAL_EXPORT_SIGNING_KEY`, constant-time signature compare.
+- `lib/portal/exports/actions.ts` — server actions for signed Impact
+  Report + signed audit-log bundles. Every export emits an audit-log
+  entry recording who exported what and the bundle's body-sha256.
+- Surfaces: **Signed bundle** button on `/portal/outcomes/impact-report`
+  and **Signed export** on `/portal/governance`.
+
+### Phase 10.1 — what's still left
+
 - Continuous-audit instrumentation for SOC 2 Type II.
 - Third-party assessor coordination (FedRAMP Low).
 - PHI tagging + BAA template binding for HIPAA workspaces.
@@ -862,7 +899,18 @@ adapters.
 - Command Center exposes an outbound-actions link.
 - `tests/portal/outbound-actions.test.mjs` — 5 smoke tests.
 
-### Phase 11.1 — what's left
+### Phase 11.1 — partial · shipped May 2026 (PR #35)
+
+Propose-time payload validation landed:
+
+- `lib/portal/outbound-actions/schemas.ts` — zod schemas for every
+  connector capability (12 schemas across HubSpot, Salesforce, Jira,
+  ServiceNow, Microsoft Graph, Google Workspace, internal). Malformed
+  payloads are rejected at `proposeOutboundAction()` rather than
+  sitting in pending-approval.
+- 2 new tests in `tests/portal/outbound-actions.test.mjs`.
+
+### Phase 11.1 — what's still left
 
 - Real HTTP adapters per connector.
 - Inverse action implementation (rollback calls real "undo" capability).
