@@ -8,6 +8,7 @@ import {
   listPatterns,
   matchPatternsForEngagement,
 } from "@/lib/portal/innovation/patterns";
+import { tick as runInnovationEngineTick } from "@/lib/portal/innovation/engine";
 
 import { InnovationStudioView } from "./view";
 
@@ -45,6 +46,11 @@ export default async function InnovationStudioPage() {
       ? 0
       : snapshot.artifacts.filter((a) => a.canonical).length / snapshot.artifacts.length;
 
+  // Force a tick on every page load so server-rendered proposals reflect
+  // the latest workspace state. The engine still ticks continuously on
+  // event arrival.
+  const autonomousProposals = await runInnovationEngineTick(snapshot.workspace.id);
+
   return (
     <InnovationStudioView
       patterns={patterns}
@@ -56,6 +62,7 @@ export default async function InnovationStudioPage() {
       initialMatches={matches}
       innovationRate={innovationRate}
       membership={membership}
+      autonomousProposals={autonomousProposals}
     />
   );
 }

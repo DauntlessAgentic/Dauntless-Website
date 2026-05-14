@@ -20,6 +20,7 @@ import type {
   DecisionTreeNode,
   SimulationResult,
 } from "@/lib/portal/innovation/simulator";
+import type { InnovationProposal } from "@/lib/portal/innovation/engine";
 import type { Decision, Engagement } from "@/lib/portal/types";
 
 interface InnovationStudioViewProps {
@@ -32,6 +33,7 @@ interface InnovationStudioViewProps {
   initialMatches: PatternMatch[];
   innovationRate: number;
   membership: MembershipContext;
+  autonomousProposals: InnovationProposal[];
 }
 
 const CATEGORY_TONE: Record<string, React.ComponentProps<typeof ContentTag>["variant"]> = {
@@ -58,6 +60,7 @@ export function InnovationStudioView({
   initialMatches,
   innovationRate,
   membership,
+  autonomousProposals,
 }: InnovationStudioViewProps) {
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
@@ -115,6 +118,55 @@ export function InnovationStudioView({
             sub={decision?.title ?? "No high-tier pending decisions."}
           />
         </div>
+
+        <DashboardCard
+          id="autonomous-engine"
+          eyebrow="AUTONOMOUS ENGINE"
+          title={`${autonomousProposals.length} live proposal${autonomousProposals.length === 1 ? "" : "s"}`}
+          subtitle="Continuous in-process watcher. Heuristics run on every portal event and surface fresh proposals here."
+          badge={autonomousProposals.some((p) => p.urgency === "urgent") ? "urgent" : autonomousProposals.length === 0 ? "idle" : "live"}
+          badgeVariant={
+            autonomousProposals.some((p) => p.urgency === "urgent")
+              ? "warning"
+              : autonomousProposals.length === 0
+              ? "default"
+              : "accent"
+          }
+          bodyClassName="overflow-hidden"
+        >
+          <ScrollArea className="h-full max-h-[360px]">
+            {autonomousProposals.length === 0 ? (
+              <p className="px-3 py-6 text-center text-xs text-[--text-muted]">
+                Engine warming up. As portal events fire, proposals will appear here.
+              </p>
+            ) : (
+              <ul className="flex flex-col divide-y divide-[--border-subtle]">
+                {autonomousProposals.map((p) => (
+                  <li key={p.id} className="flex flex-col gap-1.5 px-3 py-2.5">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <ContentTag
+                        variant={p.urgency === "urgent" ? "warning" : p.urgency === "notable" ? "info" : "default"}
+                        dot
+                      >
+                        {p.urgency}
+                      </ContentTag>
+                      <ContentTag variant="default">{p.kind.replace(/-/g, " ")}</ContentTag>
+                      <p className="flex-1 text-xs font-semibold text-[--text-primary]">{p.title}</p>
+                    </div>
+                    <p className="text-xs text-[--text-secondary] leading-snug">{p.rationale}</p>
+                    {p.suggestedActions.length > 0 && (
+                      <ul className="flex flex-col gap-0.5 list-disc pl-4">
+                        {p.suggestedActions.map((a, i) => (
+                          <li key={i} className="text-xs text-[--text-muted] leading-snug">{a}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </ScrollArea>
+        </DashboardCard>
 
         <DashboardCard
           id="innovation-simulator"
