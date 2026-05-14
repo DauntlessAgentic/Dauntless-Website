@@ -109,4 +109,28 @@ test("Signed exports", async (t) => {
     assert.equal(signed.manifest.memberLabel, "Grace Hopper (executive)");
     assert.equal(signed.manifest.memberId, "usr-42");
   });
+
+  await t.test("key rotation: previous-key bundle still verifies with NOTE", () => {
+    const originalCurrent = process.env.PORTAL_EXPORT_SIGNING_KEY;
+    const originalPrev = process.env.PORTAL_EXPORT_SIGNING_KEY_PREVIOUS;
+    // 1. Sign under the original key.
+    const signed = signBundle({
+      workspaceId: "ws-rotation",
+      body: "Rotation test body.",
+      memberId: "usr-1",
+      memberLabel: "Ada (owner)",
+      bundleKind: "impact-report",
+    });
+    // 2. Rotate: original becomes PREVIOUS, a fresh key takes CURRENT.
+    process.env.PORTAL_EXPORT_SIGNING_KEY_PREVIOUS = originalCurrent;
+    process.env.PORTAL_EXPORT_SIGNING_KEY = "rotated-master-key-do-not-use-in-prod-32!!";
+    // 3. The old bundle still verifies, with a rotation NOTE in the reason.
+    const result = verifyBundle(signed.markdown);
+    assert.equal(result.ok, true);
+    assert.match(result.reason ?? "", /PREVIOUS signing key/);
+    // restore
+    process.env.PORTAL_EXPORT_SIGNING_KEY = originalCurrent;
+    if (originalPrev === undefined) delete process.env.PORTAL_EXPORT_SIGNING_KEY_PREVIOUS;
+    else process.env.PORTAL_EXPORT_SIGNING_KEY_PREVIOUS = originalPrev;
+  });
 });

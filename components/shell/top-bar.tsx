@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ThemeToggle } from "./theme-toggle";
 import { DensityToggle } from "./density-toggle";
+import { LocaleToggle } from "./locale-toggle";
 
 interface TopBarProps {
   title?: string;
@@ -54,6 +55,7 @@ export function TopBar({ title, subtitle, actions }: TopBarProps) {
         </button>
 
         <DensityToggle />
+        <LocaleToggle />
         <ThemeToggle />
 
         {/* Notifications */}
