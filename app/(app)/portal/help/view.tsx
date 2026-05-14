@@ -32,6 +32,7 @@ const TOUR: TourStop[] = [
   { href: "/portal/innovation", title: "Innovation Studio", purpose: "Pattern library, roadmap simulator, decision-tree visualization." },
   { href: "/portal/compliance", title: "Compliance posture", purpose: "Cross-framework readiness with sector packs." },
   { href: "/portal/about", title: "About this portal", purpose: "Self-documenting roadmap status (15 phases shipped)." },
+  { href: "/portal/help/glossary", title: "Glossary", purpose: "Plain-language definitions of every piece of portal vocabulary." },
 ];
 
 const SHORTCUTS: Array<{ keys: string; what: string }> = [

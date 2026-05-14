@@ -75,6 +75,22 @@ export function describeRole(role: MembershipRole): string {
   }
 }
 
+/**
+ * Plain-language label for a role, surfaced in UI chrome where the
+ * full describeRole() string is too long. Use this in badges, dropdowns,
+ * and short copy. The DB role taxonomy is unchanged — this is display
+ * only. Advisory-board action #3.
+ */
+export function roleDisplayLabel(role: MembershipRole): string {
+  switch (role) {
+    case "owner": return "Owner";
+    case "executive": return "Approver";
+    case "lead": return "Manager";
+    case "viewer": return "Read-only";
+    case "auditor": return "Auditor";
+  }
+}
+
 export function roleBadgeTone(
   role: MembershipRole,
 ): "accent" | "info" | "warning" | "success" | "default" {

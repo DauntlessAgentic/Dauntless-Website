@@ -222,6 +222,18 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { color-scheme: dark; }
 
+/* ── Density mode ───────────────────────────────────────────
+   Advisory-board action #21. Comfortable bumps text-xs (12px)
+   readability to 13px and adds breathing room to dashboard
+   cards. Compact is the unchanged default. */
+html[data-density="comfortable"] .text-xs { font-size: 0.8125rem; line-height: 1.4; }
+html[data-density="comfortable"] .text-\[10px\] { font-size: 0.75rem; }
+html[data-density="comfortable"] .px-3 { padding-left: 0.875rem; padding-right: 0.875rem; }
+html[data-density="comfortable"] .py-2 { padding-top: 0.625rem; padding-bottom: 0.625rem; }
+html[data-density="comfortable"] .py-2\.5 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+html[data-density="comfortable"] .gap-2 { gap: 0.625rem; }
+html[data-density="comfortable"] .leading-snug { line-height: 1.45; }
+
 body {
   background: var(--app-bg);
   color: var(--text-primary);
