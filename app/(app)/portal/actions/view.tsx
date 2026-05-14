@@ -103,6 +103,44 @@ export function OutboundActionsView({ membership, connectors, actions, engagemen
       />
 
       <div className="flex-1 overflow-auto p-4 space-y-4 pb-20 md:pb-4">
+        {/* Advisory-board action #18 — plain-language explainer */}
+        <DashboardCard
+          id="actions-explainer"
+          eyebrow="HOW THIS WORKS"
+          title="Propose → Approve → Commit (or dry-run first)"
+          subtitle="Every outbound action passes through three steps. You can preview without acting at any point."
+        >
+          <div className="px-3 py-3 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+            <div className="rounded-[--radius-md] border border-[--border-subtle] bg-[--elevated] p-3">
+              <p className="font-semibold text-[--text-primary] mb-1">1 · Propose</p>
+              <p className="text-[--text-secondary] leading-snug">
+                Someone (a teammate or an agent) drafts an action — "create a Jira ticket", "post a Slack message". Nothing leaves the portal yet.
+              </p>
+            </div>
+            <div className="rounded-[--radius-md] border border-[--border-subtle] bg-[--elevated] p-3">
+              <p className="font-semibold text-[--text-primary] mb-1">2 · Approve</p>
+              <p className="text-[--text-secondary] leading-snug">
+                A human reviews. They can approve, reject, or — for risky things — request a <span className="italic">dry-run</span> first.
+              </p>
+            </div>
+            <div className="rounded-[--radius-md] border border-[--border-subtle] bg-[--elevated] p-3">
+              <p className="font-semibold text-[--text-primary] mb-1">3 · Commit</p>
+              <p className="text-[--text-secondary] leading-snug">
+                The action executes against the external system. If something goes wrong, the recorded <span className="italic">inverse plan</span> can roll it back.
+              </p>
+            </div>
+          </div>
+          <div className="px-3 pb-3 text-xs text-[--text-muted] leading-snug">
+            <p>
+              <span className="font-semibold text-[--text-secondary]">Dry-run</span> means: simulate what would happen and return the result — without actually doing it. Safe to use any time.{" "}
+              <Link href="/portal/help/glossary" className="text-[--accent-vivid] hover:underline">More portal vocabulary →</Link>
+            </p>
+            <p className="mt-1">
+              Worried? <Link href="/portal/help/something-went-wrong" className="text-[--accent-vivid] hover:underline">Freeze all outbound actions →</Link>
+            </p>
+          </div>
+        </DashboardCard>
+
         <DashboardCard
           id="actions-connectors"
           eyebrow="CONNECTORS"

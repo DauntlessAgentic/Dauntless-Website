@@ -58,6 +58,7 @@ const ITEMS: CommandItem[] = [
   { id: "go-changelog",      label: "Workspace changelog",    href: "/portal/changelog",             group: "About",       icon: Activity },
   { id: "go-help",           label: "Getting started",        href: "/portal/help",                  group: "About",       icon: BookOpen },
   { id: "go-glossary",       label: "Glossary — plain language", href: "/portal/help/glossary",       group: "About",       icon: BookOpen },
+  { id: "go-swr",            label: "Something went wrong (freeze)", href: "/portal/help/something-went-wrong", group: "About", icon: BookOpen },
 
   // Quick actions
   { id: "do-search-query",   label: "Search the workspace…",  hint: "open /portal/search", href: "/portal/search", group: "Actions", icon: Search },
