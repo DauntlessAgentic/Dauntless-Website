@@ -12,6 +12,8 @@
 import { timingSafeEqual } from "node:crypto";
 import type { NextRequest } from "next/server";
 
+import { checkRate, ipKey, tokenKey } from "./rate-limit";
+
 export type ApiAuthResult =
   | { ok: true; tokenLabel: string; mode: "dev-bypass" | "api-key" }
   | { ok: false; status: 401 | 403 | 503; reason: string };
@@ -67,19 +69,51 @@ export function errorResponse(reason: string, status: number): Response {
 /**
  * Tiny helper: wrap an API handler with the auth check + envelope.
  */
+export interface RateLimitOptions {
+  cost?: number;
+}
+
 export async function withApiAuth<T>(
   request: NextRequest,
   handler: () => Promise<T>,
+  options: RateLimitOptions = {},
 ): Promise<Response> {
   const auth = authenticateApiRequest(request);
   if (!auth.ok) return errorResponse(auth.reason, auth.status);
+
+  // Rate limit: bucket per token (or per IP when in dev-bypass).
+  const header = request.headers.get("authorization") ?? "";
+  const provided = header.toLowerCase().startsWith("bearer ")
+    ? header.slice(7).trim()
+    : null;
+  const key = provided ? tokenKey(provided) : ipKey(request);
+  const rate = checkRate(key, options.cost ?? 1);
+  if (!rate.ok) {
+    return new Response(
+      JSON.stringify({
+        error: "Rate limit exceeded.",
+        retryAfterSeconds: rate.retryAfterSec,
+        status: 429,
+      }),
+      {
+        status: 429,
+        headers: {
+          "content-type": "application/json",
+          "retry-after": String(rate.retryAfterSec),
+          "x-ratelimit-remaining": String(rate.remaining),
+          "x-ratelimit-reset": String(Math.floor(rate.resetAt / 1000)),
+        },
+      },
+    );
+  }
+
   try {
     const result = await handler();
-    return jsonResponse(result satisfies T);
+    const response = jsonResponse(result satisfies T);
+    response.headers.set("x-ratelimit-remaining", String(rate.remaining));
+    response.headers.set("x-ratelimit-reset", String(Math.floor(rate.resetAt / 1000)));
+    return response;
   } catch (err) {
-    // Log the real error server-side for diagnosis; return a normalized
-    // generic message to avoid leaking internal IDs / stack content.
-    // (Audit §3.2.C)
     console.error("[api] handler failed:", err);
     return errorResponse("Internal server error.", 500);
   }
