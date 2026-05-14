@@ -2,7 +2,7 @@
 
 import React, { useState, useTransition } from "react";
 import Link from "next/link";
-import { ChevronLeft, Download, Sparkles } from "lucide-react";
+import { ChevronLeft, Download, ShieldCheck, Sparkles } from "lucide-react";
 
 import { WorkspaceHeader } from "@/components/shell/workspace-header";
 import { DashboardCard } from "@/components/cards/dashboard-card";
@@ -76,10 +76,30 @@ export function ImpactReportView({ report, membership }: ImpactReportViewProps) 
 
       <div className="flex-1 overflow-auto p-4 space-y-4 pb-20 md:pb-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-          <Tile label="Decisions proposed" value={report.input.agentActivity.decisionsProposed} suffix="" />
-          <Tile label="Canonical promotions" value={report.input.agentActivity.canonicalPromotions} suffix="" />
-          <Tile label="Agent runs" value={report.input.agentActivity.totalRuns} suffix="" />
-          <Tile label="Handoffs" value={report.input.agentActivity.handoffs} suffix="" />
+          <Tile
+            label="Decisions proposed"
+            value={report.input.agentActivity.decisionsProposed}
+            prior={report.input.priorAgentActivity?.decisionsProposed}
+            windowDays={report.input.horizonDays}
+          />
+          <Tile
+            label="Canonical promotions"
+            value={report.input.agentActivity.canonicalPromotions}
+            prior={report.input.priorAgentActivity?.canonicalPromotions}
+            windowDays={report.input.horizonDays}
+          />
+          <Tile
+            label="Agent runs"
+            value={report.input.agentActivity.totalRuns}
+            prior={report.input.priorAgentActivity?.totalRuns}
+            windowDays={report.input.horizonDays}
+          />
+          <Tile
+            label="Handoffs"
+            value={report.input.agentActivity.handoffs}
+            prior={report.input.priorAgentActivity?.handoffs}
+            windowDays={report.input.horizonDays}
+          />
         </div>
 
         <DashboardCard
@@ -109,16 +129,24 @@ export function ImpactReportView({ report, membership }: ImpactReportViewProps) 
                 <Download className="h-3 w-3" />
                 Quick copy
               </Button>
+              <Link
+                href="/portal/outcomes/impact-report/preview"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[--radius-md] text-xs text-[--text-primary] bg-[--elevated] border border-[--border-subtle] hover:border-[--border-default] transition-colors"
+                title="Preview the signed bundle in the portal first. Auditor-ready watermark visible."
+              >
+                <ShieldCheck className="h-3 w-3" />
+                Preview & download (signed)
+              </Link>
               <Button
                 size="sm"
                 variant="ghost"
                 className="gap-1.5"
                 disabled={isExporting}
                 onClick={handleSignedExport}
-                title="Tamper-evident bundle, watermarked with your identity. Audit-grade — share with procurement or compliance."
+                title="Skip the preview and download the tamper-evident bundle directly."
               >
                 <Download className="h-3 w-3" />
-                {isExporting ? "Signing…" : "Official record (signed)"}
+                {isExporting ? "Signing…" : "Quick signed download"}
               </Button>
             </div>
           }
@@ -220,15 +248,41 @@ export function ImpactReportView({ report, membership }: ImpactReportViewProps) 
   );
 }
 
-function Tile({ label, value, suffix }: { label: string; value: number; suffix: string }) {
+function Tile({
+  label,
+  value,
+  prior,
+  windowDays = 28,
+}: {
+  label: string;
+  value: number;
+  prior?: number;
+  windowDays?: number;
+}) {
+  const delta = prior !== undefined ? value - prior : undefined;
+  const arrow = delta === undefined ? "—" : delta > 0 ? "▲" : delta < 0 ? "▼" : "—";
+  const tone =
+    delta === undefined || delta === 0
+      ? "text-[--text-muted]"
+      : delta > 0
+      ? "text-[--success]"
+      : "text-[--warning]";
   return (
     <DashboardCard id={`tile-${label}`} eyebrow="ACTIVITY" title={label}>
       <div className="px-3 py-2.5">
         <p className="text-2xl font-bold tabular-nums text-[--text-primary] leading-none">
           {value}
-          {suffix}
         </p>
-        <p className="text-xs text-[--text-muted] mt-1 leading-snug">Last 28 days</p>
+        <div className="flex items-baseline gap-2 mt-1">
+          {prior !== undefined && (
+            <span className={`text-xs font-mono tabular-nums ${tone}`} aria-label={`Change vs. prior ${windowDays} days`}>
+              {arrow} {Math.abs(delta ?? 0)} vs. prior {windowDays}d
+            </span>
+          )}
+          {prior === undefined && (
+            <span className="text-xs text-[--text-muted]">Last {windowDays} days</span>
+          )}
+        </div>
       </div>
     </DashboardCard>
   );

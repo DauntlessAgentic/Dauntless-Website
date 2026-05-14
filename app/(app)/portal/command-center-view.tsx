@@ -42,12 +42,28 @@ const SIGNAL_TONE: Record<string, React.ComponentProps<typeof ContentTag>["varia
   urgent:    "danger",
 };
 
+interface DigestItemProps {
+  kind: string;
+  urgency: "urgent" | "notable" | "advisory";
+  title: string;
+  detail: string;
+  href: string;
+}
+
+interface DigestProps {
+  windowDays: number;
+  forRole: string;
+  items: DigestItemProps[];
+  summary: { urgent: number; notable: number; advisory: number };
+}
+
 interface CommandCenterViewProps {
   snapshot: PortalSnapshot;
   membership: MembershipContext;
+  digest: DigestProps;
 }
 
-export function CommandCenterView({ snapshot, membership }: CommandCenterViewProps) {
+export function CommandCenterView({ snapshot, membership, digest }: CommandCenterViewProps) {
   const canRunConcierge =
     membership.role === "owner" || membership.role === "executive" || membership.role === "lead";
   const [conciergeRun, setConciergeRun] = useState<AgentRunSummary | null>(null);
@@ -197,6 +213,66 @@ export function CommandCenterView({ snapshot, membership }: CommandCenterViewPro
       />
 
       <div className="flex-1 overflow-auto p-4 space-y-4 pb-20 md:pb-4">
+
+        {/* Advisory-board action #13: "What changed for you this week" */}
+        <DashboardCard
+          id="this-week-digest"
+          eyebrow="THIS WEEK"
+          title={
+            digest.items.length === 0
+              ? "Nothing requires your attention right now"
+              : `${digest.items.length} thing${digest.items.length === 1 ? "" : "s"} for you this week`
+          }
+          subtitle={`Personalised for your role · last ${digest.windowDays} days. Tap a row to act on it.`}
+          badge={
+            digest.summary.urgent > 0
+              ? `${digest.summary.urgent} urgent`
+              : digest.summary.notable > 0
+              ? `${digest.summary.notable} to review`
+              : "all clear"
+          }
+          badgeVariant={
+            digest.summary.urgent > 0 ? "warning" : digest.summary.notable > 0 ? "accent" : "success"
+          }
+          bodyClassName="overflow-hidden"
+        >
+          {digest.items.length === 0 ? (
+            <p className="px-3 py-6 text-center text-xs text-[--text-muted]">
+              Nothing pending right now. Decisions, approvals, and urgent proposals will appear here as they come in.
+            </p>
+          ) : (
+            <ul className="flex flex-col divide-y divide-[--border-subtle]">
+              {digest.items.map((item, i) => (
+                <li key={`${item.kind}-${i}`}>
+                  <Link
+                    href={item.href}
+                    className="flex items-start gap-3 px-3 py-2.5 hover:bg-[--elevated] transition-colors"
+                  >
+                    <ContentTag
+                      variant={
+                        item.urgency === "urgent"
+                          ? "warning"
+                          : item.urgency === "notable"
+                          ? "info"
+                          : "default"
+                      }
+                      dot
+                    >
+                      {item.urgency}
+                    </ContentTag>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-semibold text-[--text-primary] truncate">{item.title}</p>
+                      <p className="text-xs text-[--text-muted] leading-snug">{item.detail}</p>
+                    </div>
+                    <span className="text-xs text-[--text-muted] uppercase tracking-widest">
+                      {item.kind.replace(/-/g, " ")}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </DashboardCard>
 
         {conciergeRun && (
           <DashboardCard

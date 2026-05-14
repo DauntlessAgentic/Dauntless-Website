@@ -1,4 +1,6 @@
 import { computeNextBestActions } from "@/lib/portal/next-best-actions";
+import { buildThisWeekDigest } from "@/lib/portal/digests/this-week";
+import { tick as runInnovationEngineTick } from "@/lib/portal/innovation/engine";
 import { loadPortalContext } from "@/lib/portal/server";
 import { CommandCenterView } from "./command-center-view";
 
@@ -15,5 +17,17 @@ export default async function PortalCommandCenterPage() {
     schedule: snapshot.schedule ?? [],
   });
   const enrichedSnapshot = { ...snapshot, nextBestActions: computedActions };
-  return <CommandCenterView snapshot={enrichedSnapshot} membership={membership} />;
+  // Advisory action #13: tick the engine so "What changed for you" has live data.
+  await runInnovationEngineTick(snapshot.workspace.id);
+  const digest = await buildThisWeekDigest({
+    workspaceId: snapshot.workspace.id,
+    role: membership.role,
+  });
+  return (
+    <CommandCenterView
+      snapshot={enrichedSnapshot}
+      membership={membership}
+      digest={digest}
+    />
+  );
 }
