@@ -71,7 +71,12 @@ test("Outbound actions", async (t) => {
       description: "Post a smoke signal.",
       proposedBy: "Test Author",
       proposedByKind: "human",
-      payload: { message: "smoke" },
+      payload: {
+        kind: "agent-action",
+        severity: "info",
+        title: "Smoke signal",
+        detail: "Smoke detail.",
+      },
     });
     await store.approveOutboundAction({
       workspaceId: ws.id,
@@ -99,7 +104,7 @@ test("Outbound actions", async (t) => {
       description: "Will be rolled back.",
       proposedBy: "Test Author",
       proposedByKind: "human",
-      payload: { name: "Smoke deal" },
+      payload: { dealName: "Smoke deal", amountUsd: 1000 },
     });
     await store.approveOutboundAction({
       workspaceId: ws.id,
@@ -131,5 +136,41 @@ test("Outbound actions", async (t) => {
         actorKind: "human",
       }),
     );
+  });
+
+  await t.test("propose-time payload validation rejects malformed payloads", async () => {
+    // Jira/create-issue requires `project` + `summary`.
+    await assert.rejects(
+      () =>
+        store.proposeOutboundAction({
+          workspaceId: ws.id,
+          connectorId: "jira",
+          capabilityId: "create-issue",
+          title: "Bad payload",
+          description: "Missing required fields.",
+          proposedBy: "Test Author",
+          proposedByKind: "human",
+          payload: { summary: "x" }, // missing project + summary too short
+        }),
+      /Payload validation failed/,
+    );
+  });
+
+  await t.test("propose-time payload validation passes well-formed payloads", async () => {
+    const ok = await store.proposeOutboundAction({
+      workspaceId: ws.id,
+      connectorId: "google-workspace",
+      capabilityId: "create-event",
+      title: "Schedule cadence checkpoint",
+      description: "Quarterly calibration checkpoint with champions.",
+      proposedBy: "Test Author",
+      proposedByKind: "human",
+      payload: {
+        summary: "Calibration checkpoint",
+        start: { dateTime: "2026-06-01T15:00:00Z", timeZone: "UTC" },
+        end: { dateTime: "2026-06-01T15:30:00Z", timeZone: "UTC" },
+      },
+    });
+    assert.equal(ok.status, "proposed");
   });
 });
