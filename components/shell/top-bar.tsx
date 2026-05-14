@@ -8,6 +8,7 @@ import {
   DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ThemeToggle } from "./theme-toggle";
+import { DensityToggle } from "./density-toggle";
 
 interface TopBarProps {
   title?: string;
@@ -52,6 +53,7 @@ export function TopBar({ title, subtitle, actions }: TopBarProps) {
           <kbd className="hidden md:block text-xs bg-[--elevated-2] px-1 rounded border border-[--border-default]">⌘K</kbd>
         </button>
 
+        <DensityToggle />
         <ThemeToggle />
 
         {/* Notifications */}

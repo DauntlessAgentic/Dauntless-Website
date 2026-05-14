@@ -104,9 +104,10 @@ export function ImpactReportView({ report, membership }: ImpactReportViewProps) 
                 variant="ghost"
                 className="gap-1.5"
                 onClick={() => downloadMarkdown(report.markdown)}
+                title="Plain Markdown for sharing in Slack or email. Not an official record."
               >
                 <Download className="h-3 w-3" />
-                Markdown
+                Quick copy
               </Button>
               <Button
                 size="sm"
@@ -114,9 +115,10 @@ export function ImpactReportView({ report, membership }: ImpactReportViewProps) 
                 className="gap-1.5"
                 disabled={isExporting}
                 onClick={handleSignedExport}
+                title="Tamper-evident bundle, watermarked with your identity. Audit-grade — share with procurement or compliance."
               >
                 <Download className="h-3 w-3" />
-                {isExporting ? "Signing…" : "Signed bundle"}
+                {isExporting ? "Signing…" : "Official record (signed)"}
               </Button>
             </div>
           }

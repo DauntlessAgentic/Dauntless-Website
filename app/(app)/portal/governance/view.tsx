@@ -11,8 +11,9 @@ import { ContentTag } from "@/components/ui/content-tag";
 import type { PortalSnapshot, RiskTier } from "@/lib/portal/types";
 import type { MembershipContext } from "@/lib/auth/session";
 import type { RepositoryActivationStatus } from "@/lib/portal/repositories";
-import { describeRole, roleBadgeTone } from "@/lib/auth/membership-gate";
+import { describeRole, roleBadgeTone, roleDisplayLabel } from "@/lib/auth/membership-gate";
 import { exportSignedAuditLog } from "@/lib/portal/exports/actions";
+import { ActorBadge } from "@/components/patterns/actor-badge";
 
 const RISK_TONE: Record<RiskTier, React.ComponentProps<typeof ContentTag>["variant"]> = {
   low:    "default",
@@ -151,7 +152,7 @@ export function GovernanceView({
             eyebrow="IDENTITY"
             title="Active membership"
             subtitle={membership.source === "dev-bypass" ? "Dev-bypass active" : "OAuth"}
-            badge={membership.role}
+            badge={roleDisplayLabel(membership.role)}
             badgeVariant={roleBadgeTone(membership.role)}
           >
             <div className="px-3 py-2.5 space-y-1.5">
@@ -356,9 +357,9 @@ export function GovernanceView({
                   className="gap-1"
                   disabled={isExporting}
                   onClick={handleSignedExport}
-                  title="Download an HMAC-signed Markdown bundle, watermarked with your identity."
+                  title="Tamper-evident bundle, watermarked with your identity. Audit-grade — share with procurement or compliance."
                 >
-                  <Download className="h-3 w-3" /> {isExporting ? "Signing…" : "Signed export"}
+                  <Download className="h-3 w-3" /> {isExporting ? "Signing…" : "Official record (signed)"}
                 </Button>
               }
               bodyClassName="overflow-hidden"
@@ -380,12 +381,7 @@ export function GovernanceView({
                         <td className="px-3 py-2 text-[--text-muted] font-mono tabular-nums">{relativeAgo(entry.at)}</td>
                         <td className="px-3 py-2 text-[--text-primary]">{entry.action.replace("-", " ")}</td>
                         <td className="px-3 py-2 text-[--text-secondary]">
-                          <div className="flex items-center gap-1.5">
-                            <Badge variant={entry.actorKind === "agent" ? "accent" : "outline"} className="shrink-0">
-                              {entry.actorKind}
-                            </Badge>
-                            <span className="truncate">{entry.actor}</span>
-                          </div>
+                          <ActorBadge kind={entry.actorKind} name={entry.actor} />
                         </td>
                         <td className="px-3 py-2"><ContentTag variant={RISK_TONE[entry.riskTier]} dot>{entry.riskTier}</ContentTag></td>
                         <td className="px-3 py-2 text-[--text-muted] leading-snug">{entry.detail}</td>

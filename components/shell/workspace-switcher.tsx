@@ -42,9 +42,13 @@ export function WorkspaceSwitcher({ orgName, items }: WorkspaceSwitcherProps) {
         <button
           className="flex items-center gap-1.5 h-7 px-2 rounded-[--radius-md] bg-[--elevated] border border-[--border-subtle] hover:border-[--border-default] transition-colors text-xs"
           aria-label="Switch workspace"
+          title="Switch to another workspace in this organisation."
         >
           <Building2 className="h-3 w-3 text-[--accent-bright]" />
-          <span className="hidden md:block text-[--text-primary] truncate max-w-[160px]">
+          <span className="hidden md:inline text-[--text-muted] uppercase tracking-widest mr-1">
+            Workspace:
+          </span>
+          <span className="hidden md:block text-[--text-primary] font-semibold truncate max-w-[200px]">
             {active.name}
           </span>
           <ChevronDown className="h-3 w-3 text-[--text-muted]" />
