@@ -15,6 +15,7 @@ import type { MembershipContext } from "@/lib/auth/session";
 import type { ImpactReportOutput } from "@/lib/portal/telemetry/impact-report";
 import { runReportBuilderAction } from "@/lib/portal/agents/actions-impact";
 import type { AgentRunSummary } from "@/lib/portal/agents/actions";
+import { exportSignedImpactReport } from "@/lib/portal/exports/actions";
 
 interface ImpactReportViewProps {
   report: ImpactReportOutput;
@@ -27,6 +28,19 @@ export function ImpactReportView({ report, membership }: ImpactReportViewProps) 
   const [isPending, startTransition] = useTransition();
   const [agentRun, setAgentRun] = useState<AgentRunSummary | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isExporting, startExport] = useTransition();
+
+  const handleSignedExport = () => {
+    setError(null);
+    startExport(async () => {
+      try {
+        const signed = await exportSignedImpactReport();
+        downloadFile(signed.markdown, signed.filename);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Signed export failed.");
+      }
+    });
+  };
 
   const handleAgent = () => {
     setError(null);
@@ -85,9 +99,24 @@ export function ImpactReportView({ report, membership }: ImpactReportViewProps) 
                 <Sparkles className="h-3 w-3" />
                 {isPending ? "Drafting…" : "Draft via Report Builder"}
               </Button>
-              <Button size="sm" variant="ghost" className="gap-1.5" onClick={() => downloadMarkdown(report.markdown)}>
+              <Button
+                size="sm"
+                variant="ghost"
+                className="gap-1.5"
+                onClick={() => downloadMarkdown(report.markdown)}
+              >
                 <Download className="h-3 w-3" />
                 Markdown
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                className="gap-1.5"
+                disabled={isExporting}
+                onClick={handleSignedExport}
+              >
+                <Download className="h-3 w-3" />
+                {isExporting ? "Signing…" : "Signed bundle"}
               </Button>
             </div>
           }
@@ -218,10 +247,14 @@ const ENTITY_TONE: Record<string, React.ComponentProps<typeof ContentTag>["varia
 };
 
 function downloadMarkdown(markdown: string) {
-  const blob = new Blob([markdown], { type: "text/markdown;charset=utf-8" });
+  downloadFile(markdown, `impact-report-${new Date().toISOString().slice(0, 10)}.md`);
+}
+
+function downloadFile(content: string, filename: string) {
+  const blob = new Blob([content], { type: "text/markdown;charset=utf-8" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = `impact-report-${new Date().toISOString().slice(0, 10)}.md`;
+  a.download = filename;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
