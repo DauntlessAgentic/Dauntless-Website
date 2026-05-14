@@ -24,11 +24,34 @@ function fakeRequest(headers = {}) {
 }
 
 test("API auth", async (t) => {
-  await t.test("dev-bypass when PORTAL_API_KEY is unset", () => {
+  await t.test("dev-bypass when PORTAL_API_KEY is unset (dev)", () => {
     delete process.env.PORTAL_API_KEY;
+    delete process.env.NODE_ENV;
     const result = authenticateApiRequest(fakeRequest());
     assert.equal(result.ok, true);
     assert.equal(result.mode, "dev-bypass");
+  });
+
+  await t.test("production refuses to serve without PORTAL_API_KEY", () => {
+    delete process.env.PORTAL_API_KEY;
+    process.env.NODE_ENV = "production";
+    delete process.env.PORTAL_ALLOW_OPEN_API;
+    const result = authenticateApiRequest(fakeRequest());
+    assert.equal(result.ok, false);
+    assert.equal(result.status, 503);
+    // Clean up env so subsequent tests aren't affected.
+    delete process.env.NODE_ENV;
+  });
+
+  await t.test("PORTAL_ALLOW_OPEN_API=true overrides the production refusal", () => {
+    delete process.env.PORTAL_API_KEY;
+    process.env.NODE_ENV = "production";
+    process.env.PORTAL_ALLOW_OPEN_API = "true";
+    const result = authenticateApiRequest(fakeRequest());
+    assert.equal(result.ok, true);
+    assert.equal(result.mode, "dev-bypass");
+    delete process.env.NODE_ENV;
+    delete process.env.PORTAL_ALLOW_OPEN_API;
   });
 
   await t.test("rejects missing bearer when configured", () => {
