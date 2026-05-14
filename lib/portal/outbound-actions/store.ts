@@ -11,6 +11,7 @@ import { getPortalRepository } from "@/lib/portal/repositories";
 import { emitWebhook } from "@/lib/portal/webhooks";
 
 import { findCapability } from "./connectors";
+import { validateOutboundPayload } from "./schemas";
 import type {
   ApproveOutboundActionInput,
   CommitOutboundActionInput,
@@ -43,6 +44,12 @@ export async function proposeOutboundAction(input: ProposeOutboundActionInput): 
   const capability = findCapability(input.connectorId, input.capabilityId);
   if (!capability) {
     throw new Error(`Unknown capability: ${input.connectorId}/${input.capabilityId}`);
+  }
+  // Phase 11.1: validate payload against the per-capability schema at
+  // propose-time so malformed payloads can't sit in pending-approval.
+  const validation = validateOutboundPayload(input.connectorId, input.capabilityId, input.payload);
+  if (!validation.ok) {
+    throw new Error(`Payload validation failed: ${validation.errors?.join("; ")}`);
   }
   const repo = getPortalRepository();
   const action: OutboundAction = {
