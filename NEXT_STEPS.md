@@ -102,9 +102,23 @@ of the roadmap status, with PR links per phase.
 
 - **28 portal routes** under `app/(app)/portal/`
 - **7 versioned REST API routes** under `app/api/portal/v1/`
-- **131 smoke tests** under `tests/portal/*` (run with `npm test`)
+- **149+ smoke tests** under `tests/portal/*` (run with `npm test`)
 - **16 phase modules** (Phase 1–15 plus closeout) all on `main`
 - **CI workflow** active: `.github/workflows/portal-ci.yml`
+- **CodeQL workflow** active: `.github/workflows/codeql.yml` (security-and-quality query suite)
+
+### 2.1.1 Post-audit hardening (May 2026)
+
+Following the May 2026 security audit (see `SECURITY_AUDIT.md`),
+five phases shipped to close the highest-leverage findings:
+
+| Phase | What landed | Closes audit § |
+|---|---|---|
+| **A** (PR #33) | Next 16.2.6 + postcss override; production refuses dev-bypass; constant-time bearer compare; cookies hardened | §1.A, §3.2.A, §3.2.E, §3.2.F |
+| **B** (PR #34) | Token-bucket rate limiter (per-token + per-IP); CodeQL workflow | §3.2.D, §13 |
+| **C** (PR #35) | zod schemas for every connector capability; propose-time payload validation | §7.A |
+| **D** (PR #36) | HMAC-signed evidence exports with per-workspace key + watermark | §8.A, §10.A |
+| **E** (PR #37) | Continuous Autonomous Innovation Engine (in-process watcher, 5 heuristics) | Phase 7.1 |
 
 ### 2.2 The 28 portal routes
 
@@ -255,24 +269,24 @@ deterministic dev but doesn't scale to ≥1000 artifacts.
    inline.
 4. Add per-token rate limits + surface usage in `/portal/governance`.
 
-### Priority 5 · Phase 10.1 · Signed evidence exports + data residency · **1–2 wks**
+### Priority 5 · Phase 10.1 · Data residency + control auto-evaluation · **1 wk**
 
-Required for the procurement officers `/portal/compliance` already
-flags. Concrete:
+Signed evidence exports already shipped (Phase D / PR #36). Remaining
+for full Phase 10.1:
 
-1. Sign Markdown exports with a per-workspace key.
-2. Watermark exports with the requesting member id.
-3. Wire a `DataResidency` per-workspace setting (CA / EU / US).
-4. Phase 10's `/portal/compliance` already evaluates the controls —
-   once these land, multiple `gap` rows will flip to `pass`
+1. Wire a `DataResidency` per-workspace setting (CA / EU / US).
+2. Phase 10's `/portal/compliance` already evaluates the controls —
+   once residency lands, multiple `gap` rows will flip to `pass`
    automatically.
+3. Optional: a signed-export verification CLI under `scripts/`.
 
 ### Lower priority (do in any order)
 
 - **Phase 5.2** · Real-time signals via Supabase Realtime (live "What
   changed?" feed).
-- **Phase 7.1** · Continuous Autonomous Innovation Engine (background
-  worker watching signals).
+- **Phase 7.2** · Persist Autonomous Innovation Engine proposals into
+  `innovation_proposals` (today the proposals are per-process; engine
+  itself shipped in Phase E / PR #37).
 - **Phase 11.1** · Real HTTP adapters per outbound connector (HubSpot,
   Salesforce, Jira, ServiceNow, Microsoft Graph, Google Workspace).
 - **Phase 12.1** · Real cross-tenant federation repository +
