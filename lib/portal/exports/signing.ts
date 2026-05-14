@@ -101,12 +101,28 @@ export function verifyBundle(markdown: string): VerifyResult {
   if (computedSha !== manifest.bodySha256) {
     return { ok: false, manifest, reason: "Body SHA-256 does not match manifest." };
   }
-  const key = deriveWorkspaceKey(manifest.workspaceId);
-  const expected = createHmac("sha256", key).update(body).digest("hex");
-  if (!constantTimeEqualHex(expected, manifest.signature)) {
-    return { ok: false, manifest, reason: "Signature mismatch." };
+  // Advisory action #27: key rotation. Try the current key first, then
+  // any configured previous key. A bundle signed under the previous
+  // key still verifies, which gives operators a graceful rotation
+  // window without invalidating already-issued evidence.
+  const currentKey = deriveWorkspaceKey(manifest.workspaceId, "current");
+  const expectedCurrent = createHmac("sha256", currentKey).update(body).digest("hex");
+  if (constantTimeEqualHex(expectedCurrent, manifest.signature)) {
+    return { ok: true, manifest };
   }
-  return { ok: true, manifest };
+  const previousMaster = process.env.PORTAL_EXPORT_SIGNING_KEY_PREVIOUS;
+  if (previousMaster) {
+    const previousKey = deriveWorkspaceKey(manifest.workspaceId, "previous");
+    const expectedPrev = createHmac("sha256", previousKey).update(body).digest("hex");
+    if (constantTimeEqualHex(expectedPrev, manifest.signature)) {
+      return {
+        ok: true,
+        manifest,
+        reason: "Verified with PREVIOUS signing key. Rotate consumers to the new key before this one is retired.",
+      };
+    }
+  }
+  return { ok: false, manifest, reason: "Signature mismatch." };
 }
 
 /** Returns the keyId for a workspace (no secret material). */
@@ -186,10 +202,17 @@ function parseFooter(markdown: string): { body: string; manifest: SignatureManif
 
 let cachedDevKey: Buffer | null = null;
 
-function getMasterKey(): Buffer {
-  const configured = process.env.PORTAL_EXPORT_SIGNING_KEY;
+function getMasterKey(slot: "current" | "previous" = "current"): Buffer {
+  const envName =
+    slot === "previous" ? "PORTAL_EXPORT_SIGNING_KEY_PREVIOUS" : "PORTAL_EXPORT_SIGNING_KEY";
+  const configured = process.env[envName];
   if (configured && configured.length > 0) {
     return Buffer.from(configured, "utf8");
+  }
+  if (slot === "previous") {
+    // Previous slot is optional. Return the current dev fallback so callers
+    // that try previous-key verification just produce a mismatch, not throw.
+    return getMasterKey("current");
   }
   if (process.env.NODE_ENV === "production") {
     throw new Error(
@@ -208,9 +231,12 @@ function getMasterKey(): Buffer {
   return cachedDevKey;
 }
 
-function deriveWorkspaceKey(workspaceId: string): Buffer {
+function deriveWorkspaceKey(
+  workspaceId: string,
+  slot: "current" | "previous" = "current",
+): Buffer {
   // HKDF-style: workspace key = HMAC(masterKey, "dauntless-evidence-v1|" + workspaceId).
-  return createHmac("sha256", getMasterKey())
+  return createHmac("sha256", getMasterKey(slot))
     .update(`dauntless-evidence-${SIGNATURE_VERSION}|${workspaceId}`)
     .digest();
 }
