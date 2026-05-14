@@ -102,7 +102,7 @@ of the roadmap status, with PR links per phase.
 
 - **28 portal routes** under `app/(app)/portal/`
 - **7 versioned REST API routes** under `app/api/portal/v1/`
-- **149+ smoke tests** under `tests/portal/*` (run with `npm test`)
+- **167+ smoke tests** under `tests/portal/*` (run with `npm test`)
 - **16 phase modules** (Phase 1–15 plus closeout) all on `main`
 - **CI workflow** active: `.github/workflows/portal-ci.yml`
 - **CodeQL workflow** active: `.github/workflows/codeql.yml` (security-and-quality query suite)
@@ -119,6 +119,21 @@ five phases shipped to close the highest-leverage findings:
 | **C** (PR #35) | zod schemas for every connector capability; propose-time payload validation | §7.A |
 | **D** (PR #36) | HMAC-signed evidence exports with per-workspace key + watermark | §8.A, §10.A |
 | **E** (PR #37) | Continuous Autonomous Innovation Engine (in-process watcher, 5 heuristics) | Phase 7.1 |
+
+### 2.1.2 Client Advisory Board polish (May 2026)
+
+The May 2026 Client Advisory Board report (`docs/advisory-board/2026-05.md`)
+catalogued 36 numbered actions. **All Tier-1 and Tier-2 findings
+shipped; Tier-3 shipped except the PDF renderer (scaffolded as HTML/JSON
+payload).** PRs #39 through #43:
+
+| PR | Theme |
+|---|---|
+| **#39** | Glossary + tooltip, role display labels, agent vs human visual treatment, density toggle, export-button rename |
+| **#40** | Workspace freeze switch (Help → Something went wrong), per-connector enablement, Controls in force panel, Innovation snooze, Outbound Actions explainer, ConfirmAction pattern, `docs/agent-autonomy.md` |
+| **#41** | "What changed for you this week" card on Command Center, trend tiles on Impact Report, web preview for signed bundles, engine quick-action buttons |
+| **#42** | Signing-key rotation (current + previous), `scripts/verify-bundle.ts`, weekly digest HTML/text renderer + REST endpoint, EN/FR i18n scaffold + locale toggle, `docs/{vocabulary,personas,advisory-board-cadence,safety-stance}.md` |
+| **#43** | Decision-level comment thread (parity with run-agent), `/portal/dev/feedback` time-on-task harness, responsive guards (1366×768 + 150% zoom) |
 
 ### 2.2 The 28 portal routes
 
