@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useTransition } from "react";
 import Link from "next/link";
 import { ArrowRight, Shield, ShieldAlert, ShieldCheck, Users, FileLock2, Download } from "lucide-react";
 import { WorkspaceHeader } from "@/components/shell/workspace-header";
@@ -12,6 +12,7 @@ import type { PortalSnapshot, RiskTier } from "@/lib/portal/types";
 import type { MembershipContext } from "@/lib/auth/session";
 import type { RepositoryActivationStatus } from "@/lib/portal/repositories";
 import { describeRole, roleBadgeTone } from "@/lib/auth/membership-gate";
+import { exportSignedAuditLog } from "@/lib/portal/exports/actions";
 
 const RISK_TONE: Record<RiskTier, React.ComponentProps<typeof ContentTag>["variant"]> = {
   low:    "default",
@@ -76,6 +77,28 @@ export function GovernanceView({
     memberships: mockMemberships,
     decisions: mockDecisions,
   } = snapshot;
+  const [isExporting, startExport] = useTransition();
+  const [exportError, setExportError] = useState<string | null>(null);
+
+  const handleSignedExport = () => {
+    setExportError(null);
+    startExport(async () => {
+      try {
+        const signed = await exportSignedAuditLog();
+        const blob = new Blob([signed.markdown], { type: "text/markdown;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = signed.filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } catch (err) {
+        setExportError(err instanceof Error ? err.message : "Signed export failed.");
+      }
+    });
+  };
   const decisionsByTier = (["high", "medium", "low"] as const).map((tier) => ({
     tier,
     count: mockDecisions.filter((d) => d.riskTier === tier).length,
@@ -327,8 +350,15 @@ export function GovernanceView({
               title="Every action — agent or human"
               subtitle={`${mockAuditLog.length} entries · ordered most-recent first`}
               actions={
-                <Button variant="ghost" size="xs" className="gap-1">
-                  <Download className="h-3 w-3" /> Export
+                <Button
+                  variant="ghost"
+                  size="xs"
+                  className="gap-1"
+                  disabled={isExporting}
+                  onClick={handleSignedExport}
+                  title="Download an HMAC-signed Markdown bundle, watermarked with your identity."
+                >
+                  <Download className="h-3 w-3" /> {isExporting ? "Signing…" : "Signed export"}
                 </Button>
               }
               bodyClassName="overflow-hidden"
@@ -365,6 +395,9 @@ export function GovernanceView({
                 </table>
               </ScrollArea>
             </DashboardCard>
+            {exportError && (
+              <p className="text-xs text-[--danger] mt-2">{exportError}</p>
+            )}
           </div>
 
           {/* Access roster */}
