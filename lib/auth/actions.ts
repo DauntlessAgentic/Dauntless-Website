@@ -31,9 +31,12 @@ export async function switchRole(role: string): Promise<void> {
     throw new Error(`Unknown role: ${role}`);
   }
   const store = await cookies();
+  // Server-only read path (lib/auth/session.ts). Client JS never needs
+  // direct access, so httpOnly + secure are safe. (Audit §3.1.B)
   store.set(auth.roleCookieName, parsed, {
     path: "/",
-    httpOnly: false,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     maxAge: 60 * 60 * 24 * 30,
   });
