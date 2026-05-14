@@ -22,6 +22,16 @@ land in any phase and ground quickly.
 - **Phase D** (PR #36): HMAC-signed evidence exports with per-workspace key + watermark (Phase 10.1 partial).
 - **Phase E** (PR #37): Continuous Autonomous Innovation Engine in-process watcher (Phase 7.1 partial).
 
+**Client Advisory Board polish (May 2026) — 36 actions across PRs #39–#43:**
+
+- **#39 — Vocabulary + chrome:** 21-entry glossary, `<GlossaryTerm>`, `/portal/help/glossary`, plain-language role labels, agent vs human visual treatment, density toggle, export-button rename.
+- **#40 — Safety primitives:** workspace freeze switch + `/portal/help/something-went-wrong`, per-connector enablement (default deny), Controls in force panel, Innovation snooze, Outbound Actions explainer, `<ConfirmAction>`, `docs/agent-autonomy.md`.
+- **#41 — Surfaces:** "What changed for you this week" on Command Center, trend tiles, web preview for signed bundles, engine quick-actions.
+- **#42 — Tier-3 + policy:** signing-key rotation, `scripts/verify-bundle.ts`, weekly digest renderer + REST endpoint, EN/FR i18n scaffold + locale toggle, `docs/{vocabulary,personas,advisory-board-cadence,safety-stance}.md`.
+- **#43 — Final:** decision-level comment thread, `/portal/dev/feedback` harness, responsive guards, policy cross-links.
+
+Test count after this batch: 167 smoke tests passing. Full advisory report at `docs/advisory-board/2026-05.md`.
+
 **Phase 15.0 — Third-party agent marketplace + eval harness (shipped, PR TBD)**
 
 Branch: `claude/portal-phase-15-marketplace`. See the Phase 15 section.
