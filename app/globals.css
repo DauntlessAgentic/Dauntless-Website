@@ -234,6 +234,22 @@ html[data-density="comfortable"] .py-2\.5 { padding-top: 0.75rem; padding-bottom
 html[data-density="comfortable"] .gap-2 { gap: 0.625rem; }
 html[data-density="comfortable"] .leading-snug { line-height: 1.45; }
 
+/* ── Responsive guards (advisory #23) ──────────────────────
+   Prevents tile values from clipping at 1366×768 + 150% zoom.
+   Long numbers truncate with an ellipsis instead of pushing
+   layout. Applies to all `.tabular-nums.font-bold` (our tile
+   value treatment). */
+.tabular-nums.font-bold {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (max-width: 1400px) {
+  /* Drop the 4-up tile grid to 2-up earlier so labels never wrap. */
+  .grid.grid-cols-1.md\:grid-cols-4 { gap: 0.75rem; }
+}
+
 body {
   background: var(--app-bg);
   color: var(--text-primary);

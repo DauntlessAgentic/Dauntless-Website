@@ -1,19 +1,26 @@
 "use client";
 
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
-import { ArrowRight, Check, ChevronLeft, Clock, FileText, X } from "lucide-react";
+import { ArrowRight, Check, ChevronLeft, Clock, FileText, MessageSquare, X } from "lucide-react";
 
 import { WorkspaceHeader } from "@/components/shell/workspace-header";
 import { DashboardCard } from "@/components/cards/dashboard-card";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ContentTag } from "@/components/ui/content-tag";
+import { Textarea } from "@/components/ui/textarea";
 import { EvidenceLink } from "@/components/patterns/evidence-link";
+import { ActorBadge } from "@/components/patterns/actor-badge";
 
 import type { MembershipContext } from "@/lib/auth/session";
 import { canPerform } from "@/lib/auth/membership-gate";
 import { approveDecision, deferDecision, rejectDecision } from "@/lib/portal/actions";
+import {
+  getDecisionComments,
+  postDecisionComment,
+} from "@/lib/portal/decision-comments-actions";
+import type { DecisionComment } from "@/lib/portal/decision-comments";
 import type {
   Artifact,
   AuditEntry,
@@ -50,6 +57,34 @@ export function DecisionDetailView({
   const canApprove = canPerform(membership.role, "approve-decision");
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const [comments, setComments] = useState<DecisionComment[]>([]);
+  const [draft, setDraft] = useState("");
+  const [commentError, setCommentError] = useState<string | null>(null);
+  const [commentPending, startComment] = useTransition();
+
+  useEffect(() => {
+    let cancelled = false;
+    getDecisionComments(decision.id).then((rows) => {
+      if (!cancelled) setComments(rows);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [decision.id]);
+
+  const submitComment = () => {
+    setCommentError(null);
+    startComment(async () => {
+      try {
+        await postDecisionComment({ decisionId: decision.id, body: draft });
+        setDraft("");
+        const rows = await getDecisionComments(decision.id);
+        setComments(rows);
+      } catch (err) {
+        setCommentError(err instanceof Error ? err.message : "Comment failed.");
+      }
+    });
+  };
 
   const handle = (action: (input: { decisionId: string }) => Promise<void>) => {
     setError(null);
@@ -138,6 +173,21 @@ export function DecisionDetailView({
                     <Button size="sm" variant="ghost" className="gap-1.5" disabled={!canApprove || isPending} onClick={() => handle(rejectDecision)}>
                       <X className="h-3 w-3" /> Reject
                     </Button>
+                    {/* Advisory action #24: "comment to a human" affordance gets the same visual weight. */}
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                      className="gap-1.5"
+                      onClick={() => {
+                        const el = document.getElementById("decision-comment-input") as HTMLTextAreaElement | null;
+                        if (el) {
+                          el.focus();
+                          el.scrollIntoView({ behavior: "smooth", block: "center" });
+                        }
+                      }}
+                    >
+                      <MessageSquare className="h-3 w-3" /> Comment to a human
+                    </Button>
                   </div>
                 )}
                 {error && <p className="text-xs text-[--danger]">{error}</p>}
@@ -150,6 +200,69 @@ export function DecisionDetailView({
             </DashboardCard>
           </div>
         </div>
+
+        {/* Advisory action #24: comment thread, parity weight with run-agent. */}
+        <DashboardCard
+          id="dec-comments"
+          eyebrow="COMMENTS"
+          title={`${comments.length} comment${comments.length === 1 ? "" : "s"}`}
+          subtitle="Decision-level discussion. Visible to every workspace member. Same visual weight as approve/defer."
+        >
+          <div className="px-3 py-3 space-y-3">
+            {comments.length === 0 ? (
+              <p className="text-xs text-[--text-muted]">
+                No comments yet. Use the box below to send a note to other workspace members.
+              </p>
+            ) : (
+              <ul className="flex flex-col gap-2">
+                {comments.map((c) => (
+                  <li
+                    key={c.id}
+                    className="rounded-[--radius-md] border border-[--border-subtle] bg-[--elevated] px-3 py-2"
+                  >
+                    <div className="flex items-center gap-2 mb-1">
+                      <ActorBadge kind={c.authorKind} name={c.author} />
+                      <span className="text-xs text-[--text-muted] font-mono tabular-nums">
+                        {c.postedAt.toLocaleString()}
+                      </span>
+                    </div>
+                    <p className="text-xs text-[--text-secondary] leading-snug whitespace-pre-wrap">
+                      {c.body}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <div className="flex flex-col gap-2">
+              <label
+                htmlFor="decision-comment-input"
+                className="text-xs text-[--text-muted] uppercase tracking-widest"
+              >
+                Add a comment
+              </label>
+              <Textarea
+                id="decision-comment-input"
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                placeholder="Tell other workspace members what you think. Plain English."
+                rows={3}
+              />
+              <div className="flex items-center gap-2">
+                <Button
+                  size="sm"
+                  variant="primary"
+                  className="gap-1.5"
+                  disabled={commentPending || draft.trim().length === 0}
+                  onClick={submitComment}
+                >
+                  <MessageSquare className="h-3 w-3" />
+                  {commentPending ? "Posting…" : "Post comment"}
+                </Button>
+                {commentError && <span className="text-xs text-[--danger]">{commentError}</span>}
+              </div>
+            </div>
+          </div>
+        </DashboardCard>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <DashboardCard

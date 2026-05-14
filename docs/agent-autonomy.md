@@ -91,6 +91,13 @@ In order:
 
 ---
 
+## Related policy
+
+- `docs/safety-stance.md` — the four primitives that form the hard floor.
+- `docs/personas.md` — who we test for; the Priya / Marie / Marcus tests.
+- `docs/vocabulary.md` — jargon-or-banned policy for client-facing copy.
+- `docs/advisory-board-cadence.md` — how this document gets updated.
+
 ## How this document evolves
 
 This stance is **conservative on purpose**. If a future capability
