@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Bot, User } from "lucide-react";
+import { Bot } from "lucide-react";
 
 import { cn } from "@/lib/cn";
 

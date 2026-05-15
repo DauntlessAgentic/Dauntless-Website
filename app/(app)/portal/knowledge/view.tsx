@@ -273,6 +273,3 @@ function shelfTitle(shelf: "desk" | "bookshelf" | "cabinet"): string {
   }
 }
 
-function relativeDays(date: Date): string {
-  return `${Math.round((Date.now() - date.getTime()) / (24 * 60 * 60 * 1000))}d`;
-}

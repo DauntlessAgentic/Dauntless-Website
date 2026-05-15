@@ -50,7 +50,7 @@ const gradientByCategory: Record<WorkCategory, string> = {
   "Knowledge Architecture": "linear-gradient(135deg, #0f766e 0%, #2dd4bf 100%)",
 };
 
-export function WorkCard({ department, project, category, sector, image }: WorkCardProps) {
+export function WorkCard({ department, project, category, sector: _sector, image }: WorkCardProps) {
   const cfg = categoryConfig[category];
   const Icon = cfg.icon;
   const grad = gradientByCategory[category];

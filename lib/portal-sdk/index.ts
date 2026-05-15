@@ -55,7 +55,7 @@ export interface ProposeScheduleItemInput {
   proposedBy?: string;
 }
 
-export interface PortalListResponse<TKey extends string, TItem> {
+export interface PortalListResponse<_TKey extends string, _TItem> {
   workspaceId: string;
 }
 

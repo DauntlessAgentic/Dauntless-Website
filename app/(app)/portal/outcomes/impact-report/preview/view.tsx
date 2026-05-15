@@ -7,7 +7,6 @@ import { WorkspaceHeader } from "@/components/shell/workspace-header";
 import { DashboardCard } from "@/components/cards/dashboard-card";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ContentTag } from "@/components/ui/content-tag";
 import { ArtifactMarkdown } from "@/components/patterns/artifact-markdown";
 
 interface SignedExport {

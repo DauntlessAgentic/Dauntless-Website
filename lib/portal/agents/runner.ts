@@ -440,7 +440,7 @@ async function stubOperator(
   definition: AgentDefinition,
   repository: PortalRepository,
   workspaceId: string,
-  context: BookshelfContext,
+  _context: BookshelfContext,
 ): Promise<StubResult> {
   // Pick the oldest in-review or draft artifact and bump its version.
   const artifacts = await repository.listArtifacts(workspaceId);
