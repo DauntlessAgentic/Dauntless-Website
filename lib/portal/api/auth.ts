@@ -109,7 +109,10 @@ export async function withApiAuth<T>(
 
   try {
     const result = await handler();
-    const response = jsonResponse(result satisfies T);
+    // Audit-2 §M3: if the handler returns its own Response, pass it
+    // through with rate-limit headers attached. Otherwise envelope.
+    const response =
+      result instanceof Response ? result : jsonResponse(result satisfies T);
     response.headers.set("x-ratelimit-remaining", String(rate.remaining));
     response.headers.set("x-ratelimit-reset", String(Math.floor(rate.resetAt / 1000)));
     return response;
