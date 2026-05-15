@@ -4,6 +4,7 @@ import React, { useMemo, useState, useTransition } from "react";
 import Link from "next/link";
 import { ArrowRight, Sparkles, BookOpen, GitBranch, Activity, BellOff } from "lucide-react";
 import { snoozeProposalAction } from "@/lib/portal/innovation/proposal-actions";
+import { announce } from "@/components/patterns/polite-announcer";
 
 import { WorkspaceHeader } from "@/components/shell/workspace-header";
 import { DashboardCard } from "@/components/cards/dashboard-card";
@@ -70,8 +71,12 @@ export function InnovationStudioView({
 
   const handleSnooze = (id: string, hours = 24) => {
     startSnooze(async () => {
+      const target = proposalState.find((p) => p.id === id);
       await snoozeProposalAction(id, hours);
       setProposalState((prev) => prev.filter((p) => p.id !== id));
+      // Audit-3 §H1: announce the action so SR users know the
+      // proposal was dismissed, not lost.
+      announce(`Proposal "${target?.title ?? id}" snoozed for ${hours} hours.`);
     });
   };
 

@@ -12,6 +12,7 @@ import {
   freezeWorkspaceAction,
   unfreezeWorkspaceAction,
 } from "@/lib/portal/outbound-actions/freeze-actions";
+import { announce } from "@/components/patterns/polite-announcer";
 
 type Status =
   | { frozen: true; frozenBy: string; frozenAt: string; reason: string }
@@ -34,8 +35,11 @@ export function SomethingWentWrongView({ initialStatus }: Props) {
         const next = await freezeWorkspaceAction(reason || "Workspace owner pressed the safety switch.");
         setStatus(next);
         setReason("");
+        announce("All outbound actions are now frozen for this workspace.", "assertive");
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Freeze failed.");
+        const msg = err instanceof Error ? err.message : "Freeze failed.";
+        setError(msg);
+        announce(msg, "assertive");
       }
     });
   };
@@ -46,8 +50,11 @@ export function SomethingWentWrongView({ initialStatus }: Props) {
       try {
         const next = await unfreezeWorkspaceAction();
         setStatus(next);
+        announce("Outbound actions are live again.", "polite");
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Unfreeze failed.");
+        const msg = err instanceof Error ? err.message : "Unfreeze failed.";
+        setError(msg);
+        announce(msg, "assertive");
       }
     });
   };
@@ -107,20 +114,22 @@ export function SomethingWentWrongView({ initialStatus }: Props) {
               </>
             ) : (
               <>
-                <label className="text-xs text-[--text-secondary] flex flex-col gap-1.5">
-                  <span className="font-semibold text-[--text-primary]">
+                <div className="text-xs text-[--text-secondary] flex flex-col gap-1.5">
+                  <label htmlFor="freeze-reason" className="font-semibold text-[--text-primary]">
                     (Optional) What's going on?
-                  </span>
+                  </label>
                   <Textarea
+                    id="freeze-reason"
                     value={reason}
                     onChange={(e) => setReason(e.target.value)}
                     placeholder="A bot just sent an email I did not expect."
                     rows={2}
+                    aria-describedby="freeze-reason-hint freeze-error"
                   />
-                  <span className="text-[--text-muted] italic">
+                  <span id="freeze-reason-hint" className="text-[--text-muted] italic">
                     This shows up in the audit log so anyone reviewing later knows why the workspace was frozen.
                   </span>
-                </label>
+                </div>
                 <Button
                   variant="destructive"
                   size="md"
@@ -133,7 +142,14 @@ export function SomethingWentWrongView({ initialStatus }: Props) {
                 </Button>
               </>
             )}
-            {error && <p className="text-xs text-[--danger]">{error}</p>}
+            {error && (
+              <p id="freeze-error" role="alert" className="text-xs text-[--danger]">
+                {error}
+              </p>
+            )}
+            {/* Empty placeholder so aria-describedby resolves even before
+                an error fires. */}
+            {!error && <span id="freeze-error" className="sr-only" />}
           </div>
         </DashboardCard>
 

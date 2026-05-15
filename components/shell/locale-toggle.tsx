@@ -31,7 +31,9 @@ export function LocaleToggle() {
       type="button"
       onClick={() => apply(locale === "en" ? "fr" : "en")}
       className="flex items-center gap-1.5 h-7 px-2 rounded-[--radius-md] bg-[--elevated] border border-[--border-subtle] hover:border-[--border-default] transition-colors text-xs text-[--text-secondary]"
-      aria-label={`Switch language to ${locale === "en" ? "French" : "English"}`}
+      // Audit-3 §L5: announce the current language so SR users know
+      // the state, not just the target action.
+      aria-label={`Language: ${locale === "en" ? "English" : "French"}. Activate to switch to ${locale === "en" ? "French" : "English"}.`}
       title={
         locale === "en"
           ? "Switch to French / Passer au français"

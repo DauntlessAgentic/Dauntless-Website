@@ -41,7 +41,12 @@ export function GlossaryTerm({ term, children, className }: GlossaryTermProps) {
     >
       <span
         tabIndex={0}
-        aria-label={`${entry.term}: ${entry.plain}`}
+        // Audit-3 §H4: keep the visible term as the accessible *name*
+        // (so SR users hear "canonical" — the word that actually
+        // appears in the sentence) and surface the definition via
+        // aria-description, which assistive tech reads as supplementary
+        // info rather than overriding the name.
+        aria-description={`${entry.term}: ${entry.plain}`}
         className={cn(
           "underline decoration-dotted decoration-[--text-muted] underline-offset-2",
           "cursor-help hover:decoration-[--accent-vivid] focus-visible:decoration-[--accent-vivid]",

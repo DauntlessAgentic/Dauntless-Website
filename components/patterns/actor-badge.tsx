@@ -33,12 +33,14 @@ export function ActorBadge({ kind, name, maxChars = 28, className }: ActorBadgeP
           "bg-[--accent-dim] border border-[--accent-vivid]",
           className,
         )}
-        aria-label={`Agent: ${name}`}
         title={`${name} — this is an automated agent, not a person.`}
       >
         <Bot className="h-3 w-3 text-[--accent-vivid]" aria-hidden />
+        {/* Audit-3 §H4 / §L4: visually-hidden "Agent" prefix so SR users
+            hear "Agent <name>" without overriding the name itself. */}
+        <span className="sr-only">Agent </span>
         <span className="font-mono text-[--text-primary]">{truncated}</span>
-        <span className="text-[--text-muted] uppercase tracking-widest">agent</span>
+        <span className="text-[--text-muted] uppercase tracking-widest" aria-hidden>agent</span>
       </span>
     );
   }
@@ -52,7 +54,6 @@ export function ActorBadge({ kind, name, maxChars = 28, className }: ActorBadgeP
         "bg-[--elevated] border border-[--border-subtle]",
         className,
       )}
-      aria-label={`Person: ${name}`}
       title={`${name} — human team member.`}
     >
       <span
@@ -61,6 +62,7 @@ export function ActorBadge({ kind, name, maxChars = 28, className }: ActorBadgeP
       >
         {initials}
       </span>
+      <span className="sr-only">Person </span>
       <span className="text-[--text-primary]">{truncated}</span>
     </span>
   );

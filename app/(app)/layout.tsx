@@ -1,4 +1,5 @@
 import { AppShell } from "@/components/shell/app-shell";
+import { PoliteAnnouncer } from "@/components/patterns/polite-announcer";
 import { RoleSwitcher } from "@/components/shell/role-switcher";
 import { WorkspaceSwitcher } from "@/components/shell/workspace-switcher";
 import { getAuthRuntimeState } from "@/lib/auth/runtime";
@@ -35,6 +36,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       }
     >
       {children}
+      <PoliteAnnouncer />
     </AppShell>
   );
 }

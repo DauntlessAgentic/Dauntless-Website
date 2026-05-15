@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+
+import { LOCALE_COOKIE, isLocale } from "@/lib/portal/i18n/dictionary";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -37,14 +40,21 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // Audit-3 §L1: resolve the locale server-side from the cookie so the
+  // initial SSR `<html lang>` is correct. The client toggle still
+  // updates the attribute after hydration for the same-session swap.
+  const cookieStore = await cookies();
+  const rawLocale = cookieStore.get(LOCALE_COOKIE)?.value;
+  const lang = isLocale(rawLocale) ? rawLocale : "en";
+
   return (
     <html
-      lang="en"
+      lang={lang}
       className={`dark ${inter.variable} ${jetbrainsMono.variable} ${spaceGrotesk.variable}`}
     >
       <body>{children}</body>
