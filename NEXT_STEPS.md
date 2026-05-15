@@ -62,8 +62,8 @@ After the merge, GitHub will trigger one more run on the `main` HEAD.
 Open the Actions tab and confirm the `portal-ci` workflow on `main`
 goes green. If it doesn't:
 
-- The build / test / lint commands work locally — I verified `131/131
-  tests`, lint at 0 errors, build green on `a8fa9e8`. If CI fails it's
+- The build / test / lint commands work locally — `167/167
+  tests`, lint at 0 errors, build green on `main`. If CI fails it's
   almost certainly an environment quirk (Node version, network access
   for Google Fonts). The workflow already sets `NEXT_TURBOPACK_EXPERIMENTAL_USE_SYSTEM_TLS_CERTS=1`.
 - If lint or test fail on CI but not locally, run `npm ci` instead of
@@ -100,9 +100,9 @@ of the roadmap status, with PR links per phase.
 
 ### 2.1 Counts
 
-- **28 portal routes** under `app/(app)/portal/`
-- **7 versioned REST API routes** under `app/api/portal/v1/`
-- **167+ smoke tests** under `tests/portal/*` (run with `npm test`)
+- **32 portal routes** under `app/(app)/portal/`
+- **8 versioned REST API routes** under `app/api/portal/v1/`
+- **167 smoke tests** across 24 suites under `tests/portal/*` (run with `npm test`)
 - **16 phase modules** (Phase 1–15 plus closeout) all on `main`
 - **CI workflow** active: `.github/workflows/portal-ci.yml`
 - **CodeQL workflow** active: `.github/workflows/codeql.yml` (security-and-quality query suite)
@@ -135,14 +135,15 @@ payload).** PRs #39 through #43:
 | **#42** | Signing-key rotation (current + previous), `scripts/verify-bundle.ts`, weekly digest HTML/text renderer + REST endpoint, EN/FR i18n scaffold + locale toggle, `docs/{vocabulary,personas,advisory-board-cadence,safety-stance}.md` |
 | **#43** | Decision-level comment thread (parity with run-agent), `/portal/dev/feedback` time-on-task harness, responsive guards (1366×768 + 150% zoom) |
 
-### 2.2 The 28 portal routes
+### 2.2 The 32 portal routes
 
 | Group | Routes |
 |-------|--------|
 | Core | `/portal`, `/portal/engagements`, `/portal/engagements/[id]`, `/portal/deliverables`, `/portal/deliverables/[id]`, `/portal/deliverables/[id]/edit`, `/portal/decisions`, `/portal/decisions/[id]`, `/portal/agents`, `/portal/agents/[id]`, `/portal/knowledge`, `/portal/outcomes`, `/portal/governance` |
-| Advanced | `/portal/search`, `/portal/schedule`, `/portal/innovation`, `/portal/outcomes/impact-report` |
+| Advanced | `/portal/search`, `/portal/schedule`, `/portal/innovation`, `/portal/outcomes/impact-report`, `/portal/outcomes/impact-report/preview` |
 | Enterprise / Network | `/portal/org`, `/portal/api`, `/portal/actions`, `/portal/compliance`, `/portal/federation`, `/portal/models`, `/portal/marketplace`, `/portal/portfolio` |
-| Self-documenting | `/portal/about`, `/portal/changelog`, `/portal/help` |
+| Self-documenting | `/portal/about`, `/portal/changelog`, `/portal/help`, `/portal/help/glossary`, `/portal/help/something-went-wrong` |
+| Internal | `/portal/dev/feedback` |
 
 ### 2.3 The REST API
 
@@ -152,9 +153,12 @@ Under `/api/portal/v1`:
 - `GET /knowledge` (with `?q=…` for ranked search)
 - `GET /schedule` + `POST /schedule`
 - `GET /decisions` + `POST /decisions`
+- `GET /digest` (personalised weekly digest payload — `?role=&windowDays=&format=json|html|text`)
 
 Auth: Bearer token in `Authorization`. Set `PORTAL_API_KEY` to enable
-gating; unset means dev-bypass.
+gating; unset means dev-bypass (refused in production unless
+`PORTAL_ALLOW_OPEN_API=true`). Per-token + per-IP rate limiting; 429
+with `Retry-After` on bucket drain.
 
 ### 2.4 The typed SDK
 
@@ -209,9 +213,9 @@ Order I'd configure (matches `.env.local.example` sections):
 
 ```sh
 npm run lint     # 0 errors, 27 pre-existing warnings
-npm test         # 131/131
+npm test         # 167/167
 NEXT_TURBOPACK_EXPERIMENTAL_USE_SYSTEM_TLS_CERTS=1 npm run build
-# → 28 portal routes + 7 API routes registered
+# → 32 portal routes + 8 API routes registered
 ```
 
 ---

@@ -6,7 +6,6 @@ import { WorkspaceHeader } from "@/components/shell/workspace-header";
 import { DashboardCard } from "@/components/cards/dashboard-card";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Badge } from "@/components/ui/badge";
 import { ContentTag } from "@/components/ui/content-tag";
 import type { PortalSnapshot, RiskTier } from "@/lib/portal/types";
 import type { MembershipContext } from "@/lib/auth/session";

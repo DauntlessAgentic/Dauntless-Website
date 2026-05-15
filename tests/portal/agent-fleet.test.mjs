@@ -23,7 +23,7 @@ const url = (rel) => pathToFileURL(path.join(repoRoot, rel)).href;
 
 const { runAgent } = await import(url("lib/portal/agents/runner.ts"));
 const { isToolPermitted, TOOLS_BY_ARCHETYPE } = await import(url("lib/portal/agents/tool-catalog.ts"));
-const { listAgents, getAgentDefinition } = await import(url("lib/portal/agents/registry.ts"));
+const { listAgents } = await import(url("lib/portal/agents/registry.ts"));
 const { __resetAgentTelemetry, listAgentRuns } = await import(url("lib/portal/agents/telemetry.ts"));
 const { __resetPortalRepository, getPortalRepository } = await import(url("lib/portal/repositories/index.ts"));
 

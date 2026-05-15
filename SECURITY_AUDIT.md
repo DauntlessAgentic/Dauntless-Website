@@ -1,5 +1,13 @@
 # SECURITY_AUDIT.md
 
+> **Resolution update (May 2026):** the original 2 HIGH and 4 of 6 MEDIUM
+> findings have been closed by the post-audit hardening pass (Phases A–E,
+> PRs #33–#37) and the Client Advisory Board polish (PRs #39–#43). See
+> the **Resolution status** table immediately below the TL;DR. The
+> remaining open items are explicitly Phase 2.1-gated (await real OAuth +
+> Supabase). Current default-on posture is documented in
+> `docs/safety-stance.md`.
+
 **Audit date**: 2026-05-12
 **Audit scope**: every line of code on `main` at commit `95f77f7`, plus
 the npm dependency tree, the CI workflow, and the runtime configuration

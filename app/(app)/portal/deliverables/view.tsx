@@ -10,7 +10,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { ContentTag } from "@/components/ui/content-tag";
 import { ArtifactList } from "@/components/patterns/artifact-list";
 import { EvidenceLink } from "@/components/patterns/evidence-link";
-import type { Artifact, PortalSnapshot } from "@/lib/portal/types";
+import type { PortalSnapshot } from "@/lib/portal/types";
 import type { MembershipContext } from "@/lib/auth/session";
 
 type FilterKey = "all" | "in-review" | "approved" | "draft" | "needs-revision";

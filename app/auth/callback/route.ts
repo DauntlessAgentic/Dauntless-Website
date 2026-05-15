@@ -15,7 +15,11 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
-  const next = searchParams.get("next") ?? "/dashboard";
+  // `next` query param parsing is suppressed: SECURITY_AUDIT.md §3.3 flagged
+  // it as an open-redirect risk. Wire host-allowlisted resolution when Phase
+  // 2.1 OAuth lands; until then we always redirect to /dashboard.
+  const _next = searchParams.get("next") ?? "/dashboard";
+  void _next;
 
   if (!code) {
     return NextResponse.redirect(`${origin}/login?error=no_code`);
