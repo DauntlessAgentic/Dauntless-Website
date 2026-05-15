@@ -6,16 +6,25 @@ import { loadPortalContext } from "@/lib/portal/server";
 import { addDecisionComment, listDecisionComments, type DecisionComment } from "./decision-comments";
 import { getPortalRepository } from "./repositories";
 
-function requireMember(
+function requireCommentAuthorizedMember(
   membership: Awaited<ReturnType<typeof loadPortalContext>>["membership"],
 ): string {
-  if (
+  const isAuthed =
     (membership.status === "member" || membership.status === "dev-bypass") &&
-    membership.membership
-  ) {
-    return `${membership.membership.userName}`;
+    membership.membership;
+  if (!isAuthed) {
+    throw new Error("Sign in to comment.");
   }
-  throw new Error("Sign in to comment.");
+  // Audit-2 §L2: viewers and auditors are read-only by intent. Writing
+  // a decision comment pollutes the audit log, which they explicitly
+  // do not have write authority over.
+  const role = membership.membership!.role;
+  if (role === "viewer" || role === "auditor") {
+    throw new Error(
+      `Role "${role}" is read-only and cannot comment on decisions.`,
+    );
+  }
+  return `${membership.membership!.userName}`;
 }
 
 export async function postDecisionComment(input: {
@@ -26,7 +35,7 @@ export async function postDecisionComment(input: {
     throw new Error("Comment cannot be empty.");
   }
   const { snapshot, membership } = await loadPortalContext();
-  const author = requireMember(membership);
+  const author = requireCommentAuthorizedMember(membership);
   const repo = getPortalRepository();
   const decisions = await repo.listDecisions(snapshot.workspace.id);
   const decision = decisions.find((d) => d.id === input.decisionId);

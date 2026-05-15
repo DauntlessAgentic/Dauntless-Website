@@ -122,6 +122,17 @@ export function verifyBundle(markdown: string): VerifyResult {
       };
     }
   }
+  // Audit-2 §L4: when running on the dev fallback key, an old bundle
+  // signed in a previous process won't verify. Surface that distinct
+  // case so operators don't mistake it for tampering.
+  if (devKeyInUse) {
+    return {
+      ok: false,
+      manifest,
+      reason:
+        "Signature mismatch. Dev signing key is in use; bundles signed in a previous server process cannot verify. Set PORTAL_EXPORT_SIGNING_KEY to make signatures stable across restarts.",
+    };
+  }
   return { ok: false, manifest, reason: "Signature mismatch." };
 }
 
@@ -201,6 +212,7 @@ function parseFooter(markdown: string): { body: string; manifest: SignatureManif
 }
 
 let cachedDevKey: Buffer | null = null;
+let devKeyInUse = false;
 
 function getMasterKey(slot: "current" | "previous" = "current"): Buffer {
   const envName =
@@ -224,6 +236,7 @@ function getMasterKey(slot: "current" | "previous" = "current"): Buffer {
   // a real key before shipping audit-grade exports.
   if (!cachedDevKey) {
     cachedDevKey = randomBytes(32);
+    devKeyInUse = true;
     console.warn(
       "[portal/exports] PORTAL_EXPORT_SIGNING_KEY not set — using ephemeral dev key. Signatures will not verify across restarts.",
     );

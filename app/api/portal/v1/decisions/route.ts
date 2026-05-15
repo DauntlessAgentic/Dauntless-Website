@@ -20,39 +20,48 @@ interface DecisionOutcomeBody {
   notes?: string;
 }
 
+// Audit-2 §M2: writes that trigger webhooks + audit entries cost
+// more tokens than a cheap read. 5 tokens per POST means a fresh
+// bucket holds ~6 writes before throttling.
+const DECISION_WRITE_COST = 5;
+
 export async function POST(request: NextRequest) {
-  const auth = await import("@/lib/portal/api/auth").then((m) => m.authenticateApiRequest(request));
-  if (!auth.ok) return errorResponse(auth.reason, auth.status);
-  let body: DecisionOutcomeBody;
-  try {
-    body = (await request.json()) as DecisionOutcomeBody;
-  } catch {
-    return errorResponse("Invalid JSON body.", 400);
-  }
-  if (!body.decisionId || !body.outcome) {
-    return errorResponse("decisionId and outcome are required.", 400);
-  }
-  if (body.outcome !== "approved" && body.outcome !== "deferred" && body.outcome !== "rejected") {
-    return errorResponse("outcome must be approved | deferred | rejected.", 400);
-  }
-  const repo = getPortalRepository();
-  const workspace = await repo.getDefaultWorkspace();
-  try {
-    const updated = await repo.recordDecisionOutcome({
-      decisionId: body.decisionId,
-      workspaceId: workspace.id,
-      actor: body.actor ?? "api-client",
-      actorKind: "human",
-      outcome: body.outcome,
-      notes: body.notes,
-    });
-    emitWebhook({
-      kind: "decision-outcome",
-      workspaceId: workspace.id,
-      payload: { decisionId: updated.id, outcome: updated.status },
-    });
-    return jsonResponse({ decision: updated });
-  } catch (err) {
-    return errorResponse(err instanceof Error ? err.message : "Decision update failed.", 400);
-  }
+  return withApiAuth(
+    request,
+    async () => {
+      let body: DecisionOutcomeBody;
+      try {
+        body = (await request.json()) as DecisionOutcomeBody;
+      } catch {
+        return errorResponse("Invalid JSON body.", 400);
+      }
+      if (!body.decisionId || !body.outcome) {
+        return errorResponse("decisionId and outcome are required.", 400);
+      }
+      if (body.outcome !== "approved" && body.outcome !== "deferred" && body.outcome !== "rejected") {
+        return errorResponse("outcome must be approved | deferred | rejected.", 400);
+      }
+      const repo = getPortalRepository();
+      const workspace = await repo.getDefaultWorkspace();
+      try {
+        const updated = await repo.recordDecisionOutcome({
+          decisionId: body.decisionId,
+          workspaceId: workspace.id,
+          actor: body.actor ?? "api-client",
+          actorKind: "human",
+          outcome: body.outcome,
+          notes: body.notes,
+        });
+        emitWebhook({
+          kind: "decision-outcome",
+          workspaceId: workspace.id,
+          payload: { decisionId: updated.id, outcome: updated.status },
+        });
+        return jsonResponse({ decision: updated });
+      } catch (err) {
+        return errorResponse(err instanceof Error ? err.message : "Decision update failed.", 400);
+      }
+    },
+    { cost: DECISION_WRITE_COST },
+  );
 }

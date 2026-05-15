@@ -47,6 +47,15 @@ export async function proposeOutboundAction(input: ProposeOutboundActionInput): 
   if (!capability) {
     throw new Error(`Unknown capability: ${input.connectorId}/${input.capabilityId}`);
   }
+  // Audit-2 §L1: the freeze switch is "stop everything", not "stop commit".
+  // A frozen workspace refuses new proposals too — otherwise a queue
+  // builds up waiting to ship the instant the freeze lifts.
+  const freeze = isWorkspaceFrozen(input.workspaceId);
+  if (freeze) {
+    throw new Error(
+      `Outbound actions are frozen for this workspace by ${freeze.frozenBy}: "${freeze.reason}". Lift the freeze before proposing.`,
+    );
+  }
   // Advisory-board action #19: per-workspace connector approval. Until
   // a workspace owner explicitly enables a connector, propose calls
   // referencing it are refused. Marcus's requirement.

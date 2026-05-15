@@ -12,16 +12,28 @@ import {
   isWorkspaceFrozen,
 } from "./freeze";
 
-function requireMember(
+/**
+ * Resolve the active member AND enforce the role gate. Per audit-2 §H1
+ * the freeze switch is reserved for owner / executive / lead — never
+ * viewer or auditor, who are read-only by intent. The check belongs
+ * here (server boundary) so a malicious client can't bypass it.
+ */
+function requireFreezeAuthorizedMember(
   membership: Awaited<ReturnType<typeof loadPortalContext>>["membership"],
 ): string {
-  if (
+  const isAuthed =
     (membership.status === "member" || membership.status === "dev-bypass") &&
-    membership.membership
-  ) {
-    return `${membership.membership.userName} (${membership.membership.role})`;
+    membership.membership;
+  if (!isAuthed) {
+    throw new Error("Sign in to freeze or unfreeze a workspace.");
   }
-  throw new Error("Sign in to freeze or unfreeze a workspace.");
+  const role = membership.membership!.role;
+  if (role !== "owner" && role !== "executive" && role !== "lead") {
+    throw new Error(
+      `Role "${role}" cannot freeze or unfreeze this workspace. Ask a workspace owner.`,
+    );
+  }
+  return `${membership.membership!.userName} (${role})`;
 }
 
 export async function freezeWorkspaceAction(reason: string): Promise<{
@@ -31,7 +43,7 @@ export async function freezeWorkspaceAction(reason: string): Promise<{
   reason: string;
 }> {
   const { snapshot, membership } = await loadPortalContext();
-  const actor = requireMember(membership);
+  const actor = requireFreezeAuthorizedMember(membership);
   const record = await freezeWorkspace({
     workspaceId: snapshot.workspace.id,
     actor,
@@ -47,7 +59,7 @@ export async function freezeWorkspaceAction(reason: string): Promise<{
 
 export async function unfreezeWorkspaceAction(): Promise<{ frozen: false }> {
   const { snapshot, membership } = await loadPortalContext();
-  const actor = requireMember(membership);
+  const actor = requireFreezeAuthorizedMember(membership);
   await unfreezeWorkspace({ workspaceId: snapshot.workspace.id, actor });
   return { frozen: false };
 }
