@@ -38,7 +38,9 @@ export function DensityToggle() {
       type="button"
       onClick={() => apply(mode === "compact" ? "comfortable" : "compact")}
       className="flex items-center gap-1.5 h-7 px-2 rounded-[--radius-md] bg-[--elevated] border border-[--border-subtle] hover:border-[--border-default] transition-colors text-xs text-[--text-secondary]"
-      aria-label={`Switch to ${mode === "compact" ? "comfortable" : "compact"} density`}
+      // Audit-3 §L5: announce the current state alongside the target.
+      aria-label={`Density: ${mode}. Activate to switch to ${mode === "compact" ? "comfortable" : "compact"}.`}
+      aria-pressed={mode === "comfortable"}
       title={
         mode === "compact"
           ? "Comfortable density — more breathing room. Better for reading sessions."

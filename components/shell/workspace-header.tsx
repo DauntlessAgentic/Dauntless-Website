@@ -24,12 +24,15 @@ export function WorkspaceHeader({
           {eyebrow && (
             <p className="text-xs font-semibold uppercase tracking-widest text-[--text-muted]">{eyebrow}</p>
           )}
-          <div className="flex items-center gap-2">
-            <h1 className="text-sm font-semibold text-[--text-primary]">{title}</h1>
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* Audit-3 §H2: real H1 semantics + visible page-title weight.
+                Visual size bumps from text-sm → text-base so the heading
+                reads like a heading. */}
+            <h1 className="text-base font-semibold text-[--text-primary] leading-tight">{title}</h1>
             {badge && <Badge variant={badgeVariant}>{badge}</Badge>}
           </div>
           {description && (
-            <p className="text-xs text-[--text-muted] truncate">{description}</p>
+            <p className="text-xs text-[--text-secondary] truncate">{description}</p>
           )}
         </div>
         {actions && <div className="flex items-center gap-2 shrink-0">{actions}</div>}

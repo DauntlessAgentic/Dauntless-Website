@@ -60,15 +60,20 @@ export function ConfirmAction({
     }
   };
 
+  // Audit-3 §H3: the side-effects list is the safety-critical content.
+  // Wire it into the dialog's accessible description via aria-describedby
+  // so SR users hear the bullets, not just the one-sentence summary.
+  const effectsId = React.useId();
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild={asChild}>{children}</DialogTrigger>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md" aria-describedby={effectsId}>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <div className="text-xs text-[--text-secondary] leading-snug space-y-2">
+        <div id={effectsId} className="text-xs text-[--text-secondary] leading-snug space-y-2">
           <p className="font-semibold text-[--text-primary]">Here's exactly what will happen:</p>
           <ul className="list-disc pl-5 space-y-1">
             {effects.map((e, i) => (

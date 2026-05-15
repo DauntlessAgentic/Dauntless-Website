@@ -20,8 +20,10 @@ interface TopBarProps {
 export function TopBar({ title, subtitle, actions }: TopBarProps) {
   return (
     <header className="flex h-11 items-center gap-3 px-3 bg-[--chrome-bg] border-b border-[--border-subtle] shrink-0">
-      {/* Title slot */}
-      <div className="flex items-center gap-2 min-w-0 flex-1">
+      {/* Title slot — aria-hidden because the canonical page title
+          lives in <WorkspaceHeader> as a real <h1>. Keeping it visible
+          for sighted users; SR users get the H1. (Audit-3 §H2) */}
+      <div className="flex items-center gap-2 min-w-0 flex-1" aria-hidden="true">
         {title && (
           <div className="flex items-center gap-2 min-w-0">
             <span className="text-sm font-medium text-[--text-primary] truncate">{title}</span>
@@ -60,8 +62,11 @@ export function TopBar({ title, subtitle, actions }: TopBarProps) {
 
         {/* Notifications */}
         <div className="relative">
-          <IconButton icon={<Bell className="h-3.5 w-3.5" />} label="Notifications" size="sm" />
-          <span className="absolute -top-0.5 -right-0.5 flex h-2 w-2">
+          <IconButton icon={<Bell className="h-3.5 w-3.5" />} label="Notifications (unread)" size="sm" />
+          <span
+            className="absolute -top-0.5 -right-0.5 flex h-2 w-2"
+            aria-hidden="true"
+          >
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[--accent] opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[--accent-bright]" />
           </span>

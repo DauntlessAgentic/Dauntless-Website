@@ -19,8 +19,11 @@
   --border-focus:    rgba(139,92,246,0.80);
 
   --text-primary:    #ededf5;
-  --text-secondary:  #8e8ea8;
-  --text-muted:      #52526a;
+  --text-secondary:  #b4b4c8;
+  /* Audit-3 §M1: --text-muted bumped from #52526a (≈3.3:1 on
+     --elevated) to #8e8ea8 (≈4.6:1). Reserved for ≥14px text; any
+     ≤12px body copy should escalate to --text-secondary. */
+  --text-muted:      #8e8ea8;
   --text-inverse:    #09090e;
   --text-accent:     #a78bfa;
 
@@ -250,6 +253,23 @@ html[data-density="comfortable"] .leading-snug { line-height: 1.45; }
   .grid.grid-cols-1.md\:grid-cols-4 { gap: 0.75rem; }
 }
 
+/* ── Accessibility utilities ──────────────────────────────────
+   Standard sr-only pattern (Bootstrap/Tailwind common). Hides
+   content visually while keeping it discoverable by assistive
+   tech. Used by PoliteAnnouncer (advisory action #29 follow-up,
+   audit-3 §H1). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 body {
   background: var(--app-bg);
   color: var(--text-primary);
@@ -343,7 +363,9 @@ code, pre, kbd {
 
   --text-primary:    #16162a;
   --text-secondary:  #4a4a6a;
-  --text-muted:      #8888aa;
+  /* Audit-3 §M1: light-theme --text-muted darkened from #8888aa
+     (≈2.7:1 on --elevated) to #5a5a76 (≈4.5:1). */
+  --text-muted:      #5a5a76;
   --text-inverse:    #f2f2f8;
   --text-accent:     #7c3aed;
 

@@ -12,6 +12,7 @@ import { ContentTag } from "@/components/ui/content-tag";
 import { Textarea } from "@/components/ui/textarea";
 import { EvidenceLink } from "@/components/patterns/evidence-link";
 import { ActorBadge } from "@/components/patterns/actor-badge";
+import { announce } from "@/components/patterns/polite-announcer";
 
 import type { MembershipContext } from "@/lib/auth/session";
 import { canPerform } from "@/lib/auth/membership-gate";
@@ -80,8 +81,11 @@ export function DecisionDetailView({
         setDraft("");
         const rows = await getDecisionComments(decision.id);
         setComments(rows);
+        announce("Comment posted.");
       } catch (err) {
-        setCommentError(err instanceof Error ? err.message : "Comment failed.");
+        const msg = err instanceof Error ? err.message : "Comment failed.";
+        setCommentError(msg);
+        announce(msg, "assertive");
       }
     });
   };
@@ -182,7 +186,14 @@ export function DecisionDetailView({
                         const el = document.getElementById("decision-comment-input") as HTMLTextAreaElement | null;
                         if (el) {
                           el.focus();
-                          el.scrollIntoView({ behavior: "smooth", block: "center" });
+                          // Audit-3 §L3: honor reduced-motion preference.
+                          const reduceMotion =
+                            typeof window !== "undefined" &&
+                            window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                          el.scrollIntoView({
+                            behavior: reduceMotion ? "auto" : "smooth",
+                            block: "center",
+                          });
                         }
                       }}
                     >
@@ -246,6 +257,7 @@ export function DecisionDetailView({
                 onChange={(e) => setDraft(e.target.value)}
                 placeholder="Tell other workspace members what you think. Plain English."
                 rows={3}
+                aria-describedby="decision-comment-error"
               />
               <div className="flex items-center gap-2">
                 <Button
@@ -258,7 +270,13 @@ export function DecisionDetailView({
                   <MessageSquare className="h-3 w-3" />
                   {commentPending ? "Posting…" : "Post comment"}
                 </Button>
-                {commentError && <span className="text-xs text-[--danger]">{commentError}</span>}
+                {commentError ? (
+                  <span id="decision-comment-error" role="alert" className="text-xs text-[--danger]">
+                    {commentError}
+                  </span>
+                ) : (
+                  <span id="decision-comment-error" className="sr-only" />
+                )}
               </div>
             </div>
           </div>
