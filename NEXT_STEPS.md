@@ -1,8 +1,13 @@
 # NEXT_STEPS.md
 
+> **Last refresh: May 2026, post-audit hardening + Client Advisory Board polish + audit-driven follow-ups.**
+> Latest merge on `main` is PR #47. State: 172/172 tests passing, 0 lint errors, build clean.
+> Sections §2.1.1 / §2.1.2 / §2.1.3 below track what has shipped since the original 18-PR run.
+
 The overnight run merged **all 18 PRs into `main`** (PR #1 → #18). Local
-`main` is at `a8fa9e8` and reflects the complete 15-phase Client
-Intelligence Portal plus the closeout extras.
+`main` then absorbed the post-audit hardening (Phases A–E, PRs #33–#37),
+the Client Advisory Board polish (PRs #39–#43), and three follow-up
+PRs (#45 tidy, #46 security audit-2, #47 a11y audit-3). All on `main`.
 
 This doc is your hand-off. Read it top-to-bottom — every item is either
 something you need to **do now** (operational chores) or something **to
@@ -62,7 +67,7 @@ After the merge, GitHub will trigger one more run on the `main` HEAD.
 Open the Actions tab and confirm the `portal-ci` workflow on `main`
 goes green. If it doesn't:
 
-- The build / test / lint commands work locally — `167/167
+- The build / test / lint commands work locally — `172/172
   tests`, lint at 0 errors, build green on `main`. If CI fails it's
   almost certainly an environment quirk (Node version, network access
   for Google Fonts). The workflow already sets `NEXT_TURBOPACK_EXPERIMENTAL_USE_SYSTEM_TLS_CERTS=1`.
@@ -102,7 +107,7 @@ of the roadmap status, with PR links per phase.
 
 - **32 portal routes** under `app/(app)/portal/`
 - **8 versioned REST API routes** under `app/api/portal/v1/`
-- **167 smoke tests** across 24 suites under `tests/portal/*` (run with `npm test`)
+- **172 smoke tests** across 25 suites under `tests/portal/*` (run with `npm test`)
 - **16 phase modules** (Phase 1–15 plus closeout) all on `main`
 - **CI workflow** active: `.github/workflows/portal-ci.yml`
 - **CodeQL workflow** active: `.github/workflows/codeql.yml` (security-and-quality query suite)
@@ -134,6 +139,16 @@ payload).** PRs #39 through #43:
 | **#41** | "What changed for you this week" card on Command Center, trend tiles on Impact Report, web preview for signed bundles, engine quick-action buttons |
 | **#42** | Signing-key rotation (current + previous), `scripts/verify-bundle.ts`, weekly digest HTML/text renderer + REST endpoint, EN/FR i18n scaffold + locale toggle, `docs/{vocabulary,personas,advisory-board-cadence,safety-stance}.md` |
 | **#43** | Decision-level comment thread (parity with run-agent), `/portal/dev/feedback` time-on-task harness, responsive guards (1366×768 + 150% zoom) |
+
+### 2.1.3 Post-board audit + tidy (May 2026)
+
+Three audit-driven PRs after the board polish landed:
+
+| PR | Theme |
+|---|---|
+| **#45** | Tidy — lint warnings 30→1, doc drift fixed (28→32 routes, 7→8 API), `tsx --test tests/portal/*.test.mjs` glob, CI scope tightened, `SECURITY_AUDIT.md` resolution-status table |
+| **#46** | Security audit-2 — freeze role gate (owner/exec/lead only), feedback harness gate (internal-only), per-route rate-limit cost weighting, `withApiAuth` Response passthrough, propose refused while frozen, viewer/auditor can't comment on decisions, distinct dev-key verify error |
+| **#47** | A11y audit-3 — `<PoliteAnnouncer>` live regions wired into snooze/freeze/comment, real `<h1>` on every page, ConfirmAction `aria-describedby`, contrast bump on `--text-muted` (WCAG AA), form `role="alert"` errors, locale resolved server-side in root layout, reduced-motion respect on scroll-into-view |
 
 ### 2.2 The 32 portal routes
 
@@ -213,7 +228,7 @@ Order I'd configure (matches `.env.local.example` sections):
 
 ```sh
 npm run lint     # 0 errors, 27 pre-existing warnings
-npm test         # 167/167
+npm test         # 172/172
 NEXT_TURBOPACK_EXPERIMENTAL_USE_SYSTEM_TLS_CERTS=1 npm run build
 # → 32 portal routes + 8 API routes registered
 ```

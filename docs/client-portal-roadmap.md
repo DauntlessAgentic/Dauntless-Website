@@ -30,7 +30,13 @@ land in any phase and ground quickly.
 - **#42 — Tier-3 + policy:** signing-key rotation, `scripts/verify-bundle.ts`, weekly digest renderer + REST endpoint, EN/FR i18n scaffold + locale toggle, `docs/{vocabulary,personas,advisory-board-cadence,safety-stance}.md`.
 - **#43 — Final:** decision-level comment thread, `/portal/dev/feedback` harness, responsive guards, policy cross-links.
 
-Test count after this batch: 167 smoke tests passing. Full advisory report at `docs/advisory-board/2026-05.md`.
+**Post-board audit + tidy (May 2026) — three PRs after the polish batch:**
+
+- **#45 — Tidy:** lint warnings 30 → 1, doc drift fixed, `tests/portal/*.test.mjs` glob in `npm test`, CI scope tightened to `main`, `SECURITY_AUDIT.md` resolution-status table.
+- **#46 — Security audit-2:** freeze role gate, feedback harness gate, rate-limit cost weighting on writes, `withApiAuth` Response passthrough, propose refused while frozen, viewer/auditor comment refusal, distinct dev-key verify error.
+- **#47 — A11y audit-3:** `<PoliteAnnouncer>` live regions, real `<h1>`, ConfirmAction `aria-describedby`, contrast bump (WCAG AA), form roles, server-side locale, reduced-motion respect.
+
+Test count after the full pass: **172** smoke tests across 25 suites. Lint: 0 errors. Full advisory report at `docs/advisory-board/2026-05.md`.
 
 **Phase 15.0 — Third-party agent marketplace + eval harness (shipped, PR TBD)**
 
