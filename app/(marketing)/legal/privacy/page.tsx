@@ -32,7 +32,7 @@ export default function PrivacyPage() {
               <p className="text-[--text-secondary] leading-relaxed">
                 Dauntless (&ldquo;we,&rdquo; &ldquo;us,&rdquo; &ldquo;our&rdquo;) is a consulting and AI operations firm
                 based in Ottawa, Ontario, Canada. We provide AI literacy training, strategic consulting, and
-                agentic system development services to government and private sector organizations.
+                agentic system development services to public, private, and nonprofit organizations.
               </p>
               <p className="text-[--text-secondary] leading-relaxed">
                 Questions about this policy can be directed to:{" "}

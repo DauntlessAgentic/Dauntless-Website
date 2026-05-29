@@ -307,7 +307,7 @@ export default function ConsultingPage() {
             <p className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "var(--svc-consulting-bright)" }}>Client Voices</p>
             <h2 className="text-2xl md:text-3xl font-semibold text-[--text-primary]">In Their Words</h2>
             <p className="max-w-xl mx-auto text-sm text-[--text-secondary] leading-relaxed">
-              From federal directors to program executives — what clients say after working with us.
+              From operational leaders to program executives — what clients say after working with us.
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-5">
@@ -387,7 +387,7 @@ export default function ConsultingPage() {
               <div className="p-5 space-y-1.5">
                 <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--svc-training)" }}>AI Literacy Training</p>
                 <p className="text-base font-semibold text-[--text-primary] flex items-center gap-1.5">Transform team capability <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" /></p>
-                <p className="text-sm text-[--text-secondary] leading-relaxed">Team-wide AI fluency in days, not months. Executive briefings to full practitioner programs built for government and enterprise.</p>
+                <p className="text-sm text-[--text-secondary] leading-relaxed">Team-wide AI fluency in days, not months. Executive briefings to full practitioner programs built for complex teams and enterprises.</p>
               </div>
             </Link>
             <Link href="/services/agentic-systems" className="relative flex flex-col gap-0 rounded-2xl overflow-hidden group text-left transition-all duration-200 hover:-translate-y-0.5"

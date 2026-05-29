@@ -57,7 +57,7 @@ export function HeroSection() {
           </h1>
           <p className="max-w-2xl mx-auto text-base sm:text-lg text-[--text-secondary] leading-relaxed">
             Redesign how people and teams think, decide, and build in the age of AI.
-            Whether you're a solopreneur, a growing team, or a national institution, we offer
+            Whether you're a solopreneur, a growing team, or a complex organization, we offer
             training programs, strategic consulting, and AI systems that redefine what's possible.
           </p>
         </div>

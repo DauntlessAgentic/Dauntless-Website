@@ -17,12 +17,12 @@ const categories = [
     title: "Who Is This For?",
     questions: [
       {
-        q: "Is Dauntless just for government clients?",
-        a: "No — though government work is a significant part of our portfolio. We work with federal departments, Crown corporations, and private sector organizations where complexity is high and getting it wrong has real consequences. The common denominator is organizational complexity, not sector.",
+        q: "What kinds of organizations do you work with?",
+        a: "Our work is sector-agnostic: we work with organizations where complexity is high, decisions matter, and AI needs to fit real operating constraints. Public sector work is part of our track record, but the common denominator is organizational complexity, not sector.",
       },
       {
         q: "What size organization do you typically work with?",
-        a: "Federal government programs ranging from 50 to 5,000+ people, and private sector organizations in the 100 to 2,000 person range. We're not a good fit for early-stage startups or organizations looking for off-the-shelf software — our work is about operating architecture, not tooling.",
+        a: "Most engagements involve teams, programs, or business units from 50 to 5,000+ people inside organizations with real coordination, governance, or delivery complexity. We're not a good fit for early-stage startups or organizations looking for off-the-shelf software — our work is about operating architecture, not tooling.",
       },
       {
         q: "Do you work with teams that have no AI experience?",
@@ -76,8 +76,8 @@ const categories = [
     title: "Logistics",
     questions: [
       {
-        q: "How does government procurement work with you?",
-        a: "We work through Standing Offer arrangements and custom Statement of Work processes. We're familiar with the ProServices and Task and Solutions Professional Services (TSPS) streams. If you're unsure which vehicle applies, just ask — we've navigated this many times.",
+        q: "How does public-sector procurement work with you?",
+        a: "For public-sector buyers, we can work through Standing Offer arrangements and custom Statement of Work processes. We're familiar with the ProServices and Task and Solutions Professional Services (TSPS) streams. If you're unsure which vehicle applies, just ask — we've navigated this many times.",
       },
       {
         q: "Do you work remotely or on-site?",

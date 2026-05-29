@@ -147,7 +147,7 @@ export default function WorkPage() {
             </span>
           </h1>
           <p className="max-w-2xl mx-auto text-lg text-[--text-secondary] leading-relaxed">
-            Strategy, systems, and design work delivered across Canadian government, private sector, and international organizations.
+            Strategy, systems, and design work delivered across public, private, nonprofit, and international organizations.
           </p>
           {/* Stats */}
           <div className="flex items-center justify-center gap-8 pt-2 flex-wrap">
@@ -181,10 +181,10 @@ export default function WorkPage() {
         <div className="max-w-6xl mx-auto space-y-8">
           <div className="text-center space-y-2">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Clients</p>
-            <h2 className="text-2xl font-semibold text-[--text-primary]">Trusted Across Government & Industry</h2>
+            <h2 className="text-2xl font-semibold text-[--text-primary]">Trusted Across Complex Organizations</h2>
           </div>
           <div className="space-y-4">
-            <p className="text-xs font-bold uppercase tracking-widest text-[--text-muted] text-center">Federal Government</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-[--text-muted] text-center">Selected Public Institutions</p>
             <div className="flex flex-wrap gap-2 justify-center">
               {federalDepts.map(d => (
                 <span key={d} className="px-3 py-1.5 rounded-full text-xs font-medium bg-[rgba(139,92,246,0.08)] border border-[rgba(139,92,246,0.18)] text-[--text-secondary]">
@@ -192,7 +192,7 @@ export default function WorkPage() {
                 </span>
               ))}
             </div>
-            <p className="text-xs font-bold uppercase tracking-widest text-[--text-muted] text-center pt-2">Private Sector & International</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-[--text-muted] text-center pt-2">Private, Nonprofit & International</p>
             <div className="flex flex-wrap gap-2 justify-center">
               {["Financial Services", "Mining & Resources", "International NGOs", "Healthcare & Pharma"].map(d => (
                 <span key={d} className="px-3 py-1.5 rounded-full text-xs font-medium bg-[rgba(255,255,255,0.03)] border border-[--mkt-border] text-[--text-secondary]">

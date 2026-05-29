@@ -57,7 +57,7 @@ export function WorkPreview() {
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Selected Work</p>
             <h2 className="text-3xl font-semibold text-[--text-primary]">Proof over promises.</h2>
             <p className="max-w-xl text-sm text-[--text-secondary] leading-relaxed">
-              A small selection of work delivered across Canadian government, private sector, and international organizations.
+              A small selection of work delivered across public, private, nonprofit, and international organizations.
             </p>
           </div>
           <Link href="/work" className="shrink-0 inline-flex items-center gap-1.5 text-sm font-medium text-[--accent-vivid] hover:text-[--accent-bright] transition-colors whitespace-nowrap">

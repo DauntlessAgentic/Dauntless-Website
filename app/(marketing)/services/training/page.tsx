@@ -60,7 +60,7 @@ const fc5Features = [
 
 export const metadata: Metadata = {
   title: "AI Literacy Training",
-  description: "Team-wide AI fluency in days, not months. Executive briefings to full practitioner programs — built for government and enterprise.",
+  description: "Team-wide AI fluency in days, not months. Executive briefings to full practitioner programs — built for complex teams and enterprises.",
 };
 
 export default function TrainingPage() {

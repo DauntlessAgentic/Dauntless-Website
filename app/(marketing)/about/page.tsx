@@ -10,7 +10,7 @@ import { identity } from "@/config/identity";
 const credentials = [
   { value: "20+", label: "Years designing AI & systems architecture", note: "Before AI was a consulting trend" },
   { value: "180+", label: "AI-augmented workflows designed", note: "Most orgs have zero documented at project start" },
-  { value: "5,000+", label: "Professionals served", note: "Across government and private sector" },
+  { value: "5,000+", label: "Professionals served", note: "Across sectors and operating models" },
   { value: "$50M+", label: "In documented value delivered", note: "Measurable. Verified. Not estimated." },
   { value: "200+", label: "Encoded delivery patterns", note: "Refined over 20 years of real projects" },
   { value: "27+", label: "Interconnected operational databases", note: "Building the second brain before it had a name" },
@@ -63,7 +63,7 @@ export default function AboutPage() {
             </span>
           </h1>
           <p className="max-w-2xl mx-auto text-lg text-[--text-secondary] leading-relaxed">
-            Dauntless Agentic wasn't designed in a strategy retreat. It was forged in 20+ years of public sector transformation, 180+ automated workflows, 5,000+ professionals served, and millions in documented savings.
+            Dauntless Agentic wasn't designed in a strategy retreat. It was forged in 20+ years of transformation and change work, 180+ automated workflows, 5,000+ professionals served, and millions in documented savings.
           </p>
         </div>
       </section>
@@ -87,7 +87,7 @@ export default function AboutPage() {
                   As <span className="text-[--text-primary] font-medium">VP Innovation at BDO Canada</span>, he architected the FutureCraft program — designing 180+ AI-augmented workflows that served 5,000+ professionals and generated $4M+ in documented productivity savings. He didn&apos;t just introduce AI tools. He redesigned how an entire professional services firm thought about work.
                 </p>
                 <p className="text-[--text-secondary] leading-relaxed">
-                  Before that, 20+ years in public sector innovation — designing systems that actually work inside complex organizations with real constraints, real politics, and real consequences.
+                  Before that, 20+ years in transformation and change work — designing systems that actually work inside complex organizations with real constraints, real politics, and real consequences.
                 </p>
                 <p className="text-[--text-secondary] leading-relaxed">
                   Now, through Dauntless Agentic, he&apos;s building the practice he always wished existed: one where the system compounds, the work gets better, and the architecture is the advantage.
@@ -99,7 +99,7 @@ export default function AboutPage() {
                   Dauntless Agentic is built by practitioners, not theorists. Our team brings 20+ years of direct experience designing operating architectures at the intersection of AI, human capability, and organizational design.
                 </p>
                 <p className="text-[--text-secondary] leading-relaxed">
-                  Across professional services and the public sector, we&apos;ve designed 180+ AI-augmented workflows, served 5,000+ professionals, and delivered $50M+ in documented value. We didn&apos;t just introduce AI tools — we redesigned how organizations think about work.
+                  Across public, private, and professional-services environments, we&apos;ve designed 180+ AI-augmented workflows, served 5,000+ professionals, and delivered $50M+ in documented value. We didn&apos;t just introduce AI tools — we redesigned how organizations think about work.
                 </p>
                 <p className="text-[--text-secondary] leading-relaxed">
                   Before Dauntless, our team spent two decades inside complex organizations with real constraints, real politics, and real consequences. That&apos;s why what we build actually works.
@@ -257,7 +257,7 @@ export default function AboutPage() {
                 {
                   badge: "Former Board Member",
                   org: "Canadian Public Sector Excellence Network",
-                  note: "Governance and excellence in public sector delivery",
+                  note: "Governance and excellence in complex service delivery",
                   color: "var(--svc-consulting-bright)",
                   bg: "rgba(var(--svc-consulting-rgb),0.08)",
                   border: "rgba(var(--svc-consulting-rgb),0.20)",
@@ -265,7 +265,7 @@ export default function AboutPage() {
                 {
                   badge: "Former Member",
                   org: "Canadian Public Sector Quality Association",
-                  note: "Quality management and continuous improvement in government",
+                  note: "Quality management and continuous improvement in large organizations",
                   color: "var(--svc-training-bright)",
                   bg: "rgba(var(--svc-training-rgb),0.08)",
                   border: "rgba(var(--svc-training-rgb),0.20)",
