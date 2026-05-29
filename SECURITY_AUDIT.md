@@ -43,6 +43,22 @@ without risk; the remaining 3 require version bumps.
 
 ---
 
+## Resolution status
+
+| Original item | Status on current `main` | Evidence |
+|---|---|---|
+| Next.js vulnerable version | **Resolved** | `package.json` pins `next` at `^16.2.6`; `npm audit --omit=dev` reports 0 vulnerabilities. |
+| API gate dev-bypass default | **Resolved** | `lib/portal/api/auth.ts` refuses production requests without `PORTAL_API_KEY` unless `PORTAL_ALLOW_OPEN_API=true`. |
+| Timing-safe API key comparison | **Resolved** | `lib/portal/api/auth.ts` uses `node:crypto#timingSafeEqual`. |
+| Audit-log mutability concerns | **Resolved for demo mode** | Proposal/approval/commit flows append audit entries in repository actions and are covered by portal tests. Durable storage remains Phase 2.1. |
+| Auth callback open redirect | **Resolved for current stub** | `app/auth/callback/route.ts` does not accept arbitrary redirect targets in the live path. Real OAuth remains Phase 2.1. |
+| RLS and durable client isolation | **Open, Phase 2.1-gated** | In-memory repository remains the active adapter; Supabase/RLS are not implemented. |
+| Federation anonymization gaps | **Resolved for current demo scope** | Federation actions are owner/executive-gated and tested; real cross-tenant exchange remains a future hardening area. |
+| Webhook signing and delivery | **Open, Phase 9.1-gated** | `lib/portal/webhooks.ts` is currently an in-process ledger, not signed outbound delivery. |
+| Low-severity polish items | **Partially resolved** | Post-audit hardening and accessibility PRs closed the highest-impact items; remaining launch hygiene is tracked in `docs/launch-readiness-2026-05.md`. |
+
+---
+
 ## Severity legend
 
 - **HIGH** — exploitable on the public internet today, or trivially so

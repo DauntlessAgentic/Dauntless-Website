@@ -21,12 +21,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/case-studies/tbs-performance-model",
     "/legal/privacy",
     "/legal/terms",
+    "/legal/accessibility",
     "/pricing",
     "/faq",
   ];
   return pages.map((path) => ({
     url: `${base}${path}`,
-    lastModified: new Date(),
+    lastModified: new Date("2026-05-25"),
     changeFrequency: path === "/" ? "weekly" : "monthly",
     priority: path === "/" ? 1 : 0.8,
   }));

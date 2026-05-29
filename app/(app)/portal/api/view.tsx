@@ -15,6 +15,8 @@ import type { WebhookEvent } from "@/lib/portal/webhooks";
 interface ApiExplorerViewProps {
   membership: MembershipContext;
   isConfigured: boolean;
+  isProduction: boolean;
+  isOpenApiDemo: boolean;
   recentWebhooks: WebhookEvent[];
 }
 
@@ -100,15 +102,30 @@ const ENDPOINTS: Endpoint[] = [
   },
 ];
 
-export function ApiExplorerView({ membership, isConfigured, recentWebhooks }: ApiExplorerViewProps) {
+export function ApiExplorerView({ membership, isConfigured, isProduction, isOpenApiDemo, recentWebhooks }: ApiExplorerViewProps) {
+  const authBadge = isConfigured
+    ? "Bearer required"
+    : isOpenApiDemo
+      ? "Open demo"
+      : isProduction
+        ? "API closed"
+        : "Local dev-bypass";
+  const authSubtitle = isConfigured
+    ? "PORTAL_API_KEY is set. Every request needs `Authorization: Bearer $PORTAL_API_KEY`."
+    : isOpenApiDemo
+      ? "PORTAL_ALLOW_OPEN_API=true is set for this production demo. Requests are accepted without a Bearer token by explicit opt-in."
+      : isProduction
+        ? "PORTAL_API_KEY is not set. Production API requests are refused with 503 unless PORTAL_ALLOW_OPEN_API=true is set for a demo."
+        : "PORTAL_API_KEY is not set. Local dev-bypass accepts requests so the demo can run without infrastructure.";
+
   return (
     <div className="flex flex-col h-full">
       <WorkspaceHeader
         eyebrow="API & SDK"
         title="REST surface + typed client"
         description="Phase 9.0 read endpoints, two writes (decisions + schedule), and a typed SDK shipping in-repo. Phase 9.1 wires real webhooks + the published npm package."
-        badge={isConfigured ? "Bearer required" : "Dev-bypass"}
-        badgeVariant={isConfigured ? "success" : "warning"}
+        badge={authBadge}
+        badgeVariant={isConfigured ? "success" : isProduction && !isOpenApiDemo ? "danger" : "warning"}
         actions={
           <Link href="/portal" className="text-xs text-[--accent-vivid] hover:underline inline-flex items-center gap-1">
             Command Center <ArrowRight className="h-3 w-3" />
@@ -122,11 +139,7 @@ export function ApiExplorerView({ membership, isConfigured, recentWebhooks }: Ap
             id="api-auth"
             eyebrow="AUTH"
             title="Bearer token"
-            subtitle={
-              isConfigured
-                ? "PORTAL_API_KEY is set. Every request needs `Authorization: Bearer $PORTAL_API_KEY`."
-                : "PORTAL_API_KEY is not set. Dev-bypass mode: every request is accepted. Set the env var to enable the gate."
-            }
+            subtitle={authSubtitle}
           >
             <div className="px-3 py-2.5 space-y-2 text-xs text-[--text-secondary]">
               <div className="flex items-center gap-2">

@@ -1,5 +1,4 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { Mail, Linkedin, MapPin, Clock, ArrowRight, BookOpen, Layers, Calendar as CalendarIcon } from "lucide-react";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
@@ -15,14 +14,6 @@ const steps = [
 
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: "", email: "", org: "", role: "", message: "", source: "" });
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
-
   return (
     <div className="min-h-screen bg-[--mkt-bg]">
       <MarketingNav />
@@ -78,72 +69,64 @@ export default function ContactPage() {
 
           {/* Form */}
           <div className="bg-[--mkt-card] border border-[--mkt-border] rounded-[--radius-xl] p-8">
-            {submitted ? (
-              <div className="text-center space-y-4 py-12">
-                <div className="text-5xl">✓</div>
-                <h2 className="text-xl font-bold text-[--text-primary]">Message Received</h2>
-                <p className="text-[--text-secondary]">We'll be in touch within 24 hours on business days. Looking forward to the conversation.</p>
+            <form action={`mailto:${identity.email}`} method="post" encType="text/plain" className="space-y-5">
+              <div className="space-y-1.5">
+                <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Start a Conversation</p>
+                <p className="text-sm text-[--text-muted]">Tell us about your situation. Submitting opens an email draft so your message reaches us directly.</p>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Start a Conversation</p>
-                  <p className="text-sm text-[--text-muted]">Tell us about your situation and we'll respond within 24 hours.</p>
-                </div>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-medium text-[--text-secondary]">Name *</label>
-                    <input required value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-                      placeholder="Your full name"
-                      className="w-full bg-[--mkt-bg] border border-[--mkt-border] rounded-[--radius-md] px-3 py-2 text-sm text-[--text-primary] placeholder:text-[--text-muted] focus:outline-none focus:border-[--border-focus] transition-colors" />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-medium text-[--text-secondary]">Email *</label>
-                    <input required type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-                      placeholder="you@organization.com"
-                      className="w-full bg-[--mkt-bg] border border-[--mkt-border] rounded-[--radius-md] px-3 py-2 text-sm text-[--text-primary] placeholder:text-[--text-muted] focus:outline-none focus:border-[--border-focus] transition-colors" />
-                  </div>
-                </div>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-medium text-[--text-secondary]">Organization</label>
-                    <input value={form.org} onChange={e => setForm(f => ({ ...f, org: e.target.value }))}
-                      placeholder="Your organization"
-                      className="w-full bg-[--mkt-bg] border border-[--mkt-border] rounded-[--radius-md] px-3 py-2 text-sm text-[--text-primary] placeholder:text-[--text-muted] focus:outline-none focus:border-[--border-focus] transition-colors" />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-medium text-[--text-secondary]">Role / Title</label>
-                    <input value={form.role} onChange={e => setForm(f => ({ ...f, role: e.target.value }))}
-                      placeholder="Your role"
-                      className="w-full bg-[--mkt-bg] border border-[--mkt-border] rounded-[--radius-md] px-3 py-2 text-sm text-[--text-primary] placeholder:text-[--text-muted] focus:outline-none focus:border-[--border-focus] transition-colors" />
-                  </div>
+                  <label htmlFor="contact-name" className="text-xs font-medium text-[--text-secondary]">Name *</label>
+                  <input id="contact-name" name="name" required
+                    placeholder="Your full name"
+                    className="w-full bg-[--mkt-bg] border border-[--mkt-border] rounded-[--radius-md] px-3 py-2 text-sm text-[--text-primary] placeholder:text-[--text-muted] focus:outline-none focus:border-[--border-focus] transition-colors" />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs font-medium text-[--text-secondary]">What are you looking to accomplish? *</label>
-                  <textarea required value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
-                    rows={4} placeholder="Tell us about your situation, your goals, and what's blocking you..."
-                    className="w-full bg-[--mkt-bg] border border-[--mkt-border] rounded-[--radius-md] px-3 py-2 text-sm text-[--text-primary] placeholder:text-[--text-muted] focus:outline-none focus:border-[--border-focus] transition-colors resize-none" />
+                  <label htmlFor="contact-email" className="text-xs font-medium text-[--text-secondary]">Email *</label>
+                  <input id="contact-email" name="email" required type="email"
+                    placeholder="you@organization.com"
+                    className="w-full bg-[--mkt-bg] border border-[--mkt-border] rounded-[--radius-md] px-3 py-2 text-sm text-[--text-primary] placeholder:text-[--text-muted] focus:outline-none focus:border-[--border-focus] transition-colors" />
+                </div>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <label htmlFor="contact-org" className="text-xs font-medium text-[--text-secondary]">Organization</label>
+                  <input id="contact-org" name="organization"
+                    placeholder="Your organization"
+                    className="w-full bg-[--mkt-bg] border border-[--mkt-border] rounded-[--radius-md] px-3 py-2 text-sm text-[--text-primary] placeholder:text-[--text-muted] focus:outline-none focus:border-[--border-focus] transition-colors" />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs font-medium text-[--text-secondary]">How did you hear about us?</label>
-                  <select value={form.source} onChange={e => setForm(f => ({ ...f, source: e.target.value }))}
-                    className="w-full bg-[--mkt-bg] border border-[--mkt-border] rounded-[--radius-md] px-3 py-2 text-sm text-[--text-primary] focus:outline-none focus:border-[--border-focus] transition-colors">
-                    <option value="">Select an option</option>
-                    {["LinkedIn", "Referral", "Search", "Event", "Other"].map(o => (<option key={o} value={o}>{o}</option>))}
-                  </select>
+                  <label htmlFor="contact-role" className="text-xs font-medium text-[--text-secondary]">Role / Title</label>
+                  <input id="contact-role" name="role"
+                    placeholder="Your role"
+                    className="w-full bg-[--mkt-bg] border border-[--mkt-border] rounded-[--radius-md] px-3 py-2 text-sm text-[--text-primary] placeholder:text-[--text-muted] focus:outline-none focus:border-[--border-focus] transition-colors" />
                 </div>
-                <button
-                  type="submit"
-                  className="w-full inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
-                  style={{
-                    background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)",
-                    boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.5), 0 8px 32px rgba(var(--accent-rgb),0.35)",
-                  }}
-                >
-                  Send Message <ArrowRight className="h-4 w-4" />
-                </button>
-              </form>
-            )}
+              </div>
+              <div className="space-y-1.5">
+                <label htmlFor="contact-message" className="text-xs font-medium text-[--text-secondary]">What are you looking to accomplish? *</label>
+                <textarea id="contact-message" name="message" required
+                  rows={4} placeholder="Tell us about your situation, your goals, and what's blocking you..."
+                  className="w-full bg-[--mkt-bg] border border-[--mkt-border] rounded-[--radius-md] px-3 py-2 text-sm text-[--text-primary] placeholder:text-[--text-muted] focus:outline-none focus:border-[--border-focus] transition-colors resize-none" />
+              </div>
+              <div className="space-y-1.5">
+                <label htmlFor="contact-source" className="text-xs font-medium text-[--text-secondary]">How did you hear about us?</label>
+                <select id="contact-source" name="source"
+                  className="w-full bg-[--mkt-bg] border border-[--mkt-border] rounded-[--radius-md] px-3 py-2 text-sm text-[--text-primary] focus:outline-none focus:border-[--border-focus] transition-colors">
+                  <option value="">Select an option</option>
+                  {["LinkedIn", "Referral", "Search", "Event", "Other"].map(o => (<option key={o} value={o}>{o}</option>))}
+                </select>
+              </div>
+              <button
+                type="submit"
+                className="w-full inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+                style={{
+                  background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%)",
+                  boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.5), 0 8px 32px rgba(var(--accent-rgb),0.35)",
+                }}
+              >
+                Open Email Draft <ArrowRight className="h-4 w-4" />
+              </button>
+            </form>
           </div>
 
           {/* Quick Reference */}

@@ -19,7 +19,7 @@ export default function PrivacyPage() {
           <div className="max-w-3xl mx-auto space-y-3">
             <p className="text-xs font-bold uppercase tracking-widest text-[--accent-vivid]">Legal</p>
             <h1 className="text-3xl md:text-4xl font-bold text-[--text-primary]">Privacy Policy</h1>
-            <p className="text-sm text-[--text-muted]">Last updated: March 2026</p>
+            <p className="text-sm text-[--text-muted]">Last updated: May 2026</p>
           </div>
         </section>
 
@@ -45,10 +45,10 @@ export default function PrivacyPage() {
             <div className="space-y-4">
               <h2 className="text-lg font-semibold text-[--text-primary]">2. What We Collect</h2>
               <p className="text-[--text-secondary] leading-relaxed">
-                We collect information you voluntarily provide through our contact form, including your
-                name, email address, organization, and the content of your message. We may also collect
-                standard technical information (IP address, browser type, pages visited) through analytics
-                tools for site improvement purposes.
+                We collect information you voluntarily send to us by email, booking request, or direct
+                message, including your name, email address, organization, and the content of your message.
+                The website contact form opens an email draft; it does not store submissions in a website
+                database today.
               </p>
               <p className="text-[--text-secondary] leading-relaxed">
                 We do not sell, rent, or share your personal information with third parties for marketing
@@ -78,7 +78,7 @@ export default function PrivacyPage() {
             <div className="space-y-4">
               <h2 className="text-lg font-semibold text-[--text-primary]">5. Data Retention</h2>
               <p className="text-[--text-secondary] leading-relaxed">
-                We retain contact form submissions for up to 24 months for engagement tracking purposes.
+                We retain contact messages for up to 24 months for engagement tracking purposes.
                 You may request deletion of your data at any time by emailing{" "}
                 <a href={`mailto:${identity.email}`} className="text-[--accent-vivid] hover:underline">
                   {identity.email}
@@ -90,9 +90,9 @@ export default function PrivacyPage() {
             <div className="space-y-4">
               <h2 className="text-lg font-semibold text-[--text-primary]">6. Cookies</h2>
               <p className="text-[--text-secondary] leading-relaxed">
-                This site may use minimal analytics cookies to understand visitor behaviour. No advertising
-                cookies are used. You can disable cookies in your browser settings without affecting your
-                ability to use this site.
+                The public website does not currently use advertising cookies or third-party analytics
+                cookies. If analytics are added later, this policy and any required consent notices will be
+                updated before launch.
               </p>
             </div>
 

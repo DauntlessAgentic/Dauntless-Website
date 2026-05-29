@@ -1,4 +1,7 @@
 "use client";
+// The feedback harness writes progress to localStorage and advances a visible
+// timer. React Compiler currently flags the local harness callbacks as purity
+// risks even though this route is dev-gated and intentionally client-only.
 /* eslint-disable react-hooks/purity */
 
 import React, { useEffect, useState } from "react";

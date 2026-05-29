@@ -90,14 +90,14 @@ export async function getCurrentMembership(
   const cookieStore = await cookies();
   const cookieRole = parseRole(cookieStore.get(auth.roleCookieName)?.value);
 
-  if (auth.mode === "dev-bypass") {
+  if (auth.mode === "dev-bypass" || auth.mode === "demo") {
     const fallbackMembership =
       memberships.find((m) => m.role === (cookieRole ?? "executive")) ??
       memberships.find((m) => m.role === "executive") ??
       memberships[0];
 
     const effectiveRole = cookieRole ?? fallbackMembership?.role ?? "executive";
-    const displayName = fallbackMembership?.userName ?? "Dauntless (dev-bypass)";
+    const displayName = fallbackMembership?.userName ?? (auth.mode === "demo" ? "Dauntless demo" : "Dauntless (dev-bypass)");
 
     return {
       status: "dev-bypass",
