@@ -80,8 +80,7 @@ export function HeroSection() {
           {stats.map(({ value, label }) => (
             <div key={label} className="text-center">
               <p
-                className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text"
-                style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright) 0%, #c4b5fd 100%)" }}
+                className="text-2xl sm:text-3xl font-bold text-[--accent-vivid]"
               >
                 {value}
               </p>
