@@ -213,6 +213,7 @@ Verifiable trust primitives:
 
 | Env var | Purpose | Required when |
 |---|---|---|
+| `PORTAL_PUBLIC_ENABLED` | Expose internal app routes in production | Later portal unveil only |
 | `PORTAL_DEMO_MODE` | Explicitly enable labeled sample-data portal mode in production | Public demo deployments only |
 | `PORTAL_DEV_BYPASS` | Skip OAuth, use deterministic membership | Local dev only |
 | `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` | Google OAuth | Phase 2.1, when real identity ships |

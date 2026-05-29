@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 import { AppShell } from "@/components/shell/app-shell";
 import { PoliteAnnouncer } from "@/components/patterns/polite-announcer";
@@ -21,6 +22,13 @@ export const metadata: Metadata = {
 };
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
+  const portalPublicEnabled =
+    process.env.NODE_ENV !== "production" || process.env.PORTAL_PUBLIC_ENABLED === "true";
+
+  if (!portalPublicEnabled) {
+    notFound();
+  }
+
   const auth = getAuthRuntimeState();
 
   if (auth.mode === "auth-unavailable") {

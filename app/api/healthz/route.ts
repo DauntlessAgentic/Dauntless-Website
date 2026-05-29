@@ -10,12 +10,13 @@ export async function GET() {
   const activation = computeActivationStatus(repository);
   const auth = getAuthRuntimeState();
   const isProduction = process.env.NODE_ENV === "production";
+  const portalPublicEnabled = !isProduction || process.env.PORTAL_PUBLIC_ENABLED === "true";
   const apiKeyConfigured = Boolean(process.env.PORTAL_API_KEY);
   const openApiDemo = process.env.PORTAL_ALLOW_OPEN_API === "true";
 
   const missingRequired = [
-    isProduction && auth.mode === "auth-unavailable" ? "AUTH_GOOGLE_ID/AUTH_GOOGLE_SECRET or PORTAL_DEMO_MODE" : null,
-    isProduction && !apiKeyConfigured && !openApiDemo ? "PORTAL_API_KEY or PORTAL_ALLOW_OPEN_API" : null,
+    portalPublicEnabled && isProduction && auth.mode === "auth-unavailable" ? "AUTH_GOOGLE_ID/AUTH_GOOGLE_SECRET or PORTAL_DEMO_MODE" : null,
+    portalPublicEnabled && isProduction && !apiKeyConfigured && !openApiDemo ? "PORTAL_API_KEY or PORTAL_ALLOW_OPEN_API" : null,
   ].filter((item): item is string => Boolean(item));
 
   const status = missingRequired.length > 0 ? "degraded" : "ok";
@@ -33,6 +34,7 @@ export async function GET() {
         gaps: activation.configGaps,
       },
       auth: {
+        portalPublicEnabled,
         mode: auth.mode,
         configured: auth.isConfigured,
         demo: auth.isDemoMode,
