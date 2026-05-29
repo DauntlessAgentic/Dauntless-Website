@@ -14,19 +14,11 @@ export function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-[--mkt-bg] min-h-[80vh] flex items-center">
 
-      {/* Background — radial glow + subtle grid */}
+      {/* Background — restrained radial glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] rounded-full"
-          style={{ background: "radial-gradient(ellipse at center, rgba(var(--accent-rgb),0.15) 0%, transparent 65%)" }}
-        />
-        <div
-          className="absolute inset-0 opacity-[0.025]"
-          style={{
-            backgroundImage:
-              "linear-gradient(var(--text-primary) 1px, transparent 1px), linear-gradient(90deg, var(--text-primary) 1px, transparent 1px)",
-            backgroundSize: "64px 64px",
-          }}
+          style={{ background: "radial-gradient(ellipse at center, rgba(var(--accent-rgb),0.11) 0%, transparent 68%)" }}
         />
       </div>
 
@@ -50,7 +42,7 @@ export function HeroSection() {
             <br />
             <span
               className="text-transparent bg-clip-text"
-              style={{ backgroundImage: "linear-gradient(135deg, var(--accent-bright) 0%, #c4b5fd 60%, var(--accent-vivid) 100%)" }}
+              style={{ backgroundImage: "linear-gradient(135deg, var(--accent) 0%, var(--accent-vivid) 100%)" }}
             >
               Potential.
             </span>
