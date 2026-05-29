@@ -41,6 +41,8 @@ export function DataTable<T>({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
 
+  // TanStack Table owns internal memoization here; React Compiler intentionally skips this hook.
+  // eslint-disable-next-line react-hooks/incompatible-library -- upstream TanStack Table compiler interop
   const table = useReactTable({
     data,
     columns,
