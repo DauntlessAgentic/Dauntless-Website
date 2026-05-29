@@ -2,6 +2,8 @@
 import React from "react";
 import Image from "next/image";
 
+import { identity } from "@/config/identity";
+
 /**
  * ClientRibbon — horizontally scrolling marquee of client names/logos.
  * Federal government orgs get a 🍁 flag prefix.
@@ -61,7 +63,10 @@ const clients: Client[] = [
 ];
 
 // Duplicate for seamless loop
-const track = [...clients, ...clients];
+const publicClients = identity.founderName
+  ? clients
+  : clients.filter((client) => client.name !== "BDO Canada");
+const track = [...publicClients, ...publicClients];
 
 export function ClientRibbon() {
   return (
