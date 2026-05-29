@@ -24,8 +24,8 @@ const organizationSchema = {
   name: "Dauntless Agentic",
   description:
     "AI strategy, systems, and training for solopreneurs, growing teams, and national institutions.",
-  url: "https://dauntlessagentic.com",
-  logo: "https://dauntlessagentic.com/images/logo-icon.png",
+  url: "https://www.dauntlessagentic.com",
+  logo: "https://www.dauntlessagentic.com/images/logo-icon.png",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Ottawa",

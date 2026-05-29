@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, FileText, Bot, BarChart3, RefreshCw, MessageSquare, TrendingUp, Compass, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -242,44 +243,15 @@ export default function PlatformPage() {
             </p>
           </div>
 
-          {/* Screenshot placeholder */}
-          <div
-            className="overflow-hidden"
-            style={{
-              aspectRatio: "16/9",
-              background: "var(--mkt-card)",
-              borderRadius: "20px",
-              boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.10), 0 8px 40px rgba(0,0,0,0.5)",
-            }}
-          >
-            <div className="flex flex-col items-center justify-center h-full gap-5 p-12 text-center">
-              <div
-                className="h-16 w-16 rounded-2xl flex items-center justify-center"
-                style={{
-                  background: "linear-gradient(135deg, rgba(var(--accent-rgb),0.15), rgba(var(--accent-bright-rgb),0.08))",
-                  boxShadow: "0 0 0 1px rgba(var(--accent-bright-rgb),0.20)",
-                }}
-              >
-                <svg viewBox="0 0 24 24" className="h-8 w-8" fill="none" stroke="var(--accent-vivid)" strokeWidth="1.5">
-                  <rect x="3" y="3" width="18" height="18" rx="2" />
-                  <path d="M3 9h18M9 21V9" />
-                </svg>
-              </div>
-              <div className="space-y-2 max-w-md">
-                <p className="text-sm font-semibold text-[--text-primary]">Platform screenshot coming soon</p>
-                <p className="text-sm text-[--text-secondary] leading-relaxed">
-                  We&apos;re building the visual walkthrough. In the meantime, book a 20-minute live demo and we&apos;ll show you a real engagement portal — not a mockup.
-                </p>
-              </div>
-              <Link href="/contact">
-                <button
-                  className="mt-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90"
-                  style={{ background: "linear-gradient(135deg, var(--accent), var(--accent-bright))", boxShadow: "0 4px 14px rgba(var(--accent-rgb),0.3)" }}
-                >
-                  Book a Live Walkthrough
-                </button>
-              </Link>
-            </div>
+          <div className="aspect-[16/9] overflow-hidden rounded-[--radius-xl] border border-[--mkt-border] bg-[--mkt-card] shadow-[var(--shadow-lg)]">
+            <Image
+              src="/images/portal-demo-command-center.png"
+              alt="Client Intelligence Portal command center preview"
+              width={1440}
+              height={810}
+              sizes="(min-width: 1024px) 1024px, 100vw"
+              className="h-full w-full object-cover"
+            />
           </div>
 
           <div className="grid md:grid-cols-3 gap-5">

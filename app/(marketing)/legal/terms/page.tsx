@@ -30,7 +30,7 @@ export default function TermsPage() {
             <div className="space-y-4">
               <h2 className="text-lg font-semibold text-[--text-primary]">1. Acceptance</h2>
               <p className="text-[--text-secondary] leading-relaxed">
-                By accessing dauntlessagentic.com, you agree to be bound by these Terms of Use. If you do not
+                By accessing www.dauntlessagentic.com, you agree to be bound by these Terms of Use. If you do not
                 agree, please do not use this site.
               </p>
             </div>

@@ -9,4 +9,4 @@ Disallow: /login
 Disallow: /portal
 Disallow: /settings
 Disallow: /showcase
-Sitemap: https://dauntlessagentic.com/sitemap.xml
+Sitemap: https://www.dauntlessagentic.com/sitemap.xml
