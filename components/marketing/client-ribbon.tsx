@@ -2,73 +2,22 @@
 import React from "react";
 import Image from "next/image";
 
-import { identity } from "@/config/identity";
-
 /**
  * ClientRibbon — horizontally scrolling marquee of client names/logos.
  * Federal government orgs get a 🍁 flag prefix.
  * Logos load from /public/images/logos/[filename] if available.
  */
 
-interface Client {
+export interface Client {
   name: string;
   logo?: string;
   federal?: boolean; // Canadian federal government departments/agencies
 }
 
-const clients: Client[] = [
-  { name: "AgriTeam Canada Inc." },
-  { name: "Alexandria Moulding" },
-  { name: "Brookfield Asset Management", logo: "/images/logos/brookfield.png" },
-  { name: "BDO Canada", logo: "/images/logos/bdo.svg" },
-  { name: "US Lumber" },
-  { name: "Canada Council for the Arts", logo: "/images/logos/canada-council-for-the-arts.svg", federal: true },
-  { name: "Canada Revenue Agency", federal: true },
-  { name: "Canadian Council on Learning" },
-  { name: "Canadian Food Inspection Agency", federal: true },
-  { name: "Canadian Heritage", federal: true },
-  { name: "Canadian Human Rights Commission", federal: true },
-  { name: "Canadian Lung Association" },
-  { name: "Canadian Red Cross", logo: "/images/logos/red-cross.png" },
-  { name: "CRTC", federal: true },
-  { name: "City of Brooks" },
-  { name: "City of Summerside" },
-  { name: "Consumer Health Products Canada" },
-  { name: "Fisheries & Oceans Canada", federal: true },
-  { name: "Department of Justice", federal: true },
-  { name: "National Defence", federal: true },
-  { name: "Elections Canada", federal: true },
-  { name: "Employment & Social Development Canada", federal: true },
-  { name: "Environment & Climate Change Canada", federal: true },
-  { name: "Financial Consumer Agency of Canada", federal: true },
-  { name: "Fortis Inc." },
-  { name: "Health Canada", federal: true },
-  { name: "Home Trust" },
-  { name: "IRCC", federal: true },
-  { name: "Indigenous & Northern Affairs Canada", federal: true },
-  { name: "Innovation, Science & Economic Development Canada", federal: true },
-  { name: "Library & Archives Canada", federal: true },
-  { name: "Métis National Council" },
-  { name: "Natural Resources Canada", federal: true },
-  { name: "Office of the Privacy Commissioner", federal: true },
-  { name: "Privy Council Office", federal: true },
-  { name: "Public Health Agency of Canada", federal: true },
-  { name: "Public Services & Procurement Canada", federal: true },
-  { name: "Rideau Heritage Route Tourism" },
-  { name: "Sanofi Aventis" },
-  { name: "Service Canada", federal: true },
-  { name: "Treasury Board Secretariat", federal: true },
-  { name: "Women of the Métis Nation" },
-  { name: "Wrapped Apps" },
-];
+export function ClientRibbon({ clients }: { clients: Client[] }) {
+  // Duplicate for seamless loop
+  const track = [...clients, ...clients];
 
-// Duplicate for seamless loop
-const publicClients = identity.founderName
-  ? clients
-  : clients.filter((client) => client.name !== "BDO Canada");
-const track = [...publicClients, ...publicClients];
-
-export function ClientRibbon() {
   return (
     <div className="w-full overflow-hidden py-6 select-none">
       <div className="relative">
