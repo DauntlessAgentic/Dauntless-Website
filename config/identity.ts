@@ -25,7 +25,7 @@ export const identity = {
 
   /** Short bio shown in the homepage founder card */
   founderBioShort: STEALTH
-    ? "20+ years of public sector transformation. 180+ AI-augmented workflows designed for government and enterprise. Systems thinkers and architects building at the intersection of AI, human capability, and organizational design."
+    ? "20+ years of transformation and change work. 180+ AI-augmented workflows designed for complex organizations. Systems thinkers and architects building at the intersection of AI, human capability, and organizational design."
     : "Former VP Innovation at BDO Canada, FutureCraft program architect, systems thinker, and builder of operating architectures at the intersection of AI, human capability, and organizational design.",
 
   // ─── Contact ────────────────────────────────────────────────────────────────
@@ -47,17 +47,17 @@ export const identity = {
     : "About — Craig Marchand",
   aboutPageDescription: STEALTH
     ? "The track record, the philosophy, and the thinking behind Dauntless Agentic."
-    : "20+ years designing AI and systems architecture for government and enterprise. The story behind Dauntless and why we build the way we do.",
+    : "20+ years designing AI and systems architecture for complex organizations. The story behind Dauntless and why we build the way we do.",
 
   /** Background line items on the about/credentials section */
   background: STEALTH
     ? [
-        "20+ years of public sector innovation",
+        "20+ years of transformation and change work",
         "180+ AI-augmented workflows designed",
         "Systems thinking practitioner",
         "Notion-native operating system designer",
         "AI agent fleet architect",
-        "Public sector digital transformation specialist",
+        "Complex-organization transformation specialist",
       ]
     : [
         "VP Innovation, BDO Canada",
@@ -65,7 +65,7 @@ export const identity = {
         "Systems thinking practitioner",
         "Notion-native operating system designer",
         "AI agent fleet architect",
-        "Public sector digital transformation specialist",
+        "Complex-organization transformation specialist",
       ],
 
   // ─── Testimonials ───────────────────────────────────────────────────────────

@@ -58,7 +58,7 @@ export function WhyDauntless() {
         {/* Client sectors */}
         <div className="space-y-6">
           <div className="space-y-3">
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[--text-muted] text-center">Federal Government Clients</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[--text-muted] text-center">Selected Public Institutions</p>
             <div className="flex flex-wrap justify-center gap-2">
               {federalDepts.map((dept) => (
                 <span key={dept} className="px-3 py-1.5 rounded-full text-xs font-medium text-[--text-secondary] transition-colors"
@@ -69,7 +69,7 @@ export function WhyDauntless() {
             </div>
           </div>
           <div className="space-y-3">
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[--text-muted] text-center">Private Sector & International</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[--text-muted] text-center">Private, Nonprofit & International</p>
             <div className="flex flex-wrap justify-center gap-2">
               {privateSectors.map((sector) => (
                 <span key={sector} className="px-3 py-1.5 rounded-full text-xs font-medium text-[--text-muted]"

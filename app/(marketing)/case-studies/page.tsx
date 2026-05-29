@@ -10,7 +10,7 @@ import { PageCTA } from "@/components/marketing/page-cta";
 export const metadata: Metadata = {
   title: "Case Studies",
   description:
-    "Deep dives into how Dauntless has helped government and enterprise organizations solve complex systems challenges. Real work, real outcomes.",
+    "Deep dives into how Dauntless has helped complex organizations solve systems challenges. Real work, real outcomes.",
 };
 
 const caseStudies = [
@@ -149,7 +149,7 @@ export default function CaseStudiesPage() {
       {/* Link to full portfolio */}
       <section className="bg-[--mkt-section] border-t border-[--mkt-border] py-10 px-6 text-center">
         <p className="text-sm text-[--text-secondary] mb-3">
-          These are three of 150+ projects delivered across government and the private sector.
+          These are three of 150+ projects delivered across public, private, nonprofit, and international organizations.
         </p>
         <Link
           href="/work"

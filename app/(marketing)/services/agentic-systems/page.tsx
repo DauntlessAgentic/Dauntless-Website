@@ -511,7 +511,7 @@ export default function AgenticSystemsPage() {
                 <p className="text-base font-semibold text-[--text-primary] flex items-center gap-1.5">
                   Transform team capability <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </p>
-                <p className="text-sm text-[--text-secondary] leading-relaxed">Team-wide AI fluency in days, not months. Executive briefings to full practitioner programs built for government and enterprise.</p>
+                <p className="text-sm text-[--text-secondary] leading-relaxed">Team-wide AI fluency in days, not months. Executive briefings to full practitioner programs built for complex teams and enterprises.</p>
               </div>
             </Link>
             <Link

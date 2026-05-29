@@ -33,10 +33,10 @@ export function TrustedBy() {
         style={{ background: "linear-gradient(90deg, transparent, rgba(var(--accent-bright-rgb),0.1), transparent)" }} />
 
       <div className="max-w-6xl mx-auto space-y-8">
-        {/* Federal departments */}
+        {/* Public institutions */}
         <div className="space-y-4">
           <p className="text-center text-xs font-bold uppercase tracking-[0.18em] text-[--text-muted]">
-            Federal Government Clients
+            Selected Public Institutions
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2">
             {federalDepts.map((dept) => (
@@ -58,7 +58,7 @@ export function TrustedBy() {
         {/* Private sector */}
         <div className="space-y-4">
           <p className="text-center text-xs font-bold uppercase tracking-[0.18em] text-[--text-muted]">
-            Private Sector & International
+            Private, Nonprofit & International
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2">
             {privateSectors.map((s) => (

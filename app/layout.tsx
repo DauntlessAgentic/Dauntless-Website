@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: "%s | Dauntless Agentic",
   },
   description:
-    "AI strategy, systems, and training for solopreneurs, growing teams, and national institutions. 18+ years of transformation. $50M+ documented savings. Ottawa, Canada.",
+    "AI strategy, systems, and training for solopreneurs, growing teams, and complex organizations. 18+ years of transformation. $50M+ documented savings. Ottawa, Canada.",
   metadataBase: new URL("https://www.dauntlessagentic.com"),
   openGraph: {
     type: "website",

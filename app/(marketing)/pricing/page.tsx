@@ -69,8 +69,8 @@ const tiers = [
 
 const faqs = [
   {
-    q: "Do you work with government procurement?",
-    a: "Yes. We work through standard Standing Offer arrangements and Statement of Work processes. If you're in the federal government, we're familiar with the procurement landscape and can help you find the right vehicle.",
+    q: "Do you support public-sector procurement?",
+    a: "Yes, when an engagement requires it. Public-sector buyers can work with us through standard Standing Offer arrangements and Statement of Work processes. For private and nonprofit clients, we keep contracting lightweight and scope-driven.",
   },
   {
     q: "Can we start with just the Discovery Sprint?",
@@ -86,7 +86,7 @@ const faqs = [
   },
   {
     q: "What size organizations do you typically work with?",
-    a: "We work with federal government departments (50–5,000+ person programs), Crown corporations, and private sector organizations in the 100–2,000 person range. The common thread is complexity — organizations where the challenge isn't just technical.",
+    a: "We typically work with teams, programs, and business units from 50 to 5,000+ people where the challenge isn't just technical. The common thread is complexity: many stakeholders, real constraints, and work that has to survive beyond a pilot.",
   },
 ];
 
@@ -112,7 +112,7 @@ export default function PricingPage() {
           <p className="text-lg text-[--text-secondary] leading-relaxed max-w-2xl mx-auto">
             We believe transparency builds better engagements. Here's what different types of work typically cost — so you can make a real decision before we ever get on a call.
           </p>
-          <p className="text-xs text-[--text-muted]">All pricing in CAD. Government procurement through standard Standing Offer or SOW process.</p>
+          <p className="text-xs text-[--text-muted]">All pricing in CAD. Public-sector procurement available through standard Standing Offer or SOW processes when needed.</p>
         </div>
       </section>
 
@@ -214,8 +214,8 @@ export default function PricingPage() {
         {/* Procurement note */}
         <div className="max-w-6xl mx-auto mt-8 text-center">
           <p className="text-xs text-[--text-muted] max-w-2xl mx-auto">
-            Government procurement: we work through Standing Offer arrangements and custom SOW processes.
-            Not sure which vehicle fits? Mention it when you reach out — we've done this before.
+            Public-sector procurement: we work through Standing Offer arrangements and custom SOW processes when needed.
+            Not sure which contracting path fits? Mention it when you reach out — we've done this before.
           </p>
         </div>
       </section>

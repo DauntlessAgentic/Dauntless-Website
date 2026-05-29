@@ -15,7 +15,7 @@ import { identity } from "@/config/identity";
 export const metadata: Metadata = {
   title: { absolute: "Dauntless Agentic — AI Strategy, Systems & Training for Any Scale" },
   description:
-    "AI strategy, systems, and training for solopreneurs, growing teams, and national institutions. 18+ years of transformation. $50M+ documented savings. Ottawa, Canada.",
+    "AI strategy, systems, and training for solopreneurs, growing teams, and complex organizations. 18+ years of transformation. $50M+ documented savings. Ottawa, Canada.",
 };
 
 const organizationSchema = {
@@ -23,7 +23,7 @@ const organizationSchema = {
   "@type": "ProfessionalService",
   name: "Dauntless Agentic",
   description:
-    "AI strategy, systems, and training for solopreneurs, growing teams, and national institutions.",
+    "AI strategy, systems, and training for solopreneurs, growing teams, and complex organizations.",
   url: "https://www.dauntlessagentic.com",
   logo: "https://www.dauntlessagentic.com/images/logo-icon.png",
   address: {
