@@ -1,11 +1,12 @@
-"use client";
-import React, { useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { WorkCard, WorkCategory } from "@/components/ui/work-card";
+import type { WorkCategory } from "@/components/ui/work-card";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
-import { ClientRibbon } from "@/components/marketing/client-ribbon";
+import { ClientRibbon, type Client } from "@/components/marketing/client-ribbon";
+import { revealFounder } from "@/config/identity";
+
+import { WorkFilter } from "./work-filter";
 
 interface Project {
   department: string;
@@ -77,13 +78,56 @@ const federalDepts = [
   "Public Services & Procurement Canada",
 ];
 
+const clients: Client[] = [
+  { name: "AgriTeam Canada Inc." },
+  { name: "Alexandria Moulding" },
+  { name: "Brookfield Asset Management", logo: "/images/logos/brookfield.png" },
+  { name: "BDO Canada", logo: "/images/logos/bdo.svg" },
+  { name: "US Lumber" },
+  { name: "Canada Council for the Arts", logo: "/images/logos/canada-council-for-the-arts.svg", federal: true },
+  { name: "Canada Revenue Agency", federal: true },
+  { name: "Canadian Council on Learning" },
+  { name: "Canadian Food Inspection Agency", federal: true },
+  { name: "Canadian Heritage", federal: true },
+  { name: "Canadian Human Rights Commission", federal: true },
+  { name: "Canadian Lung Association" },
+  { name: "Canadian Red Cross", logo: "/images/logos/red-cross.png" },
+  { name: "CRTC", federal: true },
+  { name: "City of Brooks" },
+  { name: "City of Summerside" },
+  { name: "Consumer Health Products Canada" },
+  { name: "Fisheries & Oceans Canada", federal: true },
+  { name: "Department of Justice", federal: true },
+  { name: "National Defence", federal: true },
+  { name: "Elections Canada", federal: true },
+  { name: "Employment & Social Development Canada", federal: true },
+  { name: "Environment & Climate Change Canada", federal: true },
+  { name: "Financial Consumer Agency of Canada", federal: true },
+  { name: "Fortis Inc." },
+  { name: "Health Canada", federal: true },
+  { name: "Home Trust" },
+  { name: "IRCC", federal: true },
+  { name: "Indigenous & Northern Affairs Canada", federal: true },
+  { name: "Innovation, Science & Economic Development Canada", federal: true },
+  { name: "Library & Archives Canada", federal: true },
+  { name: "Métis National Council" },
+  { name: "Natural Resources Canada", federal: true },
+  { name: "Office of the Privacy Commissioner", federal: true },
+  { name: "Privy Council Office", federal: true },
+  { name: "Public Health Agency of Canada", federal: true },
+  { name: "Public Services & Procurement Canada", federal: true },
+  { name: "Rideau Heritage Route Tourism" },
+  { name: "Sanofi Aventis" },
+  { name: "Service Canada", federal: true },
+  { name: "Treasury Board Secretariat", federal: true },
+  { name: "Women of the Métis Nation" },
+  { name: "Wrapped Apps" },
+];
 
 export default function WorkPage() {
-  const [active, setActive] = useState<"All" | WorkCategory>("All");
-
-  const filtered = active === "All"
-    ? projects
-    : projects.filter(p => p.category === active);
+  const visibleClients = revealFounder
+    ? clients
+    : clients.filter((client) => client.name !== "BDO Canada");
 
   return (
     <>
@@ -127,69 +171,10 @@ export default function WorkPage() {
         <div className="max-w-6xl mx-auto px-6 pt-5 pb-1">
           <p className="text-xs font-bold uppercase tracking-widest text-[--text-muted] mb-3 text-center">Trusted by 50+ organizations</p>
         </div>
-        <ClientRibbon />
+        <ClientRibbon clients={visibleClients} />
       </section>
 
-      {/* Filter bar */}
-      <section className="bg-[--mkt-section] py-4 px-6 sticky top-16 z-10 border-b border-[--mkt-border]">
-        <div className="max-w-6xl mx-auto">
-          {/* Mobile: dropdown */}
-          <div className="flex items-center gap-3 md:hidden">
-            <select
-              value={active}
-              onChange={(e) => setActive(e.target.value as typeof active)}
-              className="flex-1 px-3 py-2 rounded-lg text-sm bg-[--mkt-card] border border-[--mkt-border] text-[--text-primary] focus:outline-none focus:border-[--accent-vivid]"
-            >
-              {CATEGORIES.map((cat) => (
-                <option key={cat} value={cat}>{cat}</option>
-              ))}
-            </select>
-            <span className="text-xs text-[--text-muted] shrink-0">
-              {filtered.length} project{filtered.length !== 1 ? "s" : ""}
-            </span>
-          </div>
-          {/* Desktop: button row */}
-          <div className="hidden md:flex items-center gap-2">
-            <div className="flex flex-wrap gap-2">
-              {CATEGORIES.map(cat => (
-                <button
-                  key={cat}
-                  onClick={() => setActive(cat)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 whitespace-nowrap ${
-                    active === cat
-                      ? "bg-[--accent-vivid] text-white shadow-[0_0_12px_rgba(139,92,246,0.4)]"
-                      : "bg-[--mkt-card] border border-[--mkt-border] text-[--text-secondary] hover:border-[--accent-vivid] hover:text-[--text-primary]"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-            <span className="ml-auto text-xs text-[--text-muted] shrink-0 pl-2">
-              {filtered.length} project{filtered.length !== 1 ? "s" : ""}
-            </span>
-          </div>
-        </div>
-      </section>
-
-      {/* Portfolio grid */}
-      <section className="bg-[--mkt-bg] py-12 px-6">
-        <div className="max-w-6xl mx-auto">
-          <p className="text-xs text-[--text-muted] mb-6">{filtered.length} projects</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {filtered.map((p, i) => (
-              <WorkCard
-                key={i}
-                department={p.department}
-                project={p.project}
-                category={p.category}
-                sector={p.sector}
-                image={p.image}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+      <WorkFilter projects={projects} categories={CATEGORIES} />
 
       {/* Client strip */}
       <section className="bg-[--mkt-section] py-16 px-6">

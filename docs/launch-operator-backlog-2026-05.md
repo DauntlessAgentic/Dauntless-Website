@@ -25,7 +25,8 @@ or production credentials before launch.
    - Decision needed: create/monitor the security alias or tell me the right disclosure address.
 
 5. **Set production env vars in the hosting provider.**
-   - Minimum public marketing launch: `NEXT_PUBLIC_PORTAL_BASE_URL`, `NEXT_PUBLIC_STEALTH_MODE`.
+   - Minimum public marketing launch: `NEXT_PUBLIC_PORTAL_BASE_URL`.
+   - Future founder reveal: set `NEXT_PUBLIC_REVEAL_FOUNDER=true` and redeploy.
    - Public portal demo: also set `PORTAL_DEMO_MODE=true`, `PORTAL_API_KEY`, and usually keep `PORTAL_ALLOW_OPEN_API=false`.
    - Real client onboarding: add OAuth, Supabase, export signing, and observability secrets.
 
@@ -62,9 +63,9 @@ or production credentials before launch.
    - Current implementation is an in-process event ledger.
    - Real webhooks need HTTP delivery, HMAC signatures, timestamp replay protection, retry/backoff, and per-workspace secrets.
 
-4. **Replace the platform placeholder with real demo proof.**
-   - Needs an approved screenshot or short walkthrough capture from the demo portal.
-   - I can wire the asset once the portal demo styling/content is approved.
+4. **Keep the platform proof current.**
+   - A real portal screenshot is now wired into `/platform`.
+   - Refresh the asset before the portal reveal if the demo portal content or styling changes materially.
 
 5. **Close or revive stale draft PRs.**
    - Close as superseded: #23, #27, #30.

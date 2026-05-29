@@ -3,16 +3,16 @@
  * ─────────────────────────────────────────────
  * Controls all personal/founder references across the site.
  *
- * To activate stealth mode (anonymous public launch):
- *   Set NEXT_PUBLIC_STEALTH_MODE=true in your .env.local and redeploy.
+ * Public launch defaults to stealth mode.
  *
- * To restore full identity (September reveal):
- *   Remove the variable (or set to "false") and redeploy.
+ * To reveal full identity later:
+ *   Set NEXT_PUBLIC_REVEAL_FOUNDER=true and redeploy.
  *
  * This is a build-time switch — changes take effect on next deployment.
  */
 
-const STEALTH = process.env.NEXT_PUBLIC_STEALTH_MODE === "true";
+export const revealFounder = process.env.NEXT_PUBLIC_REVEAL_FOUNDER === "true";
+const STEALTH = !revealFounder;
 
 export const identity = {
   // ─── Founder ────────────────────────────────────────────────────────────────
