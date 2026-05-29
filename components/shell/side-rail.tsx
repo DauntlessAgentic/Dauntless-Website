@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, BarChart3, Settings2,
-  ClipboardList, Cpu, Command,
+  ClipboardList, Command,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { Tooltip } from "@/components/ui/tooltip";
@@ -27,9 +28,13 @@ export function SideRail() {
     <aside className="flex flex-col w-12 shrink-0 bg-[--chrome-bg] border-r border-[--border-subtle]">
       {/* Logo mark */}
       <div className="flex h-11 items-center justify-center border-b border-[--border-subtle]">
-        <div className="flex h-6 w-6 items-center justify-center rounded-[--radius-sm] bg-[--accent-dim] border border-[--border-active]">
-          <Cpu className="h-3.5 w-3.5 text-[--accent-vivid]" />
-        </div>
+        <Image
+          src="/images/logo-mark.png"
+          alt="Dauntless Agentic"
+          width={28}
+          height={28}
+          className="h-7 w-7 rounded-[--radius-sm] border border-[--border-active] object-cover"
+        />
       </div>
 
       {/* Main nav */}

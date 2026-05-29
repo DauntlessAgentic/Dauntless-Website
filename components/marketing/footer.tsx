@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { identity } from "@/config/identity";
 
@@ -31,7 +32,14 @@ const footerLinks = {
 
 function FooterLogo() {
   return (
-    <Link href="/" className="flex items-center">
+    <Link href="/" className="flex items-center gap-2.5">
+      <Image
+        src="/images/logo-mark.png"
+        alt=""
+        width={28}
+        height={28}
+        className="h-7 w-7 rounded-[--radius-sm] border border-[--mkt-border] object-cover"
+      />
       <span className="text-sm font-semibold tracking-tight text-[--text-primary]">
         Dauntless{" "}
         <span

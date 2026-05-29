@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { Cpu, Chrome } from "lucide-react";
+import Image from "next/image";
+import { Chrome } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,9 +36,14 @@ export default function LoginPage() {
       <div className="relative w-full max-w-sm space-y-6">
         {/* Logo */}
         <div className="flex flex-col items-center gap-3 text-center">
-          <div className="flex h-10 w-10 items-center justify-center rounded-[--radius-lg] bg-[--accent-dim] border border-[--border-active]">
-            <Cpu className="h-5 w-5 text-[--accent-vivid]" />
-          </div>
+          <Image
+            src="/images/logo-mark.png"
+            alt="Dauntless Agentic"
+            width={44}
+            height={44}
+            priority
+            className="h-11 w-11 rounded-[--radius-lg] border border-[--border-active] object-cover"
+          />
           <div>
             <h1 className="text-base font-bold text-[--text-primary]">
               App <span className="text-[--accent-vivid]">Chassis</span>

@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ArrowRight, Sun, Moon } from "lucide-react";
@@ -17,7 +18,15 @@ const navLinks = [
 
 function LogoMark() {
   return (
-    <Link href="/" className="flex items-center group">
+    <Link href="/" className="flex items-center gap-3 group">
+      <Image
+        src="/images/logo-mark.png"
+        alt=""
+        width={36}
+        height={36}
+        priority
+        className="h-9 w-9 rounded-[--radius-md] border border-[--mkt-border] object-cover"
+      />
       <span className="text-base font-semibold tracking-tight text-[--text-primary]">
         Dauntless{" "}
         <span className="text-transparent bg-clip-text"
