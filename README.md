@@ -171,6 +171,10 @@ Endpoints under `/api/portal/v1`:
 | `POST` | `/schedule` | 3 tokens |
 | `POST` | `/decisions` | 5 tokens |
 
+Runtime health check: `GET /api/healthz` returns repository mode, auth mode,
+API gate status, rate-limit configuration, and missing production env items
+without exposing secret values.
+
 **Auth:** Bearer token in `Authorization`. Set `PORTAL_API_KEY` to enable gating; unset means dev-bypass (refused in production unless `PORTAL_ALLOW_OPEN_API=true`). Constant-time comparison via `node:crypto#timingSafeEqual`.
 
 **Rate limiting:** Token-bucket per-token + per-IP. Burst 30, refill 5/sec (env-tunable). 429 with `Retry-After` on bucket drain. Writes cost more than reads (see table).
@@ -209,8 +213,9 @@ Verifiable trust primitives:
 
 | Env var | Purpose | Required when |
 |---|---|---|
-| `PORTAL_DEV_BYPASS` | Skip OAuth, use deterministic membership | Local dev (default `1`) |
-| `AUTH_GOOGLE_CLIENT_ID` / `AUTH_GOOGLE_CLIENT_SECRET` | Google OAuth | Phase 2.1, when real identity ships |
+| `PORTAL_DEMO_MODE` | Explicitly enable labeled sample-data portal mode in production | Public demo deployments only |
+| `PORTAL_DEV_BYPASS` | Skip OAuth, use deterministic membership | Local dev only |
+| `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` | Google OAuth | Phase 2.1, when real identity ships |
 | `AUTH_GOOGLE_REDIRECT_URI` | OAuth callback URL | Phase 2.1 |
 | `SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` | Activate `SupabasePortalRepository` | Phase 2.1 |
 | `ANTHROPIC_API_KEY` | Anthropic Messages API | Real agent runs (otherwise deterministic stubs) |
@@ -219,6 +224,8 @@ Verifiable trust primitives:
 | `PORTAL_API_RATE_BURST` / `PORTAL_API_RATE_REFILL` | Tune the rate limiter | Tuning only (defaults 30 / 5) |
 | `PORTAL_EXPORT_SIGNING_KEY` | HMAC master key for evidence bundles | Audit-grade exports |
 | `PORTAL_EXPORT_SIGNING_KEY_PREVIOUS` | Rotation slot | During key-rotation windows |
+| `NEXT_PUBLIC_PORTAL_BASE_URL` | Public base URL for examples and generated links | Production |
+| `SENTRY_DSN` or equivalent | Error reporting endpoint | Public launch, after vendor choice |
 
 ---
 
@@ -353,6 +360,7 @@ Lower priority: real-time signals, persisted innovation proposals (engine itself
 | [`docs/advisory-board-cadence.md`](docs/advisory-board-cadence.md) | Quarterly review process. |
 | [`docs/advisory-board/2026-05.md`](docs/advisory-board/2026-05.md) | Most recent advisory-board session. |
 | [`SECURITY_AUDIT.md`](SECURITY_AUDIT.md) | May 2026 audit + resolution status. |
+| [`SECURITY.md`](SECURITY.md) | Responsible disclosure policy. |
 | [`AGENTS.md`](AGENTS.md) | Binding rules for any agent (human or AI) committing code. |
 | [`docs/caia-mapping.md`](docs/caia-mapping.md) | CAIA reference architecture mapping. |
 
@@ -360,4 +368,4 @@ Lower priority: real-time signals, persisted innovation proposals (engine itself
 
 ## License
 
-Internal repository — no published license. Security disclosures: see [`SECURITY_AUDIT.md`](SECURITY_AUDIT.md) for the current baseline; reach out to the maintainers directly for responsible-disclosure coordination.
+Internal repository — no published license. Package metadata is marked `UNLICENSED`. Security disclosures: see [`SECURITY.md`](SECURITY.md) and the current baseline in [`SECURITY_AUDIT.md`](SECURITY_AUDIT.md).

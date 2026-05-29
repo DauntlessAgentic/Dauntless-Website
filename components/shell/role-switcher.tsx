@@ -32,11 +32,12 @@ interface RoleSwitcherProps {
   currentRole: MembershipRole;
   displayName: string;
   visible: boolean;
+  modeLabel?: string;
 }
 
 const ROLES: MembershipRole[] = ["owner", "executive", "lead", "viewer", "auditor"];
 
-export function RoleSwitcher({ currentRole, displayName, visible }: RoleSwitcherProps) {
+export function RoleSwitcher({ currentRole, displayName, visible, modeLabel = "Dev-bypass mode" }: RoleSwitcherProps) {
   const [isPending, startTransition] = useTransition();
 
   if (!visible) return null;
@@ -58,7 +59,7 @@ export function RoleSwitcher({ currentRole, displayName, visible }: RoleSwitcher
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel className="flex flex-col gap-0.5">
-          <span>Impersonate role</span>
+            <span>{modeLabel === "Demo mode" ? "Demo role" : "Impersonate role"}</span>
           <span className="text-[10px] font-normal text-[--text-muted]">
             Active: {displayName}
           </span>
@@ -86,7 +87,7 @@ export function RoleSwitcher({ currentRole, displayName, visible }: RoleSwitcher
         ))}
         <DropdownMenuSeparator />
         <DropdownMenuLabel className="text-[10px] font-normal text-[--text-muted] uppercase tracking-wider">
-          Dev-bypass mode
+          {modeLabel}
         </DropdownMenuLabel>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -98,15 +98,19 @@ export function MarketingNav() {
         </div>
 
         <button
-          className="md:hidden text-[--text-muted] hover:text-[--text-primary] transition-colors"
+          type="button"
+          className="md:hidden flex h-10 w-10 items-center justify-center rounded-[--radius-md] text-[--text-muted] hover:text-[--text-primary] hover:bg-[rgba(0,0,0,0.04)] transition-colors"
           onClick={() => setMobileOpen((v) => !v)}
+          aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={mobileOpen}
+          aria-controls="marketing-mobile-nav"
         >
           {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden bg-[--mkt-bg]/98 backdrop-blur-xl border-b border-[--mkt-border] px-6 py-4 space-y-1">
+        <div id="marketing-mobile-nav" className="md:hidden bg-[--mkt-bg]/98 backdrop-blur-xl border-b border-[--mkt-border] px-6 py-4 space-y-1">
           {navLinks.map(({ label, href }) => {
             const isActive = pathname === href || pathname.startsWith(href + "/");
             return (

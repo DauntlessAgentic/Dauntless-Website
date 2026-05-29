@@ -9,9 +9,10 @@ interface AppShellProps {
   topBarTitle?: string;
   topBarSubtitle?: string;
   topBarActions?: React.ReactNode;
+  banner?: React.ReactNode;
 }
 
-export function AppShell({ children, topBarTitle, topBarSubtitle, topBarActions }: AppShellProps) {
+export function AppShell({ children, topBarTitle, topBarSubtitle, topBarActions, banner }: AppShellProps) {
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-[--app-bg]">
       {/* Side rail — hidden on mobile, shown on md+ */}
@@ -25,6 +26,7 @@ export function AppShell({ children, topBarTitle, topBarSubtitle, topBarActions 
           subtitle={topBarSubtitle}
           actions={topBarActions}
         />
+        {banner}
         <main className="flex-1 overflow-auto">
           {children}
         </main>

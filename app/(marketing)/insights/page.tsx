@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Brain, Zap, Layers, GraduationCap, RefreshCw, Globe, Linkedin, Users, CalendarClock } from "lucide-react";
+import { ArrowRight, Brain, Zap, Layers, GraduationCap, RefreshCw, Globe, Linkedin, Users, CalendarClock, Mail } from "lucide-react";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/footer";
 import { PageCTA } from "@/components/marketing/page-cta";
@@ -141,19 +141,14 @@ export default function InsightsPage() {
                 No fluff. No sales emails. Just thinking worth your time &mdash; on AI operations,
                 systems design, and the future of human capability.
               </p>
-              <div className="space-y-2">
-                <input
-                  type="email"
-                  placeholder="your@email.com"
-                  className="w-full px-3 py-2 rounded-lg text-sm bg-[--mkt-card] border border-[--mkt-border] text-[--text-primary] placeholder-[--text-muted] focus:outline-none focus:border-[--accent-vivid]"
-                />
-                <button
-                  className="w-full px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all hover:opacity-90"
-                  style={{ background: "linear-gradient(135deg, var(--accent), var(--accent-bright))" }}
-                >
-                  Subscribe
-                </button>
-              </div>
+              <a
+                href={`mailto:${identity.email}?subject=Subscribe%20to%20Dauntless%20Insights`}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold text-white transition-all hover:opacity-90"
+                style={{ background: "linear-gradient(135deg, var(--accent), var(--accent-bright))" }}
+              >
+                <Mail className="h-4 w-4" />
+                Subscribe by Email
+              </a>
             </div>
 
           </div>

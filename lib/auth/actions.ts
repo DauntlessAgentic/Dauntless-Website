@@ -24,7 +24,7 @@ const VALID_ROLES: MembershipRole[] = [
 export async function switchRole(role: string): Promise<void> {
   const auth = getAuthRuntimeState();
   if (!auth.isDevBypassEnabled) {
-    throw new Error("Role switching is only available in dev-bypass mode.");
+    throw new Error("Role switching is only available in dev-bypass or demo mode.");
   }
   const parsed = VALID_ROLES.find((r) => r === role);
   if (!parsed) {

@@ -6,17 +6,22 @@
 // the UI uses to decide what to render, plus a dev-bypass escape
 // hatch so the demo runs without OAuth configuration.
 //
+// Production never falls back to dev-bypass implicitly. A public demo
+// must opt in with PORTAL_DEMO_MODE=true so launch deployments cannot
+// accidentally expose owner/executive impersonation.
+//
 // When Phase 2.1 lands the real OAuth round-trip (NextAuth v5 or
 // Supabase Auth), only this file needs to learn about the
 // provider; the membership-gate downstream is provider-agnostic.
 // ============================================================
 
-export type AuthMode = "dev-bypass" | "oauth-configured" | "auth-unavailable";
+export type AuthMode = "dev-bypass" | "demo" | "oauth-configured" | "auth-unavailable";
 
 export interface AuthRuntimeState {
   mode: AuthMode;
   isConfigured: boolean;
   isDevBypassEnabled: boolean;
+  isDemoMode: boolean;
   /** Member ID to impersonate when dev-bypass is on. */
   devBypassMemberId: string | null;
   /** Default cookie name for the role-switcher in dev-bypass mode. */
@@ -47,16 +52,26 @@ function computeState(env: NodeJS.ProcessEnv): AuthRuntimeState {
     env.NEXT_PUBLIC_SUPABASE_URL && env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
   );
   const hasOAuth = hasGoogleOAuth || hasSupabaseAuth;
+  const isProduction = env.NODE_ENV === "production";
+  const isDemoMode = env.PORTAL_DEMO_MODE === "true";
 
-  const isDevBypassEnabled =
-    !hasOAuth ||
-    env.PORTAL_DEV_BYPASS === "true" ||
-    env.NODE_ENV !== "production";
+  const isDevBypassEnabled = isProduction
+    ? isDemoMode
+    : !hasOAuth || env.PORTAL_DEV_BYPASS === "true";
+
+  const mode: AuthMode = hasOAuth && !isDevBypassEnabled
+    ? "oauth-configured"
+    : isDemoMode
+      ? "demo"
+      : isDevBypassEnabled
+        ? "dev-bypass"
+        : "auth-unavailable";
 
   return {
-    mode: hasOAuth ? "oauth-configured" : isDevBypassEnabled ? "dev-bypass" : "auth-unavailable",
+    mode,
     isConfigured: hasOAuth,
     isDevBypassEnabled,
+    isDemoMode,
     devBypassMemberId: env.PORTAL_DEV_BYPASS_MEMBER_ID ?? null,
     roleCookieName: env.PORTAL_ROLE_COOKIE ?? DEFAULT_ROLE_COOKIE,
   };
